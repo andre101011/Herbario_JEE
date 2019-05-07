@@ -14,12 +14,12 @@ import javax.persistence.*;
 
 public class Orden implements Serializable {
 
-	
+	@Column(nullable=false, length=50)
 	private String nombre;   
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private String id;
-	@Column(nullable=false, length=50)
+	
 	private static final long serialVersionUID = 1L;
 	
 	@OneToMany(mappedBy = "ordenDelaFamilia")
@@ -102,6 +102,10 @@ public class Orden implements Serializable {
 		return true;
 	}   
 	
-	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return id+","+nombre;
+	}
    
 }

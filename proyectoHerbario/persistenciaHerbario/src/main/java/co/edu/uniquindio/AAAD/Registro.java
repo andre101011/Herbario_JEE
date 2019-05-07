@@ -11,9 +11,11 @@ import javax.persistence.*;
  *
  */
 @Entity
-
+@NamedQueries({ @NamedQuery(name = Registro.LISTAR_TODOS, query = "select p from Registro p")})
 public class Registro implements Serializable {
 
+	
+	public static final String LISTAR_TODOS="Listar todos";
 	   
 	enum Estado{
 		
