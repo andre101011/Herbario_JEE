@@ -19,7 +19,6 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -31,7 +30,7 @@ import org.junit.runner.RunWith;
  * @version 1.0
  */
 @RunWith(Arquillian.class)
-public class TestMaricadasRandom {
+public class TestClasificacion {
 
 	/**
 	 * instancia para realizar las transaciones con las entidades
@@ -54,21 +53,60 @@ public class TestMaricadasRandom {
 
 	
 	/**
-	 * Permite probar la obtención del listado de personas
+	 * Permite probar la creación de un genero
 	 */
 	@Test
 	@UsingDataSet({"persona.json","clase.json","orden.json","familia.json","genero.json","especie.json","registro.json"})
 	@Transactional(value=TransactionMode.ROLLBACK)
-	public void listarRegistrosTest() {
+	public void crearGeneroTest() {
 		
+		Familia familia=entityManager.find(Familia.class, "1");
 		
+		Genero genero = new Genero();
+		genero.setId("4");
+		genero.setNombre("GeneroDePrueba");
+		genero.setFamiliaDelGenero(familia);
 		
-	
+		entityManager.persist(genero);
+		
+		Genero registrado = entityManager.find(Genero.class, "4");
+		
+		Assert.assertEquals(genero, registrado);
+
 	}
 	
 	
+	/**
+	 * Permite probar la obtención del listado de personas
+	 */
+	@Test
+	@UsingDataSet({"persona.json"})
+	@Transactional(value=TransactionMode.ROLLBACK)
+	public void listarPersonasNamedTest() {
+		
+		TypedQuery<Persona>  query=entityManager.createNamedQuery(Persona.LISTAR_TODOS,Persona.class);
+		List<Persona> personas = query.getResultList();
+		Assert.assertEquals(3, personas.size());
+	}
 	
+	@Test
+	@UsingDataSet({"persona.json"})
+	@Transactional(value=TransactionMode.ROLLBACK)
+	public void logInTest() {
+		
+		try {
+			TypedQuery<Persona> query=entityManager.createNamedQuery(Persona.INICIO_SESION, Persona.class);
+			query.setParameter("email1", "mmartinez@mail.com");
+			query.setParameter("clave1", "12345");
+			Persona persona = query.getSingleResult();
+			Assert.assertNotNull(persona);
+		}catch(NoResultException e){
+			
+			Assert.fail("No se encontró la persona con las credenciales");
+			
+		}
 	
-	
+		
+	}
 
 }

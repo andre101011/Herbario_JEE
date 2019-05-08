@@ -1,9 +1,19 @@
 {
-	"Especie": [
+	"ESPECIE": [
 		{
 			"id":"1",
-			"estado":"Empleado",
-			"fecha": "1992-12-28"
+			"nombre":"Rosa damascena",
+			"generoDeEspecie_id":"1"
+		},
+		{
+			"id":"2",
+			"nombre":"Rosa canina",
+			"generoDeEspecie_id":"1"
+		},
+		{
+			"id":"3",
+			"nombre":"Pinus cembra",
+			"generoDeEspecie_id":"2"
 		}
 	]
 }

@@ -1,0 +1,14 @@
+{
+	"GENERO": [
+		{
+			"id":"1",
+			"nombre":"Rosa",
+			"familiaDelGenero_id":"1"
+		},
+		{
+			"id":"2",
+			"nombre":"Pinus",
+			"familiaDelGenero_id":"2"
+		}
+	]
+}
