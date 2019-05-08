@@ -26,8 +26,8 @@ public class Familia implements Serializable {
 	@ManyToOne
 	private Orden ordenDelaFamilia;
 	
-	@OneToMany(mappedBy = "familiaDeLaTribu")
-	private List<Tribu> tribusDeLaFamilia;
+	@OneToMany(mappedBy = "familiaDelGenero")
+	private List<Genero> generosDeLaFamilia;
 
 	public Familia() {
 		super();
@@ -75,18 +75,20 @@ public class Familia implements Serializable {
 		this.ordenDelaFamilia = ordenDelaFamilia;
 	}
 
+	
+
 	/**
-	 * @return the tribusDeLaFamilia
+	 * @return the generosDeLaFamilia
 	 */
-	public List<Tribu> getTribusDeLaFamilia() {
-		return tribusDeLaFamilia;
+	public List<Genero> getGenerosDeLaFamilia() {
+		return generosDeLaFamilia;
 	}
 
 	/**
-	 * @param tribusDeLaFamilia the tribusDeLaFamilia to set
+	 * @param generosDeLaFamilia the generosDeLaFamilia to set
 	 */
-	public void setTribusDeLaFamilia(List<Tribu> tribusDeLaFamilia) {
-		this.tribusDeLaFamilia = tribusDeLaFamilia;
+	public void setGenerosDeLaFamilia(List<Genero> generosDeLaFamilia) {
+		this.generosDeLaFamilia = generosDeLaFamilia;
 	}
 
 	/* (non-Javadoc)

@@ -21,7 +21,7 @@ public class Genero implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@ManyToOne
-	private Tribu tribuDelGenero;
+	private Familia familiaDelGenero;
 	
 	@OneToMany(mappedBy = "generoDeEspecie")
 	private List<Especie> especiesDelGenero;
@@ -58,18 +58,21 @@ public class Genero implements Serializable {
 		this.nombre = nombre;
 	}
 
+
+	
+	
 	/**
-	 * @return the tribuDelGenero
+	 * @return the familiaDelGenero
 	 */
-	public Tribu getTribuDelGenero() {
-		return tribuDelGenero;
+	public Familia getFamiliaDelGenero() {
+		return familiaDelGenero;
 	}
 
 	/**
-	 * @param tribuDelGenero the tribuDelGenero to set
+	 * @param familiaDelGenero the familiaDelGenero to set
 	 */
-	public void setTribuDelGenero(Tribu tribuDelGenero) {
-		this.tribuDelGenero = tribuDelGenero;
+	public void setFamiliaDelGenero(Familia familiaDelGenero) {
+		this.familiaDelGenero = familiaDelGenero;
 	}
 
 	/**

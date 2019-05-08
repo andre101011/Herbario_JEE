@@ -1,0 +1,22 @@
+{
+	"TRIBU": [
+		{
+			"id":"1",
+			"nombre":"No_Aplica_Celastraceae",
+			"familiaDeLaTribu_id":"1"
+		},
+		{
+			"id":"2",
+			"nombre":"Aizoaceas",
+			"familiaDeLaTribu_id":"2"
+		},
+		{
+			"id":"3",
+			"nombre":"Cucurbitaceae",
+			"familiaDeLaTribu_id":"3"
+			
+		}
+		
+	]
+
+}

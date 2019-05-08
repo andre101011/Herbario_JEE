@@ -12,7 +12,7 @@ import javax.persistence.*;
  */
 @Entity
 
-public class Tribu implements Serializable {
+public class Clase implements Serializable {
 
 	   
 	@Id
@@ -22,13 +22,12 @@ public class Tribu implements Serializable {
 	private String nombre;
 	private static final long serialVersionUID = 1L;
 	
-	@ManyToOne
-	private Familia familiaDeLaTribu;
 	
-	@OneToMany(mappedBy = "tribuDelGenero")
-	private List<Genero> generosDeLaTribu;
+	
+	@OneToMany(mappedBy = "claseDelOrden")
+	private List<Orden> ordenesDeLaClase;
 
-	public Tribu() {
+	public Clase() {
 		super();
 	}
 
@@ -60,32 +59,20 @@ public class Tribu implements Serializable {
 		this.nombre = nombre;
 	}
 
+	
+
 	/**
-	 * @return the familiaDeLaTribu
+	 * @return the ordenesDeLaClase
 	 */
-	public Familia getFamiliaDeLaTribu() {
-		return familiaDeLaTribu;
+	public List<Orden> getOrdenesDeLaClase() {
+		return ordenesDeLaClase;
 	}
 
 	/**
-	 * @param familiaDeLaTribu the familiaDeLaTribu to set
+	 * @param ordenesDeLaClase the ordenesDeLaClase to set
 	 */
-	public void setFamiliaDeLaTribu(Familia familiaDeLaTribu) {
-		this.familiaDeLaTribu = familiaDeLaTribu;
-	}
-
-	/**
-	 * @return the generosDeLaTribu
-	 */
-	public List<Genero> getGenerosDeLaTribu() {
-		return generosDeLaTribu;
-	}
-
-	/**
-	 * @param generosDeLaTribu the generosDeLaTribu to set
-	 */
-	public void setGenerosDeLaTribu(List<Genero> generosDeLaTribu) {
-		this.generosDeLaTribu = generosDeLaTribu;
+	public void setOrdenesDeLaClase(List<Orden> ordenesDeLaClase) {
+		this.ordenesDeLaClase = ordenesDeLaClase;
 	}
 
 	/* (non-Javadoc)
@@ -110,7 +97,7 @@ public class Tribu implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Tribu other = (Tribu) obj;
+		Clase other = (Clase) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

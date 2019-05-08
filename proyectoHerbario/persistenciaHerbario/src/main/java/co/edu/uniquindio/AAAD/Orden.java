@@ -20,6 +20,9 @@ public class Orden implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private String id;
 	
+	@ManyToOne
+	private Clase claseDelOrden;
+	
 	private static final long serialVersionUID = 1L;
 	
 	@OneToMany(mappedBy = "ordenDelaFamilia")
@@ -80,6 +83,22 @@ public class Orden implements Serializable {
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
+	}
+	
+	
+
+	/**
+	 * @return the claseDelOrden
+	 */
+	public Clase getClaseDelOrden() {
+		return claseDelOrden;
+	}
+
+	/**
+	 * @param claseDelOrden the claseDelOrden to set
+	 */
+	public void setClaseDelOrden(Clase claseDelOrden) {
+		this.claseDelOrden = claseDelOrden;
 	}
 
 	/* (non-Javadoc)

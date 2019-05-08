@@ -1,0 +1,22 @@
+{
+	"FAMILIA": [
+		{
+			"id":"1",
+			"nombre":"Celastraceae",
+			"ordenDelaFamilia_id":"1"
+		},
+		{
+			"id":"2",
+			"nombre":"Aizoaceae",
+			"ordenDelaFamilia_id":"2"
+		},
+		{
+			"id":"3",
+			"nombre":"Cucurbitaceae",
+			"ordenDelaFamilia_id":"3"
+			
+		}
+		
+	]
+
+}
