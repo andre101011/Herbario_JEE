@@ -37,6 +37,7 @@ public class Registro implements Serializable {
 	private Date fecha;
 	
 	@OneToOne
+	@JoinColumn(unique=true)
 	private Especie especieEnviada;
 	
 	private static final long serialVersionUID = 1L;

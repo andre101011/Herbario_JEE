@@ -46,6 +46,11 @@ public class TestModelo {
 	}
 
 	@Test
+	public void test() {
+		
+	}
+	
+	
 	@UsingDataSet({"persona.json"})
 	@Transactional(value=TransactionMode.ROLLBACK)
 	public void AgregarEmpleadoTest() {
@@ -67,7 +72,7 @@ public class TestModelo {
 
 	}
 	
-	@Test
+	
 	@UsingDataSet({"persona.json"})
 	@Transactional(value=TransactionMode.ROLLBACK)
 	public void buscarRecolectorTest() {

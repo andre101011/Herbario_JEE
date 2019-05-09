@@ -13,9 +13,10 @@ import co.edu.uniquindio.AAAD.Persona;
  */
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
+@NamedQueries({ @NamedQuery(name = Administrador.LISTAR_ADMINISTRADOR, query = "select p from Administrador p")})
 public class Administrador extends Persona implements Serializable {
 
-	
+	public static final String LISTAR_ADMINISTRADOR = "listarAdministrador";
 	private static final long serialVersionUID = 1L;
 	
 	@OneToMany(mappedBy = "evaluadorDelRegistro")

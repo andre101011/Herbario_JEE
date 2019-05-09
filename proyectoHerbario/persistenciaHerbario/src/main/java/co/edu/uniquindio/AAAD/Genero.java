@@ -11,10 +11,11 @@ import javax.persistence.*;
  *
  */
 @Entity
-@NamedQueries({ @NamedQuery(name = Genero.ELIMINAR_GENEROINCOMPLETO, query = "select g from Genero g where g.id= :id1")})
+@NamedQueries({@NamedQuery(name=Genero.LISTAR_TODOS, query="select p from Genero p")})
 public class Genero implements Serializable {
-
-	public static final String ELIMINAR_GENEROINCOMPLETO="Eliminar genero";
+	
+	public static final String LISTAR_TODOS="ListarGeneros";
+	
 	
 	@Id
 	private String id;

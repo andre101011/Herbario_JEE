@@ -11,10 +11,11 @@ import javax.persistence.*;
  *
  */
 @Entity
-
+@NamedQueries({@NamedQuery(name=Familia.LISTAR_TODOS, query="select p from Familia p")})
 public class Familia implements Serializable {
 
-	   
+	public static final String LISTAR_TODOS = "listarFamilias";
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private String id;

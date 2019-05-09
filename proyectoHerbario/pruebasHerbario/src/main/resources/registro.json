@@ -8,6 +8,24 @@
 			"enviadorDelRegistro_id":"3",
 			"evaluadorDelRegistro_id":"2"
 			
+		},
+		{
+			"id":"2",
+			"estado":"Rechazado",
+			"fecha": "1992-12-28",
+			"especieEnviada_id":"2",
+			"enviadorDelRegistro_id":"3",
+			"evaluadorDelRegistro_id":"2"
+			
+		},
+		{
+			"id":"3",
+			"estado":"Espera",
+			"fecha": "1992-12-28",
+			"especieEnviada_id":"3",
+			"enviadorDelRegistro_id":"3",
+			"evaluadorDelRegistro_id":"2"
+			
 		}
 		
 	]
