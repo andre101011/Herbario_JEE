@@ -9,23 +9,26 @@ import javax.persistence.*;
  *
  */
 @Entity
+@NamedQueries({ @NamedQuery(name = Especie.LISTAR_TODOS, query = "select p from Especie p"),
+		@NamedQuery(name = Especie.LISTAR_POR_ESTADO, query = "select p from Especie p where p.registroPlanta= :est"),
+		@NamedQuery(name = Especie.LISTAR_POR_GENERO, query = "select p from Especie p where p.generoDeEspecie.id= :gen") })
 
 public class Especie implements Serializable {
 
-	   
+	public static final String LISTAR_TODOS = "ListarEspecies";
+	public static final String LISTAR_POR_ESTADO = "ListarEspeciesPorEstado";
+	public static final String LISTAR_POR_GENERO = "ListarEspeciesPorGenero";
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private String id;
-	@Column(nullable=false, length=50)
+	@Column(nullable = false, length = 50)
 	private String nombre;
-	
-	@OneToOne(mappedBy = "especieEnviada")
-	private Registro RegistroPlanta;
-	
-	
+	private Registro registroPlanta;
+
 	@ManyToOne
 	private Genero generoDeEspecie;
-	
+
 	private static final long serialVersionUID = 1L;
 
 	public Especie() {
@@ -64,14 +67,14 @@ public class Especie implements Serializable {
 	 * @return the registroPlanta
 	 */
 	public Registro getRegistroPlanta() {
-		return RegistroPlanta;
+		return registroPlanta;
 	}
 
 	/**
 	 * @param registroPlanta the registroPlanta to set
 	 */
 	public void setRegistroPlanta(Registro registroPlanta) {
-		RegistroPlanta = registroPlanta;
+		this.registroPlanta = registroPlanta;
 	}
 
 	/**
@@ -88,7 +91,9 @@ public class Especie implements Serializable {
 		this.generoDeEspecie = generoDeEspecie;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -99,7 +104,9 @@ public class Especie implements Serializable {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -117,8 +124,6 @@ public class Especie implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}   
-	
-	
-   
+	}
+
 }

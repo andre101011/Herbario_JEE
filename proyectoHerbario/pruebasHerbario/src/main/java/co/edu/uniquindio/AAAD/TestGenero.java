@@ -26,7 +26,8 @@ import org.junit.runner.RunWith;
 /**
  * Clase de pruebas dedicada para las pruebas de la entidad genero
  * 
- * @author EinerZG
+ * @author Daniel Bonilla
+ * @author Andres Llinas
  * @version 1.0
  */
 @RunWith(Arquillian.class)

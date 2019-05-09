@@ -12,6 +12,8 @@ import javax.persistence.*;
  */
 @Entity
 @NamedQueries({ @NamedQuery(name = Registro.LISTAR_TODOS, query = "select p from Registro p")})
+
+
 public class Registro implements Serializable {
 
 	
@@ -36,8 +38,7 @@ public class Registro implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fecha;
 	
-	@OneToOne
-	@JoinColumn(unique=true)
+	@OneToOne(mappedBy = "registroPlanta")
 	private Especie especieEnviada;
 	
 	private static final long serialVersionUID = 1L;
