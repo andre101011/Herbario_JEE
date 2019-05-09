@@ -30,7 +30,7 @@ import org.junit.runner.RunWith;
  * @version 1.0
  */
 @RunWith(Arquillian.class)
-public class TestClasificacion {
+public class TestClase {
 
 	/**
 	 * instancia para realizar las transaciones con las entidades
@@ -53,34 +53,88 @@ public class TestClasificacion {
 
 	
 	/**
-	 * Permite probar la creación de un genero
+	 * Permite probar la creación de una clase
 	 */
 	@Test
 	@UsingDataSet({"persona.json","clase.json","orden.json","familia.json","genero.json","especie.json","registro.json"})
 	@Transactional(value=TransactionMode.ROLLBACK)
-	public void crearGeneroTest() {
+	public void crearClaseTest() {
 		
-		Familia familia=entityManager.find(Familia.class, "1");
+		Orden orden = new Orden();
+		orden.setId("4");
+		orden.setNombre("OrdenDePrueba");
 		
-		Genero genero = new Genero();
-		genero.setId("4");
-		genero.setNombre("GeneroDePrueba");
-		genero.setFamiliaDelGenero(familia);
+		entityManager.persist(orden);
 		
-		entityManager.persist(genero);
+		Orden registrado = entityManager.find(Orden.class, "4");
 		
-		Genero registrado = entityManager.find(Genero.class, "4");
-		
-		Assert.assertEquals(genero, registrado);
+		Assert.assertEquals(orden, registrado);
 
 	}
 	
 	
 	/**
+	 * Permite probar la busqueda de una clase
+	 */
+	@Test
+	@UsingDataSet({"persona.json","clase.json","orden.json","familia.json","genero.json","especie.json","registro.json"})
+	@Transactional(value=TransactionMode.ROLLBACK)
+	public void buscarClaseTest() {
+		
+		Orden orden = entityManager.find(Orden.class, "1");
+		
+		Assert.assertNotNull(orden);
+
+	}
+	
+	/**
+	 * Permite probar la modificación de una clase
+	 */
+	@Test
+	@UsingDataSet({"persona.json","clase.json","orden.json","familia.json","genero.json","especie.json","registro.json"})
+	@Transactional(value=TransactionMode.ROLLBACK)
+	public void modificarClaseTest() {
+		
+		String modificacion="MODIFICACION";
+		
+		Orden orden = entityManager.find(Orden.class, "1");
+		
+		orden.setNombre(modificacion);
+		
+		entityManager.merge(orden);
+		
+		Orden modificado = entityManager.find(Orden.class, "1");
+		
+		Assert.assertEquals(modificacion, modificado.getNombre());
+
+	}
+	
+	
+	/**
+	 * Permite probar la modificación de una clase
+	 */
+	@Test
+	@UsingDataSet({"persona.json","clase.json","orden.json","familia.json","genero.json","especie.json","registro.json"})
+	@Transactional(value=TransactionMode.ROLLBACK)
+	public void eliminarClaseTest() {
+		
+		Orden orden = entityManager.find(Orden.class, "1");
+		
+		Assert.assertNotNull(orden);
+		
+		entityManager.remove(orden);
+		
+		Orden eliminado = entityManager.find(Orden.class, "1");
+		
+		Assert.assertNull(eliminado);
+
+	}
+	
+	/**
 	 * Permite probar la obtención del listado de personas
 	 */
 	@Test
-	@UsingDataSet({"persona.json"})
+	@UsingDataSet({"persona.json","clase.json","orden.json","familia.json","genero.json","especie.json","registro.json"})
 	@Transactional(value=TransactionMode.ROLLBACK)
 	public void listarPersonasNamedTest() {
 		
@@ -89,24 +143,5 @@ public class TestClasificacion {
 		Assert.assertEquals(3, personas.size());
 	}
 	
-	@Test
-	@UsingDataSet({"persona.json"})
-	@Transactional(value=TransactionMode.ROLLBACK)
-	public void logInTest() {
-		
-		try {
-			TypedQuery<Persona> query=entityManager.createNamedQuery(Persona.INICIO_SESION, Persona.class);
-			query.setParameter("email1", "mmartinez@mail.com");
-			query.setParameter("clave1", "12345");
-			Persona persona = query.getSingleResult();
-			Assert.assertNotNull(persona);
-		}catch(NoResultException e){
-			
-			Assert.fail("No se encontró la persona con las credenciales");
-			
-		}
-	
-		
-	}
 
 }
