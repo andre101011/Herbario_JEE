@@ -11,9 +11,11 @@ import javax.persistence.*;
  *
  */
 @Entity
-
+@NamedQueries({@NamedQuery(name=Orden.LISTAR_TODOS, query="select p from Orden p")})
 public class Orden implements Serializable {
 
+	public static final String LISTAR_TODOS="ListarLosOrdenes";
+	
 	@Column(nullable=false, length=50)
 	private String nombre;   
 	@Id

@@ -11,9 +11,10 @@ import javax.persistence.*;
  *
  */
 @Entity
-
+@NamedQueries({@NamedQuery(name=Clase.LISTAR_TODOS, query="select p from Clase p")})
 public class Clase implements Serializable {
 
+	public static final String LISTAR_TODOS="listarClases";
 	   
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

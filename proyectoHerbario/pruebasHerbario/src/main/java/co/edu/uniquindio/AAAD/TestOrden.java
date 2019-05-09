@@ -30,7 +30,7 @@ import org.junit.runner.RunWith;
  * @version 1.0
  */
 @RunWith(Arquillian.class)
-public class TestClase {
+public class TestOrden {
 
 	/**
 	 * instancia para realizar las transaciones con las entidades
@@ -53,57 +53,60 @@ public class TestClase {
 
 	
 	/**
-	 * Permite probar la creación de una clase
+	 * Permite probar la creación de un orden
 	 */
 	@Test
 	@UsingDataSet({"persona.json","clase.json","orden.json","familia.json","genero.json","especie.json","registro.json"})
 	@Transactional(value=TransactionMode.ROLLBACK)
-	public void crearClaseTest() {
+	public void crearOrdenTest() {
 		
-		Clase clase = new Clase();
-		clase.setId("4");
-		clase.setNombre("ClaseDePrueba");
-		
-		entityManager.persist(clase);
-		
-		Clase registrado = entityManager.find(Clase.class, "4");
-		
-		Assert.assertEquals(clase, registrado);
-
-	}
-	
-	
-	/**
-	 * Permite probar la busqueda de una clase
-	 */
-	@Test
-	@UsingDataSet({"persona.json","clase.json","orden.json","familia.json","genero.json","especie.json","registro.json"})
-	@Transactional(value=TransactionMode.ROLLBACK)
-	public void buscarClaseTest() {
+		Orden orden = new Orden();
+		orden.setId("4");
+		orden.setNombre("OrdenDePrueba");
 		
 		Clase clase = entityManager.find(Clase.class, "1");
+		orden.setClaseDelOrden(clase);
 		
-		Assert.assertNotNull(clase);
+		entityManager.persist(orden);
+		
+		Orden registrado = entityManager.find(Orden.class, "4");
+		
+		Assert.assertEquals(orden, registrado);
 
 	}
 	
+	
 	/**
-	 * Permite probar la modificación de una clase
+	 * Permite probar la busqueda de un orden
 	 */
 	@Test
 	@UsingDataSet({"persona.json","clase.json","orden.json","familia.json","genero.json","especie.json","registro.json"})
 	@Transactional(value=TransactionMode.ROLLBACK)
-	public void modificarClaseTest() {
+	public void buscarOrdenTest() {
+		
+		Orden orden = entityManager.find(Orden.class, "1");
+		
+		Assert.assertNotNull(orden);
+
+	}
+	
+	/**
+	 * Permite probar la modificación de un orden
+	 */
+	@Test
+	@UsingDataSet({"persona.json","clase.json","orden.json","familia.json","genero.json","especie.json","registro.json"})
+	@Transactional(value=TransactionMode.ROLLBACK)
+	public void modificarOrdenTest() {
 		
 		String modificacion="MODIFICACION";
 		
-		Clase clase = entityManager.find(Clase.class, "1");
+		Orden orden = entityManager.find(Orden.class, "1");
 		
-		clase.setNombre(modificacion);
+		orden.setNombre(modificacion);
 		
-		entityManager.merge(clase);
+		entityManager.merge(orden);
 		
-		Clase modificado = entityManager.find(Clase.class, "1");
+		Orden modificado = entityManager.find(Orden.class, "1");
 		
 		Assert.assertEquals(modificacion, modificado.getNombre());
 
@@ -111,36 +114,36 @@ public class TestClase {
 	
 	
 	/**
-	 * Permite probar la modificación de una clase
+	 * Permite probar la modificación de un orden
 	 */
 	@Test
 	@UsingDataSet({"persona.json","clase.json","orden.json","familia.json","genero.json","especie.json","registro.json"})
 	@Transactional(value=TransactionMode.ROLLBACK)
-	public void eliminarClaseTest() {
+	public void eliminarOrdenTest() {
 		
-		Clase clase = entityManager.find(Clase.class, "1");
+		Orden orden = entityManager.find(Orden.class, "1");
 		
-		Assert.assertNotNull(clase);
+		Assert.assertNotNull(orden);
 		
-		entityManager.remove(clase);
+		entityManager.remove(orden);
 		
-		Clase eliminado = entityManager.find(Clase.class, "1");
+		Orden eliminado = entityManager.find(Orden.class, "1");
 		
 		Assert.assertNull(eliminado);
 
 	}
 	
 	/**
-	 * Permite probar la obtención del listado de personas
+	 * Permite probar la obtención del listado de ordenes
 	 */
 	@Test
 	@UsingDataSet({"persona.json","clase.json","orden.json","familia.json","genero.json","especie.json","registro.json"})
 	@Transactional(value=TransactionMode.ROLLBACK)
-	public void listarClaseTest() {
+	public void listarOrdenTest() {
 		
-		TypedQuery<Clase>  query=entityManager.createNamedQuery(Clase.LISTAR_TODOS,Clase.class);
-		List<Clase> clases = query.getResultList();
-		Assert.assertEquals(2, clases.size());
+		TypedQuery<Orden>  query=entityManager.createNamedQuery(Orden.LISTAR_TODOS,Orden.class);
+		List<Orden> ordenes = query.getResultList();
+		Assert.assertEquals(3, ordenes.size());
 	}
 	
 
