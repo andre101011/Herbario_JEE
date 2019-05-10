@@ -224,7 +224,7 @@ public class TestEspecie {
 	public void listarEspeciesDeRecolectorTest() {
 
 		Recolector recolector = entityManager.find(Recolector.class, "1");
-		TypedQuery<Especie> query = entityManager.createNamedQuery(Especie.LISTAR_POR_FAMILIA, Especie.class);
+		TypedQuery<Especie> query = entityManager.createNamedQuery(Especie.LISTAR_POR_RECOLECTOR, Especie.class);
 		query.setParameter("fam", recolector);
 		List<Especie> especies = query.getResultList();
 		Assert.assertEquals(2, especies.size());
