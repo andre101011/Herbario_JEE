@@ -10,14 +10,16 @@ import javax.persistence.*;
  */
 @Entity
 @NamedQueries({ @NamedQuery(name = Especie.LISTAR_TODOS, query = "select p from Especie p"),
-		@NamedQuery(name = Especie.LISTAR_POR_ESTADO, query = "select p from Especie p where p.registroPlanta= :est"),
-		@NamedQuery(name = Especie.LISTAR_POR_GENERO, query = "select p from Especie p where p.generoDeEspecie.id= :gen") })
+		@NamedQuery(name = Especie.LISTAR_POR_ESTADO, query = "select p from Especie p where p.registroPlanta.estado= :est"),
+		@NamedQuery(name = Especie.LISTAR_POR_GENERO, query = "select p from Especie p where p.generoDeEspecie= :gen"),
+		@NamedQuery(name = Especie.LISTAR_POR_FAMILIA, query = "select p from Especie p where p.generoDeEspecie.familiaDelGenero= :fam") })
 
 public class Especie implements Serializable {
 
 	public static final String LISTAR_TODOS = "ListarEspecies";
 	public static final String LISTAR_POR_ESTADO = "ListarEspeciesPorEstado";
 	public static final String LISTAR_POR_GENERO = "ListarEspeciesPorGenero";
+	public static final String LISTAR_POR_FAMILIA = "ListarEspeciesPorFamilia";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

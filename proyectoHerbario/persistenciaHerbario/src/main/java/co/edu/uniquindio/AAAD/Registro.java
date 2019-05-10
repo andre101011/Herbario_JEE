@@ -38,6 +38,8 @@ public class Registro implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fecha;
 	
+	private String justificacion;
+	
 	@OneToOne(mappedBy = "registroPlanta")
 	private Especie especieEnviada;
 	
@@ -150,6 +152,22 @@ public class Registro implements Serializable {
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
+	}
+	
+	
+
+	/**
+	 * @return the justificacion
+	 */
+	public String getJustificacion() {
+		return justificacion;
+	}
+
+	/**
+	 * @param justificacion the justificacion to set
+	 */
+	public void setJustificacion(String justificacion) {
+		this.justificacion = justificacion;
 	}
 
 	/* (non-Javadoc)

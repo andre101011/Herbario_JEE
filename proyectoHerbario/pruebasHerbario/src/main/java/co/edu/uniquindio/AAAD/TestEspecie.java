@@ -68,7 +68,7 @@ public class TestEspecie {
 
 		TypedQuery<Especie> query = entityManager.createNamedQuery(Especie.LISTAR_TODOS, Especie.class);
 		List<Especie> especies = query.getResultList();
-		Assert.assertEquals(2, especies.size());
+		Assert.assertEquals(3, especies.size());
 	}
 
 	/**
@@ -79,21 +79,40 @@ public class TestEspecie {
 	@UsingDataSet({ "persona.json", "clase.json", "orden.json", "familia.json", "genero.json", "especie.json",
 			"registro.json" })
 	@Transactional(value = TransactionMode.ROLLBACK)
-	public void aceptarEspeciesTest() {
+	public void evaluarEspeciesTest() {
 
 		TypedQuery<Especie> query = entityManager.createNamedQuery(Especie.LISTAR_POR_ESTADO, Especie.class);
-		query.setParameter("estado", Estado.Espera);
+		query.setParameter("est", Estado.Espera);
 		List<Especie> especies = query.getResultList();
 
 		Especie especie = especies.get(0);
 		especie.getRegistroPlanta().setEstado(Estado.Aceptado);
+		especie.getRegistroPlanta().setJustificacion("porque si");
 		Administrador admin = entityManager.find(Administrador.class, "2");
 		especie.getRegistroPlanta().setEvaluadorDelRegistro(admin);
 		entityManager.merge(especie);
 		Especie aceptada = entityManager.find(Especie.class, especie.getId());
-		Assert.assertEquals(aceptada, Estado.Aceptado);
+		Assert.assertEquals(aceptada.getRegistroPlanta().getEstado(), Estado.Aceptado);
 
 	}
+	
+	@Test
+	@UsingDataSet({ "persona.json", "clase.json", "orden.json", "familia.json", "genero.json", "especie.json",
+			"registro.json" })
+	@Transactional(value = TransactionMode.ROLLBACK)
+	public void verInformacionEspecieTest() {
+
+		Especie especie = entityManager.find(Especie.class, "1");
+
+		
+		Assert.assertNotNull(especie.getId());
+		Assert.assertNotNull(especie.getNombre());
+		Assert.assertNotNull(especie.getGeneroDeEspecie());
+		Assert.assertNotNull(especie.getRegistroPlanta());
+		
+
+	}
+	
 
 	/**
 	 * Permite probar listar las especies aceptadas
@@ -106,14 +125,11 @@ public class TestEspecie {
 	public void listarEspeciesAceptadasTest() {
 
 		TypedQuery<Especie> query = entityManager.createNamedQuery(Especie.LISTAR_POR_ESTADO, Especie.class);
-		query.setParameter("estado", Estado.Espera);
+		query.setParameter("est", Estado.Aceptado);
 		List<Especie> especies = query.getResultList();
-
 		Especie especie = especies.get(0);
-		especie.getRegistroPlanta().setEstado(Estado.Aceptado);
-		entityManager.merge(especie);
-		Especie aceptada = entityManager.find(Especie.class, especie.getId());
-		Assert.assertEquals(aceptada, Estado.Aceptado);
+		Assert.assertEquals(especie.getRegistroPlanta().getEstado(), Estado.Aceptado);
+		Assert.assertEquals(1, especies.size());
 
 	}
 
@@ -128,14 +144,11 @@ public class TestEspecie {
 	public void listarEspeciesRechazadasTest() {
 
 		TypedQuery<Especie> query = entityManager.createNamedQuery(Especie.LISTAR_POR_ESTADO, Especie.class);
-		query.setParameter("est", Estado.Espera);
+		query.setParameter("est", Estado.Rechazado);
 		List<Especie> especies = query.getResultList();
-
 		Especie especie = especies.get(0);
-		especie.getRegistroPlanta().setEstado(Estado.Rechazado);
-		entityManager.merge(especie);
-		Especie rechazada = entityManager.find(Especie.class, especie.getId());
-		Assert.assertEquals(rechazada, Estado.Rechazado);
+		Assert.assertEquals(especie.getRegistroPlanta().getEstado(), Estado.Rechazado);
+		Assert.assertEquals(1, especies.size());
 
 	}
 
@@ -149,11 +162,11 @@ public class TestEspecie {
 	@Transactional(value = TransactionMode.ROLLBACK)
 	public void listarEspeciesPorFamilia() {
 
-		TypedQuery<Especie> query = entityManager.createNamedQuery(Especie.LISTAR_POR_ESTADO, Especie.class);
-		query.setParameter("est", Estado.Espera);
+		Familia miFamilia = entityManager.find(Familia.class, "1");
+		TypedQuery<Especie> query = entityManager.createNamedQuery(Especie.LISTAR_POR_FAMILIA, Especie.class);
+		query.setParameter("fam", miFamilia);
 		List<Especie> especies = query.getResultList();
-		Especie especie = especies.get(0);
-		especie.getRegistroPlanta().setEstado(Estado.Aceptado);
+		Assert.assertEquals(2, especies.size());
 	}
 
 	/**
@@ -168,8 +181,9 @@ public class TestEspecie {
 
 		Genero miGenero = entityManager.find(Genero.class, "1");
 		TypedQuery<Especie> query = entityManager.createNamedQuery(Especie.LISTAR_POR_GENERO, Especie.class);
-		query.setParameter("genero", miGenero);
+		query.setParameter("gen", miGenero);
 		List<Especie> especies = query.getResultList();
+		Assert.assertEquals(2, especies.size());
 
 	}
 
@@ -186,7 +200,7 @@ public class TestEspecie {
 
 		registro.setId("4");
 
-		Persona enviadorDelRegistro = entityManager.find(Persona.class, 1);
+		Persona enviadorDelRegistro = entityManager.find(Persona.class, "1");
 
 		registro.setEnviadorDelRegistro(enviadorDelRegistro);
 
@@ -199,78 +213,22 @@ public class TestEspecie {
 		especie.setNombre("generoDePrueba");
 
 	}
-
+	
 	/**
-	 * Permite probar la busqueda de un genero
+	 * Permite probar listar las especies de un recolector
 	 */
 	@Test
 	@UsingDataSet({ "persona.json", "clase.json", "orden.json", "familia.json", "genero.json", "especie.json",
 			"registro.json" })
 	@Transactional(value = TransactionMode.ROLLBACK)
-	public void buscarGeneroTest() {
+	public void listarEspeciesDeRecolectorTest() {
 
-		Genero genero = entityManager.find(Genero.class, "1");
-
-		Assert.assertNotNull(genero);
-
+		Recolector recolector = entityManager.find(Recolector.class, "1");
+		TypedQuery<Especie> query = entityManager.createNamedQuery(Especie.LISTAR_POR_FAMILIA, Especie.class);
+		query.setParameter("fam", recolector);
+		List<Especie> especies = query.getResultList();
+		Assert.assertEquals(2, especies.size());
 	}
 
-	/**
-	 * Permite probar la modificación de un genero
-	 */
-	@Test
-	@UsingDataSet({ "persona.json", "clase.json", "orden.json", "familia.json", "genero.json", "especie.json",
-			"registro.json" })
-	@Transactional(value = TransactionMode.ROLLBACK)
-	public void modificarGeneroTest() {
-
-		String modificacion = "MODIFICACION";
-
-		Genero genero = entityManager.find(Genero.class, "1");
-
-		genero.setNombre(modificacion);
-
-		entityManager.merge(genero);
-
-		Genero modificado = entityManager.find(Genero.class, "1");
-
-		Assert.assertEquals(modificacion, modificado.getNombre());
-
-	}
-
-	/**
-	 * Permite probar la eliminación de un genero
-	 */
-	@Test
-	@UsingDataSet({ "persona.json", "clase.json", "orden.json", "familia.json", "genero.json", "especie.json",
-			"registro.json" })
-	@Transactional(value = TransactionMode.ROLLBACK)
-	public void eliminarGeneroTest() {
-
-		Genero genero = entityManager.find(Genero.class, "1");
-
-		Assert.assertNotNull(genero);
-
-		entityManager.remove(genero);
-
-		Genero eliminado = entityManager.find(Genero.class, "1");
-
-		Assert.assertNull(eliminado);
-
-	}
-
-	/**
-	 * Permite probar la obtención del listado de generos
-	 */
-	@Test
-	@UsingDataSet({ "persona.json", "clase.json", "orden.json", "familia.json", "genero.json", "especie.json",
-			"registro.json" })
-	@Transactional(value = TransactionMode.ROLLBACK)
-	public void listarGenerosTest() {
-
-		TypedQuery<Genero> query = entityManager.createNamedQuery(Genero.LISTAR_TODOS, Genero.class);
-		List<Genero> generos = query.getResultList();
-		Assert.assertEquals(2, generos.size());
-	}
 
 }
