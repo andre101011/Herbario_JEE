@@ -174,7 +174,6 @@ public class TestEspecie {
 	/**
 	 * Permite probar listar las especies por genero
 	 */
-//gueno
 	@Test
 	@UsingDataSet({ "persona.json", "clase.json", "orden.json", "familia.json", "genero.json", "especie.json",
 			"registro.json" })
@@ -184,6 +183,41 @@ public class TestEspecie {
 		Genero miGenero = entityManager.find(Genero.class, "1");
 		TypedQuery<Especie> query = entityManager.createNamedQuery(Especie.LISTAR_POR_GENERO, Especie.class);
 		query.setParameter("gen", miGenero);
+		List<Especie> especies = query.getResultList();
+		Assert.assertEquals(2, especies.size());
+
+	}
+	
+
+	/**
+	 * Permite probar listar las especies por Clase
+	 */
+	@Test
+	@UsingDataSet({ "persona.json", "clase.json", "orden.json", "familia.json", "genero.json", "especie.json",
+			"registro.json" })
+	@Transactional(value = TransactionMode.ROLLBACK)
+	public void listarEspeciesPorClase() {
+
+		Clase miClase = entityManager.find(Clase.class, "1");
+		TypedQuery<Especie> query = entityManager.createNamedQuery(Especie.LISTAR_POR_CLASE, Especie.class);
+		query.setParameter("clas", miClase);
+		List<Especie> especies = query.getResultList();
+		Assert.assertEquals(2, especies.size());
+
+	}
+	
+	/**
+	 * Permite probar listar las especies por orden
+	 */
+	@Test
+	@UsingDataSet({ "persona.json", "clase.json", "orden.json", "familia.json", "genero.json", "especie.json",
+			"registro.json" })
+	@Transactional(value = TransactionMode.ROLLBACK)
+	public void listarEspeciesPorOrden() {
+
+		Orden miOrden = entityManager.find(Orden.class, "1");
+		TypedQuery<Especie> query = entityManager.createNamedQuery(Especie.LISTAR_POR_ORDEN, Especie.class);
+		query.setParameter("ord", miOrden);
 		List<Especie> especies = query.getResultList();
 		Assert.assertEquals(2, especies.size());
 
