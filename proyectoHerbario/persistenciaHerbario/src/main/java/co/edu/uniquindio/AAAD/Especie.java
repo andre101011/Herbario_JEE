@@ -18,7 +18,11 @@ import javax.persistence.*;
 		@NamedQuery(name = Especie.LISTAR_POR_FAMILIA, query = "select p from Especie p where p.generoDeEspecie.familiaDelGenero= :fam"),
 		@NamedQuery(name = Especie.LISTAR_POR_RECOLECTOR, query = "select p from Especie p where p.registroPlanta.enviadorDelRegistro= :rec"),
 		@NamedQuery(name = Especie.LISTAR_POR_CLASE, query = "select p from Especie p where p.generoDeEspecie.familiaDelGenero.ordenDelaFamilia.claseDelOrden= :clas"),
-		@NamedQuery(name = Especie.LISTAR_POR_ORDEN, query = "select p from Especie p where p.generoDeEspecie.familiaDelGenero.ordenDelaFamilia= :ord")})
+		@NamedQuery(name = Especie.LISTAR_POR_ORDEN, query = "select p from Especie p where p.generoDeEspecie.familiaDelGenero.ordenDelaFamilia= :ord"),
+		@NamedQuery(name = Especie.LISTAR_POR_GENERO_ACEPTADA, query = "select p from Especie p where p.generoDeEspecie= :gen and p.registroPlanta.estado= :est "),
+		@NamedQuery(name = Especie.LISTAR_POR_FAMILIA_ACEPTADA, query = "select p from Especie p where p.generoDeEspecie.familiaDelGenero= :fam and p.registroPlanta.estado= :est"),
+		@NamedQuery(name = Especie.LISTAR_POR_CLASE_ACEPTADA, query = "select p from Especie p where p.generoDeEspecie.familiaDelGenero.ordenDelaFamilia.claseDelOrden= :clas and p.registroPlanta.estado= :est"),
+		@NamedQuery(name = Especie.LISTAR_POR_ORDEN_ACEPTADA, query = "select p from Especie p where p.generoDeEspecie.familiaDelGenero.ordenDelaFamilia= :ord and p.registroPlanta.estado= :est")})
 
 public class Especie implements Serializable {
 	/**
@@ -45,6 +49,20 @@ public class Especie implements Serializable {
 	 * Referencia para listar las de acuerdo a su familia
 	 */
 	public static final String LISTAR_POR_FAMILIA = "ListarEspeciesPorFamilia";
+	
+	public static final String LISTAR_POR_CLASE_ACEPTADA = "ListarEspeciesAceptadasPorClase";
+	/**
+	 * Referencia para listar las de acuerdo a su orden
+	 */
+	public static final String LISTAR_POR_ORDEN_ACEPTADA = "ListarEspeciesAceptadasPorOrden";
+	/**
+	 * Referencia para listar las de acuerdo a su genero
+	 */
+	public static final String LISTAR_POR_GENERO_ACEPTADA = "ListarEspeciesAceptadasPorGenero";
+	/**
+	 * Referencia para listar las de acuerdo a su familia
+	 */
+	public static final String LISTAR_POR_FAMILIA_ACEPTADA = "ListarEspeciesAceptadasPorFamilia";
 	/**
 	 * Referencia para listar las de acuerdo a su recolector
 	 */

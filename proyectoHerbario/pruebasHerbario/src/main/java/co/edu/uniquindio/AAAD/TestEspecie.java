@@ -162,7 +162,7 @@ public class TestEspecie {
 	@UsingDataSet({ "persona.json", "clase.json", "orden.json", "familia.json", "genero.json", "especie.json",
 			"registro.json" })
 	@Transactional(value = TransactionMode.ROLLBACK)
-	public void listarEspeciesPorFamilia() {
+	public void listarEspeciesPorFamiliaTest() {
 
 		Familia miFamilia = entityManager.find(Familia.class, "1");
 		TypedQuery<Especie> query = entityManager.createNamedQuery(Especie.LISTAR_POR_FAMILIA, Especie.class);
@@ -178,7 +178,7 @@ public class TestEspecie {
 	@UsingDataSet({ "persona.json", "clase.json", "orden.json", "familia.json", "genero.json", "especie.json",
 			"registro.json" })
 	@Transactional(value = TransactionMode.ROLLBACK)
-	public void listarEspeciesPorGenero() {
+	public void listarEspeciesPorGeneroTest() {
 
 		Genero miGenero = entityManager.find(Genero.class, "1");
 		TypedQuery<Especie> query = entityManager.createNamedQuery(Especie.LISTAR_POR_GENERO, Especie.class);
@@ -196,7 +196,7 @@ public class TestEspecie {
 	@UsingDataSet({ "persona.json", "clase.json", "orden.json", "familia.json", "genero.json", "especie.json",
 			"registro.json" })
 	@Transactional(value = TransactionMode.ROLLBACK)
-	public void listarEspeciesPorClase() {
+	public void listarEspeciesPorClaseTest() {
 
 		Clase miClase = entityManager.find(Clase.class, "1");
 		TypedQuery<Especie> query = entityManager.createNamedQuery(Especie.LISTAR_POR_CLASE, Especie.class);
@@ -213,13 +213,86 @@ public class TestEspecie {
 	@UsingDataSet({ "persona.json", "clase.json", "orden.json", "familia.json", "genero.json", "especie.json",
 			"registro.json" })
 	@Transactional(value = TransactionMode.ROLLBACK)
-	public void listarEspeciesPorOrden() {
+	public void listarEspeciesPorOrdenTest() {
 
 		Orden miOrden = entityManager.find(Orden.class, "1");
 		TypedQuery<Especie> query = entityManager.createNamedQuery(Especie.LISTAR_POR_ORDEN, Especie.class);
 		query.setParameter("ord", miOrden);
 		List<Especie> especies = query.getResultList();
 		Assert.assertEquals(2, especies.size());
+
+	}
+	
+	/**
+	 * Permite probar listar las especies aceptadas por familia
+	 */
+
+	@Test
+	@UsingDataSet({ "persona.json", "clase.json", "orden.json", "familia.json", "genero.json", "especie.json",
+			"registro.json" })
+	@Transactional(value = TransactionMode.ROLLBACK)
+	public void listarEspeciesAceptadasPorFamiliaTest() {
+
+		Familia miFamilia = entityManager.find(Familia.class, "1");
+		TypedQuery<Especie> query = entityManager.createNamedQuery(Especie.LISTAR_POR_FAMILIA_ACEPTADA, Especie.class);
+		query.setParameter("fam", miFamilia);
+		query.setParameter("est", Estado.Aceptado);
+		List<Especie> especies = query.getResultList();
+		Assert.assertEquals(1, especies.size());
+	}
+
+	/**
+	 * Permite probar listar las especies aceptadas por genero
+	 */
+	@Test
+	@UsingDataSet({ "persona.json", "clase.json", "orden.json", "familia.json", "genero.json", "especie.json",
+			"registro.json" })
+	@Transactional(value = TransactionMode.ROLLBACK)
+	public void listarEspeciesAceptadasPorGeneroTest() {
+
+		Genero miGenero = entityManager.find(Genero.class, "1");
+		TypedQuery<Especie> query = entityManager.createNamedQuery(Especie.LISTAR_POR_GENERO_ACEPTADA, Especie.class);
+		query.setParameter("gen", miGenero);
+		query.setParameter("est", Estado.Aceptado);
+		List<Especie> especies = query.getResultList();
+		Assert.assertEquals(1, especies.size());
+
+	}
+	
+
+	/**
+	 * Permite probar listar las especies aceptadas por Clase
+	 */
+	@Test
+	@UsingDataSet({ "persona.json", "clase.json", "orden.json", "familia.json", "genero.json", "especie.json",
+			"registro.json" })
+	@Transactional(value = TransactionMode.ROLLBACK)
+	public void listarEspeciesAceptadasPorClaseTest() {
+
+		Clase miClase = entityManager.find(Clase.class, "1");
+		TypedQuery<Especie> query = entityManager.createNamedQuery(Especie.LISTAR_POR_CLASE_ACEPTADA, Especie.class);
+		query.setParameter("clas", miClase);
+		query.setParameter("est", Estado.Aceptado);
+		List<Especie> especies = query.getResultList();
+		Assert.assertEquals(1, especies.size());
+
+	}
+	
+	/**
+	 * Permite probar listar las especies aceptadas por orden
+	 */
+	@Test
+	@UsingDataSet({ "persona.json", "clase.json", "orden.json", "familia.json", "genero.json", "especie.json",
+			"registro.json" })
+	@Transactional(value = TransactionMode.ROLLBACK)
+	public void listarEspeciesAceptadasPorOrdenTest() {
+
+		Orden miOrden = entityManager.find(Orden.class, "1");
+		TypedQuery<Especie> query = entityManager.createNamedQuery(Especie.LISTAR_POR_ORDEN_ACEPTADA, Especie.class);
+		query.setParameter("ord", miOrden);
+		query.setParameter("est", Estado.Aceptado);
+		List<Especie> especies = query.getResultList();
+		Assert.assertEquals(1, especies.size());
 
 	}
 
