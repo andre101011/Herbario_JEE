@@ -7,25 +7,39 @@ import java.util.List;
 import javax.persistence.*;
 
 /**
- * Entity implementation class for Entity: Genero
- *
+ * Informacion basica de cada una de los generos asociadas al herbario
+ * 
+ * @author Daniel Bonilla Guevara
+ * @author Andres Felipe Llinas
+ * @version 1.0
  */
 @Entity
 @NamedQueries({@NamedQuery(name=Genero.LISTAR_TODOS, query="select p from Genero p")})
 public class Genero implements Serializable {
-	
+	/**
+	 * referencia para listar los generos
+	 */
 	public static final String LISTAR_TODOS="ListarGeneros";
 	
-	
+	/**
+	 * id del genero
+	 */
 	@Id
 	private String id;
 	@Column(nullable=false, length=50)
+	/**
+	 * nombre del genero
+	 */
 	private String nombre;
 	private static final long serialVersionUID = 1L;
-	
+	/**
+	 * familia del genero
+	 */
 	@ManyToOne
 	private Familia familiaDelGenero;
-	
+	/**
+	 * lista de especies del genero
+	 */
 	@OneToMany(mappedBy = "generoDeEspecie")
 	private List<Especie> especiesDelGenero;
 

@@ -32,7 +32,9 @@ public class Persona implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	
+	/**
+	 * referencia para el inicio de sesión
+	 */
 	public static final String INICIO_SESION="InicioSesion";
 	
 	/**
@@ -40,6 +42,9 @@ public class Persona implements Serializable {
 	 */
 	public static final String LISTAR_TODOS = "ListarLosClientes";
 
+	/**
+	 * id de la persona
+	 */
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private String id;
@@ -65,6 +70,9 @@ public class Persona implements Serializable {
 	@Column(nullable=false, length=50)
 	private String clave;
 
+	/**
+	 * Lista de los registros enviados
+	 */
 	@OneToMany(mappedBy = "enviadorDelRegistro")
 	private List<Registro> registrosEnviados;
 	

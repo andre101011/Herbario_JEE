@@ -7,8 +7,11 @@ import java.util.Date;
 import javax.persistence.*;
 
 /**
- * Entity implementation class for Entity: Registro
- *
+ * Informacion basica de cada una de los registros asociados al herbario
+ * 
+ * @author Daniel Bonilla Guevara
+ * @author Andres Felipe Llinas
+ * @version 1.0
  */
 @Entity
 @NamedQueries({ @NamedQuery(name = Registro.LISTAR_TODOS, query = "select p from Registro p")})
@@ -16,9 +19,19 @@ import javax.persistence.*;
 
 public class Registro implements Serializable {
 
-	
-	public static final String LISTAR_TODOS="Listar todos";
+	/**
+	 * referencia para listar los registros
+	 */
+	public static final String LISTAR_TODOS="Listar los registros";
 	   
+	/**
+	 * 
+	 * @author Daniel Bonilla
+	 * @author Andres Llinas
+	 * 
+	 * enum con los estados posibles del registro
+	 *
+	 */
 	enum Estado{
 		
 		Aceptado,
@@ -29,17 +42,30 @@ public class Registro implements Serializable {
 		
 	}
 	
+	/**
+	 * id del registro
+	 */
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private String id;
+	/**
+	 * estado del registro
+	 */
 	@Enumerated(EnumType.STRING)
 	@Column(length=20)
 	private Estado estado;
+	/**
+	 * fecha del registro
+	 */
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fecha;
-	
+	/**
+	 * justificacion del registro
+	 */
 	private String justificacion;
-	
+	/**
+	 * especie enviada a travess del registro
+	 */
 	@OneToOne(mappedBy = "registroPlanta")
 	private Especie especieEnviada;
 	

@@ -7,24 +7,36 @@ import java.util.List;
 import javax.persistence.*;
 
 /**
- * Entity implementation class for Entity: Tribu
- *
+ * Informacion basica de cada una de las clases asociadas al herbario
+ * 
+ * @author Daniel Bonilla Guevara
+ * @author Andres Felipe Llinas
+ * @version 1.0
  */
 @Entity
 @NamedQueries({@NamedQuery(name=Clase.LISTAR_TODOS, query="select p from Clase p")})
 public class Clase implements Serializable {
 
+	/**
+	 * Referencia para listar las clases
+	 */
 	public static final String LISTAR_TODOS="listarClases";
-	   
+	 
+	/**
+	 * id de la clase
+	 */
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private String id;
+	/**
+	 * nombre de la clase
+	 */
 	@Column(nullable=false, length=50)
 	private String nombre;
 	private static final long serialVersionUID = 1L;
-	
-	
-	
+	/**
+	 * lista de las ordenes de la clase
+	 */
 	@OneToMany(mappedBy = "claseDelOrden")
 	private List<Orden> ordenesDeLaClase;
 

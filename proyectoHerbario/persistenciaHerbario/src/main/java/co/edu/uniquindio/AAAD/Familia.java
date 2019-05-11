@@ -7,26 +7,40 @@ import java.util.List;
 import javax.persistence.*;
 
 /**
- * Entity implementation class for Entity: Familia
- *
+ * Informacion basica de cada una de las familias asociadas al herbario
+ * 
+ * @author Daniel Bonilla Guevara
+ * @author Andres Felipe Llinas
+ * @version 1.0
  */
 @Entity
 @NamedQueries({@NamedQuery(name=Familia.LISTAR_TODOS, query="select p from Familia p")})
 public class Familia implements Serializable {
-
+	/**
+	 * referencia para listar las familias
+	 */
 	public static final String LISTAR_TODOS = "listarFamilias";
-	
+	/**
+	 * id de la familia
+	 */
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private String id;
+	/**
+	 * nombre de la familia
+	 */
 	@Column(nullable=false, length=50)
 	private String nombre;
 	
 	private static final long serialVersionUID = 1L;
-	
+	/**
+	 * orden de la familia
+	 */
 	@ManyToOne
 	private Orden ordenDelaFamilia;
-	
+	/**
+	 * lista de generos de la familia
+	 */
 	@OneToMany(mappedBy = "familiaDelGenero")
 	private List<Genero> generosDeLaFamilia;
 

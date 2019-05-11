@@ -24,7 +24,7 @@ import org.junit.runner.RunWith;
 
 
 /**
- * Clase de pruebas dedicada para las pruebas de la entidad Peronas y sus hijos
+ * Clase de pruebas dedicada para la pruebas de la entidad Persona, Administrador, recolector y empleado
  * 
  * @author Daniel Bonilla
  * @author Andres Llinas

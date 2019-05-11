@@ -16,9 +16,15 @@ import co.edu.uniquindio.AAAD.Persona;
 @NamedQueries({ @NamedQuery(name = Administrador.LISTAR_ADMINISTRADOR, query = "select p from Administrador p")})
 public class Administrador extends Persona implements Serializable {
 
+	/**
+	 * referencia para listar los administradores
+	 */
 	public static final String LISTAR_ADMINISTRADOR = "listarAdministrador";
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * lista de registros evaluados por el administrador
+	 */
 	@OneToMany(mappedBy = "evaluadorDelRegistro")
 	private List<Registro> registrosEvaluados;
 

@@ -5,29 +5,59 @@ import java.lang.String;
 import javax.persistence.*;
 
 /**
- * Entity implementation class for Entity: Especie
- *
+ * Informacion basica de cada una de las especies asociadas al herbario
+ * 
+ * @author Daniel Bonilla Guevara
+ * @author Andres Felipe Llinas
+ * @version 1.0
  */
 @Entity
 @NamedQueries({ @NamedQuery(name = Especie.LISTAR_TODOS, query = "select p from Especie p"),
 		@NamedQuery(name = Especie.LISTAR_POR_ESTADO, query = "select p from Especie p where p.registroPlanta.estado= :est"),
 		@NamedQuery(name = Especie.LISTAR_POR_GENERO, query = "select p from Especie p where p.generoDeEspecie= :gen"),
-		@NamedQuery(name = Especie.LISTAR_POR_FAMILIA, query = "select p from Especie p where p.generoDeEspecie.familiaDelGenero= :fam") })
+		@NamedQuery(name = Especie.LISTAR_POR_FAMILIA, query = "select p from Especie p where p.generoDeEspecie.familiaDelGenero= :fam"),
+		@NamedQuery(name = Especie.LISTAR_POR_RECOLECTOR, query = "select p from Especie p where p.registroPlanta.enviadorDelRegistro= :rec")})
 
 public class Especie implements Serializable {
-
+	/**
+	 * Referencia para listar las especies
+	 */
 	public static final String LISTAR_TODOS = "ListarEspecies";
+	/**
+	 * Referencia para listar las de acuerdo a su estado
+	 */
 	public static final String LISTAR_POR_ESTADO = "ListarEspeciesPorEstado";
+	/**
+	 * Referencia para listar las de acuerdo a su genero
+	 */
 	public static final String LISTAR_POR_GENERO = "ListarEspeciesPorGenero";
+	/**
+	 * Referencia para listar las de acuerdo a su familia
+	 */
 	public static final String LISTAR_POR_FAMILIA = "ListarEspeciesPorFamilia";
+	/**
+	 * Referencia para listar las de acuerdo a su recolector
+	 */
+	public static final String LISTAR_POR_RECOLECTOR = "ListarEspeciesPorRecolector";
 
+	/**
+	 * id de la especie
+	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private String id;
+	/**
+	 * nombre de la especie
+	 */
 	@Column(nullable = false, length = 50)
 	private String nombre;
+	/**
+	 * registro de la especie
+	 */
 	private Registro registroPlanta;
-
+	/**
+	 * genero de la especie
+	 */
 	@ManyToOne
 	private Genero generoDeEspecie;
 

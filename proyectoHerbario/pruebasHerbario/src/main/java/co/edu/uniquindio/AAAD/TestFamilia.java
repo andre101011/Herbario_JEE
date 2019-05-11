@@ -30,11 +30,6 @@ import org.junit.runner.RunWith;
  * @author Andres Llinas
  * @version 1.0
  */
-
-
-
-
-
 @RunWith(Arquillian.class)
 public class TestFamilia {
 
@@ -83,7 +78,7 @@ public class TestFamilia {
 	
 	
 	/**
-	 * Permite probar la busqueda de un orden
+	 * Permite probar la busqueda de una familia
 	 */
 	@Test
 	@UsingDataSet({"persona.json","clase.json","orden.json","familia.json","genero.json","especie.json","registro.json"})
@@ -97,7 +92,7 @@ public class TestFamilia {
 	}
 	
 	/**
-	 * Permite probar la modificación de un orden
+	 * Permite probar la modificación de una familia
 	 */
 	@Test
 	@UsingDataSet({"persona.json","clase.json","orden.json","familia.json","genero.json","especie.json","registro.json"})

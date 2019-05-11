@@ -7,26 +7,42 @@ import java.util.List;
 import javax.persistence.*;
 
 /**
- * Entity implementation class for Entity: Orden
- *
+ * Informacion basica de cada una de los ordenes asociadas al herbario
+ * 
+ * @author Daniel Bonilla Guevara
+ * @author Andres Felipe Llinas
+ * @version 1.0
  */
 @Entity
 @NamedQueries({@NamedQuery(name=Orden.LISTAR_TODOS, query="select p from Orden p")})
 public class Orden implements Serializable {
-
-	public static final String LISTAR_TODOS="ListarLosOrdenes";
 	
+	/**
+	 * referencia para listar los ordenes
+	 */
+	public static final String LISTAR_TODOS="ListarLosOrdenes";
+	/***
+	 * nombre del orden
+	 */
 	@Column(nullable=false, length=50)
 	private String nombre;   
+	/**
+	 * id del orden
+	 */
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private String id;
-	
+	/**
+	 * clase del orden
+	 */
 	@ManyToOne
 	private Clase claseDelOrden;
 	
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * lista de familias del orden
+	 */
 	@OneToMany(mappedBy = "ordenDelaFamilia")
 	private List<Familia> familiasDelOrden;
 

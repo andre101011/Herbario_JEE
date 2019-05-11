@@ -12,7 +12,7 @@
 			"id":"2",
 			"estado":"Rechazado",
 			"fecha": "1992-12-28",
-			"enviadorDelRegistro_id":"3",
+			"enviadorDelRegistro_id":"1",
 			"evaluadorDelRegistro_id":"2"
 			
 		},

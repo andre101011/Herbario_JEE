@@ -24,9 +24,10 @@ import org.junit.runner.RunWith;
 
 
 /**
- * Clase de pruebas dedicada para la pruebas de las entidades
+ * Clase de pruebas dedicada para la pruebas de la entidad clase
  * 
- * @author EinerZG
+ * @author Daniel Bonilla
+ * @author Andres Llinas
  * @version 1.0
  */
 @RunWith(Arquillian.class)
@@ -111,7 +112,7 @@ public class TestClase {
 	
 	
 	/**
-	 * Permite probar la modificación de una clase
+	 * Permite probar la eliminación de una clase
 	 */
 	@Test
 	@UsingDataSet({"persona.json","clase.json","orden.json","familia.json","genero.json","especie.json","registro.json"})
@@ -131,7 +132,7 @@ public class TestClase {
 	}
 	
 	/**
-	 * Permite probar la obtención del listado de personas
+	 * Permite probar la obtención del listado de clases
 	 */
 	@Test
 	@UsingDataSet({"persona.json","clase.json","orden.json","familia.json","genero.json","especie.json","registro.json"})

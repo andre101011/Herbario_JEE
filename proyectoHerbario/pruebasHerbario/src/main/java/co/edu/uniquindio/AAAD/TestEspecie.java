@@ -28,7 +28,7 @@ import org.junit.runner.RunWith;
 import co.edu.uniquindio.AAAD.Registro.Estado;
 
 /**
- * Clase de pruebas dedicada para las pruebas de la entidad Especie
+ * Clase de pruebas dedicada para la pruebas de la entidad especie
  * 
  * @author Daniel Bonilla
  * @author Andres Llinas
@@ -74,7 +74,6 @@ public class TestEspecie {
 	/**
 	 * Permite probar la evaluacion de las especies por parte de un administrador
 	 */
-
 	@Test
 	@UsingDataSet({ "persona.json", "clase.json", "orden.json", "familia.json", "genero.json", "especie.json",
 			"registro.json" })
@@ -96,6 +95,9 @@ public class TestEspecie {
 
 	}
 	
+	/**
+	 * Permite probar la visualización de la información de una especie
+	 */
 	@Test
 	@UsingDataSet({ "persona.json", "clase.json", "orden.json", "familia.json", "genero.json", "especie.json",
 			"registro.json" })
@@ -215,7 +217,7 @@ public class TestEspecie {
 	}
 	
 	/**
-	 * Permite probar listar las especies de un recolector
+	 * Permite probar listar las especies enviadas de un recolector
 	 */
 	@Test
 	@UsingDataSet({ "persona.json", "clase.json", "orden.json", "familia.json", "genero.json", "especie.json",
@@ -223,9 +225,9 @@ public class TestEspecie {
 	@Transactional(value = TransactionMode.ROLLBACK)
 	public void listarEspeciesDeRecolectorTest() {
 
-		Recolector recolector = entityManager.find(Recolector.class, "1");
+		Recolector recolector = entityManager.find(Recolector.class, "3");
 		TypedQuery<Especie> query = entityManager.createNamedQuery(Especie.LISTAR_POR_RECOLECTOR, Especie.class);
-		query.setParameter("fam", recolector);
+		query.setParameter("rec", recolector);
 		List<Especie> especies = query.getResultList();
 		Assert.assertEquals(2, especies.size());
 	}
