@@ -26,12 +26,18 @@ import static javax.persistence.InheritanceType.JOINED;
  */
 @Entity
 @NamedQueries({ @NamedQuery(name = Persona.LISTAR_TODOS, query = "select p from Persona p"),
-	@NamedQuery(name=Persona.INICIO_SESION, query="select p from Persona p where p.email= :email1 and p.clave= :clave1")})
+	@NamedQuery(name=Persona.INICIO_SESION, query="select p from Persona p where p.email= :email1 and p.clave= :clave1"),
+	@NamedQuery(name=Persona.CONTAR_PERSONAS, query="select count(DISTINCT registro.p ) from Registro registro where registro.fecha =:fecha and registro.estado =:est")})
 @Inheritance(strategy = JOINED)
 public class Persona implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * referencia para contar personas a las que les han aceptado un registro en un mismo dia
+	 */
+	public static final String CONTAR_PERSONAS="ContarPersonaALaQuelesHanAceptadoRegistros";
+	
 	/**
 	 * referencia para el inicio de sesión
 	 */

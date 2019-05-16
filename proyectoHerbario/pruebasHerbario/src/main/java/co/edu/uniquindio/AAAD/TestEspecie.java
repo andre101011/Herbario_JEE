@@ -320,6 +320,8 @@ public class TestEspecie {
 		Especie especie = new Especie();
 		especie.setId("4");
 		especie.setNombre("generoDePrueba");
+		
+		entityManager.persist(especie);
 
 	}
 	

@@ -14,12 +14,18 @@ import javax.persistence.*;
  * @version 1.0
  */
 @Entity
-@NamedQueries({@NamedQuery(name=Familia.LISTAR_TODOS, query="select p from Familia p")})
+@NamedQueries({@NamedQuery(name=Familia.LISTAR_TODOS, query="select p from Familia p"),
+	@NamedQuery(name=Familia.CONTAR, query="select count(p) from Familia p")})
 public class Familia implements Serializable {
 	/**
 	 * referencia para listar las familias
 	 */
 	public static final String LISTAR_TODOS = "listarFamilias";
+	
+	/**
+	 * referencia para contar las familias
+	 */
+	public static final String CONTAR="ContarFamilias";
 	/**
 	 * id de la familia
 	 */
