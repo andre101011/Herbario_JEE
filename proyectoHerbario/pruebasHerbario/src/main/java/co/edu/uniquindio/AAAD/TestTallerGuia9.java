@@ -1,8 +1,5 @@
 package co.edu.uniquindio.AAAD;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 
@@ -25,18 +22,16 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import co.edu.uniquindio.AAAD.Registro.Estado;
-
 
 /**
- * Clase de pruebas dedicada para la pruebas del segundo taller de queries
+ * Clase de pruebas dedicada para la pruebas de las entidades
  * 
  * @author Daniel Bonilla
  * @author Andres Llinas
  * @version 1.0
  */
 @RunWith(Arquillian.class)
-public class TestTaller {
+public class TestTallerGuia9 {
 
 	/**
 	 * instancia para realizar las transaciones con las entidades
@@ -59,64 +54,67 @@ public class TestTaller {
 
 	
 	/**
-	 * Permite probar crear una consulta que permita deteerminar el número de familias que se han registrado.
+	 * Permite probar la obtención de la familia por el id de la especie
 	 */
 	@Test
 	@UsingDataSet({"persona.json","clase.json","orden.json","familia.json","genero.json","especie.json","registro.json"})
 	@Transactional(value=TransactionMode.ROLLBACK)
-	public void contarFamiliasTest() {
+	public void obtenerFamiliaPorIdEspecieTest() {
 		
-		TypedQuery<Long> query=entityManager.createNamedQuery(Familia.CONTAR,Long.class );
-		List<Long> familias=query.getResultList();
+		TypedQuery<Familia> query=entityManager.createNamedQuery(Especie.OBTENER_FAMILIA_POR_ID_ESPECIE,Familia.class);
+		query.setParameter("id", "1");
+		List<Familia> lista=query.getResultList();
 		
-		Assert.assertEquals(3, familias.get(0).longValue());
-
-	}
-	
-	/**
-	 * Permite probar crear una consulta que permita deteerminar el número de personas con registros aceptados en un dia determinado.
-	 */
-	@Test
-	@UsingDataSet({"persona.json","clase.json","orden.json","familia.json","genero.json","especie.json","registro.json"})
-	@Transactional(value=TransactionMode.ROLLBACK)
-	public void contarPersonasConRegistros() {
-		Calendar inicio=new GregorianCalendar(1992,Calendar.DECEMBER,28);
-		TypedQuery<Long> query=entityManager.createNamedQuery(Persona.CONTAR_PERSONAS,Long.class );
-		query.setParameter("est", Estado.Aceptado);
+		Assert.assertEquals("1", lista.get(0).getId());
 		
-		List<Long> conteo=query.getResultList();
-		Assert.assertEquals(1, conteo.get(0).longValue());
-
 	}
 	
 	
 	/**
-	 * Permite probar crear una consulta que permita listar las personas que no han realizado registros
+	 * Permite probar la obtención del listado de especies a partir de su genero
 	 */
 	@Test
 	@UsingDataSet({"persona.json","clase.json","orden.json","familia.json","genero.json","especie.json","registro.json"})
 	@Transactional(value=TransactionMode.ROLLBACK)
-	public void contarPersonasSinRegistros() {
-	
-		TypedQuery<Persona> query=entityManager.createNamedQuery(Persona.lISTAR_SIN_REGISTROS,Persona.class );
-		List<Persona> personas=query.getResultList();
-		Assert.assertEquals(2, personas.size());
+	public void listarEspeciesPorGeneroInTest() {
+		
+		TypedQuery<Especie> query=entityManager.createNamedQuery(Genero.OBTENER_ESPECIES_POR_GENERO_IN,Especie.class);
+		query.setParameter("id", "1");
+		List<Especie> lista=query.getResultList();
+		
+		Assert.assertEquals("1", lista.get(0).getId());
 		
 	}
 	
 	/**
-	 * Permite probar Cree un consulta que permita determinar cuantos registros ha realizado cada empleado (o administrador).
-Devuelva un DTO con cedula empleado y número de registros.
+	 * Permite probar la obtención del listado de registros a partir del cedula de la persona
 	 */
 	@Test
 	@UsingDataSet({"persona.json","clase.json","orden.json","familia.json","genero.json","especie.json","registro.json"})
 	@Transactional(value=TransactionMode.ROLLBACK)
-	public void obtenerDTO() {
-	
-		TypedQuery<PersonaDTO> query=entityManager.createNamedQuery(Persona.LISTAR_DTO,PersonaDTO.class );
-		List<PersonaDTO> personas=query.getResultList();
+	public void listarRegistrosPorPersonaInnerTest() {
 		
-		Assert.assertEquals(1, personas.size());
+		TypedQuery<Registro> query=entityManager.createNamedQuery(Persona.OBTENER_REGISTROS_POR_CEDULA_PERSONA,Registro.class);
+		query.setParameter("cedula", "123456789");
+		List<Registro> lista=query.getResultList();
+		
+		Assert.assertEquals(1,lista.size());
+		
+	}
+	
+	/**
+	 * Permite probar la obtención del listado de recolectores que tienen registros
+	 */
+	@Test
+	@UsingDataSet({"persona.json","clase.json","orden.json","familia.json","genero.json","especie.json","registro.json"})
+	@Transactional(value=TransactionMode.ROLLBACK)
+	public void listarRecolectoresConRegistrosTest() {
+		
+		TypedQuery<Registro> query=entityManager.createNamedQuery(Persona.OBTENER_REGISTROS_POR_CEDULA_PERSONA,Registro.class);
+		query.setParameter("cedula", "123456789");
+		List<Registro> lista=query.getResultList();
+		
+		Assert.assertEquals(1,lista.size());
 		
 	}
 

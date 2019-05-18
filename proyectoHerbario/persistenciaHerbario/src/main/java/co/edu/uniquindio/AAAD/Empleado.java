@@ -14,7 +14,8 @@ import co.edu.uniquindio.AAAD.Persona;
  */
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
-@NamedQueries({ @NamedQuery(name = Empleado.LISTAR_EMPLEADO, query = "select p from Empleado p")})
+@NamedQueries({ @NamedQuery(name = Empleado.LISTAR_EMPLEADO, query = "select p from Empleado p"),
+	@NamedQuery(name= Empleado.BUSCAR_EMPLEADO_POR_EMAIL, query="select e from Empleado e where e.email=:email")})
 public class Empleado extends Persona implements Serializable {
 
 	/**
@@ -23,6 +24,8 @@ public class Empleado extends Persona implements Serializable {
 	public static final String LISTAR_EMPLEADO = "listarEmpleado";
 	
 	private static final long serialVersionUID = 1L;
+	
+	public static final String BUSCAR_EMPLEADO_POR_EMAIL = "EmpleadoPorEmail";
 
 	public Empleado() {
 		super();

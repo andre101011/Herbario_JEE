@@ -18,7 +18,7 @@
 		},
 		{
 			"id":"3",
-			"estado":"Espera",
+			"estado":"Aceptado",
 			"fecha": "1992-12-28",
 			"enviadorDelRegistro_id":"3",
 			"evaluadorDelRegistro_id":"2"

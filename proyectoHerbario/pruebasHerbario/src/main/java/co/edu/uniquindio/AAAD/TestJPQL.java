@@ -64,7 +64,7 @@ public class TestJPQL {
 		Query query = entityManager.createQuery("select p from Persona p");
 		List list = query.getResultList();
 		
-		Assert.assertEquals(3, list.size());
+		Assert.assertEquals(4, list.size());
 
 	}
 	
@@ -79,7 +79,7 @@ public class TestJPQL {
 		
 		TypedQuery<Persona>  query=entityManager.createNamedQuery(Persona.LISTAR_TODOS,Persona.class);
 		List<Persona> personas = query.getResultList();
-		Assert.assertEquals(3, personas.size());
+		Assert.assertEquals(4, personas.size());
 	}
 	
 	@Test
@@ -101,5 +101,41 @@ public class TestJPQL {
 	
 		
 	}
+	
+	/**
+	 * Permite probar la restriccion de la cantidad de registros
+	 */
+	@Test
+	@UsingDataSet({"persona.json"})
+	@Transactional(value=TransactionMode.ROLLBACK)
+	public void restringirRegistrosTest() {
+		
+		TypedQuery<Persona>  query=entityManager.createNamedQuery(Persona.LISTAR_TODOS,Persona.class);
+		List<Persona> personas = query.getResultList();
+		query=query.setMaxResults(3);
+		Assert.assertEquals(3, personas.size());
+		
+		
+
+	}
+	
+	/**
+	 * Permite probar la restriccion de la cantidad de registros
+	 */
+	@Test
+	@UsingDataSet({"persona.json"})
+	@Transactional(value=TransactionMode.ROLLBACK)
+	public void indicarPrimerRegistroTest() {
+		
+		TypedQuery<Persona>  query=entityManager.createNamedQuery(Persona.LISTAR_TODOS,Persona.class);
+		List<Persona> personas = query.getResultList();
+		query=query.setFirstResult(2);
+		Assert.assertEquals(3, personas.size());
+		
+		
+
+	}
+	
+	
 
 }

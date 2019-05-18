@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.inject.Named;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,16 +28,43 @@ import static javax.persistence.InheritanceType.JOINED;
 @Entity
 @NamedQueries({ @NamedQuery(name = Persona.LISTAR_TODOS, query = "select p from Persona p"),
 	@NamedQuery(name=Persona.INICIO_SESION, query="select p from Persona p where p.email= :email1 and p.clave= :clave1"),
-	@NamedQuery(name=Persona.CONTAR_PERSONAS, query="select count(DISTINCT registro.p ) from Registro registro where registro.fecha =:fecha and registro.estado =:est")})
+	@NamedQuery(name=Persona.CONTAR_PERSONAS, query="select count(distinct registro.enviadorDelRegistro ) from Registro registro where registro.estado =:est group by registro.fecha"),
+	@NamedQuery(name=Persona.lISTAR_SIN_REGISTROS, query="select persona from Persona persona LEFT JOIN persona.registrosEnviados registro where persona.registrosEnviados IS EMPTY"),
+	@NamedQuery(name=Persona.LISTAR_DTO, query="select new co.edu.uniquindio.AAAD.PersonaDTO(persona.cedula,count(persona.registrosEnviados)) from Persona persona LEFT JOIN persona.registrosEnviados registro where TYPE(persona)=Empleado"),
+	@NamedQuery(name=Persona.OBTENER_REGISTROS_POR_CEDULA_PERSONA, query="select registro from Persona p INNER JOIN p.registrosEnviados registro where p.cedula=:cedula"),
+	@NamedQuery(name=Persona.LISTAR_CEDULAS_CON_REGISTROS, query="select persona.cedula,registro from Persona persona LEFT JOIN persona.registrosEnviados registro")})
 @Inheritance(strategy = JOINED)
+
+//select new co.edu.uniquindio.dto.ConsultaDTO(entidad.campo1,entidad.campo2) from ENTIDAD
+//entidad
 public class Persona implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
+	
+	/**
+	 * referencia para obtener registros por cedula de la persona
+	 */
+	public static final String OBTENER_REGISTROS_POR_CEDULA_PERSONA="OBTENER_REGISTROS_POR_CEDULA_PERSONA";
+	
+	/**
+	 * referencia para listar la cedula con cada uno de los registros
+	 */
+	public static final String LISTAR_CEDULAS_CON_REGISTROS ="LISTAR_CEDULAS_CON_REGISTROS";
+	
+	/**
+	 * referencia para listar los dto con la cedula y la cantidad de registros de cada persona
+	 */
+	public static final String LISTAR_DTO="listaLosDTOsConCedulaYCantidadDeRegistros";
+	
 	/**
 	 * referencia para contar personas a las que les han aceptado un registro en un mismo dia
 	 */
 	public static final String CONTAR_PERSONAS="ContarPersonaALaQuelesHanAceptadoRegistros";
+	
+	/**
+	 * referencia para obtener personas que no han realizado registros
+	 */
+	public static final String lISTAR_SIN_REGISTROS="ListaPersonasSinRegistros";
 	
 	/**
 	 * referencia para el inicio de sesión

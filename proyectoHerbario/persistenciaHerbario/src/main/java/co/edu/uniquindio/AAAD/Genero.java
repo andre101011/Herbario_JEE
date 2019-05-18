@@ -14,12 +14,18 @@ import javax.persistence.*;
  * @version 1.0
  */
 @Entity
-@NamedQueries({@NamedQuery(name=Genero.LISTAR_TODOS, query="select p from Genero p")})
+@NamedQueries({@NamedQuery(name=Genero.LISTAR_TODOS, query="select p from Genero p"),
+	@NamedQuery(name = Genero.OBTENER_ESPECIES_POR_GENERO_IN, query="select especie from Genero genero, IN(genero.especiesDelGenero) especie where genero.id =:id")})
 public class Genero implements Serializable {
 	/**
 	 * referencia para listar los generos
 	 */
 	public static final String LISTAR_TODOS="ListarGeneros";
+	
+	/**
+	 * referencia para obtener la lista de especies por su genero con in
+	 */
+	public static final String OBTENER_ESPECIES_POR_GENERO_IN="OBTENER_ESPECIES_POR_GENERO_IN";
 	
 	/**
 	 * id del genero

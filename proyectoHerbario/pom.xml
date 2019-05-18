@@ -70,5 +70,7 @@
   <modules>
     <module>persistenciaHerbario</module>
     <module>pruebasHerbario</module>
+    <module>earHerbario</module>
+    <module>negocioHerbario</module>
   </modules>
 </project>

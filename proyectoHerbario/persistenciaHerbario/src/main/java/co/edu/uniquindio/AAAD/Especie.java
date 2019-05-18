@@ -22,7 +22,8 @@ import javax.persistence.*;
 		@NamedQuery(name = Especie.LISTAR_POR_GENERO_ACEPTADA, query = "select p from Especie p where p.generoDeEspecie= :gen and p.registroPlanta.estado= :est "),
 		@NamedQuery(name = Especie.LISTAR_POR_FAMILIA_ACEPTADA, query = "select p from Especie p where p.generoDeEspecie.familiaDelGenero= :fam and p.registroPlanta.estado= :est"),
 		@NamedQuery(name = Especie.LISTAR_POR_CLASE_ACEPTADA, query = "select p from Especie p where p.generoDeEspecie.familiaDelGenero.ordenDelaFamilia.claseDelOrden= :clas and p.registroPlanta.estado= :est"),
-		@NamedQuery(name = Especie.LISTAR_POR_ORDEN_ACEPTADA, query = "select p from Especie p where p.generoDeEspecie.familiaDelGenero.ordenDelaFamilia= :ord and p.registroPlanta.estado= :est")})
+		@NamedQuery(name = Especie.LISTAR_POR_ORDEN_ACEPTADA, query = "select p from Especie p where p.generoDeEspecie.familiaDelGenero.ordenDelaFamilia= :ord and p.registroPlanta.estado= :est"),
+		@NamedQuery(name = Especie.OBTENER_FAMILIA_POR_ID_ESPECIE, query = "select p.generoDeEspecie.familiaDelGenero from Especie p where p.id= :id")})
 
 public class Especie implements Serializable {
 	/**
@@ -37,6 +38,12 @@ public class Especie implements Serializable {
 	 * Referencia para listar las de acuerdo a su clase
 	 */
 	public static final String LISTAR_POR_CLASE = "ListarEspeciesPorClase";
+	
+	/**
+	 * Referencia para obtener una familia de acuerdo al id de la especie a la que pertenece
+	 */
+	public static final String OBTENER_FAMILIA_POR_ID_ESPECIE = "obtener familia por id de especie";
+	
 	/**
 	 * Referencia para listar las de acuerdo a su orden
 	 */

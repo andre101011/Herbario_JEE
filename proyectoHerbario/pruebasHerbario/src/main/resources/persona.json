@@ -23,6 +23,14 @@
 			"nombre": "Hernan Hernandez",
 			"email": "hhernandez@mail.com",
 			"clave": "12345"
+		},
+		{
+			"id":"10",
+			"cedula": "323456789",
+			"dtype":"Recolector",
+			"nombre": "Hernan Hernandez",
+			"email": "hhernandez@mail.com",
+			"clave": "12345"
 		}
 	],
 	"EMPLEADO":[
@@ -33,7 +41,11 @@
 	"RECOLECTOR":[
 		{
 			"id":"3"
+		},
+		{
+			"id":"10"
 		}
+		
 	],
 	"ADMINISTRADOR":[
 		{

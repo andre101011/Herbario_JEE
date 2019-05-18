@@ -26,6 +26,12 @@ public class Familia implements Serializable {
 	 * referencia para contar las familias
 	 */
 	public static final String CONTAR="ContarFamilias";
+	
+	/**
+	 * referencia para contar las familias
+	 */
+	public static final String OBTENER_FAMILIA_MAYOR="FamiliaConMasEspecies";
+	
 	/**
 	 * id de la familia
 	 */
