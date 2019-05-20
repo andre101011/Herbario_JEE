@@ -1,4 +1,4 @@
-package co.edu.uniquindio.AAAD;
+package co.edu.uniquindio.AAAD.pruebas;
 
 import java.util.Iterator;
 import java.util.List;
@@ -22,16 +22,20 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import co.edu.uniquindio.AAAD.persistencia.Familia;
+import co.edu.uniquindio.AAAD.persistencia.Genero;
+import co.edu.uniquindio.AAAD.persistencia.Persona;
+
 
 /**
- * Clase de pruebas dedicada para la pruebas de la entidad Orden
+ * Clase de pruebas dedicada para las pruebas de la entidad genero
  * 
  * @author Daniel Bonilla
  * @author Andres Llinas
  * @version 1.0
  */
 @RunWith(Arquillian.class)
-public class TestOrden {
+public class TestGenero {
 
 	/**
 	 * instancia para realizar las transaciones con las entidades
@@ -54,60 +58,60 @@ public class TestOrden {
 
 	
 	/**
-	 * Permite probar la creación de un orden
+	 * Permite probar la creación de un genero
 	 */
 	@Test
 	@UsingDataSet({"persona.json","clase.json","orden.json","familia.json","genero.json","especie.json","registro.json"})
 	@Transactional(value=TransactionMode.ROLLBACK)
-	public void crearOrdenTest() {
+	public void crearGeneroTest() {
 		
-		Orden orden = new Orden();
-		orden.setId("4");
-		orden.setNombre("OrdenDePrueba");
+		Genero genero = new Genero();
+		genero.setId("4");
+		genero.setNombre("generoDePrueba");
 		
-		Clase clase = entityManager.find(Clase.class, "1");
-		orden.setClaseDelOrden(clase);
+		Familia familia= entityManager.find(Familia.class, "1");
+		genero.setFamiliaDelGenero(familia);
 		
-		entityManager.persist(orden);
+		entityManager.persist(genero);
 		
-		Orden registrado = entityManager.find(Orden.class, "4");
+		Genero registrado = entityManager.find(Genero.class, "4");
 		
-		Assert.assertEquals(orden, registrado);
+		Assert.assertEquals(genero, registrado);
 
 	}
 	
 	
 	/**
-	 * Permite probar la busqueda de un orden
+	 * Permite probar la busqueda de un genero
 	 */
 	@Test
 	@UsingDataSet({"persona.json","clase.json","orden.json","familia.json","genero.json","especie.json","registro.json"})
 	@Transactional(value=TransactionMode.ROLLBACK)
-	public void buscarOrdenTest() {
+	public void buscarGeneroTest() {
 		
-		Orden orden = entityManager.find(Orden.class, "1");
+		Genero genero = entityManager.find(Genero.class, "1");
 		
-		Assert.assertNotNull(orden);
+		Assert.assertNotNull(genero);
 
 	}
 	
 	/**
-	 * Permite probar la modificación de un orden
+	 * Permite probar la modificación de un genero 
 	 */
 	@Test
 	@UsingDataSet({"persona.json","clase.json","orden.json","familia.json","genero.json","especie.json","registro.json"})
 	@Transactional(value=TransactionMode.ROLLBACK)
-	public void modificarOrdenTest() {
+	public void modificarGeneroTest() {
 		
 		String modificacion="MODIFICACION";
 		
-		Orden orden = entityManager.find(Orden.class, "1");
+		Genero genero = entityManager.find(Genero.class, "1");
 		
-		orden.setNombre(modificacion);
+		genero.setNombre(modificacion);
 		
-		entityManager.merge(orden);
+		entityManager.merge(genero);
 		
-		Orden modificado = entityManager.find(Orden.class, "1");
+		Genero modificado = entityManager.find(Genero.class, "1");
 		
 		Assert.assertEquals(modificacion, modificado.getNombre());
 
@@ -115,36 +119,36 @@ public class TestOrden {
 	
 	
 	/**
-	 * Permite probar la eliminación de un orden
+	 * Permite probar la eliminación de un genero
 	 */
 	@Test
 	@UsingDataSet({"persona.json","clase.json","orden.json","familia.json","genero.json","especie.json","registro.json"})
 	@Transactional(value=TransactionMode.ROLLBACK)
-	public void eliminarOrdenTest() {
+	public void eliminarGeneroTest() {
 		
-		Orden orden = entityManager.find(Orden.class, "1");
+		Genero genero = entityManager.find(Genero.class, "1");
 		
-		Assert.assertNotNull(orden);
+		Assert.assertNotNull(genero);
 		
-		entityManager.remove(orden);
+		entityManager.remove(genero);
 		
-		Orden eliminado = entityManager.find(Orden.class, "1");
+		Genero eliminado = entityManager.find(Genero.class, "1");
 		
 		Assert.assertNull(eliminado);
 
 	}
 	
 	/**
-	 * Permite probar la obtención del listado de ordenes
+	 * Permite probar la obtención del listado de generos
 	 */
 	@Test
 	@UsingDataSet({"persona.json","clase.json","orden.json","familia.json","genero.json","especie.json","registro.json"})
 	@Transactional(value=TransactionMode.ROLLBACK)
-	public void listarOrdenTest() {
+	public void listarGenerosTest() {
 		
-		TypedQuery<Orden>  query=entityManager.createNamedQuery(Orden.LISTAR_TODOS,Orden.class);
-		List<Orden> ordenes = query.getResultList();
-		Assert.assertEquals(3, ordenes.size());
+		TypedQuery<Genero>  query=entityManager.createNamedQuery(Genero.LISTAR_TODOS,Genero.class);
+		List<Genero> generos = query.getResultList();
+		Assert.assertEquals(2, generos.size());
 	}
 	
 

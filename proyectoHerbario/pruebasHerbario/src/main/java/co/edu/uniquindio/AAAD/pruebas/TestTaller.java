@@ -1,4 +1,4 @@
-package co.edu.uniquindio.AAAD;
+package co.edu.uniquindio.AAAD.pruebas;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -25,7 +25,11 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import co.edu.uniquindio.AAAD.Registro.Estado;
+import co.edu.uniquindio.AAAD.dto.PersonaDTO;
+import co.edu.uniquindio.AAAD.persistencia.Familia;
+import co.edu.uniquindio.AAAD.persistencia.Persona;
+import co.edu.uniquindio.AAAD.persistencia.Registro.Estado;
+
 
 
 /**

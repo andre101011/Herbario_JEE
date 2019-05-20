@@ -7,8 +7,8 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import co.edu.uniquindio.AAAD.Empleado;
 import co.edu.uniquindio.AAAD.excepciones.ElementoRepetidoException;
+import co.edu.uniquindio.AAAD.persistencia.Empleado;
 
 /**
  * Se encarga de manejar las operaciones realizadas por el administrador

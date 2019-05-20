@@ -1,4 +1,4 @@
-package co.edu.uniquindio.AAAD;
+package co.edu.uniquindio.AAAD.dto;
 
 public class PersonaDTO {
 	

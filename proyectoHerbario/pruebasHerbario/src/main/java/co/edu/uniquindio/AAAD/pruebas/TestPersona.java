@@ -1,4 +1,4 @@
-package co.edu.uniquindio.AAAD;
+package co.edu.uniquindio.AAAD.pruebas;
 
 import java.util.Iterator;
 import java.util.List;
@@ -21,6 +21,11 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import co.edu.uniquindio.AAAD.persistencia.Administrador;
+import co.edu.uniquindio.AAAD.persistencia.Empleado;
+import co.edu.uniquindio.AAAD.persistencia.Persona;
+import co.edu.uniquindio.AAAD.persistencia.Recolector;
 
 
 /**

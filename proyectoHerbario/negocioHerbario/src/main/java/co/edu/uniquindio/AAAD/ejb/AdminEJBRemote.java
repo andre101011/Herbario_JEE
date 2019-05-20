@@ -2,8 +2,8 @@ package co.edu.uniquindio.AAAD.ejb;
 
 import javax.ejb.Remote;
 
-import co.edu.uniquindio.AAAD.Empleado;
 import co.edu.uniquindio.AAAD.excepciones.ElementoRepetidoException;
+import co.edu.uniquindio.AAAD.persistencia.Empleado;
 
 @Remote
 public interface AdminEJBRemote {

@@ -1,4 +1,4 @@
-package co.edu.uniquindio.AAAD;
+package co.edu.uniquindio.AAAD.persistencia;
 
 import java.io.Serializable;
 import java.lang.String;

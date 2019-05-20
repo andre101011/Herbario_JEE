@@ -1,4 +1,4 @@
-package co.edu.uniquindio.AAAD;
+package co.edu.uniquindio.AAAD.persistencia;
 
 import java.io.Serializable;
 import java.lang.String;
@@ -14,11 +14,21 @@ import javax.persistence.*;
  * @version 1.0
  */
 @Entity
-@NamedQueries({ @NamedQuery(name = Registro.LISTAR_TODOS, query = "select p from Registro p")})
+@NamedQueries({ @NamedQuery(name = Registro.LISTAR_TODOS, query = "select p from Registro p"),
+	@NamedQuery(name=Registro.OBTENER_RECOLECTORES_CON_REGISTROS, query ="select distinct r.enviadorDelRegistro from Registro r"),
+	@NamedQuery(name=Registro.OBTENER_ARREGLO_DE_DATOS, query="select r.id,r.especieEnviada,r.especieEnviada.generoDeEspecie,r.enviadorDelRegistro.cedula,r.enviadorDelRegistro.email from Registro r")})
 
 
 public class Registro implements Serializable {
 
+	
+	public static final String OBTENER_ARREGLO_DE_DATOS="Obtener datos relacionados al registro";
+	
+	/**
+	 * referencia para obtener recolectores con registro
+	 */
+	public static final String OBTENER_RECOLECTORES_CON_REGISTROS="Obtener reolectores con registros";
+	
 	/**
 	 * referencia para listar los registros
 	 */
@@ -32,7 +42,7 @@ public class Registro implements Serializable {
 	 * enum con los estados posibles del registro
 	 *
 	 */
-	enum Estado{
+	public enum Estado{
 		
 		Aceptado,
 		

@@ -1,4 +1,4 @@
-package co.edu.uniquindio.AAAD;
+package co.edu.uniquindio.AAAD.pruebas;
 
 import static org.junit.Assert.assertEquals;
 
@@ -25,7 +25,17 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import co.edu.uniquindio.AAAD.Registro.Estado;
+import co.edu.uniquindio.AAAD.persistencia.Administrador;
+import co.edu.uniquindio.AAAD.persistencia.Clase;
+import co.edu.uniquindio.AAAD.persistencia.Especie;
+import co.edu.uniquindio.AAAD.persistencia.Familia;
+import co.edu.uniquindio.AAAD.persistencia.Genero;
+import co.edu.uniquindio.AAAD.persistencia.Orden;
+import co.edu.uniquindio.AAAD.persistencia.Persona;
+import co.edu.uniquindio.AAAD.persistencia.Recolector;
+import co.edu.uniquindio.AAAD.persistencia.Registro;
+import co.edu.uniquindio.AAAD.persistencia.Registro.Estado;
+
 
 /**
  * Clase de pruebas dedicada para la pruebas de la entidad especie

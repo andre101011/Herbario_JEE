@@ -1,9 +1,9 @@
-package co.edu.uniquindio.AAAD;
+package co.edu.uniquindio.AAAD.persistencia;
 
 import java.io.Serializable;
 import javax.persistence.*;
 
-import co.edu.uniquindio.AAAD.Persona;
+import co.edu.uniquindio.AAAD.persistencia.Persona;
 
 /**
  * Informacion basica de cada una de los recolectores asociados al herbario

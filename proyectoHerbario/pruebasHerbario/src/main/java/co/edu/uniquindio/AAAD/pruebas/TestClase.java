@@ -1,4 +1,4 @@
-package co.edu.uniquindio.AAAD;
+package co.edu.uniquindio.AAAD.pruebas;
 
 import java.util.Iterator;
 import java.util.List;
@@ -22,16 +22,19 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import co.edu.uniquindio.AAAD.persistencia.Clase;
+import co.edu.uniquindio.AAAD.persistencia.Persona;
+
 
 /**
- * Clase de pruebas dedicada para la pruebas de las entidades
+ * Clase de pruebas dedicada para la pruebas de la entidad clase
  * 
  * @author Daniel Bonilla
  * @author Andres Llinas
  * @version 1.0
  */
 @RunWith(Arquillian.class)
-public class TestTallerGuia9 {
+public class TestClase {
 
 	/**
 	 * instancia para realizar las transaciones con las entidades
@@ -54,68 +57,95 @@ public class TestTallerGuia9 {
 
 	
 	/**
-	 * Permite probar la obtención de la familia por el id de la especie
+	 * Permite probar la creación de una clase
 	 */
 	@Test
 	@UsingDataSet({"persona.json","clase.json","orden.json","familia.json","genero.json","especie.json","registro.json"})
 	@Transactional(value=TransactionMode.ROLLBACK)
-	public void obtenerFamiliaPorIdEspecieTest() {
+	public void crearClaseTest() {
 		
-		TypedQuery<Familia> query=entityManager.createNamedQuery(Especie.OBTENER_FAMILIA_POR_ID_ESPECIE,Familia.class);
-		query.setParameter("id", "1");
-		List<Familia> lista=query.getResultList();
+		Clase clase = new Clase();
+		clase.setId("4");
+		clase.setNombre("ClaseDePrueba");
 		
-		Assert.assertEquals("1", lista.get(0).getId());
+		entityManager.persist(clase);
 		
+		Clase registrado = entityManager.find(Clase.class, "4");
+		
+		Assert.assertEquals(clase, registrado);
+
 	}
 	
 	
 	/**
-	 * Permite probar la obtención del listado de especies a partir de su genero
+	 * Permite probar la busqueda de una clase
 	 */
 	@Test
 	@UsingDataSet({"persona.json","clase.json","orden.json","familia.json","genero.json","especie.json","registro.json"})
 	@Transactional(value=TransactionMode.ROLLBACK)
-	public void listarEspeciesPorGeneroInTest() {
+	public void buscarClaseTest() {
 		
-		TypedQuery<Especie> query=entityManager.createNamedQuery(Genero.OBTENER_ESPECIES_POR_GENERO_IN,Especie.class);
-		query.setParameter("id", "1");
-		List<Especie> lista=query.getResultList();
+		Clase clase = entityManager.find(Clase.class, "1");
 		
-		Assert.assertEquals("1", lista.get(0).getId());
-		
+		Assert.assertNotNull(clase);
+
 	}
 	
 	/**
-	 * Permite probar la obtención del listado de registros a partir del cedula de la persona
+	 * Permite probar la modificación de una clase
 	 */
 	@Test
 	@UsingDataSet({"persona.json","clase.json","orden.json","familia.json","genero.json","especie.json","registro.json"})
 	@Transactional(value=TransactionMode.ROLLBACK)
-	public void listarRegistrosPorPersonaInnerTest() {
+	public void modificarClaseTest() {
 		
-		TypedQuery<Registro> query=entityManager.createNamedQuery(Persona.OBTENER_REGISTROS_POR_CEDULA_PERSONA,Registro.class);
-		query.setParameter("cedula", "123456789");
-		List<Registro> lista=query.getResultList();
+		String modificacion="MODIFICACION";
 		
-		Assert.assertEquals(1,lista.size());
+		Clase clase = entityManager.find(Clase.class, "1");
 		
+		clase.setNombre(modificacion);
+		
+		entityManager.merge(clase);
+		
+		Clase modificado = entityManager.find(Clase.class, "1");
+		
+		Assert.assertEquals(modificacion, modificado.getNombre());
+
+	}
+	
+	
+	/**
+	 * Permite probar la eliminación de una clase
+	 */
+	@Test
+	@UsingDataSet({"persona.json","clase.json","orden.json","familia.json","genero.json","especie.json","registro.json"})
+	@Transactional(value=TransactionMode.ROLLBACK)
+	public void eliminarClaseTest() {
+		
+		Clase clase = entityManager.find(Clase.class, "1");
+		
+		Assert.assertNotNull(clase);
+		
+		entityManager.remove(clase);
+		
+		Clase eliminado = entityManager.find(Clase.class, "1");
+		
+		Assert.assertNull(eliminado);
+
 	}
 	
 	/**
-	 * Permite probar la obtención del listado de recolectores que tienen registros
+	 * Permite probar la obtención del listado de clases
 	 */
 	@Test
 	@UsingDataSet({"persona.json","clase.json","orden.json","familia.json","genero.json","especie.json","registro.json"})
 	@Transactional(value=TransactionMode.ROLLBACK)
-	public void listarRecolectoresConRegistrosTest() {
+	public void listarClaseTest() {
 		
-		TypedQuery<Registro> query=entityManager.createNamedQuery(Persona.OBTENER_REGISTROS_POR_CEDULA_PERSONA,Registro.class);
-		query.setParameter("cedula", "123456789");
-		List<Registro> lista=query.getResultList();
-		
-		Assert.assertEquals(1,lista.size());
-		
+		TypedQuery<Clase>  query=entityManager.createNamedQuery(Clase.LISTAR_TODOS,Clase.class);
+		List<Clase> clases = query.getResultList();
+		Assert.assertEquals(2, clases.size());
 	}
+	
 
 }

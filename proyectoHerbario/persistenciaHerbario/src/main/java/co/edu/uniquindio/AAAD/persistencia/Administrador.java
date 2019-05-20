@@ -1,11 +1,11 @@
-package co.edu.uniquindio.AAAD;
+package co.edu.uniquindio.AAAD.persistencia;
 
 import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.*;
 
-import co.edu.uniquindio.AAAD.Persona;
+import co.edu.uniquindio.AAAD.persistencia.Persona;
 
 /**
  * Entity implementation class for Entity: Administrador

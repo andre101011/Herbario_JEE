@@ -7,7 +7,6 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>pruebasHerbario</artifactId>
-	<groupId>co.edu.uniquindio.AAAD</groupId>
 	<name>pruebasHerbario</name>
 
 	<dependencyManagement>
@@ -22,7 +21,6 @@
 		</dependencies>
 	</dependencyManagement>
 
-	<version>0.0.1-SNAPSHOT</version>
 	<!-- Para el uso de objectdb, en caso de no usar objectdb, el repositorio 
 		puede ser borrado -->
 	<repositories>

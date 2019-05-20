@@ -1,4 +1,4 @@
-package co.edu.uniquindio.AAAD;
+package co.edu.uniquindio.AAAD.persistencia;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -45,6 +45,9 @@ public class Persona implements Serializable {
 	 * referencia para obtener registros por cedula de la persona
 	 */
 	public static final String OBTENER_REGISTROS_POR_CEDULA_PERSONA="OBTENER_REGISTROS_POR_CEDULA_PERSONA";
+	
+	
+	
 	
 	/**
 	 * referencia para listar la cedula con cada uno de los registros

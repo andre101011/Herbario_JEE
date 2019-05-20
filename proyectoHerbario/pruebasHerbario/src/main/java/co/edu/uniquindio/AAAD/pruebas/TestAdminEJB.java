@@ -1,6 +1,4 @@
-package co.edu.uniquindio.AAAD;
-
-import javax.ejb.EJB;
+package co.edu.uniquindio.AAAD.pruebas;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -17,6 +15,8 @@ import org.junit.runner.RunWith;
 
 import co.edu.uniquindio.AAAD.ejb.AdminEJB;
 import co.edu.uniquindio.AAAD.excepciones.ElementoRepetidoException;
+import co.edu.uniquindio.AAAD.persistencia.Empleado;
+import co.edu.uniquindio.AAAD.persistencia.Persona;
 
 
 /**
@@ -32,7 +32,7 @@ public class TestAdminEJB {
 	/*
 	 * Instancia para manejar las operaciones de negocio del admin
 	 */
-	@EJB
+	//@EJB
 	private AdminEJB adminEJB;
 	
 	@Deployment
