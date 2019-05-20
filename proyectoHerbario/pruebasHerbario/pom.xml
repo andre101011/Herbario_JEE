@@ -106,12 +106,6 @@
 			<artifactId>persistenciaHerbario</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-		<dependency>
-			<groupId>co.edu.uniquindio.AAAD</groupId>
-			<artifactId>negocioHerbario</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-			<type>ejb</type>
-		</dependency>
 	</dependencies>
 
 </project>
