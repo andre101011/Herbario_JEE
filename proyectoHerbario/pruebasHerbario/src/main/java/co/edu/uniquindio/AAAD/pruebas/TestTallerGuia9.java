@@ -24,6 +24,7 @@ import org.junit.runner.RunWith;
 
 import com.sun.corba.ee.impl.ior.EncapsulationUtility;
 
+import co.edu.uniquindio.AAAD.dto.RegistroDTO;
 import co.edu.uniquindio.AAAD.persistencia.Especie;
 import co.edu.uniquindio.AAAD.persistencia.Familia;
 import co.edu.uniquindio.AAAD.persistencia.Genero;
@@ -155,7 +156,13 @@ public class TestTallerGuia9 {
 		System.out.println("xsdasdasdsadd");
 	}
 	
-	public void obtenerArreglosDeDatos() {
+	/**
+	 * Permite probar la obtención del listado de vectores con datos relacionados al registro
+	 */
+	@Test
+	@UsingDataSet({"persona.json","clase.json","orden.json","familia.json","genero.json","especie.json","registro.json"})
+	@Transactional(value=TransactionMode.ROLLBACK)
+	public void obtenerArreglosDeDatosTest() {
 		
 		TypedQuery<Object[]> query = entityManager.createNamedQuery(Registro.OBTENER_ARREGLO_DE_DATOS, Object[].class);
 		
@@ -168,6 +175,28 @@ public class TestTallerGuia9 {
 		Assert.assertEquals(3, lista.size());
 	}
 	
-	
+
+	/**
+	 * Permite probar la obtención del listado de dtos con datos relacionados al registro
+	 */
+	@Test
+	@UsingDataSet({"persona.json","clase.json","orden.json","familia.json","genero.json","especie.json","registro.json"})
+	@Transactional(value=TransactionMode.ROLLBACK)
+	public void obtenerDTOsDeRegistroTest() {
+		
+		TypedQuery<RegistroDTO> query = entityManager.createNamedQuery(Registro.OBTENER_DTO_REGISTRO, RegistroDTO.class);
+		
+		List<RegistroDTO> lista=query.getResultList();
+		
+		for (RegistroDTO registroDTO : lista) {
+			Assert.assertNotNull(registroDTO.getCedula());
+			Assert.assertNotNull(registroDTO.getEmail());
+			Assert.assertNotNull(registroDTO.getGenero());
+			Assert.assertNotNull(registroDTO.getId());
+			Assert.assertNotNull(registroDTO.getPlanta());
+		}
+		
+		Assert.assertEquals(3, lista.size());
+	}
 
 }

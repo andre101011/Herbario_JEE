@@ -16,13 +16,20 @@ import javax.persistence.*;
 @Entity
 @NamedQueries({ @NamedQuery(name = Registro.LISTAR_TODOS, query = "select p from Registro p"),
 	@NamedQuery(name=Registro.OBTENER_RECOLECTORES_CON_REGISTROS, query ="select distinct r.enviadorDelRegistro from Registro r"),
-	@NamedQuery(name=Registro.OBTENER_ARREGLO_DE_DATOS, query="select r.id,r.especieEnviada,r.especieEnviada.generoDeEspecie,r.enviadorDelRegistro.cedula,r.enviadorDelRegistro.email from Registro r")})
-
+	@NamedQuery(name=Registro.OBTENER_ARREGLO_DE_DATOS, query="select r.id,r.especieEnviada,r.especieEnviada.generoDeEspecie,r.enviadorDelRegistro.cedula,r.enviadorDelRegistro.email from Registro r"),
+	@NamedQuery(name=Registro.OBTENER_DTO_REGISTRO, query="select new co.edu.uniquindio.AAAD.dto.RegistroDTO(r.id,r.especieEnviada.generoDeEspecie.nombre,r.especieEnviada.nombre,r.enviadorDelRegistro.cedula,r.enviadorDelRegistro.email) from Registro r")})
 
 public class Registro implements Serializable {
 
+	/**
+	 * refrencia para obtener una lista con dtos
+	 */
+	public static final String OBTENER_DTO_REGISTRO="Obtener DTO con datos relacionados al registro";
 	
-	public static final String OBTENER_ARREGLO_DE_DATOS="Obtener datos relacionados al registro";
+	/**
+	 * refrencia para obtener una lista con vectores de datos
+	 */
+	public static final String OBTENER_ARREGLO_DE_DATOS="Obtener vector con datos relacionados al registro";
 	
 	/**
 	 * referencia para obtener recolectores con registro
