@@ -8,8 +8,11 @@ import javax.persistence.*;
 import co.edu.uniquindio.AAAD.persistencia.Persona;
 
 /**
- * Entity implementation class for Entity: Administrador
- *
+ * Informacion basica de cada uno de los empleados asociados al herbario
+ * 
+ * @author Daniel Bonilla Guevara
+ * @author Andres Felipe Llinas
+ * @version 1.0
  */
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)

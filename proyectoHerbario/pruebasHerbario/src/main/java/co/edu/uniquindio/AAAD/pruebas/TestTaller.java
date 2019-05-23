@@ -30,8 +30,6 @@ import co.edu.uniquindio.AAAD.persistencia.Familia;
 import co.edu.uniquindio.AAAD.persistencia.Persona;
 import co.edu.uniquindio.AAAD.persistencia.Registro.Estado;
 
-
-
 /**
  * Clase de pruebas dedicada para la pruebas del segundo taller de queries
  * 
@@ -61,67 +59,91 @@ public class TestTaller {
 
 	}
 
-	
 	/**
-	 * Permite probar crear una consulta que permita deteerminar el número de familias que se han registrado.
+	 * Permite probar crear una consulta que permita deteerminar el número de
+	 * familias que se han registrado.
 	 */
 	@Test
-	@UsingDataSet({"persona.json","clase.json","orden.json","familia.json","genero.json","especie.json","registro.json"})
-	@Transactional(value=TransactionMode.ROLLBACK)
+	@UsingDataSet({ "persona.json", "clase.json", "orden.json", "familia.json", "genero.json", "especie.json",
+			"registro.json" })
+	@Transactional(value = TransactionMode.ROLLBACK)
 	public void contarFamiliasTest() {
-		
-		TypedQuery<Long> query=entityManager.createNamedQuery(Familia.CONTAR,Long.class );
-		List<Long> familias=query.getResultList();
-		
+
+		TypedQuery<Long> query = entityManager.createNamedQuery(Familia.CONTAR, Long.class);
+		List<Long> familias = query.getResultList();
+
 		Assert.assertEquals(3, familias.get(0).longValue());
 
 	}
-	
+
 	/**
-	 * Permite probar crear una consulta que permita deteerminar el número de personas con registros aceptados en un dia determinado.
+	 * Permite probar crear una consulta que permita deteerminar el número de
+	 * personas con registros aceptados por dia.
 	 */
 	@Test
-	@UsingDataSet({"persona.json","clase.json","orden.json","familia.json","genero.json","especie.json","registro.json"})
-	@Transactional(value=TransactionMode.ROLLBACK)
+	@UsingDataSet({ "persona.json", "clase.json", "orden.json", "familia.json", "genero.json", "especie.json",
+			"registro.json" })
+	@Transactional(value = TransactionMode.ROLLBACK)
 	public void contarPersonasConRegistros() {
-		Calendar inicio=new GregorianCalendar(1992,Calendar.DECEMBER,28);
-		TypedQuery<Long> query=entityManager.createNamedQuery(Persona.CONTAR_PERSONAS,Long.class );
+		Calendar inicio = new GregorianCalendar(1992, Calendar.DECEMBER, 28);
+		TypedQuery<Long> query = entityManager.createNamedQuery(Persona.CONTAR_PERSONAS, Long.class);
 		query.setParameter("est", Estado.Aceptado);
-		
-		List<Long> conteo=query.getResultList();
+
+		List<Long> conteo = query.getResultList();
 		Assert.assertEquals(1, conteo.get(0).longValue());
 
 	}
-	
-	
+
 	/**
-	 * Permite probar crear una consulta que permita listar las personas que no han realizado registros
+	 * Permite probar crear una consulta que permita listar las personas que no han
+	 * realizado registros
 	 */
 	@Test
-	@UsingDataSet({"persona.json","clase.json","orden.json","familia.json","genero.json","especie.json","registro.json"})
-	@Transactional(value=TransactionMode.ROLLBACK)
+	@UsingDataSet({ "persona.json", "clase.json", "orden.json", "familia.json", "genero.json", "especie.json",
+			"registro.json" })
+	@Transactional(value = TransactionMode.ROLLBACK)
 	public void contarPersonasSinRegistros() {
-	
-		TypedQuery<Persona> query=entityManager.createNamedQuery(Persona.lISTAR_SIN_REGISTROS,Persona.class );
-		List<Persona> personas=query.getResultList();
+
+		TypedQuery<Persona> query = entityManager.createNamedQuery(Persona.lISTAR_SIN_REGISTROS, Persona.class);
+		List<Persona> personas = query.getResultList();
 		Assert.assertEquals(2, personas.size());
-		
+
 	}
-	
+
 	/**
-	 * Permite probar Cree un consulta que permita determinar cuantos registros ha realizado cada empleado (o administrador).
-Devuelva un DTO con cedula empleado y número de registros.
+	 * Permite probar Crear una consulta que permita determinar cuantos registros ha
+	 * realizado cada empleado (o administrador). Devuelva un DTO con cedula
+	 * empleado y número de registros.
 	 */
+	@Test
+	@UsingDataSet({ "persona.json", "clase.json", "orden.json", "familia.json", "genero.json", "especie.json",
+			"registro.json" })
+	@Transactional(value = TransactionMode.ROLLBACK)
+	public void obtenerDTO() {
+
+		TypedQuery<PersonaDTO> query = entityManager.createNamedQuery(Persona.LISTAR_DTO, PersonaDTO.class);
+		List<PersonaDTO> personas = query.getResultList();
+
+		for (PersonaDTO personaDTO : personas) {
+			System.out.println(personaDTO.getCedula() + " : " + personaDTO.getNumRegistros());
+		}
+
+		Assert.assertEquals(2, personas.size());
+
+	}
+
 	@Test
 	@UsingDataSet({"persona.json","clase.json","orden.json","familia.json","genero.json","especie.json","registro.json"})
 	@Transactional(value=TransactionMode.ROLLBACK)
-	public void obtenerDTO() {
-	
-		TypedQuery<PersonaDTO> query=entityManager.createNamedQuery(Persona.LISTAR_DTO,PersonaDTO.class );
-		List<PersonaDTO> personas=query.getResultList();
-		
-		Assert.assertEquals(1, personas.size());
-		
+	public void determinarFamiliaMayorTest() {
+
+		TypedQuery<Object[]> query = entityManager.createNamedQuery(Familia.OBTENER_FAMILIA_MAS_ESPECIES, Object[].class);
+		List<Object[]> resul = query.getResultList();
+		String id=((Familia)(resul.get(0)[0])).getId();
+		Long cantidad=(Long)(resul.get(0)[1]);
+		Assert.assertEquals("1", id);
+		Assert.assertEquals(2, cantidad.longValue());
+
 	}
 
 }

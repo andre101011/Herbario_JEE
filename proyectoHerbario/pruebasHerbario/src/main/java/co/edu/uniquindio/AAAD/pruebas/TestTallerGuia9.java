@@ -1,5 +1,7 @@
 package co.edu.uniquindio.AAAD.pruebas;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 
@@ -166,6 +168,11 @@ public class TestTallerGuia9 {
 		
 		TypedQuery<Object[]> query = entityManager.createNamedQuery(Registro.OBTENER_ARREGLO_DE_DATOS, Object[].class);
 		
+		 Calendar inicio = new GregorianCalendar(1992, Calendar.DECEMBER, 28);
+		  query.setParameter("fecha",
+		               new java.util.Date(inicio.getTime().getTime()));
+		  
+		
 		List<Object[]> lista=query.getResultList();
 		
 		for (Object[] objects : lista) {
@@ -185,7 +192,9 @@ public class TestTallerGuia9 {
 	public void obtenerDTOsDeRegistroTest() {
 		
 		TypedQuery<RegistroDTO> query = entityManager.createNamedQuery(Registro.OBTENER_DTO_REGISTRO, RegistroDTO.class);
-		
+		 Calendar inicio = new GregorianCalendar(1992, Calendar.DECEMBER, 28);
+		  query.setParameter("fecha",
+		               new java.util.Date(inicio.getTime().getTime()));
 		List<RegistroDTO> lista=query.getResultList();
 		
 		for (RegistroDTO registroDTO : lista) {

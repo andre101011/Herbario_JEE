@@ -41,8 +41,10 @@ public class AdminEJB implements AdminEJBRemote {
     	
     	if(entityManager.find(Empleado.class, empleado.getId())!= null) {
     		
+    		throw new ElementoRepetidoException("El empleado con ese id ya está registrado");
+    	}else if(buscarPorCedula(empleado.getCedula())!=null) {
     		throw new ElementoRepetidoException("El empleado con esa cedula ya está registrado");
-    		
+    			
     	}else if(buscarPorEmail(empleado.getEmail()) != null) {
     		throw new ElementoRepetidoException("El empleado con ese email ya fue registrado");
     	}
@@ -64,6 +66,22 @@ public class AdminEJB implements AdminEJBRemote {
     	try {
     		TypedQuery<Empleado> query = entityManager.createNamedQuery(Empleado.BUSCAR_EMPLEADO_POR_EMAIL, Empleado.class);
         	query.setParameter("email", email);
+        	return query.getSingleResult();
+    	}catch (NoResultException e) {
+    		return null;
+		}
+ 
+    }
+    
+    /**
+     * permite buscar un empleado por cedula
+     * @param cedula cedula del empleado
+     * @return empleado encontrado o null
+     */
+    private Empleado buscarPorCedula(String cedula) {
+    	try {
+    		TypedQuery<Empleado> query = entityManager.createNamedQuery(Empleado.BUSCAR_EMPLEADO_POR_CEDULA, Empleado.class);
+        	query.setParameter("cedula", cedula);
         	return query.getSingleResult();
     	}catch (NoResultException e) {
     		return null;

@@ -1,5 +1,7 @@
 package co.edu.uniquindio.AAAD.pruebas;
 
+import javax.ejb.EJB;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.persistence.UsingDataSet;
@@ -32,7 +34,7 @@ public class TestAdminEJB {
 	/*
 	 * Instancia para manejar las operaciones de negocio del admin
 	 */
-	//@EJB
+	@EJB
 	private AdminEJB adminEJB;
 	
 	@Deployment

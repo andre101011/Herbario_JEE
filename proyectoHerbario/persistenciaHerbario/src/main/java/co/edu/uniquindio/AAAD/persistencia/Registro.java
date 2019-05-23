@@ -16,8 +16,8 @@ import javax.persistence.*;
 @Entity
 @NamedQueries({ @NamedQuery(name = Registro.LISTAR_TODOS, query = "select p from Registro p"),
 	@NamedQuery(name=Registro.OBTENER_RECOLECTORES_CON_REGISTROS, query ="select distinct r.enviadorDelRegistro from Registro r"),
-	@NamedQuery(name=Registro.OBTENER_ARREGLO_DE_DATOS, query="select r.id,r.especieEnviada,r.especieEnviada.generoDeEspecie,r.enviadorDelRegistro.cedula,r.enviadorDelRegistro.email from Registro r"),
-	@NamedQuery(name=Registro.OBTENER_DTO_REGISTRO, query="select new co.edu.uniquindio.AAAD.dto.RegistroDTO(r.id,r.especieEnviada.generoDeEspecie.nombre,r.especieEnviada.nombre,r.enviadorDelRegistro.cedula,r.enviadorDelRegistro.email) from Registro r")})
+	@NamedQuery(name=Registro.OBTENER_ARREGLO_DE_DATOS, query="select r.id,r.especieEnviada,r.especieEnviada.generoDeEspecie,r.enviadorDelRegistro.cedula,r.enviadorDelRegistro.email from Registro r where r.fecha =:fecha"),
+	@NamedQuery(name=Registro.OBTENER_DTO_REGISTRO, query="select new co.edu.uniquindio.AAAD.dto.RegistroDTO(r.id,r.especieEnviada.generoDeEspecie.nombre,r.especieEnviada.nombre,r.enviadorDelRegistro.cedula,r.enviadorDelRegistro.email) from Registro r where r.fecha =:fecha")})
 
 public class Registro implements Serializable {
 

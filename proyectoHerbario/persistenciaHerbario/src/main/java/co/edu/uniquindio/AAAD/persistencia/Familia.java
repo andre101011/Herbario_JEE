@@ -15,12 +15,16 @@ import javax.persistence.*;
  */
 @Entity
 @NamedQueries({@NamedQuery(name=Familia.LISTAR_TODOS, query="select p from Familia p"),
-	@NamedQuery(name=Familia.CONTAR, query="select count(p) from Familia p")})
+	@NamedQuery(name=Familia.CONTAR, query="select count(p) from Familia p"),
+	@NamedQuery(name=Familia.OBTENER_FAMILIA_MAS_ESPECIES, query="select fam,max(select count(esp) from Genero gen inner join gen.especiesDelGenero esp where gen.familiaDelGenero.id=fam.id) from Familia fam")})
 public class Familia implements Serializable {
 	/**
 	 * referencia para listar las familias
 	 */
 	public static final String LISTAR_TODOS = "listarFamilias";
+	
+	
+	public static final String OBTENER_FAMILIA_MAS_ESPECIES="obtener la familia con mas especies";
 	
 	/**
 	 * referencia para contar las familias
@@ -30,7 +34,7 @@ public class Familia implements Serializable {
 	/**
 	 * referencia para contar las familias
 	 */
-	public static final String OBTENER_FAMILIA_MAYOR="FamiliaConMasEspecies";
+	public static final String OBTENER_CANTIDAD_MAYOR_ESPECIES_POR_FAMILIA="Obtiene la cantidad de especies de la familia mas grande";
 	
 	/**
 	 * id de la familia
