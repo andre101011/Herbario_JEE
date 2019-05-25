@@ -23,6 +23,14 @@
 			"enviadorDelRegistro_id":"3",
 			"evaluadorDelRegistro_id":"2"
 			
+		},
+		{
+			"id":"5",
+			"estado":"Espera",
+			"fecha": "1992-12-27",
+			"enviadorDelRegistro_id":"3",
+			"evaluadorDelRegistro_id":"2"
+			
 		}
 		
 	]

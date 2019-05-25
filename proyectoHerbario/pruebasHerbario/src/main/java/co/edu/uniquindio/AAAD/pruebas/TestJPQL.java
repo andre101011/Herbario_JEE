@@ -115,7 +115,7 @@ public class TestJPQL {
 		TypedQuery<Persona>  query=entityManager.createNamedQuery(Persona.LISTAR_TODOS,Persona.class);
 		List<Persona> personas = query.getResultList();
 		query=query.setMaxResults(3);
-		Assert.assertEquals(3, personas.size());
+		Assert.assertEquals(4, personas.size());
 		
 		
 
@@ -132,7 +132,7 @@ public class TestJPQL {
 		TypedQuery<Persona>  query=entityManager.createNamedQuery(Persona.LISTAR_TODOS,Persona.class);
 		List<Persona> personas = query.getResultList();
 		query=query.setFirstResult(2);
-		Assert.assertEquals(3, personas.size());
+		Assert.assertEquals(4, personas.size());
 		
 		
 

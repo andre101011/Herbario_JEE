@@ -340,7 +340,7 @@ public class TestPersona {
 		
 		TypedQuery<Recolector>  query=entityManager.createNamedQuery(Recolector.LISTAR_RECOLECTOR,Recolector.class);
 		List<Recolector> recolectores = query.getResultList();
-		Assert.assertEquals(1, recolectores.size());
+		Assert.assertEquals(2, recolectores.size());
 	}
 
 }

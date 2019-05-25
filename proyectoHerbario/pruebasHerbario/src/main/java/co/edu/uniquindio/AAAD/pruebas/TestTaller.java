@@ -142,7 +142,7 @@ public class TestTaller {
 		String id=((Familia)(resul.get(0)[0])).getId();
 		Long cantidad=(Long)(resul.get(0)[1]);
 		Assert.assertEquals("1", id);
-		Assert.assertEquals(2, cantidad.longValue());
+		Assert.assertEquals(3, cantidad.longValue());
 
 	}
 

@@ -14,15 +14,15 @@ import javax.persistence.*;
 @Entity
 @NamedQueries({ @NamedQuery(name = Especie.LISTAR_TODOS, query = "select p from Especie p"),
 		@NamedQuery(name = Especie.LISTAR_POR_ESTADO, query = "select p from Especie p where p.registroPlanta.estado= :est"),
-		@NamedQuery(name = Especie.LISTAR_POR_GENERO, query = "select p from Especie p where p.generoDeEspecie= :gen"),
-		@NamedQuery(name = Especie.LISTAR_POR_FAMILIA, query = "select p from Especie p where p.generoDeEspecie.familiaDelGenero= :fam"),
-		@NamedQuery(name = Especie.LISTAR_POR_RECOLECTOR, query = "select p from Especie p where p.registroPlanta.enviadorDelRegistro= :rec"),
-		@NamedQuery(name = Especie.LISTAR_POR_CLASE, query = "select p from Especie p where p.generoDeEspecie.familiaDelGenero.ordenDelaFamilia.claseDelOrden= :clas"),
-		@NamedQuery(name = Especie.LISTAR_POR_ORDEN, query = "select p from Especie p where p.generoDeEspecie.familiaDelGenero.ordenDelaFamilia= :ord"),
-		@NamedQuery(name = Especie.LISTAR_POR_GENERO_ACEPTADA, query = "select p from Especie p where p.generoDeEspecie= :gen and p.registroPlanta.estado= :est "),
-		@NamedQuery(name = Especie.LISTAR_POR_FAMILIA_ACEPTADA, query = "select p from Especie p where p.generoDeEspecie.familiaDelGenero= :fam and p.registroPlanta.estado= :est"),
-		@NamedQuery(name = Especie.LISTAR_POR_CLASE_ACEPTADA, query = "select p from Especie p where p.generoDeEspecie.familiaDelGenero.ordenDelaFamilia.claseDelOrden= :clas and p.registroPlanta.estado= :est"),
-		@NamedQuery(name = Especie.LISTAR_POR_ORDEN_ACEPTADA, query = "select p from Especie p where p.generoDeEspecie.familiaDelGenero.ordenDelaFamilia= :ord and p.registroPlanta.estado= :est"),
+		@NamedQuery(name = Especie.LISTAR_POR_GENERO, query = "select p from Especie p where p.generoDeEspecie.id= :gen"),
+		@NamedQuery(name = Especie.LISTAR_POR_FAMILIA, query = "select p from Especie p where p.generoDeEspecie.familiaDelGenero.id= :fam"),
+		@NamedQuery(name = Especie.LISTAR_POR_RECOLECTOR, query = "select p from Especie p where p.registroPlanta.enviadorDelRegistro.id= :rec"),
+		@NamedQuery(name = Especie.LISTAR_POR_CLASE, query = "select p from Especie p where p.generoDeEspecie.familiaDelGenero.ordenDelaFamilia.claseDelOrden.id= :clas"),
+		@NamedQuery(name = Especie.LISTAR_POR_ORDEN, query = "select p from Especie p where p.generoDeEspecie.familiaDelGenero.ordenDelaFamilia.id= :ord"),
+		@NamedQuery(name = Especie.LISTAR_POR_GENERO_ACEPTADA, query = "select p from Especie p where p.generoDeEspecie.id= :gen and p.registroPlanta.estado= :est "),
+		@NamedQuery(name = Especie.LISTAR_POR_FAMILIA_ACEPTADA, query = "select p from Especie p where p.generoDeEspecie.familiaDelGenero.id= :fam and p.registroPlanta.estado= :est"),
+		@NamedQuery(name = Especie.LISTAR_POR_CLASE_ACEPTADA, query = "select p from Especie p where p.generoDeEspecie.familiaDelGenero.ordenDelaFamilia.claseDelOrden.id= :clas and p.registroPlanta.estado= :est"),
+		@NamedQuery(name = Especie.LISTAR_POR_ORDEN_ACEPTADA, query = "select p from Especie p where p.generoDeEspecie.familiaDelGenero.ordenDelaFamilia.id= :ord and p.registroPlanta.estado= :est"),
 		@NamedQuery(name = Especie.OBTENER_FAMILIA_POR_ID_ESPECIE, query = "select p.generoDeEspecie.familiaDelGenero from Especie p where p.id= :id")})
 
 public class Especie implements Serializable {

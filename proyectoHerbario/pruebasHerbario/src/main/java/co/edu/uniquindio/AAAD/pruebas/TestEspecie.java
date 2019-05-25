@@ -78,7 +78,7 @@ public class TestEspecie {
 
 		TypedQuery<Especie> query = entityManager.createNamedQuery(Especie.LISTAR_TODOS, Especie.class);
 		List<Especie> especies = query.getResultList();
-		Assert.assertEquals(3, especies.size());
+		Assert.assertEquals(4, especies.size());
 	}
 
 	/**
@@ -141,7 +141,7 @@ public class TestEspecie {
 		List<Especie> especies = query.getResultList();
 		Especie especie = especies.get(0);
 		Assert.assertEquals(especie.getRegistroPlanta().getEstado(), Estado.Aceptado);
-		Assert.assertEquals(1, especies.size());
+		Assert.assertEquals(2, especies.size());
 
 	}
 
@@ -176,9 +176,9 @@ public class TestEspecie {
 
 		Familia miFamilia = entityManager.find(Familia.class, "1");
 		TypedQuery<Especie> query = entityManager.createNamedQuery(Especie.LISTAR_POR_FAMILIA, Especie.class);
-		query.setParameter("fam", miFamilia);
+		query.setParameter("fam", miFamilia.getId());
 		List<Especie> especies = query.getResultList();
-		Assert.assertEquals(2, especies.size());
+		Assert.assertEquals(3, especies.size());
 	}
 
 	/**
@@ -192,9 +192,9 @@ public class TestEspecie {
 
 		Genero miGenero = entityManager.find(Genero.class, "1");
 		TypedQuery<Especie> query = entityManager.createNamedQuery(Especie.LISTAR_POR_GENERO, Especie.class);
-		query.setParameter("gen", miGenero);
+		query.setParameter("gen", miGenero.getId());
 		List<Especie> especies = query.getResultList();
-		Assert.assertEquals(2, especies.size());
+		Assert.assertEquals(3, especies.size());
 
 	}
 	
@@ -210,9 +210,9 @@ public class TestEspecie {
 
 		Clase miClase = entityManager.find(Clase.class, "1");
 		TypedQuery<Especie> query = entityManager.createNamedQuery(Especie.LISTAR_POR_CLASE, Especie.class);
-		query.setParameter("clas", miClase);
+		query.setParameter("clas", miClase.getId());
 		List<Especie> especies = query.getResultList();
-		Assert.assertEquals(2, especies.size());
+		Assert.assertEquals(3, especies.size());
 
 	}
 	
@@ -227,9 +227,9 @@ public class TestEspecie {
 
 		Orden miOrden = entityManager.find(Orden.class, "1");
 		TypedQuery<Especie> query = entityManager.createNamedQuery(Especie.LISTAR_POR_ORDEN, Especie.class);
-		query.setParameter("ord", miOrden);
+		query.setParameter("ord", miOrden.getId());
 		List<Especie> especies = query.getResultList();
-		Assert.assertEquals(2, especies.size());
+		Assert.assertEquals(3, especies.size());
 
 	}
 	
@@ -245,7 +245,7 @@ public class TestEspecie {
 
 		Familia miFamilia = entityManager.find(Familia.class, "1");
 		TypedQuery<Especie> query = entityManager.createNamedQuery(Especie.LISTAR_POR_FAMILIA_ACEPTADA, Especie.class);
-		query.setParameter("fam", miFamilia);
+		query.setParameter("fam", miFamilia.getId());
 		query.setParameter("est", Estado.Aceptado);
 		List<Especie> especies = query.getResultList();
 		Assert.assertEquals(1, especies.size());
@@ -262,7 +262,7 @@ public class TestEspecie {
 
 		Genero miGenero = entityManager.find(Genero.class, "1");
 		TypedQuery<Especie> query = entityManager.createNamedQuery(Especie.LISTAR_POR_GENERO_ACEPTADA, Especie.class);
-		query.setParameter("gen", miGenero);
+		query.setParameter("gen", miGenero.getId());
 		query.setParameter("est", Estado.Aceptado);
 		List<Especie> especies = query.getResultList();
 		Assert.assertEquals(1, especies.size());
@@ -281,7 +281,7 @@ public class TestEspecie {
 
 		Clase miClase = entityManager.find(Clase.class, "1");
 		TypedQuery<Especie> query = entityManager.createNamedQuery(Especie.LISTAR_POR_CLASE_ACEPTADA, Especie.class);
-		query.setParameter("clas", miClase);
+		query.setParameter("clas", miClase.getId());
 		query.setParameter("est", Estado.Aceptado);
 		List<Especie> especies = query.getResultList();
 		Assert.assertEquals(1, especies.size());
@@ -299,7 +299,7 @@ public class TestEspecie {
 
 		Orden miOrden = entityManager.find(Orden.class, "1");
 		TypedQuery<Especie> query = entityManager.createNamedQuery(Especie.LISTAR_POR_ORDEN_ACEPTADA, Especie.class);
-		query.setParameter("ord", miOrden);
+		query.setParameter("ord", miOrden.getId());
 		query.setParameter("est", Estado.Aceptado);
 		List<Especie> especies = query.getResultList();
 		Assert.assertEquals(1, especies.size());
@@ -346,9 +346,9 @@ public class TestEspecie {
 
 		Recolector recolector = entityManager.find(Recolector.class, "3");
 		TypedQuery<Especie> query = entityManager.createNamedQuery(Especie.LISTAR_POR_RECOLECTOR, Especie.class);
-		query.setParameter("rec", recolector);
+		query.setParameter("rec", recolector.getId());
 		List<Especie> especies = query.getResultList();
-		Assert.assertEquals(2, especies.size());
+		Assert.assertEquals(3, especies.size());
 	}
 
 

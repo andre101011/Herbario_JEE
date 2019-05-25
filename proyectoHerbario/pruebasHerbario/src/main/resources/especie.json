@@ -17,6 +17,12 @@
 			"nombre":"Pinus cembra",
 			"generoDeEspecie_id":"2",
 			"registroPlanta_id":"3"
+		},
+		{
+			"id":"5",
+			"nombre":"Rosa melano",
+			"generoDeEspecie_id":"1",
+			"registroPlanta_id":"5"
 		}
 	]
 }

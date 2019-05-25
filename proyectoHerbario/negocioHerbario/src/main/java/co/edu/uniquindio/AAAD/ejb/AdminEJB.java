@@ -8,7 +8,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import co.edu.uniquindio.AAAD.excepciones.ElementoRepetidoException;
-import co.edu.uniquindio.AAAD.persistencia.Empleado;
+import co.edu.uniquindio.AAAD.persistencia.*;
 
 /**
  * Se encarga de manejar las operaciones realizadas por el administrador
@@ -87,6 +87,13 @@ public class AdminEJB implements AdminEJBRemote {
     		return null;
 		}
  
+    }
+    
+    public Clase insertarClase(Clase clase) throws ElementoRepetidoException{
+    	
+    	
+    	
+    	
     }
 
 }
