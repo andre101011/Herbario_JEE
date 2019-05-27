@@ -1,8 +1,21 @@
 package co.edu.uniquindio.AAAD.dto;
-
+/**
+ * 
+ * Dto con cedula y cantidad de registros de una persona
+ * 
+ * @author Daniel Bonilla
+ * @author Andres Llinas
+ * @version 1.0
+ *
+ */
 public class PersonaDTO {
-	
+	/**
+	 * Cedula de la persona
+	 */
 	private String cedula;
+	/**
+	 * cantidad de registros de la persona
+	 */
 	private long numRegistros;
 	
 	public PersonaDTO(String cedula, Long numRegistros) {

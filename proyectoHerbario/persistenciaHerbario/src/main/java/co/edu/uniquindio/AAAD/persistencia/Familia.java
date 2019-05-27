@@ -40,12 +40,12 @@ public class Familia implements Serializable {
 	 * id de la familia
 	 */
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private String id;
 	/**
 	 * nombre de la familia
 	 */
-	@Column(nullable=false, length=50)
+	@Column(nullable=false, length=50, unique=true)
 	private String nombre;
 	
 	private static final long serialVersionUID = 1L;

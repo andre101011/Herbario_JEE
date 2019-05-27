@@ -31,8 +31,9 @@ public class Genero implements Serializable {
 	 * id del genero
 	 */
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private String id;
-	@Column(nullable=false, length=50)
+	@Column(nullable=false, length=50, unique=true)
 	/**
 	 * nombre del genero
 	 */

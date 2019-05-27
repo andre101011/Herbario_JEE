@@ -63,7 +63,7 @@ public class Registro implements Serializable {
 	 * id del registro
 	 */
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private String id;
 	/**
 	 * estado del registro

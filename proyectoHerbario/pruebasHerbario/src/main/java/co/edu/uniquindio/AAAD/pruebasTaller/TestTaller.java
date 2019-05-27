@@ -1,4 +1,4 @@
-package co.edu.uniquindio.AAAD.pruebas;
+package co.edu.uniquindio.AAAD.pruebasTaller;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -31,7 +31,7 @@ import co.edu.uniquindio.AAAD.persistencia.Persona;
 import co.edu.uniquindio.AAAD.persistencia.Registro.Estado;
 
 /**
- * Clase de pruebas dedicada para la pruebas del segundo taller de queries
+ * Clase de pruebas dedicada para la pruebas del taller de la guia 10
  * 
  * @author Daniel Bonilla
  * @author Andres Llinas
@@ -132,6 +132,9 @@ public class TestTaller {
 
 	}
 
+	/**
+	 * Permite probar crear una consulta que permita obtener la familia con mas especies asociadas
+	 */
 	@Test
 	@UsingDataSet({"persona.json","clase.json","orden.json","familia.json","genero.json","especie.json","registro.json"})
 	@Transactional(value=TransactionMode.ROLLBACK)

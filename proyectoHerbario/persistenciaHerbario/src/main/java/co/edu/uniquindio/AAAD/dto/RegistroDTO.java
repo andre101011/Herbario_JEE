@@ -1,12 +1,33 @@
 package co.edu.uniquindio.AAAD.dto;
 
-
+/**
+ * dto con datos relacionados a un registro
+ * 
+ * @author Daniel Bonilla
+ * @author Andres Llinas
+ * @version 1.0
+ *
+ */
 public class RegistroDTO {
-	
+	/**
+	 * id del registro
+	 */
 	String id;
+	/**
+	 * nombre del genero de la planta relacionada al registro
+	 */
 	String genero;
+	/**
+	 * nombre de la planta relacionada al registro
+	 */
 	String planta;
+	/**
+	 * cedula de la persona que envió el registro
+	 */
 	String cedula;
+	/**
+	 * email de la persona que envió el registro
+	 */
 	String email;
 	public RegistroDTO(String id, String genero, String planta, String cedula, String email) {
 		super();

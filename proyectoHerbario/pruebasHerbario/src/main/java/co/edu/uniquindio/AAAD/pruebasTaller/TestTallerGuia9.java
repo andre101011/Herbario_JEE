@@ -1,4 +1,4 @@
-package co.edu.uniquindio.AAAD.pruebas;
+package co.edu.uniquindio.AAAD.pruebasTaller;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -35,7 +35,7 @@ import co.edu.uniquindio.AAAD.persistencia.Registro;
 
 
 /**
- * Clase de pruebas dedicada para la pruebas de las entidades
+ * Clase de pruebas dedicada para la pruebas del taller de la guia 9
  * 
  * @author Daniel Bonilla
  * @author Andres Llinas

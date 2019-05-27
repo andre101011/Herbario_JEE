@@ -24,13 +24,13 @@ public class Orden implements Serializable {
 	/***
 	 * nombre del orden
 	 */
-	@Column(nullable=false, length=50)
+	@Column(nullable=false, length=50, unique=true)
 	private String nombre;   
 	/**
 	 * id del orden
 	 */
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private String id;
 	/**
 	 * clase del orden

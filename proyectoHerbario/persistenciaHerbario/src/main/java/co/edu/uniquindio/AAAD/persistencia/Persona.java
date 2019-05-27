@@ -80,7 +80,7 @@ public class Persona implements Serializable {
 	 * id de la persona
 	 */
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private String id;
 	/**
 	 * cedula de la persona

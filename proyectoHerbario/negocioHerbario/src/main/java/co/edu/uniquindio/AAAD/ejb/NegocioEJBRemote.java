@@ -3,10 +3,10 @@ package co.edu.uniquindio.AAAD.ejb;
 import javax.ejb.Remote;
 
 import co.edu.uniquindio.AAAD.excepciones.ElementoRepetidoException;
-import co.edu.uniquindio.AAAD.persistencia.*;
+import co.edu.uniquindio.AAAD.persistencia.Empleado;
 
 @Remote
-public interface AdminEJBRemote {
+public interface NegocioEJBRemote {
 	/**
 	 * permite agregar un empleado
 	 * @param empleado empleado  a agregar
@@ -14,13 +14,5 @@ public interface AdminEJBRemote {
 	 * @throws ElementoRepetidoException cuando ya se tienen un con cedula o email repetido 
 	 */
 	Empleado insertarEmpleado(Empleado empleado) throws  ElementoRepetidoException;
-	
-	/**
-	 * Permite agregar una clase 
-	 * @param clase clase a agregar
-	 * @return clase agregada o null
-	 * @throws ElementoRepetidoException cuando ya se tiene un nombre repetido
-	 */
-	Clase insertarClase(Clase clase) throws ElementoRepetidoException;
 
 }

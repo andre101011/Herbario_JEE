@@ -11,14 +11,14 @@ import co.edu.uniquindio.AAAD.excepciones.ElementoRepetidoException;
 import co.edu.uniquindio.AAAD.persistencia.*;
 
 /**
- * Se encarga de manejar las operaciones realizadas por el administrador
+ * Se encarga de manejar las operaciones realizadas por las personas
  * @author Daniel Bonilla
  * @author Andres llinas
  * @version Beta 1.0 
  */
 @Stateless
 @LocalBean
-public class AdminEJB implements AdminEJBRemote {
+public class NegocioEJB implements NegocioEJBRemote {
 
 	/**
 	 * permite manejar todas las transacciones del ejb
@@ -29,7 +29,7 @@ public class AdminEJB implements AdminEJBRemote {
     /**
      * Default constructor. 
      */
-    public AdminEJB() {
+    public NegocioEJB() {
         // TODO Auto-generated constructor stub
     }
     
