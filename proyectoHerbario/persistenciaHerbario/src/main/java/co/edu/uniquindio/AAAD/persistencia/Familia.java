@@ -16,7 +16,8 @@ import javax.persistence.*;
 @Entity
 @NamedQueries({@NamedQuery(name=Familia.LISTAR_TODOS, query="select p from Familia p"),
 	@NamedQuery(name=Familia.CONTAR, query="select count(p) from Familia p"),
-	@NamedQuery(name=Familia.OBTENER_FAMILIA_MAS_ESPECIES, query="select fam,max(select count(esp) from Genero gen inner join gen.especiesDelGenero esp where gen.familiaDelGenero.id=fam.id) from Familia fam")})
+	@NamedQuery(name=Familia.OBTENER_FAMILIA_MAS_ESPECIES, query="select fam,max(select count(esp) from Genero gen inner join gen.especiesDelGenero esp where gen.familiaDelGenero.id=fam.id) from Familia fam"),
+	@NamedQuery(name=Familia.BUSCAR_POR_NOMBRE, query="select p from Familia p where p.nombre =:nombre")})
 public class Familia implements Serializable {
 	/**
 	 * referencia para listar las familias
@@ -37,10 +38,15 @@ public class Familia implements Serializable {
 	public static final String OBTENER_CANTIDAD_MAYOR_ESPECIES_POR_FAMILIA="Obtiene la cantidad de especies de la familia mas grande";
 	
 	/**
+	 * referencia para buscar una familia por su nombre
+	 */
+	public static final String BUSCAR_POR_NOMBRE = "Buscar familia por nombre";
+	
+	/**
 	 * id de la familia
 	 */
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private String id;
 	/**
 	 * nombre de la familia
@@ -49,6 +55,9 @@ public class Familia implements Serializable {
 	private String nombre;
 	
 	private static final long serialVersionUID = 1L;
+
+
+	
 	/**
 	 * orden de la familia
 	 */

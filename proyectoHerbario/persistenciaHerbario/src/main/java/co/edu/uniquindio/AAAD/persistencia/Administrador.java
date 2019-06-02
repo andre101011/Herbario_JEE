@@ -15,14 +15,17 @@ import co.edu.uniquindio.AAAD.persistencia.Persona;
  * @version 1.0
  */
 @Entity
-@Inheritance(strategy=InheritanceType.JOINED)
-@NamedQueries({ @NamedQuery(name = Administrador.LISTAR_ADMINISTRADOR, query = "select p from Administrador p")})
+@NamedQueries({ @NamedQuery(name = Administrador.LISTAR_ADMINISTRADOR, query = "select p from Administrador p"),
+	@NamedQuery(name=Administrador.CONTAR_ADMINS, query="select count(a) from Administrador a")})
 public class Administrador extends Persona implements Serializable {
 
 	/**
 	 * referencia para listar los administradores
 	 */
 	public static final String LISTAR_ADMINISTRADOR = "listarAdministrador";
+	
+	public static final String CONTAR_ADMINS= "contarAdmins";
+	
 	private static final long serialVersionUID = 1L;
 	
 	/**

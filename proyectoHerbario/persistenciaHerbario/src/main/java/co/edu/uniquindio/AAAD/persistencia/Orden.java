@@ -14,7 +14,8 @@ import javax.persistence.*;
  * @version 1.0
  */
 @Entity
-@NamedQueries({@NamedQuery(name=Orden.LISTAR_TODOS, query="select p from Orden p")})
+@NamedQueries({@NamedQuery(name=Orden.LISTAR_TODOS, query="select p from Orden p"),
+	@NamedQuery(name=Orden.BUSCAR_POR_NOMBRE, query="select p from Orden p where p.nombre =:nombre")})
 public class Orden implements Serializable {
 	
 	/**
@@ -30,7 +31,7 @@ public class Orden implements Serializable {
 	 * id del orden
 	 */
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private String id;
 	/**
 	 * clase del orden
@@ -39,6 +40,7 @@ public class Orden implements Serializable {
 	private Clase claseDelOrden;
 	
 	private static final long serialVersionUID = 1L;
+	public static final String BUSCAR_POR_NOMBRE = "Buscar orden por nombre";
 	
 	/**
 	 * lista de familias del orden

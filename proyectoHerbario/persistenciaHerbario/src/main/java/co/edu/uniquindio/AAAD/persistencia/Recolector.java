@@ -13,7 +13,6 @@ import co.edu.uniquindio.AAAD.persistencia.Persona;
  * @version 1.0
  */
 @Entity
-@Inheritance(strategy=InheritanceType.JOINED)
 @NamedQueries({ @NamedQuery(name = Recolector.LISTAR_RECOLECTOR, query = "select p from Recolector p")})
 public class Recolector extends Persona implements Serializable {
 

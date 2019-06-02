@@ -14,9 +14,15 @@ import javax.persistence.*;
  * @version 1.0
  */
 @Entity
-@NamedQueries({@NamedQuery(name=Clase.LISTAR_TODOS, query="select p from Clase p")})
+@NamedQueries({@NamedQuery(name=Clase.LISTAR_TODOS, query="select p from Clase p"),
+	@NamedQuery(name=Clase.BUSCAR_POR_NOMBRE, query="select p from Clase p where p.nombre =:nombre")})
 public class Clase implements Serializable {
 
+	/**
+	 * Referencia para seleccionar una clase por su nombre
+	 */
+	public static final String BUSCAR_POR_NOMBRE="buscar clase por nombre";
+	
 	/**
 	 * Referencia para listar las clases
 	 */
@@ -26,7 +32,7 @@ public class Clase implements Serializable {
 	 * id de la clase
 	 */
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private String id;
 	/**
 	 * nombre de la clase

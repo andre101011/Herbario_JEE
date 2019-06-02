@@ -79,7 +79,7 @@ public class Especie implements Serializable {
 	 * id de la especie
 	 */
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private String id;
 	/**
 	 * nombre de la especie

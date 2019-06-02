@@ -13,7 +13,6 @@ import co.edu.uniquindio.AAAD.persistencia.Persona;
  * @version 1.0
  */
 @Entity
-@Inheritance(strategy=InheritanceType.JOINED)
 @NamedQueries({ @NamedQuery(name = Empleado.LISTAR_EMPLEADO, query = "select p from Empleado p"),
 	@NamedQuery(name= Empleado.BUSCAR_EMPLEADO_POR_EMAIL, query="select e from Empleado e where e.email=:email"),
 	@NamedQuery(name= Empleado.BUSCAR_EMPLEADO_POR_CEDULA, query="select e from Empleado e where e.cedula =:cedula")})

@@ -15,12 +15,14 @@ import javax.persistence.*;
  */
 @Entity
 @NamedQueries({@NamedQuery(name=Genero.LISTAR_TODOS, query="select p from Genero p"),
-	@NamedQuery(name = Genero.OBTENER_ESPECIES_POR_GENERO_IN, query="select especie from Genero genero, IN(genero.especiesDelGenero) especie where genero.id =:id")})
+	@NamedQuery(name = Genero.OBTENER_ESPECIES_POR_GENERO_IN, query="select especie from Genero genero, IN(genero.especiesDelGenero) especie where genero.id =:id"),
+	@NamedQuery(name=Genero.BUSCAR_POR_NOMBRE, query="select p from Genero p where p.nombre =:nombre")})
 public class Genero implements Serializable {
 	/**
 	 * referencia para listar los generos
 	 */
 	public static final String LISTAR_TODOS="ListarGeneros";
+	
 	
 	/**
 	 * referencia para obtener la lista de especies por su genero con in
@@ -31,7 +33,7 @@ public class Genero implements Serializable {
 	 * id del genero
 	 */
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private String id;
 	@Column(nullable=false, length=50, unique=true)
 	/**
@@ -39,6 +41,11 @@ public class Genero implements Serializable {
 	 */
 	private String nombre;
 	private static final long serialVersionUID = 1L;
+
+	/**
+	 * referencia para buscar un genero por su nombre
+	 */
+	public static final String BUSCAR_POR_NOMBRE = "buscar genero por nombre";
 	/**
 	 * familia del genero
 	 */

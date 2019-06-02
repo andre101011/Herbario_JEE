@@ -72,5 +72,6 @@
     <module>pruebasHerbario</module>
     <module>earHerbario</module>
     <module>negocioHerbario</module>
+    <module>webHerbario</module>
   </modules>
 </project>

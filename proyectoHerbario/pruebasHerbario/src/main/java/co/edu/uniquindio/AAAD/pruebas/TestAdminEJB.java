@@ -1,6 +1,9 @@
 package co.edu.uniquindio.AAAD.pruebas;
 
+import java.util.List;
+
 import javax.ejb.EJB;
+import javax.persistence.EntityManager;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -16,9 +19,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import co.edu.uniquindio.AAAD.ejb.AdminEJB;
+import co.edu.uniquindio.AAAD.excepciones.ElementoNoEncontradoException;
 import co.edu.uniquindio.AAAD.excepciones.ElementoRepetidoException;
-import co.edu.uniquindio.AAAD.persistencia.Empleado;
-import co.edu.uniquindio.AAAD.persistencia.Persona;
+import co.edu.uniquindio.AAAD.persistencia.*;
 
 
 /**
@@ -45,6 +48,9 @@ public class TestAdminEJB {
 	.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 	
+	/**
+	 * Permite probar crear una consulta que permita insertar un empleado por medio de EJB
+	 */
 	@Test
 	@Transactional(value =TransactionMode.ROLLBACK)
 	@UsingDataSet({"persona.json"})
@@ -64,10 +70,132 @@ public class TestAdminEJB {
 		}catch (Exception e) {
 			Assert.fail("Error inesperado");
 		}
-			
-			
+	
+	}
+
+	/**
+	 * Permite probar crear una consulta que permita insertar un empleado por medio de EJB
+	 */
+	@Test
+	@Transactional(value =TransactionMode.ROLLBACK)
+	@UsingDataSet({ "persona.json", "clase.json", "orden.json", "familia.json", "genero.json", "especie.json",
+	"registro.json" })
+	public void insertarGeneroTest() {
+		
+		
+		
+		Genero genero=new Genero();
+		genero.setId("123");
+		genero.setNombre("G1");
 	
 		
+		
+		try {
+			Familia familia = adminEJB.buscarFamilia("1");
+			genero.setFamiliaDelGenero(familia);
+			Assert.assertNotNull(adminEJB.insertarGenero(genero));
+		}catch(ElementoRepetidoException e) {
+			Assert.fail(e.getMessage());
+		}catch (Exception e) {
+			Assert.fail("Error inesperado");
+		}
+	
 	}
 	
+	
+	
+	/**
+	 * Permite probar crear una consulta que permita modificar un genero por medio de EJB
+	 */
+	@Test
+	@Transactional(value =TransactionMode.ROLLBACK)
+	@UsingDataSet({ "persona.json", "clase.json", "orden.json", "familia.json", "genero.json", "especie.json",
+	"registro.json" })
+	public void modificarGeneroTest() {
+		
+		
+		
+		Genero genero=adminEJB.buscarGenero("1");
+		
+		genero.setNombre("modificación");
+	
+		
+		
+		try {
+			Assert.assertNotNull(adminEJB.modificarGenero(genero));
+		}catch(ElementoNoEncontradoException e) {
+			Assert.fail(e.getMessage());
+		}catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+	
+	}
+	
+	
+	
+	/**
+	 * Permite probar crear una consulta que permita eliminar un genero por medio de EJB
+	 */
+	@Test
+	@Transactional(value =TransactionMode.ROLLBACK)
+	@UsingDataSet({ "persona.json", "clase.json", "orden.json", "familia.json", "genero.json", "especie.json",
+	"registro.json" })
+	public void eliminarGeneroTest() {
+		
+		
+		
+		Genero genero=adminEJB.buscarGenero("1");
+		
+		try {
+			Assert.assertNotNull(adminEJB.eliminarGenero(genero));
+		}catch(ElementoNoEncontradoException e) {
+			Assert.fail(e.getMessage());
+		}catch (Exception e) {
+			Assert.fail("Error inesperado");
+		}
+	
+	}
+	
+	
+	/**
+	 * Permite probar crear una consulta que permita listar los generos
+	 */
+	@Test
+	@Transactional(value =TransactionMode.ROLLBACK)
+	@UsingDataSet({ "persona.json", "clase.json", "orden.json", "familia.json", "genero.json", "especie.json",
+	"registro.json" })
+	public void listarGenerosTest() {
+		
+		
+		try {
+			List<Genero> generos =adminEJB.listarGeneros();
+		
+			Assert.assertEquals(2, generos.size());
+		}catch (Exception e) {
+			Assert.fail("Error inesperado");
+		}
+	
+	}
+	
+	
+	/**
+	 * Permite probar crear una consulta que permita listar las especies aceptadas
+	 */
+	@Test
+	@Transactional(value =TransactionMode.ROLLBACK)
+	@UsingDataSet({ "persona.json", "clase.json", "orden.json", "familia.json", "genero.json", "especie.json",
+	"registro.json" })
+	public void listarEspeciesAceptadasTest() {
+		
+		
+		try {
+			List<Especie> lista= adminEJB.listarEspeciesAceptadas();
+		
+			Assert.assertEquals(2, lista.size());
+		}catch (Exception e) {
+			Assert.fail("Error inesperado");
+		}
+	
+	}
 }
+
