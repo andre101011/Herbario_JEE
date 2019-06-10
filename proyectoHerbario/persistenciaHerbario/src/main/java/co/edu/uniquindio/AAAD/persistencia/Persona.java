@@ -76,16 +76,12 @@ public class Persona implements Serializable {
 	 */
 	public static final String LISTAR_TODOS = "ListarLosClientes";
 
-	/**
-	 * id de la persona
-	 */
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private String id;
+	
 	/**
 	 * cedula de la persona
 	 */
-	@Column(nullable=false, length=20)
+	@Id
+	@Column(length=20)
 	private String cedula;
 	/**
 	 * nombre de la persona
@@ -114,19 +110,7 @@ public class Persona implements Serializable {
 		super();
 	}
 
-	/**
-	 * @return the id
-	 */
-	public String getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(String id) {
-		this.id = id;
-	}
+	
 
 	/**
 	 * @return the cedula
@@ -198,6 +182,8 @@ public class Persona implements Serializable {
 		this.registrosEnviados = registrosEnviados;
 	}
 
+
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
@@ -205,9 +191,11 @@ public class Persona implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((cedula == null) ? 0 : cedula.hashCode());
 		return result;
 	}
+
+
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
@@ -221,14 +209,15 @@ public class Persona implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Persona other = (Persona) obj;
-		if (id == null) {
-			if (other.id != null)
+		if (cedula == null) {
+			if (other.cedula != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!cedula.equals(other.cedula))
 			return false;
 		return true;
 	}
 
+	
 
 	
 	

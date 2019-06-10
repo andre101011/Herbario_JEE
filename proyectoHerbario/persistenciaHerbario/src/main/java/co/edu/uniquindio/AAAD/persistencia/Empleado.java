@@ -14,7 +14,7 @@ import co.edu.uniquindio.AAAD.persistencia.Persona;
  */
 @Entity
 @NamedQueries({ @NamedQuery(name = Empleado.LISTAR_EMPLEADO, query = "select p from Empleado p"),
-	@NamedQuery(name= Empleado.BUSCAR_EMPLEADO_POR_EMAIL, query="select e from Empleado e where e.email=:email"),
+	@NamedQuery(name= Empleado.BUSCAR_EMPLEADO_POR_EMAIL, query="select e.cedula from Empleado e where e.email=:email"),
 	@NamedQuery(name= Empleado.BUSCAR_EMPLEADO_POR_CEDULA, query="select e from Empleado e where e.cedula =:cedula")})
 public class Empleado extends Persona implements Serializable {
 

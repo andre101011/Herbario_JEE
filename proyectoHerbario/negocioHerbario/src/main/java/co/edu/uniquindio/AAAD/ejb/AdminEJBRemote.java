@@ -12,10 +12,14 @@ import co.edu.uniquindio.AAAD.persistencia.Especie;
 import co.edu.uniquindio.AAAD.persistencia.Familia;
 import co.edu.uniquindio.AAAD.persistencia.Genero;
 import co.edu.uniquindio.AAAD.persistencia.Orden;
+import co.edu.uniquindio.AAAD.persistencia.Recolector;
 
 
 @Remote
 public interface AdminEJBRemote {
+	
+	String JNDI = "java:global/earHerbario/negocioHerbario/AdminEJB!co.edu.uniquindio.AAAD.ejb.AdminEJBRemote";
+	
 	/**
 	 * permite agregar un empleado
 	 * @param empleado empleado  a agregar
@@ -53,6 +57,46 @@ public interface AdminEJBRemote {
 	 * @return la lista de todas las empleados
 	 */
 	List<Empleado> listarEmpleados();
+
+	/**
+	 * 
+	 * @param id id de la recolector a buscar
+	 * @return recolector buscada, null si no la encontró
+	 */
+	Recolector buscarRecolector(String id);
+
+	/**
+	 * 
+	 * @param recolector recolector que se quiere eliminar
+	 * @return recolector que se eliminó o null
+	 * @throws ElementoNoEncontradoException cuando no se encuentra el recolector en la base de datos 
+	 */
+	Recolector eliminarRecolector(Recolector recolector) throws ElementoNoEncontradoException;
+
+	/**
+	 * 
+	 * @return la lista de todas las recolectores
+	 */
+	List<Recolector> listarRecolectores();
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	/**
 	 * Permite agregar una clase 
@@ -213,6 +257,26 @@ public interface AdminEJBRemote {
 	 * @return lista de especies aceptadas
 	 */
 	List<Especie> listarEspeciesAceptadas();
+
+	/**
+	 * Permite pedir la lista de especies en espera
+	 * @return lista de especies con registro en espera, null si no hay
+	 */
+	List<Especie> listarEspeciesEnEspera();
+
+	/**
+	 * Permite marcar el registro de una especie como aceptado
+	 * @param especie especie que se va a marcar como aceptada
+	 * @return especie aceptada, null si hubo alguna excepción
+	 */
+	Especie aceptarEspecie(Especie especie);
+
+	/**
+	 * Permite marcar el registro de una especie como rechazado
+	 * @param especie especie que se va a marcar como rechazada
+	 * @return especie rechazada, null si hubo alguna excepcion
+	 */
+	Especie rechazarEspecie(Especie especie);
 
 	
 	

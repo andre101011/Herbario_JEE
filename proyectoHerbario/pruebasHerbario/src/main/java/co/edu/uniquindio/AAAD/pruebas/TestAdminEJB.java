@@ -57,7 +57,6 @@ public class TestAdminEJB {
 	public void insertarEmpleadoTest() {
 		
 		Empleado empleado=new Empleado();
-		empleado.setId("123");
 		empleado.setCedula("123");
 		empleado.setNombre("daniel");
 		empleado.setClave("12345");

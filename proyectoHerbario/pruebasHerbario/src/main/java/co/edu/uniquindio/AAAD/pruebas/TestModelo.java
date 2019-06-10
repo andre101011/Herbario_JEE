@@ -61,7 +61,6 @@ public class TestModelo {
 	public void AgregarEmpleadoTest() {
 		
 		Empleado empleado =new Empleado();
-		empleado.setId("4");
 		empleado.setCedula("6476785");
 		empleado.setNombre("Lucia torres");
 		empleado.setClave("12345");
@@ -71,7 +70,7 @@ public class TestModelo {
 		//entityManager.merge(empleado);actualizar
 		//entityManager.remove(empleado);eliminar
 		
-		Empleado empleado2 = entityManager.find(Empleado.class, empleado.getId());//buscar
+		Empleado empleado2 = entityManager.find(Empleado.class, empleado.getCedula());//buscar
 		
 		Assert.assertNotNull(empleado2);
 

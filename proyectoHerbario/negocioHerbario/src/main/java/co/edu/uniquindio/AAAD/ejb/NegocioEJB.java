@@ -7,6 +7,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import co.edu.uniquindio.AAAD.excepciones.ElementoNoEncontradoException;
 import co.edu.uniquindio.AAAD.excepciones.ElementoRepetidoException;
 import co.edu.uniquindio.AAAD.persistencia.*;
 
@@ -33,62 +34,99 @@ public class NegocioEJB implements NegocioEJBRemote {
         // TODO Auto-generated constructor stub
     }
     
-    /*
-     * (non-Javadoc)
-     * @see co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#insertarEmpleado(co.edu.uniquindio.AAAD.Empleado)
-     */
-    public Empleado insertarEmpleado(Empleado empleado) throws ElementoRepetidoException{
-    	
-    	if(entityManager.find(Empleado.class, empleado.getId())!= null) {
-    		
-    		throw new ElementoRepetidoException("El empleado con ese id ya está registrado");
-    	}else if(buscarPorCedula(empleado.getCedula())!=null) {
-    		throw new ElementoRepetidoException("El empleado con esa cedula ya está registrado");
-    			
-    	}else if(buscarPorEmail(empleado.getEmail()) != null) {
-    		throw new ElementoRepetidoException("El empleado con ese email ya fue registrado");
-    	}
-    	
-    	try {
-    		entityManager.persist(empleado);
-    		return empleado;	
-    	}catch (Exception e) {
-    		return null;
-    	}
-    }
+    @Override
+    public Especie registrarEspecie(Registro registro) throws ElementoRepetidoException {
+
+		Especie especie = registro.getEspecieEnviada();
+
+		if (entityManager.find(Especie.class, especie.getId()) != null) {
+
+			throw new ElementoRepetidoException("la especie con ese id ya está registrada");
+		} else if (entityManager.find(Registro.class, registro.getId()) != null) {
+
+			throw new ElementoRepetidoException("El registro con ese id ya está registrado");
+
+		}
+
+		try {
+			entityManager.persist(especie);
+			return especie;
+		} catch (Exception e) {
+			return null;
+		}
+
+	}
+    
+    @Override
+	public Recolector insertarRecolector(Recolector recolector) throws ElementoRepetidoException {
+
+		if (entityManager.find(Recolector.class, recolector.getCedula()) != null) {
+
+			throw new ElementoRepetidoException("El recolector con esa cedula ya está registrado");
+		} else if (buscarPorEmail(recolector) != null) {
+			throw new ElementoRepetidoException("El recolector con ese email ya fue registrado");
+		}
+
+		try {
+			entityManager.persist(recolector);
+			return recolector;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+    
+    @Override
+	public Recolector modificarRecolector(Recolector recolector)
+			throws ElementoNoEncontradoException, ElementoRepetidoException {
+		if (entityManager.find(Recolector.class, recolector.getCedula()) == null) {
+
+			throw new ElementoNoEncontradoException("la recolector con ese id no se encuentra en la base de datos");
+
+		} else if (buscarPorEmail(recolector) != null) {
+			throw new ElementoRepetidoException("El recolector con ese email ya fue registrado");
+		}
+
+		try {
+			entityManager.merge(recolector);
+			return recolector;
+		} catch (Exception e) {
+			return null;
+		}
+	}
     
     /**
-     * permite buscar un empleado por email
-     * @param email email del empleado
-     * @return empleado encontrado o null
-     */
-    private Empleado buscarPorEmail(String email) {
-    	try {
-    		TypedQuery<Empleado> query = entityManager.createNamedQuery(Empleado.BUSCAR_EMPLEADO_POR_EMAIL, Empleado.class);
-        	query.setParameter("email", email);
-        	return query.getSingleResult();
-    	}catch (NoResultException e) {
-    		return null;
+	 * permite buscar un recolector por email
+	 * 
+	 * @param email email del recolector
+	 * @return recolector encontrado o null
+	 */
+	private String buscarPorEmail(Recolector recolector) {
+		try {
+			TypedQuery<String> query = entityManager.createNamedQuery(Recolector.BUSCAR_RECOLECTOR_POR_EMAIL,
+					String.class);
+			query.setParameter("email", recolector.getEmail());
+			String cedula = query.getSingleResult();
+			if (cedula.equals(recolector.getCedula())) {
+				return null;
+			}
+
+			return cedula;
+		} catch (NoResultException e) {
+			return null;
 		}
- 
-    }
+
+	}
     
-    /**
-     * permite buscar un empleado por cedula
-     * @param cedula cedula del empleado
-     * @return empleado encontrado o null
-     */
-    private Empleado buscarPorCedula(String cedula) {
-    	try {
-    		TypedQuery<Empleado> query = entityManager.createNamedQuery(Empleado.BUSCAR_EMPLEADO_POR_CEDULA, Empleado.class);
-        	query.setParameter("cedula", cedula);
-        	return query.getSingleResult();
-    	}catch (NoResultException e) {
-    		return null;
+    @Override
+	public Especie buscarEspecie(String id) {
+
+		try {
+
+			Especie especie = entityManager.find(Especie.class, id);
+			return especie;
+		} catch (Exception e) {
+			return null;
 		}
- 
-    }
-    
-   
+	}
 
 }

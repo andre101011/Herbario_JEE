@@ -35,25 +35,16 @@ public class AdminEJB implements AdminEJBRemote {
 	 * Default constructor.
 	 */
 	public AdminEJB() {
-		
+
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#insertarEmpleado(co.edu.uniquindio.
-	 * AAAD.Empleado)
-	 */
+	@Override
 	public Empleado insertarEmpleado(Empleado empleado) throws ElementoRepetidoException {
 
-		if (entityManager.find(Empleado.class, empleado.getId()) != null) {
+		if (entityManager.find(Empleado.class, empleado.getCedula()) != null) {
 
-			throw new ElementoRepetidoException("El empleado con ese id ya está registrado");
-		} else if (buscarPorCedula(empleado.getCedula()) != null) {
 			throw new ElementoRepetidoException("El empleado con esa cedula ya está registrado");
-
-		} else if (buscarPorEmail(empleado.getEmail()) != null) {
+		} else if (buscarPorEmail(empleado) != null) {
 			throw new ElementoRepetidoException("El empleado con ese email ya fue registrado");
 		}
 
@@ -71,30 +62,16 @@ public class AdminEJB implements AdminEJBRemote {
 	 * @param email email del empleado
 	 * @return empleado encontrado o null
 	 */
-	private Empleado buscarPorEmail(String email) {
+	private String buscarPorEmail(Empleado empleado) {
 		try {
-			TypedQuery<Empleado> query = entityManager.createNamedQuery(Empleado.BUSCAR_EMPLEADO_POR_EMAIL,
-					Empleado.class);
-			query.setParameter("email", email);
-			return query.getSingleResult();
-		} catch (NoResultException e) {
-			return null;
-		}
+			TypedQuery<String> query = entityManager.createNamedQuery(Empleado.BUSCAR_EMPLEADO_POR_EMAIL, String.class);
+			query.setParameter("email", empleado.getEmail());
+			String cedula = query.getSingleResult();
+			if (cedula.equals(empleado.getCedula())) {
+				return null;
+			}
 
-	}
-
-	/**
-	 * permite buscar un empleado por cedula
-	 * 
-	 * @param cedula cedula del empleado
-	 * @return empleado encontrado o null
-	 */
-	private Empleado buscarPorCedula(String cedula) {
-		try {
-			TypedQuery<Empleado> query = entityManager.createNamedQuery(Empleado.BUSCAR_EMPLEADO_POR_CEDULA,
-					Empleado.class);
-			query.setParameter("cedula", cedula);
-			return query.getSingleResult();
+			return cedula;
 		} catch (NoResultException e) {
 			return null;
 		}
@@ -102,11 +79,11 @@ public class AdminEJB implements AdminEJBRemote {
 	}
 
 	@Override
-	public Empleado buscarEmpleado(String id) {
+	public Empleado buscarEmpleado(String cedula) {
 
 		try {
 
-			Empleado empleado = entityManager.find(Empleado.class, id);
+			Empleado empleado = entityManager.find(Empleado.class, cedula);
 			return empleado;
 		} catch (Exception e) {
 			return null;
@@ -114,18 +91,15 @@ public class AdminEJB implements AdminEJBRemote {
 	}
 
 	@Override
-	public Empleado modificarEmpleado(Empleado empleado) throws ElementoNoEncontradoException, ElementoRepetidoException {
-		if (entityManager.find(Empleado.class, empleado.getId()) == null) {
+	public Empleado modificarEmpleado(Empleado empleado)
+			throws ElementoNoEncontradoException, ElementoRepetidoException {
+		if (entityManager.find(Empleado.class, empleado.getCedula()) == null) {
 
 			throw new ElementoNoEncontradoException("la empleado con ese id no se encuentra en la base de datos");
 
+		} else if (buscarPorEmail(empleado) != null) {
+			throw new ElementoRepetidoException("El empleado con ese email ya fue registrado");
 		}
-//		else if (buscarPorCedula(empleado.getCedula()) != null) {
-//			throw new ElementoRepetidoException("El empleado con esa cedula ya está registrado");
-//
-//		} else if (buscarPorEmail(empleado.getEmail()) != null) {
-//			throw new ElementoRepetidoException("El empleado con ese email ya fue registrado");
-//		}
 
 		try {
 			entityManager.merge(empleado);
@@ -144,9 +118,9 @@ public class AdminEJB implements AdminEJBRemote {
 	 */
 	@Override
 	public Empleado eliminarEmpleado(Empleado empleado) throws ElementoNoEncontradoException {
-		if (entityManager.find(Empleado.class, empleado.getId()) == null) {
+		if (entityManager.find(Empleado.class, empleado.getCedula()) == null) {
 
-			throw new ElementoNoEncontradoException("la empleado con ese id no se encuentra en la base de datos");
+			throw new ElementoNoEncontradoException("la empleado con esa cedula no se encuentra en la base de datos");
 		}
 
 		try {
@@ -167,6 +141,56 @@ public class AdminEJB implements AdminEJBRemote {
 		try {
 			TypedQuery<Empleado> query = entityManager.createNamedQuery(Empleado.LISTAR_TODOS, Empleado.class);
 			List<Empleado> lista = query.getResultList();
+			return lista;
+		} catch (Exception e) {
+			return null;
+		}
+
+	}
+
+	
+
+	
+
+	@Override
+	public Recolector buscarRecolector(String cedula) {
+
+		try {
+
+			Recolector recolector = entityManager.find(Recolector.class, cedula);
+			return recolector;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	
+
+	@Override
+	public Recolector eliminarRecolector(Recolector recolector) throws ElementoNoEncontradoException {
+		if (entityManager.find(Recolector.class, recolector.getCedula()) == null) {
+
+			throw new ElementoNoEncontradoException("la recolector con esa cedula no se encuentra en la base de datos");
+		}
+
+		try {
+			entityManager.remove(recolector);
+			return recolector;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#listarRecolectors()
+	 */
+	@Override
+	public List<Recolector> listarRecolectores() {
+		try {
+			TypedQuery<Recolector> query = entityManager.createNamedQuery(Recolector.LISTAR_TODOS, Recolector.class);
+			List<Recolector> lista = query.getResultList();
 			return lista;
 		} catch (Exception e) {
 			return null;
@@ -250,7 +274,6 @@ public class AdminEJB implements AdminEJBRemote {
 //			
 //			throw new ElementoRepetidoException("La clase con ese nombre ya está registrada");
 //		}
-		
 
 		try {
 			entityManager.merge(clase);
@@ -691,4 +714,56 @@ public class AdminEJB implements AdminEJBRemote {
 
 	}
 
+	/*
+	 * Registrar especies vegetales (plantas). Al registrar la información de las
+	 * plantas se debe tomar en cuenta el nombre de la familia, del género y la
+	 * especie, además de poder cargar una imagen representativa de la especie.
+	 */
+
+	
+	@Override
+	public List<Especie> listarEspeciesEnEspera() {
+
+		try {
+
+			TypedQuery<Especie> query = entityManager.createNamedQuery(Especie.LISTAR_POR_ESTADO, Especie.class);
+			query.setParameter("est", Estado.Espera);
+			List<Especie> lista = query.getResultList();
+			return lista;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	@Override
+	public Especie aceptarEspecie(Especie especie) {
+
+		try {
+			especie.getRegistroPlanta().setEstado(Estado.Aceptado);
+
+			entityManager.merge(especie);
+
+			return especie;
+		} catch (Exception e) {
+
+			return null;
+		}
+	}
+
+	@Override
+	public Especie rechazarEspecie(Especie especie) {
+
+		try {
+			especie.getRegistroPlanta().setEstado(Estado.Rechazado);
+
+			entityManager.merge(especie);
+
+			return especie;
+		} catch (Exception e) {
+
+			return null;
+		}
+	}
+	
+	
 }
