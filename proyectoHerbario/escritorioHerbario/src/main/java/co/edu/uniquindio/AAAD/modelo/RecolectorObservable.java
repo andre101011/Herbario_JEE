@@ -1,6 +1,6 @@
 package co.edu.uniquindio.AAAD.modelo;
 
-import co.edu.uniquindio.AAAD.persistencia.Empleado;
+import co.edu.uniquindio.AAAD.persistencia.Recolector;
 import co.edu.uniquindio.AAAD.persistencia.Persona;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -12,10 +12,10 @@ import javafx.beans.property.StringProperty;
  * @author Andres Llinás
  * @version 1.0
  */
-public class EmpleadoObservable {
+public class RecolectorObservable {
 
 	/**
-	 * cedula observable de un empleado
+	 * cedula observable de un recolector
 	 */
 	private StringProperty cedula;
 	/**
@@ -23,24 +23,24 @@ public class EmpleadoObservable {
 	 */
 	private StringProperty nombre;
 	/**
-	 * email observable de un empleado
+	 * email observable de un recolector
 	 */
 	private StringProperty email;
 	/**
-	 * clave observable de un empleado
+	 * clave observable de un recolector
 	 */
 	private StringProperty clave;
 	/**
-	 * empleado asociado
+	 * recolector asociado
 	 */
-	private Empleado empleado;
+	private Recolector recolector;
 
 	/**
 	 * 
 	 * @param cedula
 	 * @param nombre
 	 */
-	public EmpleadoObservable(String cedula, String nombre) {
+	public RecolectorObservable(String cedula, String nombre) {
 
 		this.cedula = new SimpleStringProperty(cedula);
 		this.nombre = new SimpleStringProperty(nombre);
@@ -50,30 +50,30 @@ public class EmpleadoObservable {
 	}
 
 	/**
-	 * constructor que genera con empleado observable con base a un empleado
+	 * constructor que genera con recolector observable con base a un recolector
 	 * 
-	 * @param empleado que se quiere volver observable
+	 * @param recolector que se quiere volver observable
 	 */
-	public EmpleadoObservable(Persona empleado) {
+	public RecolectorObservable(Persona recolector) {
 
-		this.empleado = (Empleado) empleado;
-		this.cedula = new SimpleStringProperty(empleado.getCedula());
-		this.nombre = new SimpleStringProperty(empleado.getNombre());
-		this.email = new SimpleStringProperty(empleado.getEmail());
-		this.clave = new SimpleStringProperty(empleado.getClave());
+		this.recolector = (Recolector) recolector;
+		this.cedula = new SimpleStringProperty(recolector.getCedula());
+		this.nombre = new SimpleStringProperty(recolector.getNombre());
+		this.email = new SimpleStringProperty(recolector.getEmail());
+		this.clave = new SimpleStringProperty(recolector.getClave());
 
 
 	}
 
 	/**
-	 * permite generar una instanci usando todos los empleados
+	 * permite generar una instanci usando todos los recolectores
 	 * 
 	 * @param cedula
 	 * @param nombre
 	 * @param email
 	 * @param clave
 	 */
-	public EmpleadoObservable(String cedula, String nombre, String email, String clave) {
+	public RecolectorObservable(String cedula, String nombre, String email, String clave) {
 
 		this.cedula = new SimpleStringProperty(cedula);
 		this.nombre = new SimpleStringProperty(nombre);
@@ -140,17 +140,17 @@ public class EmpleadoObservable {
 	}
 
 	/**
-	 * @return the empleado
+	 * @return the recolector
 	 */
-	public Empleado getEmpleado() {
-		return empleado;
+	public Recolector getRecolector() {
+		return recolector;
 	}
 
 	/**
-	 * @param empleado the empleado to set
+	 * @param recolector the recolector to set
 	 */
-	public void setEmpleado(Empleado empleado) {
-		this.empleado = empleado;
+	public void setRecolector(Recolector recolector) {
+		this.recolector = recolector;
 	}
 
 }
