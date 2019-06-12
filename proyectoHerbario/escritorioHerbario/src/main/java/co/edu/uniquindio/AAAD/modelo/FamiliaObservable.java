@@ -39,7 +39,7 @@ public class FamiliaObservable {
 
 		this.familia = (Familia) familia;
 		this.id= new SimpleStringProperty(familia.getId());
-		this.id= new SimpleStringProperty(familia.getOrdenDelaFamilia().getNombre());
+		this.orden= new SimpleStringProperty(familia.getOrdenDelaFamilia().getNombre());
 		this.nombre = new SimpleStringProperty(familia.getNombre());
 
 

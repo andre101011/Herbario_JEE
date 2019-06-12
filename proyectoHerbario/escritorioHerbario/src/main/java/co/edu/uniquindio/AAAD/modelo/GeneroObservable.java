@@ -39,7 +39,7 @@ public class GeneroObservable {
 
 		this.genero = (Genero) genero;
 		this.id= new SimpleStringProperty(genero.getId());
-		this.id= new SimpleStringProperty(genero.getFamiliaDelGenero().getNombre());
+		this.familia= new SimpleStringProperty(genero.getFamiliaDelGenero().getNombre());
 		this.nombre = new SimpleStringProperty(genero.getNombre());
 
 

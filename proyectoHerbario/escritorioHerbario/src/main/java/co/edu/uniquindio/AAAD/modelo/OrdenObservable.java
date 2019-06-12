@@ -39,7 +39,7 @@ public class OrdenObservable {
 
 		this.orden = (Orden) orden;
 		this.id= new SimpleStringProperty(orden.getId());
-		this.id= new SimpleStringProperty(orden.getClaseDelOrden().getNombre());
+		this.clase= new SimpleStringProperty(orden.getClaseDelOrden().getNombre());
 		this.nombre = new SimpleStringProperty(orden.getNombre());
 
 
