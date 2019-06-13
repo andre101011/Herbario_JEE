@@ -36,6 +36,26 @@ public class NegocioEJB implements NegocioEJBRemote {
     public NegocioEJB() {
         // TODO Auto-generated constructor stub
     }
+    
+    @Override
+    public Persona comprobarCredenciales(String correo, String clave) {
+    	
+    	try {
+    		
+    		TypedQuery<Persona> query = entityManager.createNamedQuery(Persona.INICIO_SESION, Persona.class);
+    		query.setParameter("email1", correo);
+    		query.setParameter("clave1", clave);
+    		return query.getSingleResult();
+    	}catch(NoResultException e){
+    		
+    		return null;
+    		
+    		
+    	}
+    	
+    	
+    }
+    
     /*
      * (non-Javadoc)
      * @see co.edu.uniquindio.AAAD.ejb.NegocioEJBRemote#registrarEspecie(co.edu.uniquindio.AAAD.persistencia.Registro)
@@ -236,6 +256,20 @@ public class NegocioEJB implements NegocioEJBRemote {
     	try {
 			TypedQuery<Especie> query = entityManager.createNamedQuery(Especie.LISTAR_POR_ESTADO, Especie.class);
 			query.setParameter("fam", familia.getId());
+			List<Especie> lista = query.getResultList();
+			return lista;
+		} catch (Exception e) {
+			return null;
+		}
+
+	}
+    
+    
+    @Override
+    public List<Especie> listarEspecies(){
+
+    	try {
+			TypedQuery<Especie> query = entityManager.createNamedQuery(Especie.LISTAR_TODOS, Especie.class);
 			List<Especie> lista = query.getResultList();
 			return lista;
 		} catch (Exception e) {

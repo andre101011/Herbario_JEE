@@ -11,6 +11,7 @@ import co.edu.uniquindio.AAAD.persistencia.Especie;
 import co.edu.uniquindio.AAAD.persistencia.Familia;
 import co.edu.uniquindio.AAAD.persistencia.Genero;
 import co.edu.uniquindio.AAAD.persistencia.Orden;
+import co.edu.uniquindio.AAAD.persistencia.Persona;
 import co.edu.uniquindio.AAAD.persistencia.Recolector;
 import co.edu.uniquindio.AAAD.persistencia.Registro;
 
@@ -45,47 +46,10 @@ public interface NegocioEJBRemote {
 	/**
 	 * Permite registrar una especie
 	 * @param registro registro con la especie a agregar
-	 * @return Especie registrada
+	 * @return Especie registrada o null si no la registró
 	 * @throws ElementoRepetidoException si ya se encuentra una especie o  registro con  el id
 	 */
 	Especie registrarEspecie(Registro registro) throws ElementoRepetidoException;
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	/**
 	 * lista las especies de acuerdo a una familia
 	 * @param familia, familia a la que pertenecen las especies buscadas
@@ -120,6 +84,18 @@ public interface NegocioEJBRemote {
 	 * @return lista con las especies pertenecientes a un genero
 	 */
 	List<Especie> listarEspeciesPorGenero(Genero genero);
+	/**
+	 * lista todas las especies vegetales
+	 * @return las especies vegetales
+	 */
+	List<Especie> listarEspecies();
+	/**
+	 * Permite iniciar sesion
+	 * @param correo correo de la persona 
+	 * @param clave clave de la persona
+	 * @return una persona si el correo y la clave con correctas sino null
+	 */
+	Persona comprobarCredenciales(String correo, String clave);
 	
 
 
