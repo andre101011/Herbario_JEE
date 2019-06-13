@@ -5,6 +5,7 @@ import java.io.IOException;
 import co.edu.uniquindio.AAAD.Main;
 import co.edu.uniquindio.AAAD.persistencia.Empleado;
 import co.edu.uniquindio.AAAD.persistencia.Persona;
+import co.edu.uniquindio.AAAD.controlador.LogInControlador;
 import co.edu.uniquindio.AAAD.modelo.AdministradorDelegado;
 import co.edu.uniquindio.AAAD.modelo.EmpleadoObservable;
 import javafx.collections.FXCollections;
@@ -30,7 +31,7 @@ public class ManejadorEscenarios {
 	/**
 	 * tipo de panel inicial
 	 */
-	private BorderPane bordePanel;
+	private BorderPane panelPrincipal;
 	/**
 	 * para almacenar empleados observables
 	 */
@@ -54,20 +55,81 @@ public class ManejadorEscenarios {
 
 		try {
 			// se inicializa el escenario
-			escenario.setTitle("Balotera");
+			escenario.setTitle("Herbario Universidad del Quindio");
 
 			// se carga la vista
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource("./vista/inicio.fxml"));
 
-			bordePanel = (BorderPane) loader.load();
+			panelPrincipal = (BorderPane) loader.load();
 
 			// se carga la escena
-			Scene scene = new Scene(bordePanel);
+			Scene scene = new Scene(panelPrincipal);
 			escenario.setScene(scene);
 			escenario.show();
 
 			cargarEscena();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	/**
+	 * muestra el escenario logIn
+	 */
+	public void cargarEscenariologIn() {
+
+		try {
+
+			// se carga la interfaz
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("./vista/logIn.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			// se crea el escenario
+			Stage escenariologIn = new Stage();
+			escenariologIn.setTitle("Ingreso a la plataforma");
+			Scene scene = new Scene(page);
+			escenariologIn.setScene(scene);
+
+			// se carga el controlador
+			EdicionEmpleadoControlador empleadoControlador = loader.getController();
+			empleadoControlador.setEscenarioEditar(escenariologIn);
+			empleadoControlador.setManejador(this);
+
+			// se muestra el escenario
+			escenariologIn.showAndWait();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void cargarEscenarioMenu() {
+
+		try {
+
+			// se carga la interfaz
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("./vista/menu.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			// se crea el escenario
+			Stage escenariologIn = new Stage();
+			escenariologIn.setTitle("Ingreso a la plataforma");
+			Scene scene = new Scene(page);
+			escenariologIn.setScene(scene);
+
+			// se carga el controlador
+			EdicionEmpleadoControlador empleadoControlador = loader.getController();
+			empleadoControlador.setEscenarioEditar(escenariologIn);
+			empleadoControlador.setManejador(this);
+
+			// se muestra el escenario
+			escenariologIn.showAndWait();
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -82,15 +144,14 @@ public class ManejadorEscenarios {
 
 		try {
 
-			
 			empleadosObservables = administradorDelegado.listarEmpleadosObservables();
 
 			FXMLLoader loader2 = new FXMLLoader();
-			loader2.setLocation(Main.class.getResource("vista/detalle_empleado.fxml"));
-			AnchorPane panelAncho = (AnchorPane) loader2.load();
-			bordePanel.setCenter(panelAncho);
+			loader2.setLocation(Main.class.getResource("vista/detallesEmpleados.fxml"));
+			AnchorPane panel = (AnchorPane) loader2.load();
+			panelPrincipal.setCenter(panel);
 
-			EmpleadoControlador controlador = loader2.getController();
+			LogInControlador controlador = loader2.getController();
 			controlador.setEscenarioInicial(this);
 
 		} catch (IOException e) {
@@ -108,12 +169,12 @@ public class ManejadorEscenarios {
 
 			// se carga la interfaz
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("./vista/editar_empleado.fxml"));
+			loader.setLocation(Main.class.getResource("./vista/editarEmpleado.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 
 			// se crea el escenario
 			Stage escenarioCrear = new Stage();
-			escenarioCrear.setTitle("Crear");
+			escenarioCrear.setTitle("Crear Empleado");
 			Scene scene = new Scene(page);
 			escenarioCrear.setScene(scene);
 
@@ -122,7 +183,7 @@ public class ManejadorEscenarios {
 			empleadoControlador.setEscenarioEditar(escenarioCrear);
 			empleadoControlador.setManejador(this);
 
-			// se crea el escenario
+			// se muestra el escenario
 			escenarioCrear.showAndWait();
 
 		} catch (IOException e) {
@@ -149,7 +210,7 @@ public class ManejadorEscenarios {
 	}
 
 	/**
-	 * deveulve una instancia del escenario
+	 * devuelve una instancia del escenario
 	 * 
 	 * @return escenario
 	 */

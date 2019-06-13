@@ -36,7 +36,7 @@ public class EdicionEmpleadoControlador {
 	@FXML
 	private TextField cmpEmail;
 	/**
-	 * campo para la calve
+	 * campo para la clave
 	 */
 	@FXML
 	private TextField cmpClave;

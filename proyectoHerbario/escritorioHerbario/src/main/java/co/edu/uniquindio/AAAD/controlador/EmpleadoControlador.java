@@ -137,7 +137,7 @@ public class EmpleadoControlador {
 	 * permite eliminar un empleado seleccionado
 	 */
 	@FXML
-	public void elimiarEmpleado() {
+	public void eliminarEmpleado() {
 
 		int indice = tablaEmpleados.getSelectionModel().getSelectedIndex();
 
