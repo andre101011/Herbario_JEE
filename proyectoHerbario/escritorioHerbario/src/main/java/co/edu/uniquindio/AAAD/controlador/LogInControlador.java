@@ -37,7 +37,6 @@ public class LogInControlador {
 	private void initialize() {
 
 		administradorDelegado = AdministradorDelegado.administradorDelegado;
-
 	}
 
 	@FXML
@@ -51,6 +50,10 @@ public class LogInControlador {
 			Utilidades.mostrarMensaje("Datos equivocados!", "Por favor verifica tu correo y contraseña");
 		}
 
+	}
+
+	public void setEscenarioInicial(ManejadorEscenarios escenarioInicial) {
+		this.escenarioInicial = escenarioInicial;
 	}
 
 }

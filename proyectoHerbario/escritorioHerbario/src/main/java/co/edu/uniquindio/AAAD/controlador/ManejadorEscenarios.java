@@ -6,6 +6,7 @@ import co.edu.uniquindio.AAAD.Main;
 import co.edu.uniquindio.AAAD.persistencia.Empleado;
 import co.edu.uniquindio.AAAD.persistencia.Persona;
 import co.edu.uniquindio.AAAD.controlador.LogInControlador;
+import co.edu.uniquindio.AAAD.excepciones.ElementoNoEncontradoException;
 import co.edu.uniquindio.AAAD.modelo.AdministradorDelegado;
 import co.edu.uniquindio.AAAD.modelo.EmpleadoObservable;
 import javafx.collections.FXCollections;
@@ -95,8 +96,8 @@ public class ManejadorEscenarios {
 			escenariologIn.setScene(scene);
 
 			// se carga el controlador
-			EdicionEmpleadoControlador empleadoControlador = loader.getController();
-			empleadoControlador.setEscenarioEditar(escenariologIn);
+			LogInControlador empleadoControlador = loader.getController();
+			empleadoControlador.setEscenario(escenariologIn);
 			empleadoControlador.setManejador(this);
 
 			// se muestra el escenario
@@ -124,9 +125,9 @@ public class ManejadorEscenarios {
 			escenariologIn.setScene(scene);
 
 			// se carga el controlador
-			EdicionEmpleadoControlador empleadoControlador = loader.getController();
-			empleadoControlador.setEscenarioEditar(escenariologIn);
-			empleadoControlador.setManejador(this);
+			menuControlador menuControlador = loader.getController();
+			menuControlador.setEscenario(escenariologIn);
+			menuControlador.setManejador(this);
 
 			// se muestra el escenario
 			escenariologIn.showAndWait();
@@ -169,22 +170,51 @@ public class ManejadorEscenarios {
 
 			// se carga la interfaz
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("./vista/editarEmpleado.fxml"));
+			loader.setLocation(Main.class.getResource("./vista/gestionarEmpleado.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 
 			// se crea el escenario
-			Stage escenarioCrear = new Stage();
-			escenarioCrear.setTitle("Crear Empleado");
+			Stage escenario = new Stage();
+			escenario.setTitle("gestionar Empleados");
 			Scene scene = new Scene(page);
-			escenarioCrear.setScene(scene);
+			escenario.setScene(scene);
 
 			// se carga el controlador
-			EdicionEmpleadoControlador empleadoControlador = loader.getController();
-			empleadoControlador.setEscenarioEditar(escenarioCrear);
+			GestionarEmpleadoControlador empleadoControlador = loader.getController();
+			empleadoControlador.setEscenario(escenario);
 			empleadoControlador.setManejador(this);
 
 			// se muestra el escenario
-			escenarioCrear.showAndWait();
+			escenario.showAndWait();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void cargarEscenaGestionarCategorias(String string) {
+
+		try {
+
+			// se carga la interfaz
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("./vista/gestionarCategorias.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			// se crea el escenario
+			Stage escenariologIn = new Stage();
+			escenariologIn.setTitle("Gestionar Categoria Taxonomica");
+			Scene scene = new Scene(page);
+			escenariologIn.setScene(scene);
+
+			// se carga el controlador
+			GestionarClasesControlador empleadoControlador = loader.getController();
+			empleadoControlador.setEscenarioEditar(escenariologIn);
+			empleadoControlador.setManejador(this);
+
+			// se muestra el escenario
+			escenariologIn.showAndWait();
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -201,11 +231,11 @@ public class ManejadorEscenarios {
 	}
 
 	/**
-	 * permite agrega una liente a la lista obsevable
+	 * permite agrega una liente a la lista observable
 	 * 
 	 * @param empleado
 	 */
-	public void agregarALista(Persona empleado) {
+	public void agregarALista(Empleado empleado) {
 		empleadosObservables.add(new EmpleadoObservable(empleado));
 	}
 
@@ -226,7 +256,7 @@ public class ManejadorEscenarios {
 	 */
 	public boolean registrarEmpleado(Empleado empleado) {
 		try {
-			return administradorDelegado.registrarEmpleado(empleado);
+			return administradorDelegado.insertarEmpleado(empleado);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -240,7 +270,13 @@ public class ManejadorEscenarios {
 	 * @return true si fue eliminado false si no
 	 */
 	public boolean eliminarEmpleado(Empleado empleado) {
-		return administradorDelegado.eliminarEmpleado(empleado);
+		try {
+			return administradorDelegado.eliminarEmpleado(empleado);
+		} catch (ElementoNoEncontradoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 }

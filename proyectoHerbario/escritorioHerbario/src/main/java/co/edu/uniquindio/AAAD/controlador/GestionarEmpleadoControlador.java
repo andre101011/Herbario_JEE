@@ -10,11 +10,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.Stage;
 
 /**
  * @author EinerZG
  */
-public class EmpleadoControlador {
+public class GestionarEmpleadoControlador {
 
 	/**
 	 * table donde se almacena la informacion de los empleados
@@ -42,9 +43,6 @@ public class EmpleadoControlador {
 	@FXML
 	private Label txtNombre;
 	/**
-	 * etiqueta de apellido
-	 */
-	/**
 	 * etiqueta de email
 	 */
 	@FXML
@@ -54,17 +52,16 @@ public class EmpleadoControlador {
 	 */
 	@FXML
 	private Label txtClave;
-	/**
-	 * etiqueta de fecha
-	 */
+
 	/**
 	 * instancia del manejador de escenario
 	 */
-	private ManejadorEscenarios escenarioInicial;
+	private ManejadorEscenarios manejadorEscenarios;
 
 	private EmpleadoObservable empleadoObservable;
+	private Stage escenario;
 
-	public EmpleadoControlador() {
+	public GestionarEmpleadoControlador() {
 	}
 
 	/**
@@ -90,7 +87,7 @@ public class EmpleadoControlador {
 	 * @param escenarioInicial
 	 */
 	public void setEscenarioInicial(ManejadorEscenarios escenarioInicial) {
-		this.escenarioInicial = escenarioInicial;
+		this.manejadorEscenarios = escenarioInicial;
 		tablaEmpleados.setItems(escenarioInicial.getEmpleadosObservables());
 	}
 
@@ -121,7 +118,7 @@ public class EmpleadoControlador {
 	 */
 	@FXML
 	public void agregarEmpleado() {
-		escenarioInicial.cargarEscenarioCrearEmpleado();
+		manejadorEscenarios.cargarEscenarioCrearEmpleado();
 		tablaEmpleados.refresh();
 	}
 
@@ -137,13 +134,22 @@ public class EmpleadoControlador {
 
 		Empleado empleado = tablaEmpleados.getItems().get(indice).getEmpleado();
 
-		if (escenarioInicial.eliminarEmpleado(empleado)) {
+		if (manejadorEscenarios.eliminarEmpleado(empleado)) {
 			tablaEmpleados.getItems().remove(indice);
 			Utilidades.mostrarMensaje("Borrar", "El empleado ha sido eliminado con exito");
 		} else {
 			Utilidades.mostrarMensaje("Error", "El empleado no pudo ser eliminado");
 		}
 
+	}
+
+	public void setEscenario(Stage escenario) {
+		this.escenario = escenario;
+
+	}
+
+	public void setManejador(ManejadorEscenarios manejadorEscenarios) {
+		this.manejadorEscenarios = manejadorEscenarios;
 	}
 
 }

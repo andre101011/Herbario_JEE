@@ -8,6 +8,7 @@ import co.edu.uniquindio.AAAD.util.Utilidades;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
+import javafx.stage.Stage;
 
 /**
  * @author Andres y Daniel
@@ -31,7 +32,9 @@ public class menuControlador {
 	@FXML
 	private Button btnCerrarSesion;
 
-	private ManejadorEscenarios escenarioInicial;
+	private ManejadorEscenarios manejadorEscenarios;
+
+	private Stage escenario;
 
 	public menuControlador() {
 	}
@@ -71,6 +74,15 @@ public class menuControlador {
 
 	public void abrirVentanaGestionarRecolectores() {
 		escenarioInicial.cargarEscenaGestionarPersonas("recolector"));
+	}
+
+	public void setEscenario(Stage escenario) {
+		this.escenario = escenario;
+
+	}
+
+	public void setManejador(ManejadorEscenarios manejadorEscenarios) {
+		this.manejadorEscenarios = manejadorEscenarios;
 	}
 
 }
