@@ -1,10 +1,16 @@
 package co.edu.uniquindio.AAAD.ejb;
 
+import java.util.List;
+
 import javax.ejb.Remote;
 
 import co.edu.uniquindio.AAAD.excepciones.ElementoNoEncontradoException;
 import co.edu.uniquindio.AAAD.excepciones.ElementoRepetidoException;
+import co.edu.uniquindio.AAAD.persistencia.Clase;
 import co.edu.uniquindio.AAAD.persistencia.Especie;
+import co.edu.uniquindio.AAAD.persistencia.Familia;
+import co.edu.uniquindio.AAAD.persistencia.Genero;
+import co.edu.uniquindio.AAAD.persistencia.Orden;
 import co.edu.uniquindio.AAAD.persistencia.Recolector;
 import co.edu.uniquindio.AAAD.persistencia.Registro;
 
@@ -45,6 +51,75 @@ public interface NegocioEJBRemote {
 	Especie registrarEspecie(Registro registro) throws ElementoRepetidoException;
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * lista las especies de acuerdo a una familia
+	 * @param familia, familia a la que pertenecen las especies buscadas
+	 * @return lista con las especies pertenecientes a una familia
+	 */
+	List<Especie> listarEspeciesPorFamilia(Familia familia);
+	/**
+	 * lista las especies aceptadas
+	 * @return lista con las especies aceptadas
+	 */
+	List<Especie> listarEspeciesAceptadas();
+	/**
+	 * lista las especies rechazadas
+	 * @return lista con las especies rechazadas
+	 */
+	List<Especie> listarEspeciesRechazados();
+	/**
+	 * lista las especies de acuerdo a una clase
+	 * @param clase, clase a la que pertenecen las especies buscadas
+	 * @return lista con las especies pertenecientes a una clase
+	 */
+	List<Especie> listarEspeciesPorClase(Clase clase);
+	/**
+	 * lista las especies de acuerdo a un orden
+	 * @param orden, orden al que pertenecen las especies buscadas
+	 * @return lista con las especies pertenecientes a un orden
+	 */
+	List<Especie> listarEspeciesPorOrden(Orden orden);
+	/**
+	 * lista las especies de acuerdo a un genero
+	 * @param genero, genero al que pertenecen las especies buscadas
+	 * @return lista con las especies pertenecientes a un genero
+	 */
+	List<Especie> listarEspeciesPorGenero(Genero genero);
 	
 
 

@@ -9,9 +9,16 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import co.edu.uniquindio.AAAD.ejb.AdminEJBRemote;
+import co.edu.uniquindio.AAAD.ejb.NegocioEJB;
+import co.edu.uniquindio.AAAD.ejb.NegocioEJBRemote;
+import co.edu.uniquindio.AAAD.persistencia.Clase;
 import co.edu.uniquindio.AAAD.persistencia.Empleado;
-import co.edu.uniquindio.AAAD.persistencia.Persona;
+import co.edu.uniquindio.AAAD.persistencia.Familia;
+import co.edu.uniquindio.AAAD.persistencia.Genero;
+import co.edu.uniquindio.AAAD.persistencia.Orden;
+import co.edu.uniquindio.AAAD.persistencia.Recolector;
 import co.edu.uniquindio.AAAD.excepciones.ElementoNoEncontradoException;
+import co.edu.uniquindio.AAAD.excepciones.ElementoRepetidoException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -28,6 +35,10 @@ public class AdministradorDelegado {
 	 */
 	private AdminEJBRemote adminEJB;
 	/**
+	 * instancia que representa el ejb remoto de negocio
+	 */
+	private NegocioEJBRemote negocioEJB;
+	/**
 	 * permite manejar una unica instancia para le manejo de delegados
 	 */
 	public static AdministradorDelegado administradorDelegado = instancia();
@@ -38,6 +49,7 @@ public class AdministradorDelegado {
 	private AdministradorDelegado() {
 		try {
 			adminEJB = (AdminEJBRemote) new InitialContext().lookup(AdminEJBRemote.JNDI);
+			negocioEJB=(NegocioEJBRemote) new InitialContext().lookup(NegocioEJBRemote.JNDI);
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
@@ -56,7 +68,459 @@ public class AdministradorDelegado {
 		}
 		return administradorDelegado;
 	}
-
 	
+	/**
+	 * inserta un nuevo empleado
+	 * @param empleado, empleado que se va a agregar
+	 * @return true si se agregó el empleado sino false
+	 * @throws ElementoRepetidoException cuando hay un empleado con cedula o email repetido
+	 */
+	public boolean insertarEmpleado(Empleado empleado) throws ElementoRepetidoException {
+			
+			return adminEJB.insertarEmpleado(empleado)!=null;
+			
+			
+	}
+	/**
+	 * buscar un empleado de acuerdo a su cedula
+	 * @param cedula cedula del empleado a buscar
+	 * @return empleado encontrado sino null
+	 */
+	public Empleado buscarEmpleado(String cedula) {
+		
+		return adminEJB.buscarEmpleado(cedula);
+		
+	}
+	/**
+	 * modifica un empleado
+	 * @param empleado empleado que se va a modificar
+	 * @return true si se modificó el empleado sino false
+	 * @throws ElementoNoEncontradoException si no existe el empleado que se va a modificar
+	 * @throws ElementoRepetidoException si al empleado se le agregó un email que posee otra persona
+	 */
+	public boolean modificarEmpleado(Empleado empleado) throws ElementoNoEncontradoException, ElementoRepetidoException{
+		
+		return adminEJB.modificarEmpleado(empleado)!=null;
+		
+	}
+	/**
+	 * elimina el empleado
+	 * @param empleado empleado que se va a eliminar
+	 * @return true si se eliminó el empleado sino false
+	 * @throws ElementoNoEncontradoException si no existe el empleado que se va a modificar
+	 */
+	public boolean eliminarEmpleado(Empleado empleado) throws ElementoNoEncontradoException {
+		
+		return adminEJB.eliminarEmpleado(empleado)!=null;
+		
+	}
+	/**
+	 * Lista los empleados
+	 * @return lista de empleados
+	 */
+	public List<Empleado> listarEmpleados(){
+		
+		return adminEJB.listarEmpleados();
+		
+	}
+	
+	/**
+	 * genera una lista de empleados observables
+	 * 
+	 * @return todos los empleados obsevables
+	 */
+	public ObservableList<EmpleadoObservable> listarEmpleadosObservables() {
+		List<Empleado> empleados = listarEmpleados();
+		ObservableList<EmpleadoObservable> empleadosObservables = FXCollections.observableArrayList();
+		for (Empleado empleado : empleados) {
+			empleadosObservables.add(new EmpleadoObservable(empleado));
+		}
+		return empleadosObservables;
+	}
+
+	/**
+	 * inserta un nuevo recolector
+	 * @param recolector, recolector que se va a agregar
+	 * @return true si se agregó el recolector sino false
+	 * @throws ElementoRepetidoException cuando hay un recolector con cedula o email repetido
+	 */
+	public boolean insertarRecolector(Recolector recolector) throws ElementoRepetidoException {
+			
+			return negocioEJB.insertarRecolector(recolector)!=null;
+			
+			
+	}
+	/**
+	 * buscar un recolector de acuerdo a su cedula
+	 * @param cedula cedula del recolector a buscar
+	 * @return recolector encontrado sino null
+	 */
+	public Recolector buscarRecolector(String cedula) {
+		
+		return adminEJB.buscarRecolector(cedula);
+		
+	}
+	/**
+	 * modifica un recolector
+	 * @param recolector recolector que se va a modificar
+	 * @return true si se modificó el recolector sino false
+	 * @throws ElementoNoEncontradoException si no existe el recolector que se va a modificar
+	 * @throws ElementoRepetidoException si al recolector se le agregó un email que posee otra persona
+	 */
+	public boolean modificarRecolector(Recolector recolector) throws ElementoNoEncontradoException, ElementoRepetidoException{
+		
+		return negocioEJB.modificarRecolector(recolector)!=null;
+		
+	}
+	/**
+	 * elimina el recolector
+	 * @param recolector recolector que se va a eliminar
+	 * @return true si se eliminó el recolector sino false
+	 * @throws ElementoNoEncontradoException si no existe el recolector que se va a modificar
+	 */
+	public boolean eliminarRecolector(Recolector recolector) throws ElementoNoEncontradoException {
+		
+		return adminEJB.eliminarRecolector(recolector)!=null;
+		
+	}
+	/**
+	 * Lista los recolectores
+	 * @return lista de recolectores
+	 */
+	public List<Recolector> listarRecolectores(){
+		
+		return adminEJB.listarRecolectores();
+		
+	}
+	
+	/**
+	 * genera una lista de recolectores observables
+	 * 
+	 * @return todos los recolectores obsevables
+	 */
+	public ObservableList<RecolectorObservable> listarRecolectoresObservables() {
+		List<Recolector> recolectores = listarRecolectores();
+		ObservableList<RecolectorObservable> recolectoresObservables = FXCollections.observableArrayList();
+		for (Recolector recolector : recolectores) {
+			recolectoresObservables.add(new RecolectorObservable(recolector));
+		}
+		return recolectoresObservables;
+	}
+
+	/**
+	 * inserta una nueva clase
+	 * @param clase, clase que se va a agregar
+	 * @return true si se agregó la clase sino false
+	 * @throws ElementoRepetidoException cuando hay una clase con nombre repetido
+	 */
+	public boolean insertarClase(Clase clase) throws ElementoRepetidoException {
+			
+			return adminEJB.insertarClase(clase)!=null;
+			
+			
+	}
+	/**
+	 * buscar un clase de acuerdo a su id
+	 * @param id id de la clase a buscar
+	 * @return clase encontrado sino null
+	 */
+	public Clase buscarClase(String id) {
+		
+		return adminEJB.buscarClase(id);
+		
+	}
+	/**
+	 * buscar un clase de acuerdo a su nombre
+	 * @param nombre nombre de la clase a buscar
+	 * @return clase encontrado sino null
+	 */
+	public Clase buscarClasePorSuNombre(String nombre) {
+		
+		return adminEJB.buscarClasePorNombre(nombre);
+		
+	}
+	/**
+	 * modifica una clase
+	 * @param clase clase que se va a modificar
+	 * @return true si se modificó la clase sino false
+	 * @throws ElementoNoEncontradoException si no existe la clase que se va a modificar
+	 * @throws ElementoRepetidoException si la clase se le agregó un nombre que posee otra
+	 */
+	public boolean modificarClase(Clase clase) throws ElementoNoEncontradoException, ElementoRepetidoException{
+		
+		return adminEJB.modificarClase(clase)!=null;
+		
+	}
+	/**
+	 * elimina el clase
+	 * @param clase clase que se va a eliminar
+	 * @return true si se eliminó el clase sino false
+	 * @throws ElementoNoEncontradoException si no existe el clase que se va a modificar
+	 */
+	public boolean eliminarClase(Clase clase) throws ElementoNoEncontradoException {
+		
+		return adminEJB.eliminarClase(clase)!=null;
+		
+	}
+	/**
+	 * Lista los clases
+	 * @return lista de clases
+	 */
+	public List<Clase> listarClases(){
+		
+		return adminEJB.listarClases();
+		
+	}
+	
+	/**
+	 * genera una lista de clases observables
+	 * 
+	 * @return todos los clases obsevables
+	 */
+	public ObservableList<ClaseObservable> listarClasesObservables() {
+		List<Clase> clases = listarClases();
+		ObservableList<ClaseObservable> clasesObservables = FXCollections.observableArrayList();
+		for (Clase clase : clases) {
+			clasesObservables.add(new ClaseObservable(clase));
+		}
+		return clasesObservables;
+	}
+
+	/**
+	 * inserta una nueva orden
+	 * @param orden, orden que se va a agregar
+	 * @return true si se agregó la orden sino false
+	 * @throws ElementoRepetidoException cuando hay una orden con nombre repetido
+	 */
+	public boolean insertarOrden(Orden orden) throws ElementoRepetidoException {
+			
+			return adminEJB.insertarOrden(orden)!=null;
+			
+			
+	}
+	/**
+	 * buscar un orden de acuerdo a su id
+	 * @param id id de la orden a buscar
+	 * @return orden encontrado sino null
+	 */
+	public Orden buscarOrden(String id) {
+		
+		return adminEJB.buscarOrden(id);
+		
+	}
+	/**
+	 * buscar un orden de acuerdo a su nombre
+	 * @param nombre nombre de la orden a buscar
+	 * @return orden encontrado sino null
+	 */
+	public Orden buscarOrdenPorSuNombre(String nombre) {
+		
+		return adminEJB.buscarOrdenPorNombre(nombre);
+		
+	}
+	/**
+	 * modifica una orden
+	 * @param orden orden que se va a modificar
+	 * @return true si se modificó la orden sino false
+	 * @throws ElementoNoEncontradoException si no existe la orden que se va a modificar
+	 * @throws ElementoRepetidoException si la orden se le agregó un nombre que posee otra
+	 */
+	public boolean modificarOrden(Orden orden) throws ElementoNoEncontradoException, ElementoRepetidoException{
+		
+		return adminEJB.modificarOrden(orden)!=null;
+		
+	}
+	/**
+	 * elimina el orden
+	 * @param orden orden que se va a eliminar
+	 * @return true si se eliminó el orden sino false
+	 * @throws ElementoNoEncontradoException si no existe el orden que se va a modificar
+	 */
+	public boolean eliminarOrden(Orden orden) throws ElementoNoEncontradoException {
+		
+		return adminEJB.eliminarOrden(orden)!=null;
+		
+	}
+	/**
+	 * Lista los ordenes
+	 * @return lista de ordenes
+	 */
+	public List<Orden> listarOrdenes(){
+		
+		return adminEJB.listarOrdenes();
+		
+	}
+	
+	/**
+	 * genera una lista de ordenes observables
+	 * 
+	 * @return todos los ordenes obsevables
+	 */
+	public ObservableList<OrdenObservable> listarOrdenesObservables() {
+		List<Orden> ordens = listarOrdenes();
+		ObservableList<OrdenObservable> ordensObservables = FXCollections.observableArrayList();
+		for (Orden orden : ordens) {
+			ordensObservables.add(new OrdenObservable(orden));
+		}
+		return ordensObservables;
+	}
+
+	/**
+	 * inserta una nueva familia
+	 * @param familia, familia que se va a agregar
+	 * @return true si se agregó la familia sino false
+	 * @throws ElementoRepetidoException cuando hay una familia con nombre repetido
+	 */
+	public boolean insertarFamilia(Familia familia) throws ElementoRepetidoException {
+			
+			return adminEJB.insertarFamilia(familia)!=null;
+			
+			
+	}
+	/**
+	 * buscar un familia de acuerdo a su id
+	 * @param id id de la familia a buscar
+	 * @return familia encontrado sino null
+	 */
+	public Familia buscarFamilia(String id) {
+		
+		return adminEJB.buscarFamilia(id);
+		
+	}
+	/**
+	 * buscar un familia de acuerdo a su nombre
+	 * @param nombre nombre de la familia a buscar
+	 * @return familia encontrado sino null
+	 */
+	public Familia buscarFamiliaPorSuNombre(String nombre) {
+		
+		return adminEJB.buscarFamiliaPorNombre(nombre);
+		
+	}
+	/**
+	 * modifica una familia
+	 * @param familia familia que se va a modificar
+	 * @return true si se modificó la familia sino false
+	 * @throws ElementoNoEncontradoException si no existe la familia que se va a modificar
+	 * @throws ElementoRepetidoException si la familia se le agregó un nombre que posee otra
+	 */
+	public boolean modificarFamilia(Familia familia) throws ElementoNoEncontradoException, ElementoRepetidoException{
+		
+		return adminEJB.modificarFamilia(familia)!=null;
+		
+	}
+	/**
+	 * elimina el familia
+	 * @param familia familia que se va a eliminar
+	 * @return true si se eliminó el familia sino false
+	 * @throws ElementoNoEncontradoException si no existe el familia que se va a modificar
+	 */
+	public boolean eliminarFamilia(Familia familia) throws ElementoNoEncontradoException {
+		
+		return adminEJB.eliminarFamilia(familia)!=null;
+		
+	}
+	/**
+	 * Lista los familias
+	 * @return lista de familias
+	 */
+	public List<Familia> listarFamilias(){
+		
+		return adminEJB.listarFamilias();
+		
+	}
+	
+	/**
+	 * genera una lista de familias observables
+	 * 
+	 * @return todos los familias obsevables
+	 */
+	public ObservableList<FamiliaObservable> listarFamiliasObservables() {
+		List<Familia> familias = listarFamilias();
+		ObservableList<FamiliaObservable> familiasObservables = FXCollections.observableArrayList();
+		for (Familia familia : familias) {
+			familiasObservables.add(new FamiliaObservable(familia));
+		}
+		return familiasObservables;
+	}
+
+	/**
+	 * inserta una nueva genero
+	 * @param genero, genero que se va a agregar
+	 * @return true si se agregó la genero sino false
+	 * @throws ElementoRepetidoException cuando hay una genero con nombre repetido
+	 */
+	public boolean insertarGenero(Genero genero) throws ElementoRepetidoException {
+			
+			return adminEJB.insertarGenero(genero)!=null;
+			
+			
+	}
+	/**
+	 * buscar un genero de acuerdo a su id
+	 * @param id id de la genero a buscar
+	 * @return genero encontrado sino null
+	 */
+	public Genero buscarGenero(String id) {
+		
+		return adminEJB.buscarGenero(id);
+		
+	}
+	/**
+	 * buscar un genero de acuerdo a su nombre
+	 * @param nombre nombre de la genero a buscar
+	 * @return genero encontrado sino null
+	 */
+	public Genero buscarGeneroPorSuNombre(String nombre) {
+		
+		return adminEJB.buscarGeneroPorNombre(nombre);
+		
+	}
+	/**
+	 * modifica una genero
+	 * @param genero genero que se va a modificar
+	 * @return true si se modificó la genero sino false
+	 * @throws ElementoNoEncontradoException si no existe la genero que se va a modificar
+	 * @throws ElementoRepetidoException si la genero se le agregó un nombre que posee otra
+	 */
+	public boolean modificarGenero(Genero genero) throws ElementoNoEncontradoException, ElementoRepetidoException{
+		
+		return adminEJB.modificarGenero(genero)!=null;
+		
+	}
+	/**
+	 * elimina el genero
+	 * @param genero genero que se va a eliminar
+	 * @return true si se eliminó el genero sino false
+	 * @throws ElementoNoEncontradoException si no existe el genero que se va a modificar
+	 */
+	public boolean eliminarGenero(Genero genero) throws ElementoNoEncontradoException {
+		
+		return adminEJB.eliminarGenero(genero)!=null;
+		
+	}
+	/**
+	 * Lista los generos
+	 * @return lista de generos
+	 */
+	public List<Genero> listarGeneros(){
+		
+		return adminEJB.listarGeneros();
+		
+	}
+	
+	/**
+	 * genera una lista de generos observables
+	 * 
+	 * @return todos los generos obsevables
+	 */
+	public ObservableList<GeneroObservable> listarGenerosObservables() {
+		List<Genero> generos = listarGeneros();
+		ObservableList<GeneroObservable> generosObservables = FXCollections.observableArrayList();
+		for (Genero genero : generos) {
+			generosObservables.add(new GeneroObservable(genero));
+		}
+		return generosObservables;
+	}
 
 }

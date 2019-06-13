@@ -44,7 +44,7 @@ public class AdminEJB implements AdminEJBRemote {
 		if (entityManager.find(Empleado.class, empleado.getCedula()) != null) {
 
 			throw new ElementoRepetidoException("El empleado con esa cedula ya está registrado");
-		} else if (buscarPorEmail(empleado) != null) {
+		} else if (comprobarEmailRepetido(empleado) != null) {
 			throw new ElementoRepetidoException("El empleado con ese email ya fue registrado");
 		}
 
@@ -62,7 +62,7 @@ public class AdminEJB implements AdminEJBRemote {
 	 * @param email email del empleado
 	 * @return empleado encontrado o null
 	 */
-	private String buscarPorEmail(Empleado empleado) {
+	private String comprobarEmailRepetido(Empleado empleado) {
 		try {
 			TypedQuery<String> query = entityManager.createNamedQuery(Empleado.BUSCAR_EMPLEADO_POR_EMAIL, String.class);
 			query.setParameter("email", empleado.getEmail());
@@ -77,7 +77,10 @@ public class AdminEJB implements AdminEJBRemote {
 		}
 
 	}
-
+	/*
+	 * (non-Javadoc)
+	 * @see co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#buscarEmpleado(java.lang.String)
+	 */
 	@Override
 	public Empleado buscarEmpleado(String cedula) {
 
@@ -89,7 +92,10 @@ public class AdminEJB implements AdminEJBRemote {
 			return null;
 		}
 	}
-
+	/*
+	 * (non-Javadoc)
+	 * @see co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#modificarEmpleado(co.edu.uniquindio.AAAD.persistencia.Empleado)
+	 */
 	@Override
 	public Empleado modificarEmpleado(Empleado empleado)
 			throws ElementoNoEncontradoException, ElementoRepetidoException {
@@ -97,7 +103,7 @@ public class AdminEJB implements AdminEJBRemote {
 
 			throw new ElementoNoEncontradoException("la empleado con ese id no se encuentra en la base de datos");
 
-		} else if (buscarPorEmail(empleado) != null) {
+		} else if (comprobarEmailRepetido(empleado) != null) {
 			throw new ElementoRepetidoException("El empleado con ese email ya fue registrado");
 		}
 
@@ -130,6 +136,8 @@ public class AdminEJB implements AdminEJBRemote {
 			return null;
 		}
 	}
+	
+	
 
 	/*
 	 * (non-Javadoc)
@@ -148,10 +156,10 @@ public class AdminEJB implements AdminEJBRemote {
 
 	}
 
-	
-
-	
-
+	/*
+	 * (non-Javadoc)
+	 * @see co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#buscarRecolector(java.lang.String)
+	 */
 	@Override
 	public Recolector buscarRecolector(String cedula) {
 
@@ -165,7 +173,10 @@ public class AdminEJB implements AdminEJBRemote {
 	}
 
 	
-
+	/*
+	 * (non-Javadoc)
+	 * @see co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#eliminarRecolector(co.edu.uniquindio.AAAD.persistencia.Recolector)
+	 */
 	@Override
 	public Recolector eliminarRecolector(Recolector recolector) throws ElementoNoEncontradoException {
 		if (entityManager.find(Recolector.class, recolector.getCedula()) == null) {
@@ -211,7 +222,7 @@ public class AdminEJB implements AdminEJBRemote {
 		if (entityManager.find(Clase.class, clase.getId()) != null) {
 
 			throw new ElementoRepetidoException("la clase con ese id ya está registrada");
-		} else if (buscarClasePorNombre(clase.getNombre()) != null) {
+		} else if (comprobarNombreRepetido(clase) != null) {
 			throw new ElementoRepetidoException("La clase con ese nombre ya está registrado");
 
 		}
@@ -242,15 +253,36 @@ public class AdminEJB implements AdminEJBRemote {
 	}
 
 	/**
-	 * metodo que busca una clase por su nombre
+	 * metodo que comprueba si una clase tiene nombre repetido
 	 * 
-	 * @param nombre nombre de la clase
+	 * @param clase clase a comprobar
 	 * @return clase encontrada o null
 	 */
-	private Clase buscarClasePorNombre(String nombre) {
+	private Clase comprobarNombreRepetido(Clase clase) {
 		try {
 			TypedQuery<Clase> query = entityManager.createNamedQuery(Clase.BUSCAR_POR_NOMBRE, Clase.class);
-			query.setParameter("nombre", nombre);
+			query.setParameter("nombre", clase.getNombre());
+			Clase clase2 = query.getSingleResult();
+			if (clase2.getNombre().equals(clase.getNombre())) {
+				return null;
+			}
+
+			return clase2;
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#buscarClasePorNombre(java.lang.String)
+	 */
+	@Override
+	public Clase buscarClasePorNombre(String nombre) {
+		try {
+			TypedQuery<Clase> query = entityManager.createNamedQuery(Clase.BUSCAR_POR_NOMBRE, Clase.class);
+			query.setParameter("nombre",nombre);
+
 			return query.getSingleResult();
 		} catch (NoResultException e) {
 			return null;
@@ -335,7 +367,7 @@ public class AdminEJB implements AdminEJBRemote {
 		if (entityManager.find(Orden.class, orden.getId()) != null) {
 
 			throw new ElementoRepetidoException("el orden con ese id ya está registrada");
-		} else if (buscarOrdenPorNombre(orden.getNombre()) != null) {
+		} else if (comprobarNombreRepetido(orden) != null) {
 			throw new ElementoRepetidoException("el orden con ese nombre ya está registrado");
 
 		}
@@ -366,15 +398,35 @@ public class AdminEJB implements AdminEJBRemote {
 	}
 
 	/**
-	 * metodo que busca un orden por su nombre
+	 * metodo que comprueba si una orden tiene nombre repetido
 	 * 
-	 * @param nombre nombre del nombre
-	 * @return nombre eliminado o null
+	 * @param orden orden a comprobar
+	 * @return orden encontrada o null
 	 */
-	private Orden buscarOrdenPorNombre(String nombre) {
+	private Orden comprobarNombreRepetido(Orden orden) {
 		try {
 			TypedQuery<Orden> query = entityManager.createNamedQuery(Orden.BUSCAR_POR_NOMBRE, Orden.class);
-			query.setParameter("nombre", nombre);
+			query.setParameter("nombre", orden.getNombre());
+			Orden orden2 = query.getSingleResult();
+			if (orden2.getNombre().equals(orden.getNombre())) {
+				return null;
+			}
+
+			return orden2;
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+	/*
+	 * (non-Javadoc)
+	 * @see co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#buscarOrdenPorNombre(java.lang.String)
+	 */
+	@Override
+	public Orden buscarOrdenPorNombre(String nombre) {
+		try {
+			TypedQuery<Orden> query = entityManager.createNamedQuery(Orden.BUSCAR_POR_NOMBRE, Orden.class);
+			query.setParameter("nombre",nombre);
+
 			return query.getSingleResult();
 		} catch (NoResultException e) {
 			return null;
@@ -459,7 +511,7 @@ public class AdminEJB implements AdminEJBRemote {
 		if (entityManager.find(Genero.class, genero.getId()) != null) {
 
 			throw new ElementoRepetidoException("el genero con ese id ya está registrada");
-		} else if (buscarGeneroPorNombre(genero.getNombre()) != null) {
+		} else if (comprobarNombreRepetido(genero) != null) {
 			throw new ElementoRepetidoException("el genero con ese nombre ya está registrado");
 
 		}
@@ -490,15 +542,35 @@ public class AdminEJB implements AdminEJBRemote {
 	}
 
 	/**
-	 * metodo que busca una genero por su nombre
+	 * metodo que comprueba si una genero tiene nombre repetido
 	 * 
-	 * @param nombre nombre del genero
-	 * @return genero encontrado o null
+	 * @param genero genero a comprobar
+	 * @return genero encontrada o null
 	 */
-	private Genero buscarGeneroPorNombre(String nombre) {
+	private Genero comprobarNombreRepetido(Genero genero) {
 		try {
 			TypedQuery<Genero> query = entityManager.createNamedQuery(Genero.BUSCAR_POR_NOMBRE, Genero.class);
-			query.setParameter("nombre", nombre);
+			query.setParameter("nombre", genero.getNombre());
+			Genero genero2 = query.getSingleResult();
+			if (genero2.getNombre().equals(genero.getNombre())) {
+				return null;
+			}
+
+			return genero2;
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+	/*
+	 * (non-Javadoc)
+	 * @see co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#buscarGeneroPorNombre(java.lang.String)
+	 */
+	@Override
+	public Genero buscarGeneroPorNombre(String nombre) {
+		try {
+			TypedQuery<Genero> query = entityManager.createNamedQuery(Genero.BUSCAR_POR_NOMBRE, Genero.class);
+			query.setParameter("nombre",nombre);
+
 			return query.getSingleResult();
 		} catch (NoResultException e) {
 			return null;
@@ -602,7 +674,7 @@ public class AdminEJB implements AdminEJBRemote {
 		if (entityManager.find(Familia.class, familia.getId()) != null) {
 
 			throw new ElementoRepetidoException("el familia con ese id ya está registrada");
-		} else if (buscarFamiliaPorNombre(familia.getNombre()) != null) {
+		} else if (comprobarNombreRepetido(familia) != null) {
 			throw new ElementoRepetidoException("el familia con ese nombre ya está registrado");
 
 		}
@@ -634,15 +706,35 @@ public class AdminEJB implements AdminEJBRemote {
 	}
 
 	/**
-	 * metodo que busca una familia por su nombre
+	 * metodo que comprueba si una familia tiene nombre repetido
 	 * 
-	 * @param nombre nombre del familia
-	 * @return familia encontrado o null
+	 * @param familia familia a comprobar
+	 * @return familia encontrada o null
 	 */
-	private Familia buscarFamiliaPorNombre(String nombre) {
+	private Familia comprobarNombreRepetido(Familia familia) {
 		try {
 			TypedQuery<Familia> query = entityManager.createNamedQuery(Familia.BUSCAR_POR_NOMBRE, Familia.class);
-			query.setParameter("nombre", nombre);
+			query.setParameter("nombre", familia.getNombre());
+			Familia familia2 = query.getSingleResult();
+			if (familia2.getNombre().equals(familia.getNombre())) {
+				return null;
+			}
+
+			return familia2;
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+	/*
+	 * (non-Javadoc)
+	 * @see co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#buscarFamiliaPorNombre(java.lang.String)
+	 */
+	@Override
+	public Familia buscarFamiliaPorNombre(String nombre) {
+		try {
+			TypedQuery<Familia> query = entityManager.createNamedQuery(Familia.BUSCAR_POR_NOMBRE, Familia.class);
+			query.setParameter("nombre",nombre);
+
 			return query.getSingleResult();
 		} catch (NoResultException e) {
 			return null;
@@ -715,12 +807,9 @@ public class AdminEJB implements AdminEJBRemote {
 	}
 
 	/*
-	 * Registrar especies vegetales (plantas). Al registrar la información de las
-	 * plantas se debe tomar en cuenta el nombre de la familia, del género y la
-	 * especie, además de poder cargar una imagen representativa de la especie.
+	 * (non-Javadoc)
+	 * @see co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#listarEspeciesEnEspera()
 	 */
-
-	
 	@Override
 	public List<Especie> listarEspeciesEnEspera() {
 
@@ -735,6 +824,10 @@ public class AdminEJB implements AdminEJBRemote {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#aceptarEspecie(co.edu.uniquindio.AAAD.persistencia.Especie)
+	 */
 	@Override
 	public Especie aceptarEspecie(Especie especie) {
 
@@ -750,6 +843,10 @@ public class AdminEJB implements AdminEJBRemote {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#rechazarEspecie(co.edu.uniquindio.AAAD.persistencia.Especie)
+	 */
 	@Override
 	public Especie rechazarEspecie(Especie especie) {
 
@@ -760,7 +857,6 @@ public class AdminEJB implements AdminEJBRemote {
 
 			return especie;
 		} catch (Exception e) {
-
 			return null;
 		}
 	}

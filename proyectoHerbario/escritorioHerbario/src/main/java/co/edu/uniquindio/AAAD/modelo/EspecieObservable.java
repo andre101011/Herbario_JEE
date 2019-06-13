@@ -1,6 +1,10 @@
 package co.edu.uniquindio.AAAD.modelo;
 
+import java.util.Date;
+
 import co.edu.uniquindio.AAAD.persistencia.Especie;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -37,6 +41,14 @@ public class EspecieObservable {
 	 * evaluador observable de un especie
 	 */
 	private StringProperty evaluador;
+	/**
+	 * justificación observable de una especie
+	 */
+	private StringProperty justificacion;
+	/**
+	 * fecha observable del registro de una especie
+	 */
+	private ObjectProperty<Date> fecha;
 	
 	/**
 	 * especie asociado
@@ -57,6 +69,8 @@ public class EspecieObservable {
 		this.estado=new SimpleStringProperty(especie.getRegistroPlanta().getEstado().toString());
 		this.recolector=new SimpleStringProperty(especie.getRegistroPlanta().getEnviadorDelRegistro().getNombre());
 		this.evaluador=new SimpleStringProperty(especie.getRegistroPlanta().getEvaluadorDelRegistro().getNombre());
+		this.justificacion=new SimpleStringProperty(especie.getRegistroPlanta().getJustificacion());
+		this.fecha=new SimpleObjectProperty<Date>(especie.getRegistroPlanta().getFecha());
 
 
 	}
@@ -130,6 +144,76 @@ public class EspecieObservable {
 	 */
 	public void setEspecie(Especie especie) {
 		this.especie = especie;
+	}
+
+	/**
+	 * @return the estado
+	 */
+	public StringProperty getEstado() {
+		return estado;
+	}
+
+	/**
+	 * @param estado the estado to set
+	 */
+	public void setEstado(StringProperty estado) {
+		this.estado = estado;
+	}
+
+	/**
+	 * @return the recolector
+	 */
+	public StringProperty getRecolector() {
+		return recolector;
+	}
+
+	/**
+	 * @param recolector the recolector to set
+	 */
+	public void setRecolector(StringProperty recolector) {
+		this.recolector = recolector;
+	}
+
+	/**
+	 * @return the evaluador
+	 */
+	public StringProperty getEvaluador() {
+		return evaluador;
+	}
+
+	/**
+	 * @param evaluador the evaluador to set
+	 */
+	public void setEvaluador(StringProperty evaluador) {
+		this.evaluador = evaluador;
+	}
+
+	/**
+	 * @return the justificacion
+	 */
+	public StringProperty getJustificacion() {
+		return justificacion;
+	}
+
+	/**
+	 * @param justificacion the justificacion to set
+	 */
+	public void setJustificacion(StringProperty justificacion) {
+		this.justificacion = justificacion;
+	}
+
+	/**
+	 * @return the fecha
+	 */
+	public ObjectProperty<Date> getFecha() {
+		return fecha;
+	}
+
+	/**
+	 * @param fecha the fecha to set
+	 */
+	public void setFecha(ObjectProperty<Date> fecha) {
+		this.fecha = fecha;
 	}
 	
 	

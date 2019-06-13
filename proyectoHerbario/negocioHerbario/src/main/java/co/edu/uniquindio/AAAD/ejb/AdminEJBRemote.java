@@ -79,25 +79,6 @@ public interface AdminEJBRemote {
 	 */
 	List<Recolector> listarRecolectores();
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 	/**
 	 * Permite agregar una clase 
 	 * @param clase clase a agregar
@@ -277,6 +258,31 @@ public interface AdminEJBRemote {
 	 * @return especie rechazada, null si hubo alguna excepcion
 	 */
 	Especie rechazarEspecie(Especie especie);
+
+	/**
+	 * Busca una clase de acuerdo a su nombre
+	 * @param nombre, de la clase a buscar
+	 * @return clase encontrada sino null
+	 */
+	Clase buscarClasePorNombre(String nombre);
+	/**
+	 * Busca una orden de acuerdo a su nombre
+	 * @param nombre, de la orden a buscar
+	 * @return orden encontrada sino null
+	 */
+	Orden buscarOrdenPorNombre(String nombre);
+	/**
+	 * Busca una familia de acuerdo a su nombre
+	 * @param nombre, de la familia a buscar
+	 * @return familia encontrada sino null
+	 */
+	Familia buscarFamiliaPorNombre(String nombre);
+	/**
+	 * Busca una genero de acuerdo a su nombre
+	 * @param nombre, de la genero a buscar
+	 * @return genero encontrada sino null
+	 */
+	Genero buscarGeneroPorNombre(String nombre);
 
 	
 	

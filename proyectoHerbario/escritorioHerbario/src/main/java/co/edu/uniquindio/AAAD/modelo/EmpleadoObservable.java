@@ -54,9 +54,9 @@ public class EmpleadoObservable {
 	 * 
 	 * @param empleado que se quiere volver observable
 	 */
-	public EmpleadoObservable(Persona empleado) {
+	public EmpleadoObservable(Empleado empleado) {
 
-		this.empleado = (Empleado) empleado;
+		this.empleado = empleado;
 		this.cedula = new SimpleStringProperty(empleado.getCedula());
 		this.nombre = new SimpleStringProperty(empleado.getNombre());
 		this.email = new SimpleStringProperty(empleado.getEmail());
