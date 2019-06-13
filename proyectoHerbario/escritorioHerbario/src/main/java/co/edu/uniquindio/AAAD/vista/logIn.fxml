@@ -42,15 +42,21 @@
                   <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label text="Correo electronico:" GridPane.rowIndex="1" />
+                  <Label text="Correo electronico:" textFill="WHITE" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font></Label>
                   <TextArea maxHeight="-Infinity" prefHeight="20.0" prefWidth="200.0" GridPane.rowIndex="4" />
                   <TextArea maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="20.0" prefWidth="200.0" GridPane.rowIndex="2" />
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="126.0" text="Ingresar" GridPane.rowIndex="5" />
-                  <Label text="Contraseña" GridPane.rowIndex="3" />
-                  <Hyperlink text="Olvidé mi contraseña" GridPane.rowIndex="6" />
-                  <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" prefHeight="18.0" prefWidth="270.0" text="Herbario UQ" textAlignment="CENTER">
+                  <Button fx:id="btnIngresar" mnemonicParsing="false" onAction="#comprobarCredenciales" prefHeight="26.0" prefWidth="126.0" text="Ingresar" GridPane.rowIndex="5" />
+                  <Label text="Contraseña" textFill="WHITE" GridPane.rowIndex="3">
                      <font>
-                        <Font name="Poor Richard" size="33.0" />
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font></Label>
+                  <Hyperlink text="Olvidé mi contraseña" GridPane.rowIndex="6" />
+                  <Label alignment="TOP_CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" prefHeight="18.0" prefWidth="270.0" text="Herbario UQ" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="The Historia Demo" size="57.0" />
                      </font>
                   </Label>
                </children>

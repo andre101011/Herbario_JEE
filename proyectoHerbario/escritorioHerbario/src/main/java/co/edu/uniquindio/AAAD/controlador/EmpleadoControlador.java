@@ -44,8 +44,6 @@ public class EmpleadoControlador {
 	/**
 	 * etiqueta de apellido
 	 */
-	@FXML
-	private Label txtApellido;
 	/**
 	 * etiqueta de email
 	 */
@@ -59,8 +57,6 @@ public class EmpleadoControlador {
 	/**
 	 * etiqueta de fecha
 	 */
-	@FXML
-	private Label txtFechaNacimiento;
 	/**
 	 * instancia del manejador de escenario
 	 */
@@ -109,17 +105,13 @@ public class EmpleadoControlador {
 			empleadoObservable = empleado;
 			txtCedula.setText(empleado.getCedula().getValue());
 			txtNombre.setText(empleado.getNombre().getValue());
-			txtApellido.setText(empleado.getApellido().getValue());
 			txtEmail.setText(empleado.getEmail().getValue());
 			txtClave.setText(empleado.getClave().getValue());
-			txtFechaNacimiento.setText(empleado.getFechaNacimiento().getValue().toString());
 		} else {
 			txtCedula.setText("");
 			txtNombre.setText("");
-			txtApellido.setText("");
 			txtEmail.setText("");
 			txtClave.setText("");
-			txtFechaNacimiento.setText("");
 		}
 
 	}

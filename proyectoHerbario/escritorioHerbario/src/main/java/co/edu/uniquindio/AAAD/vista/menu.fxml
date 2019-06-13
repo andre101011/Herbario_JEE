@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<BorderPane prefHeight="373.0" prefWidth="720.0" stylesheets="@menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <GridPane BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button fx:id="btnGestionarClases" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Gestionar Clases">
+               <GridPane.margin>
+                  <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="btnGestionarOrdenes" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Gestionar Ordenes" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="btnGestionarFamilias" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Gestionar Familias" GridPane.columnIndex="2">
+               <GridPane.margin>
+                  <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="btnGestionarEspecies" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Gestionar Especies" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="btnGestionarEmpleados" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Gestionar Empleados" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="btnGestionarRecolectores" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Gestionar Recolectores" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="btnGestionarGeneros" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Gestionar Generos" GridPane.columnIndex="3">
+               <GridPane.margin>
+                  <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="btnCerrarSesion" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Cerrar Sesión" GridPane.columnIndex="3" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+               </GridPane.margin>
+            </Button>
+         </children>
+      </GridPane>
+   </center>
+</BorderPane>

@@ -42,7 +42,7 @@ public class ManejadorEscenarios {
 	private AdministradorDelegado administradorDelegado;
 
 	/**
-	 * recibe el escenario principla de la aplicacion
+	 * recibe el escenario principal de la aplicacion
 	 * 
 	 * @param escenario inicial
 	 */
