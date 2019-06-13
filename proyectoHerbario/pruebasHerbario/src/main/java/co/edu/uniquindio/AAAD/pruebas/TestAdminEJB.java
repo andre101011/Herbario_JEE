@@ -84,7 +84,7 @@ public class TestAdminEJB {
 		
 		
 		Genero genero=new Genero();
-		genero.setId("123");
+		genero.setId(123L);
 		genero.setNombre("G1");
 	
 		

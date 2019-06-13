@@ -1,6 +1,8 @@
 package co.edu.uniquindio.AAAD.modelo;
 
 import co.edu.uniquindio.AAAD.persistencia.Genero;
+import javafx.beans.property.LongProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -16,7 +18,7 @@ public class GeneroObservable {
 	/**
 	 * id observable de un genero
 	 */
-	private StringProperty id;
+	private LongProperty id;
 	/**
 	 * familia observable de un genero
 	 */
@@ -38,7 +40,7 @@ public class GeneroObservable {
 	public GeneroObservable(Genero genero) {
 
 		this.genero = (Genero) genero;
-		this.id= new SimpleStringProperty(genero.getId());
+		this.id= new SimpleLongProperty(genero.getId());
 		this.familia= new SimpleStringProperty(genero.getFamiliaDelGenero().getNombre());
 		this.nombre = new SimpleStringProperty(genero.getNombre());
 
@@ -50,9 +52,9 @@ public class GeneroObservable {
 	 * 
 	 * @param nombre
 	 */
-	public GeneroObservable(String id, String familia,String nombre) {
+	public GeneroObservable(Long id, String familia,String nombre) {
 		
-		this.id = new SimpleStringProperty(id);
+		this.id = new SimpleLongProperty(id);
 		this.familia = new SimpleStringProperty(familia);
 		this.nombre = new SimpleStringProperty(nombre);
 	}
@@ -63,14 +65,14 @@ public class GeneroObservable {
 	/**
 	 * @return the id
 	 */
-	public StringProperty getId() {
+	public LongProperty getId() {
 		return id;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(StringProperty id) {
+	public void setId(LongProperty id) {
 		this.id = id;
 	}
 

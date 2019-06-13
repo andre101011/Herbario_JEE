@@ -1,6 +1,8 @@
 package co.edu.uniquindio.AAAD.modelo;
 
 import co.edu.uniquindio.AAAD.persistencia.Clase;
+import javafx.beans.property.LongProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -16,7 +18,7 @@ public class ClaseObservable {
 	/**
 	 * id observable de una clase
 	 */
-	private StringProperty id;
+	private LongProperty id;
 	/**
 	 * nombre observable de una clase
 	 */
@@ -34,7 +36,7 @@ public class ClaseObservable {
 	public ClaseObservable(Clase clase) {
 		
 		this.clase = (Clase) clase;
-		this.id=new SimpleStringProperty(clase.getId());
+		this.id=new SimpleLongProperty(clase.getId());
 		this.nombre = new SimpleStringProperty(clase.getNombre());
 
 
@@ -44,9 +46,9 @@ public class ClaseObservable {
 	 * 
 	 * @param nombre
 	 */
-	public ClaseObservable(String id,String nombre) {
+	public ClaseObservable(Long id,String nombre) {
 
-		this.id=new SimpleStringProperty(id);
+		this.id=new SimpleLongProperty(id);
 		this.nombre = new SimpleStringProperty(nombre);
 	}
 
@@ -55,13 +57,13 @@ public class ClaseObservable {
 	/**
 	 * @return the id
 	 */
-	public StringProperty getId() {
+	public LongProperty getId() {
 		return id;
 	}
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(StringProperty id) {
+	public void setId(LongProperty id) {
 		this.id = id;
 	}
 	/**

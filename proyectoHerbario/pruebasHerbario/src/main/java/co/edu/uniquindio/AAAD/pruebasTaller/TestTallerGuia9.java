@@ -145,10 +145,10 @@ public class TestTallerGuia9 {
 		
 		for (Object[] objects : lista) {
 			String cedula = (String)objects[0];
-			String idRegistro="";
+			long idRegistro=-1;
 			Registro registro = (Registro) objects[1];
 			if (registro==null) {
-				idRegistro="null";
+				idRegistro=-1;
 			}else {
 				idRegistro=registro.getId();
 			}

@@ -1,6 +1,8 @@
 package co.edu.uniquindio.AAAD.modelo;
 
 import co.edu.uniquindio.AAAD.persistencia.Familia;
+import javafx.beans.property.LongProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -16,7 +18,7 @@ public class FamiliaObservable {
 	/**
 	 * id observable de un familia
 	 */
-	private StringProperty id;
+	private LongProperty id;
 	/**
 	 * orden observable de un familia
 	 */
@@ -38,7 +40,7 @@ public class FamiliaObservable {
 	public FamiliaObservable(Familia familia) {
 
 		this.familia = (Familia) familia;
-		this.id= new SimpleStringProperty(familia.getId());
+		this.id= new SimpleLongProperty(familia.getId());
 		this.orden= new SimpleStringProperty(familia.getOrdenDelaFamilia().getNombre());
 		this.nombre = new SimpleStringProperty(familia.getNombre());
 
@@ -50,9 +52,9 @@ public class FamiliaObservable {
 	 * 
 	 * @param nombre
 	 */
-	public FamiliaObservable(String id, String orden,String nombre) {
+	public FamiliaObservable(Long id, String orden,String nombre) {
 		
-		this.id = new SimpleStringProperty(id);
+		this.id = new SimpleLongProperty(id);
 		this.orden = new SimpleStringProperty(orden);
 		this.nombre = new SimpleStringProperty(nombre);
 	}
@@ -63,14 +65,14 @@ public class FamiliaObservable {
 	/**
 	 * @return the id
 	 */
-	public StringProperty getId() {
+	public LongProperty getId() {
 		return id;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(StringProperty id) {
+	public void setId(LongProperty id) {
 		this.id = id;
 	}
 

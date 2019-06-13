@@ -142,7 +142,7 @@ public class TestTaller {
 
 		TypedQuery<Object[]> query = entityManager.createNamedQuery(Familia.OBTENER_FAMILIA_MAS_ESPECIES, Object[].class);
 		List<Object[]> resul = query.getResultList();
-		String id=((Familia)(resul.get(0)[0])).getId();
+		long id=((Familia)(resul.get(0)[0])).getId();
 		Long cantidad=(Long)(resul.get(0)[1]);
 		Assert.assertEquals("1", id);
 		Assert.assertEquals(3, cantidad.longValue());

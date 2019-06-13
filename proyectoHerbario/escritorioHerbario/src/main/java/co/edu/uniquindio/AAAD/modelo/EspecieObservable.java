@@ -3,7 +3,9 @@ package co.edu.uniquindio.AAAD.modelo;
 import java.util.Date;
 
 import co.edu.uniquindio.AAAD.persistencia.Especie;
+import javafx.beans.property.LongProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -20,7 +22,7 @@ public class EspecieObservable {
 	/**
 	 * id observable de un especie
 	 */
-	private StringProperty id;
+	private LongProperty id;
 	/**
 	 * genero observable de un especie
 	 */
@@ -63,7 +65,7 @@ public class EspecieObservable {
 	public EspecieObservable(Especie especie) {
 
 		this.especie = (Especie) especie;
-		this.id= new SimpleStringProperty(especie.getId());
+		this.id= new SimpleLongProperty(especie.getId());
 		this.genero= new SimpleStringProperty(especie.getGeneroDeEspecie().getNombre());
 		this.nombre = new SimpleStringProperty(especie.getNombre());
 		this.estado=new SimpleStringProperty(especie.getRegistroPlanta().getEstado().toString());
@@ -80,9 +82,9 @@ public class EspecieObservable {
 	 * 
 	 * @param nombre
 	 */
-	public EspecieObservable(String id, String genero,String nombre) {
+	public EspecieObservable(Long id, String genero,String nombre) {
 		
-		this.id = new SimpleStringProperty(id);
+		this.id = new SimpleLongProperty(id);
 		this.genero = new SimpleStringProperty(genero);
 		this.nombre = new SimpleStringProperty(nombre);
 	}
@@ -93,14 +95,14 @@ public class EspecieObservable {
 	/**
 	 * @return the id
 	 */
-	public StringProperty getId() {
+	public LongProperty getId() {
 		return id;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(StringProperty id) {
+	public void setId(LongProperty id) {
 		this.id = id;
 	}
 
