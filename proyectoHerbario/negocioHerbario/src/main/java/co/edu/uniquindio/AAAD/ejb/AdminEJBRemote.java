@@ -234,12 +234,6 @@ public interface AdminEJBRemote {
 	List<Familia> listarFamilias();
 
 	/**
-	 * permite pedir la lista de especies aceptadas
-	 * @return lista de especies aceptadas
-	 */
-	List<Especie> listarEspeciesAceptadas();
-
-	/**
 	 * Permite pedir la lista de especies en espera
 	 * @return lista de especies con registro en espera, null si no hay
 	 */

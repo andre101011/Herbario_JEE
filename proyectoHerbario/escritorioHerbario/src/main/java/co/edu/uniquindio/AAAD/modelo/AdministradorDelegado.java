@@ -9,7 +9,6 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import co.edu.uniquindio.AAAD.ejb.AdminEJBRemote;
-import co.edu.uniquindio.AAAD.ejb.NegocioEJB;
 import co.edu.uniquindio.AAAD.ejb.NegocioEJBRemote;
 import co.edu.uniquindio.AAAD.persistencia.Clase;
 import co.edu.uniquindio.AAAD.persistencia.Empleado;
@@ -17,6 +16,7 @@ import co.edu.uniquindio.AAAD.persistencia.Especie;
 import co.edu.uniquindio.AAAD.persistencia.Familia;
 import co.edu.uniquindio.AAAD.persistencia.Genero;
 import co.edu.uniquindio.AAAD.persistencia.Orden;
+import co.edu.uniquindio.AAAD.persistencia.Persona;
 import co.edu.uniquindio.AAAD.persistencia.Recolector;
 import co.edu.uniquindio.AAAD.persistencia.Registro;
 import co.edu.uniquindio.AAAD.excepciones.ElementoNoEncontradoException;
@@ -44,6 +44,10 @@ public class AdministradorDelegado {
 	 * permite manejar una unica instancia para le manejo de delegados
 	 */
 	public static AdministradorDelegado administradorDelegado = instancia();
+	/**
+	 * Usuario que está usando la aplicación
+	 */
+	private Persona usuario;
 
 	/**
 	 * constructor para conectar con la capa de negocio
@@ -72,10 +76,21 @@ public class AdministradorDelegado {
 		}
 		return administradorDelegado;
 	}
-
+	/**
+	 * Comprueba las credenciales de una persona que inicio sesión
+	 * @param correo correo de la persona
+	 * @param clave clave de la persona
+	 * @return true si el email y la clave son correctas sino false
+	 */
 	public boolean comprobarCredenciales(String correo, String clave) {
 		
-		return negocioEJB.comprobarCredenciales(correo, clave)!=null;
+		 Persona usuario=negocioEJB.comprobarCredenciales(correo, clave);
+		 
+		 if (usuario!=null) {
+			return true;
+		}else {
+			return false;
+		}
 		
 		
 	}
@@ -622,7 +637,7 @@ public class AdministradorDelegado {
 	public boolean registrarEspecie(Registro registro) throws ElementoRepetidoException {
 		return negocioEJB.registrarEspecie(registro) != null;
 	}
-
+	
 	public boolean aceptarEspecie(Especie especie) {
 
 		return adminEJB.aceptarEspecie(especie) != null;
@@ -663,5 +678,199 @@ public class AdministradorDelegado {
 		}
 		return especiesObservables;
 	}
+	
+	/**
+	 * Lista los especies en espera
+	 * 
+	 * @return lista de especies en espera
+	 */
+	public List<Especie> listarEspeciesEnEspera() {
+		
+		return adminEJB.listarEspeciesEnEspera();
+
+	}
+
+	/**
+	 * genera una lista de especies en espera observables
+	 * 
+	 * @return todos los especies en espera obsevables 
+	 */
+	public ObservableList<EspecieObservable> listarEspeciesEnEsperaObservables() {
+		List<Especie> especies = listarEspeciesEnEspera();
+		ObservableList<EspecieObservable> especiesObservables = FXCollections.observableArrayList();
+		for (Especie especie : especies) {
+			especiesObservables.add(new EspecieObservable(especie));
+		}
+		return especiesObservables;
+	}
+	
+	/**
+	 * Lista los especies aceptadas
+	 * 
+	 * @return lista de especies aceptadas
+	 */
+	public List<Especie> listarEspeciesAceptadas() {
+		
+		return negocioEJB.listarEspeciesAceptadas();
+
+	}
+
+	/**
+	 * genera una lista de especies en espera observables
+	 * 
+	 * @return todos los especies obsevables
+	 */
+	public ObservableList<EspecieObservable> listarEspeciesAceptadasObservables() {
+		List<Especie> especies = listarEspeciesAceptadas();
+		ObservableList<EspecieObservable> especiesObservables = FXCollections.observableArrayList();
+		for (Especie especie : especies) {
+			especiesObservables.add(new EspecieObservable(especie));
+		}
+		return especiesObservables;
+	}
+	
+	/**
+	 * Lista los especies rechazadas
+	 * 
+	 * @return lista de especies rechazadas
+	 */
+	public List<Especie> listarEspeciesRechazadas() {
+		
+		return negocioEJB.listarEspeciesRechazados();
+
+	}
+
+	/**
+	 * genera una lista de especies rechazadas
+	 * 
+	 * @return todos los especies rechazadas
+	 */
+	public ObservableList<EspecieObservable> listarEspeciesRechazadasObservables() {
+		List<Especie> especies = listarEspeciesRechazadas();
+		ObservableList<EspecieObservable> especiesObservables = FXCollections.observableArrayList();
+		for (Especie especie : especies) {
+			especiesObservables.add(new EspecieObservable(especie));
+		}
+		return especiesObservables;
+	}
+	
+	
+	/**
+	 * Lista los especies por orden
+	 * 
+	 * @return lista de especies por orden
+	 */
+	public List<Especie> listarEspeciesPorOrden(Orden orden) {
+		
+		return negocioEJB.listarEspeciesPorOrden(orden);
+
+	}
+
+	/**
+	 * Genera una lista de especies por orden observables
+	 * @param orden orden de la especie
+	 * @return lista de especies de acuerdo a un orden
+	 */
+	public ObservableList<EspecieObservable> listarEspeciesPorOrdenObservables(Orden orden) {
+		List<Especie> especies = listarEspecies();
+		ObservableList<EspecieObservable> especiesObservables = FXCollections.observableArrayList();
+		for (Especie especie : especies) {
+			especiesObservables.add(new EspecieObservable(especie));
+		}
+		return especiesObservables;
+	}
+	
+
+	/**
+	 * Lista los especies por clase
+	 * 
+	 * @return lista de especies por clase
+	 */
+	public List<Especie> listarEspeciesPorClase(Clase clase) {
+		
+		return negocioEJB.listarEspeciesPorClase(clase);
+
+	}
+
+	/**
+	 * Genera una lista de especies por clase observables
+	 * @param clase clase de la especie
+	 * @return lista de especies de acuerdo a un clase
+	 */
+	public ObservableList<EspecieObservable> listarEspeciesPorClaseObservables(Clase clase) {
+		List<Especie> especies = listarEspecies();
+		ObservableList<EspecieObservable> especiesObservables = FXCollections.observableArrayList();
+		for (Especie especie : especies) {
+			especiesObservables.add(new EspecieObservable(especie));
+		}
+		return especiesObservables;
+	}
+
+	/**
+	 * Lista los especies por familia
+	 * 
+	 * @return lista de especies por familia
+	 */
+	public List<Especie> listarEspeciesPorFamilia(Familia familia) {
+		
+		return negocioEJB.listarEspeciesPorFamilia(familia);
+
+	}
+
+	/**
+	 * Genera una lista de especies por familia observables
+	 * @param familia familia de la especie
+	 * @return lista de especies de acuerdo a un familia
+	 */
+	public ObservableList<EspecieObservable> listarEspeciesPorFamiliaObservables(Familia familia) {
+		List<Especie> especies = listarEspecies();
+		ObservableList<EspecieObservable> especiesObservables = FXCollections.observableArrayList();
+		for (Especie especie : especies) {
+			especiesObservables.add(new EspecieObservable(especie));
+		}
+		return especiesObservables;
+	}
+
+	/**
+	 * Lista los especies por genero
+	 * 
+	 * @return lista de especies por genero
+	 */
+	public List<Especie> listarEspeciesPorGenero(Genero genero) {
+		
+		return negocioEJB.listarEspeciesPorGenero(genero);
+
+	}
+
+	/**
+	 * Genera una lista de especies por genero observables
+	 * @param genero genero de la especie
+	 * @return lista de especies de acuerdo a un genero
+	 */
+	public ObservableList<EspecieObservable> listarEspeciesPorGeneroObservables(Genero genero) {
+		List<Especie> especies = listarEspecies();
+		ObservableList<EspecieObservable> especiesObservables = FXCollections.observableArrayList();
+		for (Especie especie : especies) {
+			especiesObservables.add(new EspecieObservable(especie));
+		}
+		return especiesObservables;
+	}
+	/**
+	 * @return the usuario
+	 */
+	public Persona getUsuario() {
+		return usuario;
+	}
+
+
+
+	/**
+	 * @param usuario the usuario to set
+	 */
+	public void setUsuario(Persona usuario) {
+		this.usuario = usuario;
+	}
+	
+	
 
 }

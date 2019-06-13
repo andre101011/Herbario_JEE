@@ -645,25 +645,6 @@ public class AdminEJB implements AdminEJBRemote {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#listarEspeciesAceptadas()
-	 */
-	@Override
-	public List<Especie> listarEspeciesAceptadas() {
-
-		try {
-			TypedQuery<Especie> query = entityManager.createNamedQuery(Especie.LISTAR_POR_ESTADO, Especie.class);
-			query.setParameter("est", Estado.Aceptado);
-			List<Especie> lista = query.getResultList();
-			return lista;
-		} catch (Exception e) {
-			return null;
-		}
-
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see
 	 * co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#insertarFamilia(co.edu.uniquindio.
 	 * AAAD.persistencia.Familia)
