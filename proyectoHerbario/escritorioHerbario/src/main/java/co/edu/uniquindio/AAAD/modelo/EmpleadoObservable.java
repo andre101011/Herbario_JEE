@@ -62,7 +62,6 @@ public class EmpleadoObservable {
 		this.email = new SimpleStringProperty(empleado.getEmail());
 		this.clave = new SimpleStringProperty(empleado.getClave());
 
-
 	}
 
 	/**
@@ -79,7 +78,6 @@ public class EmpleadoObservable {
 		this.nombre = new SimpleStringProperty(nombre);
 		this.email = new SimpleStringProperty(email);
 		this.clave = new SimpleStringProperty(clave);
-		
 
 	}
 

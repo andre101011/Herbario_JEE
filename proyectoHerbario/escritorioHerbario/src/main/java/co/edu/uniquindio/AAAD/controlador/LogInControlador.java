@@ -3,14 +3,15 @@
  */
 package co.edu.uniquindio.AAAD.controlador;
 
-import java.awt.TextField;
+
 
 import co.edu.uniquindio.AAAD.modelo.AdministradorDelegado;
-import co.edu.uniquindio.AAAD.modelo.EmpleadoObservable;
 import co.edu.uniquindio.AAAD.util.Utilidades;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  * @author Andres y Daniel
@@ -27,8 +28,8 @@ public class LogInControlador {
 	private Hyperlink btnOlvideContrasenia;
 
 	private AdministradorDelegado administradorDelegado;
-
-	private ManejadorEscenarios escenarioInicial;
+	private Stage escenario;
+	private ManejadorEscenarios manejadorEscenarios;
 
 	public LogInControlador() {
 	}
@@ -45,15 +46,20 @@ public class LogInControlador {
 		String clave = jtfClave.getText();
 
 		if (administradorDelegado.comprobarCredenciales(correo, clave)) {
-			escenarioInicial.cargarEscenarioMenu();
+			manejadorEscenarios.cargarEscenarioMenu();
 		} else {
 			Utilidades.mostrarMensaje("Datos equivocados!", "Por favor verifica tu correo y contraseña");
 		}
 
 	}
 
-	public void setEscenarioInicial(ManejadorEscenarios escenarioInicial) {
-		this.escenarioInicial = escenarioInicial;
+	public void setEscenario(Stage escenario) {
+		this.escenario = escenario;
+	}
+
+	public void setManejadorEscenarios(ManejadorEscenarios manejadorEscenarios) {
+		this.manejadorEscenarios = manejadorEscenarios;
+
 	}
 
 }

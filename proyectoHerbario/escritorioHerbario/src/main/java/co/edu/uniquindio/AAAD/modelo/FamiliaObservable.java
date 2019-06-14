@@ -40,10 +40,9 @@ public class FamiliaObservable {
 	public FamiliaObservable(Familia familia) {
 
 		this.familia = (Familia) familia;
-		this.id= new SimpleLongProperty(familia.getId());
-		this.orden= new SimpleStringProperty(familia.getOrdenDelaFamilia().getNombre());
+		this.id = new SimpleLongProperty(familia.getId());
+		this.orden = new SimpleStringProperty(familia.getOrdenDelaFamilia().getNombre());
 		this.nombre = new SimpleStringProperty(familia.getNombre());
-
 
 	}
 
@@ -52,16 +51,13 @@ public class FamiliaObservable {
 	 * 
 	 * @param nombre
 	 */
-	public FamiliaObservable(Long id, String orden,String nombre) {
-		
+	public FamiliaObservable(Long id, String orden, String nombre) {
+
 		this.id = new SimpleLongProperty(id);
 		this.orden = new SimpleStringProperty(orden);
 		this.nombre = new SimpleStringProperty(nombre);
 	}
 
-	
-	
-	
 	/**
 	 * @return the id
 	 */
@@ -117,7 +113,5 @@ public class FamiliaObservable {
 	public void setFamilia(Familia familia) {
 		this.familia = familia;
 	}
-	
-	
 
 }

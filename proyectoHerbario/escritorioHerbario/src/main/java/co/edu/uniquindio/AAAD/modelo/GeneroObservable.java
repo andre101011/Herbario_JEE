@@ -40,10 +40,9 @@ public class GeneroObservable {
 	public GeneroObservable(Genero genero) {
 
 		this.genero = (Genero) genero;
-		this.id= new SimpleLongProperty(genero.getId());
-		this.familia= new SimpleStringProperty(genero.getFamiliaDelGenero().getNombre());
+		this.id = new SimpleLongProperty(genero.getId());
+		this.familia = new SimpleStringProperty(genero.getFamiliaDelGenero().getNombre());
 		this.nombre = new SimpleStringProperty(genero.getNombre());
-
 
 	}
 
@@ -52,16 +51,13 @@ public class GeneroObservable {
 	 * 
 	 * @param nombre
 	 */
-	public GeneroObservable(Long id, String familia,String nombre) {
-		
+	public GeneroObservable(Long id, String familia, String nombre) {
+
 		this.id = new SimpleLongProperty(id);
 		this.familia = new SimpleStringProperty(familia);
 		this.nombre = new SimpleStringProperty(nombre);
 	}
 
-	
-	
-	
 	/**
 	 * @return the id
 	 */
@@ -117,7 +113,5 @@ public class GeneroObservable {
 	public void setGenero(Genero genero) {
 		this.genero = genero;
 	}
-	
-	
 
 }

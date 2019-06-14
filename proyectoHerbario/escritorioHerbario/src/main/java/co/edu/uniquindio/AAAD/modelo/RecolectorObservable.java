@@ -62,7 +62,6 @@ public class RecolectorObservable {
 		this.email = new SimpleStringProperty(recolector.getEmail());
 		this.clave = new SimpleStringProperty(recolector.getClave());
 
-
 	}
 
 	/**
@@ -79,7 +78,6 @@ public class RecolectorObservable {
 		this.nombre = new SimpleStringProperty(nombre);
 		this.email = new SimpleStringProperty(email);
 		this.clave = new SimpleStringProperty(clave);
-		
 
 	}
 

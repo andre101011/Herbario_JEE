@@ -51,7 +51,7 @@ public class EspecieObservable {
 	 * fecha observable del registro de una especie
 	 */
 	private ObjectProperty<Date> fecha;
-	
+
 	/**
 	 * especie asociado
 	 */
@@ -65,15 +65,14 @@ public class EspecieObservable {
 	public EspecieObservable(Especie especie) {
 
 		this.especie = (Especie) especie;
-		this.id= new SimpleLongProperty(especie.getId());
-		this.genero= new SimpleStringProperty(especie.getGeneroDeEspecie().getNombre());
+		this.id = new SimpleLongProperty(especie.getId());
+		this.genero = new SimpleStringProperty(especie.getGeneroDeEspecie().getNombre());
 		this.nombre = new SimpleStringProperty(especie.getNombre());
-		this.estado=new SimpleStringProperty(especie.getRegistroPlanta().getEstado().toString());
-		this.recolector=new SimpleStringProperty(especie.getRegistroPlanta().getEnviadorDelRegistro().getNombre());
-		this.evaluador=new SimpleStringProperty(especie.getRegistroPlanta().getEvaluadorDelRegistro().getNombre());
-		this.justificacion=new SimpleStringProperty(especie.getRegistroPlanta().getJustificacion());
-		this.fecha=new SimpleObjectProperty<Date>(especie.getRegistroPlanta().getFecha());
-
+		this.estado = new SimpleStringProperty(especie.getRegistroPlanta().getEstado().toString());
+		this.recolector = new SimpleStringProperty(especie.getRegistroPlanta().getEnviadorDelRegistro().getNombre());
+		this.evaluador = new SimpleStringProperty(especie.getRegistroPlanta().getEvaluadorDelRegistro().getNombre());
+		this.justificacion = new SimpleStringProperty(especie.getRegistroPlanta().getJustificacion());
+		this.fecha = new SimpleObjectProperty<Date>(especie.getRegistroPlanta().getFecha());
 
 	}
 
@@ -82,16 +81,13 @@ public class EspecieObservable {
 	 * 
 	 * @param nombre
 	 */
-	public EspecieObservable(Long id, String genero,String nombre) {
-		
+	public EspecieObservable(Long id, String genero, String nombre) {
+
 		this.id = new SimpleLongProperty(id);
 		this.genero = new SimpleStringProperty(genero);
 		this.nombre = new SimpleStringProperty(nombre);
 	}
 
-	
-	
-	
 	/**
 	 * @return the id
 	 */
@@ -217,7 +213,5 @@ public class EspecieObservable {
 	public void setFecha(ObjectProperty<Date> fecha) {
 		this.fecha = fecha;
 	}
-	
-	
 
 }

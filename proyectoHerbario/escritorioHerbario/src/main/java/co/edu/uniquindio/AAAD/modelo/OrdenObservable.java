@@ -40,10 +40,9 @@ public class OrdenObservable {
 	public OrdenObservable(Orden orden) {
 
 		this.orden = (Orden) orden;
-		this.id= new SimpleLongProperty(orden.getId());
-		this.clase= new SimpleStringProperty(orden.getClaseDelOrden().getNombre());
+		this.id = new SimpleLongProperty(orden.getId());
+		this.clase = new SimpleStringProperty(orden.getClaseDelOrden().getNombre());
 		this.nombre = new SimpleStringProperty(orden.getNombre());
-
 
 	}
 
@@ -52,16 +51,13 @@ public class OrdenObservable {
 	 * 
 	 * @param nombre
 	 */
-	public OrdenObservable(Long id, String clase,String nombre) {
-		
+	public OrdenObservable(Long id, String clase, String nombre) {
+
 		this.id = new SimpleLongProperty(id);
 		this.clase = new SimpleStringProperty(clase);
 		this.nombre = new SimpleStringProperty(nombre);
 	}
 
-	
-	
-	
 	/**
 	 * @return the id
 	 */
@@ -117,7 +113,5 @@ public class OrdenObservable {
 	public void setOrden(Orden orden) {
 		this.orden = orden;
 	}
-	
-	
 
 }

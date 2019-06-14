@@ -40,6 +40,8 @@ public class TestAdminEJB {
 	@EJB
 	private AdminEJB adminEJB;
 	
+ 
+	
 	@Deployment
 	public static Archive<?> createDeploymentPackage() {
 	return ShrinkWrap.create(JavaArchive.class).addClass(AdminEJB.class)
@@ -176,25 +178,25 @@ public class TestAdminEJB {
 	
 	}
 	
-	
-	/**
-	 * Permite probar crear una consulta que permita listar las especies aceptadas
-	 */
-	@Test
-	@Transactional(value =TransactionMode.ROLLBACK)
-	@UsingDataSet({ "persona.json", "clase.json", "orden.json", "familia.json", "genero.json", "especie.json",
-	"registro.json" })
-	public void listarEspeciesAceptadasTest() {
-		
-		
-		try {
-			List<Especie> lista= adminEJB.listarEspeciesAceptadas();
-		
-			Assert.assertEquals(2, lista.size());
-		}catch (Exception e) {
-			Assert.fail("Error inesperado");
-		}
-	
-	}
+//	
+//	/**
+//	 * Permite probar crear una consulta que permita listar las especies aceptadas
+//	 */
+//	@Test
+//	@Transactional(value =TransactionMode.ROLLBACK)
+//	@UsingDataSet({ "persona.json", "clase.json", "orden.json", "familia.json", "genero.json", "especie.json",
+//	"registro.json" })
+//	public void listarEspeciesAceptadasTest() {
+//		
+//		
+//		try {
+//			List<Especie> lista= negocioEJB.listarEspeciesAceptadas();
+//		
+//			Assert.assertEquals(2, lista.size());
+//		}catch (Exception e) {
+//			Assert.fail("Error inesperado");
+//		}
+//	
+//	}
 }
 

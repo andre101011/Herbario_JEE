@@ -7,14 +7,14 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="373.0" prefWidth="640.0" stylesheets="@logIn.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="373.0" prefWidth="640.0" stylesheets="@logIn.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.AAAD.controlador.LogInControlador"> 
    <center>
       <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -37,8 +37,9 @@
                   <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" valignment="BOTTOM" />
                   <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" valignment="BOTTOM" />
+                <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" valignment="BOTTOM" />
                 <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
@@ -46,19 +47,19 @@
                      <font>
                         <Font name="System Bold Italic" size="12.0" />
                      </font></Label>
-                  <TextArea maxHeight="-Infinity" prefHeight="20.0" prefWidth="200.0" GridPane.rowIndex="4" />
-                  <TextArea maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="20.0" prefWidth="200.0" GridPane.rowIndex="2" />
-                  <Button fx:id="btnIngresar" mnemonicParsing="false" onAction="#comprobarCredenciales" prefHeight="26.0" prefWidth="126.0" text="Ingresar" GridPane.rowIndex="5" />
+                  <Button fx:id="btnIngresar" mnemonicParsing="false" onAction="#comprobarCredenciales" prefHeight="26.0" prefWidth="126.0" text="Ingresar" GridPane.rowIndex="6" />
                   <Label text="Contraseña" textFill="WHITE" GridPane.rowIndex="3">
                      <font>
                         <Font name="System Bold Italic" size="12.0" />
                      </font></Label>
-                  <Hyperlink text="Olvidé mi contraseña" GridPane.rowIndex="6" />
+                  <Hyperlink text="Olvidé mi contraseña" GridPane.rowIndex="7" />
                   <Label alignment="TOP_CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" prefHeight="18.0" prefWidth="270.0" text="Herbario UQ" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font name="The Historia Demo" size="57.0" />
                      </font>
                   </Label>
+                  <TextField fx:id="jtfCorreo" GridPane.rowIndex="2" />
+                  <TextField fx:id="jtfClave" GridPane.rowIndex="4" />
                </children>
                <GridPane.margin>
                   <Insets />

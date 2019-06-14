@@ -77,9 +77,12 @@ public class AdminEJB implements AdminEJBRemote {
 		}
 
 	}
+
 	/*
 	 * (non-Javadoc)
-	 * @see co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#buscarEmpleado(java.lang.String)
+	 * 
+	 * @see
+	 * co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#buscarEmpleado(java.lang.String)
 	 */
 	@Override
 	public Empleado buscarEmpleado(String cedula) {
@@ -92,9 +95,13 @@ public class AdminEJB implements AdminEJBRemote {
 			return null;
 		}
 	}
+
 	/*
 	 * (non-Javadoc)
-	 * @see co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#modificarEmpleado(co.edu.uniquindio.AAAD.persistencia.Empleado)
+	 * 
+	 * @see
+	 * co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#modificarEmpleado(co.edu.uniquindio
+	 * .AAAD.persistencia.Empleado)
 	 */
 	@Override
 	public Empleado modificarEmpleado(Empleado empleado)
@@ -136,8 +143,6 @@ public class AdminEJB implements AdminEJBRemote {
 			return null;
 		}
 	}
-	
-	
 
 	/*
 	 * (non-Javadoc)
@@ -158,7 +163,9 @@ public class AdminEJB implements AdminEJBRemote {
 
 	/*
 	 * (non-Javadoc)
-	 * @see co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#buscarRecolector(java.lang.String)
+	 * 
+	 * @see
+	 * co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#buscarRecolector(java.lang.String)
 	 */
 	@Override
 	public Recolector buscarRecolector(String cedula) {
@@ -172,10 +179,11 @@ public class AdminEJB implements AdminEJBRemote {
 		}
 	}
 
-	
 	/*
 	 * (non-Javadoc)
-	 * @see co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#eliminarRecolector(co.edu.uniquindio.AAAD.persistencia.Recolector)
+	 * 
+	 * @see co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#eliminarRecolector(co.edu.
+	 * uniquindio.AAAD.persistencia.Recolector)
 	 */
 	@Override
 	public Recolector eliminarRecolector(Recolector recolector) throws ElementoNoEncontradoException {
@@ -272,16 +280,19 @@ public class AdminEJB implements AdminEJBRemote {
 			return null;
 		}
 	}
-	
+
 	/*
 	 * (non-Javadoc)
-	 * @see co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#buscarClasePorNombre(java.lang.String)
+	 * 
+	 * @see
+	 * co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#buscarClasePorNombre(java.lang.
+	 * String)
 	 */
 	@Override
 	public Clase buscarClasePorNombre(String nombre) {
 		try {
 			TypedQuery<Clase> query = entityManager.createNamedQuery(Clase.BUSCAR_POR_NOMBRE, Clase.class);
-			query.setParameter("nombre",nombre);
+			query.setParameter("nombre", nombre);
 
 			return query.getSingleResult();
 		} catch (NoResultException e) {
@@ -417,15 +428,19 @@ public class AdminEJB implements AdminEJBRemote {
 			return null;
 		}
 	}
+
 	/*
 	 * (non-Javadoc)
-	 * @see co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#buscarOrdenPorNombre(java.lang.String)
+	 * 
+	 * @see
+	 * co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#buscarOrdenPorNombre(java.lang.
+	 * String)
 	 */
 	@Override
 	public Orden buscarOrdenPorNombre(String nombre) {
 		try {
 			TypedQuery<Orden> query = entityManager.createNamedQuery(Orden.BUSCAR_POR_NOMBRE, Orden.class);
-			query.setParameter("nombre",nombre);
+			query.setParameter("nombre", nombre);
 
 			return query.getSingleResult();
 		} catch (NoResultException e) {
@@ -561,15 +576,19 @@ public class AdminEJB implements AdminEJBRemote {
 			return null;
 		}
 	}
+
 	/*
 	 * (non-Javadoc)
-	 * @see co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#buscarGeneroPorNombre(java.lang.String)
+	 * 
+	 * @see
+	 * co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#buscarGeneroPorNombre(java.lang.
+	 * String)
 	 */
 	@Override
 	public Genero buscarGeneroPorNombre(String nombre) {
 		try {
 			TypedQuery<Genero> query = entityManager.createNamedQuery(Genero.BUSCAR_POR_NOMBRE, Genero.class);
-			query.setParameter("nombre",nombre);
+			query.setParameter("nombre", nombre);
 
 			return query.getSingleResult();
 		} catch (NoResultException e) {
@@ -706,15 +725,19 @@ public class AdminEJB implements AdminEJBRemote {
 			return null;
 		}
 	}
+
 	/*
 	 * (non-Javadoc)
-	 * @see co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#buscarFamiliaPorNombre(java.lang.String)
+	 * 
+	 * @see
+	 * co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#buscarFamiliaPorNombre(java.lang.
+	 * String)
 	 */
 	@Override
 	public Familia buscarFamiliaPorNombre(String nombre) {
 		try {
 			TypedQuery<Familia> query = entityManager.createNamedQuery(Familia.BUSCAR_POR_NOMBRE, Familia.class);
-			query.setParameter("nombre",nombre);
+			query.setParameter("nombre", nombre);
 
 			return query.getSingleResult();
 		} catch (NoResultException e) {
@@ -789,6 +812,7 @@ public class AdminEJB implements AdminEJBRemote {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#listarEspeciesEnEspera()
 	 */
 	@Override
@@ -807,7 +831,10 @@ public class AdminEJB implements AdminEJBRemote {
 
 	/*
 	 * (non-Javadoc)
-	 * @see co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#aceptarEspecie(co.edu.uniquindio.AAAD.persistencia.Especie)
+	 * 
+	 * @see
+	 * co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#aceptarEspecie(co.edu.uniquindio.
+	 * AAAD.persistencia.Especie)
 	 */
 	@Override
 	public Especie aceptarEspecie(Especie especie) {
@@ -826,7 +853,10 @@ public class AdminEJB implements AdminEJBRemote {
 
 	/*
 	 * (non-Javadoc)
-	 * @see co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#rechazarEspecie(co.edu.uniquindio.AAAD.persistencia.Especie)
+	 * 
+	 * @see
+	 * co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#rechazarEspecie(co.edu.uniquindio.
+	 * AAAD.persistencia.Especie)
 	 */
 	@Override
 	public Especie rechazarEspecie(Especie especie) {
@@ -841,6 +871,5 @@ public class AdminEJB implements AdminEJBRemote {
 			return null;
 		}
 	}
-	
-	
+
 }

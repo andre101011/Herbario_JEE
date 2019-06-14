@@ -22,7 +22,7 @@ public class ClaseObservable {
 	/**
 	 * nombre observable de una clase
 	 */
-	private StringProperty nombre;	
+	private StringProperty nombre;
 	/**
 	 * clase asociado
 	 */
@@ -34,38 +34,38 @@ public class ClaseObservable {
 	 * @param clase que se quiere volver observable
 	 */
 	public ClaseObservable(Clase clase) {
-		
+
 		this.clase = (Clase) clase;
-		this.id=new SimpleLongProperty(clase.getId());
+		this.id = new SimpleLongProperty(clase.getId());
 		this.nombre = new SimpleStringProperty(clase.getNombre());
 
-
 	}
+
 	/**
 	 * permite generar una instanci usando todos los clases
 	 * 
 	 * @param nombre
 	 */
-	public ClaseObservable(Long id,String nombre) {
+	public ClaseObservable(Long id, String nombre) {
 
-		this.id=new SimpleLongProperty(id);
+		this.id = new SimpleLongProperty(id);
 		this.nombre = new SimpleStringProperty(nombre);
 	}
 
-	
-	
 	/**
 	 * @return the id
 	 */
 	public LongProperty getId() {
 		return id;
 	}
+
 	/**
 	 * @param id the id to set
 	 */
 	public void setId(LongProperty id) {
 		this.id = id;
 	}
+
 	/**
 	 * @return the nombre
 	 */

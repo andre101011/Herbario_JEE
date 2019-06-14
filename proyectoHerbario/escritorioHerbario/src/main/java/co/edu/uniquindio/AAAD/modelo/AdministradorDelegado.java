@@ -60,8 +60,6 @@ public class AdministradorDelegado {
 			e.printStackTrace();
 		}
 	}
-	
-	
 
 	/**
 	 * Permite devolver una unica instancia de delegado
@@ -76,25 +74,26 @@ public class AdministradorDelegado {
 		}
 		return administradorDelegado;
 	}
+
 	/**
 	 * Comprueba las credenciales de una persona que inicio sesión
+	 * 
 	 * @param correo correo de la persona
-	 * @param clave clave de la persona
+	 * @param clave  clave de la persona
 	 * @return true si el email y la clave son correctas sino false
 	 */
 	public boolean comprobarCredenciales(String correo, String clave) {
-		
-		 Persona usuario=negocioEJB.comprobarCredenciales(correo, clave);
-		 
-		 if (usuario!=null) {
+
+		Persona usuario = negocioEJB.comprobarCredenciales(correo, clave);
+
+		if (usuario != null) {
 			return true;
-		}else {
+		} else {
 			return false;
 		}
-		
-		
+
 	}
-	
+
 	/**
 	 * inserta un nuevo empleado
 	 * 
@@ -637,7 +636,7 @@ public class AdministradorDelegado {
 	public boolean registrarEspecie(Registro registro) throws ElementoRepetidoException {
 		return negocioEJB.registrarEspecie(registro) != null;
 	}
-	
+
 	public boolean aceptarEspecie(Especie especie) {
 
 		return adminEJB.aceptarEspecie(especie) != null;
@@ -651,8 +650,6 @@ public class AdministradorDelegado {
 	public Especie buscarEspecie(String id) {
 		return negocioEJB.buscarEspecie(id);
 	}
-	
-	
 
 	/**
 	 * Lista los especies
@@ -660,7 +657,7 @@ public class AdministradorDelegado {
 	 * @return lista de especies
 	 */
 	public List<Especie> listarEspecies() {
-		
+
 		return negocioEJB.listarEspecies();
 
 	}
@@ -678,14 +675,14 @@ public class AdministradorDelegado {
 		}
 		return especiesObservables;
 	}
-	
+
 	/**
 	 * Lista los especies en espera
 	 * 
 	 * @return lista de especies en espera
 	 */
 	public List<Especie> listarEspeciesEnEspera() {
-		
+
 		return adminEJB.listarEspeciesEnEspera();
 
 	}
@@ -693,7 +690,7 @@ public class AdministradorDelegado {
 	/**
 	 * genera una lista de especies en espera observables
 	 * 
-	 * @return todos los especies en espera obsevables 
+	 * @return todos los especies en espera obsevables
 	 */
 	public ObservableList<EspecieObservable> listarEspeciesEnEsperaObservables() {
 		List<Especie> especies = listarEspeciesEnEspera();
@@ -703,14 +700,14 @@ public class AdministradorDelegado {
 		}
 		return especiesObservables;
 	}
-	
+
 	/**
 	 * Lista los especies aceptadas
 	 * 
 	 * @return lista de especies aceptadas
 	 */
 	public List<Especie> listarEspeciesAceptadas() {
-		
+
 		return negocioEJB.listarEspeciesAceptadas();
 
 	}
@@ -728,14 +725,14 @@ public class AdministradorDelegado {
 		}
 		return especiesObservables;
 	}
-	
+
 	/**
 	 * Lista los especies rechazadas
 	 * 
 	 * @return lista de especies rechazadas
 	 */
 	public List<Especie> listarEspeciesRechazadas() {
-		
+
 		return negocioEJB.listarEspeciesRechazados();
 
 	}
@@ -753,21 +750,21 @@ public class AdministradorDelegado {
 		}
 		return especiesObservables;
 	}
-	
-	
+
 	/**
 	 * Lista los especies por orden
 	 * 
 	 * @return lista de especies por orden
 	 */
 	public List<Especie> listarEspeciesPorOrden(Orden orden) {
-		
+
 		return negocioEJB.listarEspeciesPorOrden(orden);
 
 	}
 
 	/**
 	 * Genera una lista de especies por orden observables
+	 * 
 	 * @param orden orden de la especie
 	 * @return lista de especies de acuerdo a un orden
 	 */
@@ -779,7 +776,6 @@ public class AdministradorDelegado {
 		}
 		return especiesObservables;
 	}
-	
 
 	/**
 	 * Lista los especies por clase
@@ -787,13 +783,14 @@ public class AdministradorDelegado {
 	 * @return lista de especies por clase
 	 */
 	public List<Especie> listarEspeciesPorClase(Clase clase) {
-		
+
 		return negocioEJB.listarEspeciesPorClase(clase);
 
 	}
 
 	/**
 	 * Genera una lista de especies por clase observables
+	 * 
 	 * @param clase clase de la especie
 	 * @return lista de especies de acuerdo a un clase
 	 */
@@ -812,13 +809,14 @@ public class AdministradorDelegado {
 	 * @return lista de especies por familia
 	 */
 	public List<Especie> listarEspeciesPorFamilia(Familia familia) {
-		
+
 		return negocioEJB.listarEspeciesPorFamilia(familia);
 
 	}
 
 	/**
 	 * Genera una lista de especies por familia observables
+	 * 
 	 * @param familia familia de la especie
 	 * @return lista de especies de acuerdo a un familia
 	 */
@@ -837,13 +835,14 @@ public class AdministradorDelegado {
 	 * @return lista de especies por genero
 	 */
 	public List<Especie> listarEspeciesPorGenero(Genero genero) {
-		
+
 		return negocioEJB.listarEspeciesPorGenero(genero);
 
 	}
 
 	/**
 	 * Genera una lista de especies por genero observables
+	 * 
 	 * @param genero genero de la especie
 	 * @return lista de especies de acuerdo a un genero
 	 */
@@ -855,6 +854,7 @@ public class AdministradorDelegado {
 		}
 		return especiesObservables;
 	}
+
 	/**
 	 * @return the usuario
 	 */
@@ -862,15 +862,11 @@ public class AdministradorDelegado {
 		return usuario;
 	}
 
-
-
 	/**
 	 * @param usuario the usuario to set
 	 */
 	public void setUsuario(Persona usuario) {
 		this.usuario = usuario;
 	}
-	
-	
 
 }

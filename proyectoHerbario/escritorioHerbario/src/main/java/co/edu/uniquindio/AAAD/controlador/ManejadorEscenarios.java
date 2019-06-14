@@ -13,7 +13,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -47,6 +47,7 @@ public class ManejadorEscenarios {
 	 * 
 	 * @param escenario inicial
 	 */
+	
 	public ManejadorEscenarios(Stage escenario) {
 
 		this.escenario = escenario;
@@ -68,8 +69,8 @@ public class ManejadorEscenarios {
 			Scene scene = new Scene(panelPrincipal);
 			escenario.setScene(scene);
 			escenario.show();
-
-			cargarEscena();
+			System.out.println("cate pasó por aqui");
+			cargarEscenariologIn();
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -86,22 +87,12 @@ public class ManejadorEscenarios {
 
 			// se carga la interfaz
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("./vista/logIn.fxml"));
-			AnchorPane page = (AnchorPane) loader.load();
-
-			// se crea el escenario
-			Stage escenariologIn = new Stage();
-			escenariologIn.setTitle("Ingreso a la plataforma");
-			Scene scene = new Scene(page);
-			escenariologIn.setScene(scene);
-
-			// se carga el controlador
-			LogInControlador empleadoControlador = loader.getController();
-			empleadoControlador.setEscenario(escenariologIn);
-			empleadoControlador.setManejador(this);
-
-			// se muestra el escenario
-			escenariologIn.showAndWait();
+			loader.setLocation(Main.class.getResource("vista/logIn.fxml"));
+			BorderPane page = (BorderPane) loader.load();
+			panelPrincipal.setCenter(page);
+			
+			LogInControlador controlador=loader.getController();
+			controlador.setManejadorEscenarios(this);
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -116,7 +107,7 @@ public class ManejadorEscenarios {
 			// se carga la interfaz
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource("./vista/menu.fxml"));
-			AnchorPane page = (AnchorPane) loader.load();
+			BorderPane page = (BorderPane) loader.load();
 
 			// se crea el escenario
 			Stage escenariologIn = new Stage();
@@ -139,29 +130,6 @@ public class ManejadorEscenarios {
 	}
 
 	/**
-	 * carga una escena en el centro del escenario
-	 */
-	public void cargarEscena() {
-
-		try {
-
-			empleadosObservables = administradorDelegado.listarEmpleadosObservables();
-
-			FXMLLoader loader2 = new FXMLLoader();
-			loader2.setLocation(Main.class.getResource("vista/detallesEmpleados.fxml"));
-			AnchorPane panel = (AnchorPane) loader2.load();
-			panelPrincipal.setCenter(panel);
-
-			LogInControlador controlador = loader2.getController();
-			controlador.setEscenarioInicial(this);
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-	}
-
-	/**
 	 * muestra el escenario para crear un empleado nuevo
 	 */
 	public void cargarEscenarioCrearEmpleado() {
@@ -171,7 +139,7 @@ public class ManejadorEscenarios {
 			// se carga la interfaz
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource("./vista/gestionarEmpleado.fxml"));
-			AnchorPane page = (AnchorPane) loader.load();
+			BorderPane page = (BorderPane) loader.load();
 
 			// se crea el escenario
 			Stage escenario = new Stage();
@@ -200,7 +168,7 @@ public class ManejadorEscenarios {
 			// se carga la interfaz
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource("./vista/gestionarCategorias.fxml"));
-			AnchorPane page = (AnchorPane) loader.load();
+			BorderPane page = (BorderPane) loader.load();
 
 			// se crea el escenario
 			Stage escenariologIn = new Stage();

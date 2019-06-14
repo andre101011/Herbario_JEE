@@ -43,38 +43,38 @@ public class menuControlador {
 	private void initialize() {
 	}
 
-	@FXML
-	public void abrirGestionarClases() {
-		escenarioInicial.cargarEscenaGestionarCategorias("clase");
-	}
-
-	@FXML
-	public void abrirGestionarOrdenes() {
-		escenarioInicial.cargarEscenaGestionarCategorias("orden");
-	}
-
-	@FXML
-	public void abrirGestionarFamilias() {
-		escenarioInicial.cargarEscenaGestionarCategorias("familia");
-	}
-
-	@FXML
-	public void abrirGestionarGenero() {
-		escenarioInicial.cargarEscenaGestionarCategorias("genero");
-	}
-
-	@FXML
-	public void abrirGestionarEspecies() {
-	escenarioInicial.cargarEscenaGestionarEspecies());
-	}
-
-	public void abrirVentanaGestionarEmpleados() {
-		escenarioInicial.cargarEscenaGestionarPersonas("empleado"));
-	}
-
-	public void abrirVentanaGestionarRecolectores() {
-		escenarioInicial.cargarEscenaGestionarPersonas("recolector"));
-	}
+//	@FXML
+//	public void abrirGestionarClases() {
+//		escenarioInicial.cargarEscenaGestionarCategorias("clase");
+//	}
+//
+//	@FXML
+//	public void abrirGestionarOrdenes() {
+//		escenarioInicial.cargarEscenaGestionarCategorias("orden");
+//	}
+//
+//	@FXML
+//	public void abrirGestionarFamilias() {
+//		escenarioInicial.cargarEscenaGestionarCategorias("familia");
+//	}
+//
+//	@FXML
+//	public void abrirGestionarGenero() {
+//		escenarioInicial.cargarEscenaGestionarCategorias("genero");
+//	}
+//
+//	@FXML
+//	public void abrirGestionarEspecies() {
+//	escenarioInicial.cargarEscenaGestionarEspecies());
+//	}
+//
+//	public void abrirVentanaGestionarEmpleados() {
+//		escenarioInicial.cargarEscenaGestionarPersonas("empleado"));
+//	}
+//
+//	public void abrirVentanaGestionarRecolectores() {
+//		escenarioInicial.cargarEscenaGestionarPersonas("recolector"));
+//	}
 
 	public void setEscenario(Stage escenario) {
 		this.escenario = escenario;

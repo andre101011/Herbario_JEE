@@ -16,9 +16,10 @@ import co.edu.uniquindio.AAAD.persistencia.Registro.Estado;
 
 /**
  * Se encarga de manejar las operaciones realizadas por las personas
+ * 
  * @author Daniel Bonilla
  * @author Andres llinas
- * @version Beta 1.0 
+ * @version Beta 1.0
  */
 @Stateless
 @LocalBean
@@ -29,39 +30,39 @@ public class NegocioEJB implements NegocioEJBRemote {
 	 */
 	@PersistenceContext
 	private EntityManager entityManager;
-	
-    /**
-     * Default constructor. 
-     */
-    public NegocioEJB() {
-        // TODO Auto-generated constructor stub
-    }
-    
-    @Override
-    public Persona comprobarCredenciales(String correo, String clave) {
-    	
-    	try {
-    		
-    		TypedQuery<Persona> query = entityManager.createNamedQuery(Persona.INICIO_SESION, Persona.class);
-    		query.setParameter("email1", correo);
-    		query.setParameter("clave1", clave);
-    		return query.getSingleResult();
-    	}catch(NoResultException e){
-    		
-    		return null;
-    		
-    		
-    	}
-    	
-    	
-    }
-    
-    /*
-     * (non-Javadoc)
-     * @see co.edu.uniquindio.AAAD.ejb.NegocioEJBRemote#registrarEspecie(co.edu.uniquindio.AAAD.persistencia.Registro)
-     */
-    @Override
-    public Especie registrarEspecie(Registro registro) throws ElementoRepetidoException {
+
+	/**
+	 * Default constructor.
+	 */
+	public NegocioEJB() {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public Persona comprobarCredenciales(String correo, String clave) {
+
+		try {
+
+			TypedQuery<Persona> query = entityManager.createNamedQuery(Persona.INICIO_SESION, Persona.class);
+			query.setParameter("email1", correo);
+			query.setParameter("clave1", clave);
+			return query.getSingleResult();
+		} catch (NoResultException e) {
+
+			return null;
+
+		}
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see co.edu.uniquindio.AAAD.ejb.NegocioEJBRemote#registrarEspecie(co.edu.
+	 * uniquindio.AAAD.persistencia.Registro)
+	 */
+	@Override
+	public Especie registrarEspecie(Registro registro) throws ElementoRepetidoException {
 
 		Especie especie = registro.getEspecieEnviada();
 
@@ -82,11 +83,14 @@ public class NegocioEJB implements NegocioEJBRemote {
 		}
 
 	}
-    /*
-     * (non-Javadoc)
-     * @see co.edu.uniquindio.AAAD.ejb.NegocioEJBRemote#insertarRecolector(co.edu.uniquindio.AAAD.persistencia.Recolector)
-     */
-    @Override
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see co.edu.uniquindio.AAAD.ejb.NegocioEJBRemote#insertarRecolector(co.edu.
+	 * uniquindio.AAAD.persistencia.Recolector)
+	 */
+	@Override
 	public Recolector insertarRecolector(Recolector recolector) throws ElementoRepetidoException {
 
 		if (entityManager.find(Recolector.class, recolector.getCedula()) != null) {
@@ -103,11 +107,14 @@ public class NegocioEJB implements NegocioEJBRemote {
 			return null;
 		}
 	}
-    /*
-     * (non-Javadoc)
-     * @see co.edu.uniquindio.AAAD.ejb.NegocioEJBRemote#modificarRecolector(co.edu.uniquindio.AAAD.persistencia.Recolector)
-     */
-    @Override
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see co.edu.uniquindio.AAAD.ejb.NegocioEJBRemote#modificarRecolector(co.edu.
+	 * uniquindio.AAAD.persistencia.Recolector)
+	 */
+	@Override
 	public Recolector modificarRecolector(Recolector recolector)
 			throws ElementoNoEncontradoException, ElementoRepetidoException {
 		if (entityManager.find(Recolector.class, recolector.getCedula()) == null) {
@@ -125,8 +132,8 @@ public class NegocioEJB implements NegocioEJBRemote {
 			return null;
 		}
 	}
-    
-    /**
+
+	/**
 	 * permite buscar un recolector por email
 	 * 
 	 * @param email email del recolector
@@ -148,11 +155,14 @@ public class NegocioEJB implements NegocioEJBRemote {
 		}
 
 	}
-    /*
-     * (non-Javadoc)
-     * @see co.edu.uniquindio.AAAD.ejb.NegocioEJBRemote#buscarEspecie(java.lang.String)
-     */
-    @Override
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * co.edu.uniquindio.AAAD.ejb.NegocioEJBRemote#buscarEspecie(java.lang.String)
+	 */
+	@Override
 	public Especie buscarEspecie(String id) {
 
 		try {
@@ -163,14 +173,16 @@ public class NegocioEJB implements NegocioEJBRemote {
 			return null;
 		}
 	}
-    /*
-     * (non-Javadoc)
-     * @see co.edu.uniquindio.AAAD.ejb.NegocioEJBRemote#listarEspeciesAceptadas()
-     */
-    @Override
-    public List<Especie> listarEspeciesAceptadas(){
 
-    	try {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see co.edu.uniquindio.AAAD.ejb.NegocioEJBRemote#listarEspeciesAceptadas()
+	 */
+	@Override
+	public List<Especie> listarEspeciesAceptadas() {
+
+		try {
 			TypedQuery<Especie> query = entityManager.createNamedQuery(Especie.LISTAR_POR_ESTADO, Especie.class);
 			query.setParameter("est", Estado.Aceptado);
 			List<Especie> lista = query.getResultList();
@@ -180,14 +192,16 @@ public class NegocioEJB implements NegocioEJBRemote {
 		}
 
 	}
-    /*
-     * (non-Javadoc)
-     * @see co.edu.uniquindio.AAAD.ejb.NegocioEJBRemote#listarEspeciesRechazados()
-     */
-    @Override
-    public List<Especie> listarEspeciesRechazados(){
 
-    	try {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see co.edu.uniquindio.AAAD.ejb.NegocioEJBRemote#listarEspeciesRechazados()
+	 */
+	@Override
+	public List<Especie> listarEspeciesRechazados() {
+
+		try {
 			TypedQuery<Especie> query = entityManager.createNamedQuery(Especie.LISTAR_POR_ESTADO, Especie.class);
 			query.setParameter("est", Estado.Rechazado);
 			List<Especie> lista = query.getResultList();
@@ -197,29 +211,33 @@ public class NegocioEJB implements NegocioEJBRemote {
 		}
 
 	}
-    /*
-     * (non-Javadoc)
-     * @see co.edu.uniquindio.AAAD.ejb.NegocioEJBRemote#listarEspeciesPorClase(co.edu.uniquindio.AAAD.persistencia.Clase)
-     */
-    @Override
-    public List<Especie> listarEspeciesPorClase(Clase clase){
 
-    	try {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * co.edu.uniquindio.AAAD.ejb.NegocioEJBRemote#listarEspeciesPorClase(co.edu.
+	 * uniquindio.AAAD.persistencia.Clase)
+	 */
+	@Override
+	public List<Especie> listarEspeciesPorClase(Clase clase) {
+
+		try {
 			TypedQuery<Especie> query = entityManager.createNamedQuery(Especie.LISTAR_POR_CLASE, Especie.class);
 			query.setParameter("clas", clase.getId());
 			List<Especie> lista = query.getResultList();
-			
+
 			return lista;
 		} catch (Exception e) {
 			return null;
 		}
 
 	}
-    
-    @Override
-    public List<Especie> listarEspeciesPorOrden(Orden orden){
 
-    	try {
+	@Override
+	public List<Especie> listarEspeciesPorOrden(Orden orden) {
+
+		try {
 			TypedQuery<Especie> query = entityManager.createNamedQuery(Especie.LISTAR_POR_ORDEN, Especie.class);
 			query.setParameter("ord", orden.getId());
 			List<Especie> lista = query.getResultList();
@@ -229,14 +247,18 @@ public class NegocioEJB implements NegocioEJBRemote {
 		}
 
 	}
-    /*
-     * (non-Javadoc)
-     * @see co.edu.uniquindio.AAAD.ejb.NegocioEJBRemote#listarEspeciesPorGenero(co.edu.uniquindio.AAAD.persistencia.Genero)
-     */
-    @Override
-    public List<Especie> listarEspeciesPorGenero(Genero genero){
 
-    	try {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * co.edu.uniquindio.AAAD.ejb.NegocioEJBRemote#listarEspeciesPorGenero(co.edu.
+	 * uniquindio.AAAD.persistencia.Genero)
+	 */
+	@Override
+	public List<Especie> listarEspeciesPorGenero(Genero genero) {
+
+		try {
 			TypedQuery<Especie> query = entityManager.createNamedQuery(Especie.LISTAR_POR_GENERO, Especie.class);
 			query.setParameter("gen", genero.getId());
 			List<Especie> lista = query.getResultList();
@@ -246,14 +268,18 @@ public class NegocioEJB implements NegocioEJBRemote {
 		}
 
 	}
-    /*
-     * (non-Javadoc)
-     * @see co.edu.uniquindio.AAAD.ejb.NegocioEJBRemote#listarEspeciesPorFamilia(co.edu.uniquindio.AAAD.persistencia.Familia)
-     */
-    @Override
-    public List<Especie> listarEspeciesPorFamilia(Familia familia){
 
-    	try {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * co.edu.uniquindio.AAAD.ejb.NegocioEJBRemote#listarEspeciesPorFamilia(co.edu.
+	 * uniquindio.AAAD.persistencia.Familia)
+	 */
+	@Override
+	public List<Especie> listarEspeciesPorFamilia(Familia familia) {
+
+		try {
 			TypedQuery<Especie> query = entityManager.createNamedQuery(Especie.LISTAR_POR_ESTADO, Especie.class);
 			query.setParameter("fam", familia.getId());
 			List<Especie> lista = query.getResultList();
@@ -263,12 +289,11 @@ public class NegocioEJB implements NegocioEJBRemote {
 		}
 
 	}
-    
-    
-    @Override
-    public List<Especie> listarEspecies(){
 
-    	try {
+	@Override
+	public List<Especie> listarEspecies() {
+
+		try {
 			TypedQuery<Especie> query = entityManager.createNamedQuery(Especie.LISTAR_TODOS, Especie.class);
 			List<Especie> lista = query.getResultList();
 			return lista;
