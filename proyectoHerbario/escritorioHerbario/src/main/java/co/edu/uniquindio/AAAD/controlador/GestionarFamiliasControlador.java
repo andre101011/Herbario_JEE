@@ -1,14 +1,13 @@
 package co.edu.uniquindio.AAAD.controlador;
 
-import co.edu.uniquindio.AAAD.modelo.ClaseObservable;
-import co.edu.uniquindio.AAAD.modelo.EmpleadoObservable;
+import co.edu.uniquindio.AAAD.modelo.FamiliaObservable;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
-public class GestionarClasesControlador {
+public class GestionarFamiliasControlador {
 
 	private Stage escenario;
 
@@ -18,24 +17,31 @@ public class GestionarClasesControlador {
 	 * table donde se almacena la informacion de las categorias los empleados
 	 */
 	@FXML
-	private TableView<ClaseObservable> tablaClases;
+	private TableView<FamiliaObservable> tablaFamilias;
 	/**
 	 * hace referencia a la columna con las superCategorias
 	 */
 	@FXML
-	private TableColumn<ClaseObservable, Number> idColumna;
+	private TableColumn<FamiliaObservable, Number> idColumna;
 	/**
 	 * hace referencia a la columna de los nombres de las categorias
 	 */
 	@FXML
-	private TableColumn<ClaseObservable, String> nombreColumna;
+	private TableColumn<FamiliaObservable, String> nombreColumna;
+	/**
+	 * etiqueta de cedula
+	 */
 
 	@FXML
 	private Label txtNombre;
+	/**
+	 * etiqueta de email
+	 */
 
-	private ClaseObservable claseObservable;
 
-	public GestionarClasesControlador() {
+	private FamiliaObservable FamiliaObservable;
+
+	public GestionarFamiliasControlador() {
 	}
 
 	/**
@@ -45,12 +51,12 @@ public class GestionarClasesControlador {
 	@FXML
 	private void initialize() {
 
-		idColumna.setCellValueFactory(claseCelda -> claseCelda.getValue().getId());
-		nombreColumna.setCellValueFactory(claseCelda -> claseCelda.getValue().getNombre());
+		idColumna.setCellValueFactory(familiaCelda -> familiaCelda.getValue().getId());
+		nombreColumna.setCellValueFactory(familiaCelda -> familiaCelda.getValue().getNombre());
 
 		mostrarDetallesCategoria(null);
 
-		tablaClases.getSelectionModel().selectedItemProperty()
+		tablaFamilias.getSelectionModel().selectedItemProperty()
 				.addListener((observable, oldValue, newValue) -> mostrarDetallesCategoria(newValue));
 
 	}
@@ -58,13 +64,13 @@ public class GestionarClasesControlador {
 	/**
 	 * permite mostrar la informacion del empleado seleccionado
 	 * 
-	 * @param clase empleado al que se le desea mostrar el detalle
+	 * @param familia empleado al que se le desea mostrar el detalle
 	 */
-	public void mostrarDetallesCategoria(ClaseObservable clase) {
+	public void mostrarDetallesCategoria(FamiliaObservable familia) {
 
-		if (clase != null) {
-			claseObservable = clase;
-			txtNombre.setText(clase.getNombre().getValue());
+		if (familia != null) {
+			FamiliaObservable = familia;
+			txtNombre.setText(familia.getNombre().getValue());
 
 		} else {
 			txtNombre.setText("");

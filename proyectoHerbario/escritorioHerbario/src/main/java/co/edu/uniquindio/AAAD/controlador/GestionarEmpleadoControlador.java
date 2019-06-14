@@ -118,7 +118,7 @@ public class GestionarEmpleadoControlador {
 	 */
 	@FXML
 	public void agregarEmpleado() {
-		manejadorEscenarios.cargarEscenarioCrearEmpleado();
+		manejadorEscenarios.cargarEscenarioGestionarEmpleados();
 		tablaEmpleados.refresh();
 	}
 

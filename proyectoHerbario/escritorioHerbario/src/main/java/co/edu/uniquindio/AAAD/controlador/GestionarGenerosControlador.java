@@ -1,14 +1,13 @@
 package co.edu.uniquindio.AAAD.controlador;
 
-import co.edu.uniquindio.AAAD.modelo.ClaseObservable;
-import co.edu.uniquindio.AAAD.modelo.EmpleadoObservable;
+import co.edu.uniquindio.AAAD.modelo.GeneroObservable;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
-public class GestionarClasesControlador {
+public class GestionarGenerosControlador {
 
 	private Stage escenario;
 
@@ -18,24 +17,29 @@ public class GestionarClasesControlador {
 	 * table donde se almacena la informacion de las categorias los empleados
 	 */
 	@FXML
-	private TableView<ClaseObservable> tablaClases;
+	private TableView<GeneroObservable> tablaGeneros;
 	/**
 	 * hace referencia a la columna con las superCategorias
 	 */
 	@FXML
-	private TableColumn<ClaseObservable, Number> idColumna;
+	private TableColumn<GeneroObservable, Number> idColumna;
 	/**
 	 * hace referencia a la columna de los nombres de las categorias
 	 */
 	@FXML
-	private TableColumn<ClaseObservable, String> nombreColumna;
+	private TableColumn<GeneroObservable, String> nombreColumna;
+
 
 	@FXML
 	private Label txtNombre;
+	/**
+	 * etiqueta de email
+	 */
 
-	private ClaseObservable claseObservable;
 
-	public GestionarClasesControlador() {
+	private GeneroObservable GeneroObservable;
+
+	public GestionarGenerosControlador() {
 	}
 
 	/**
@@ -45,12 +49,12 @@ public class GestionarClasesControlador {
 	@FXML
 	private void initialize() {
 
-		idColumna.setCellValueFactory(claseCelda -> claseCelda.getValue().getId());
-		nombreColumna.setCellValueFactory(claseCelda -> claseCelda.getValue().getNombre());
+		idColumna.setCellValueFactory(generoCelda -> generoCelda.getValue().getId());
+		nombreColumna.setCellValueFactory(generoCelda -> generoCelda.getValue().getNombre());
 
 		mostrarDetallesCategoria(null);
 
-		tablaClases.getSelectionModel().selectedItemProperty()
+		tablaGeneros.getSelectionModel().selectedItemProperty()
 				.addListener((observable, oldValue, newValue) -> mostrarDetallesCategoria(newValue));
 
 	}
@@ -58,13 +62,13 @@ public class GestionarClasesControlador {
 	/**
 	 * permite mostrar la informacion del empleado seleccionado
 	 * 
-	 * @param clase empleado al que se le desea mostrar el detalle
+	 * @param genero empleado al que se le desea mostrar el detalle
 	 */
-	public void mostrarDetallesCategoria(ClaseObservable clase) {
+	public void mostrarDetallesCategoria(GeneroObservable genero) {
 
-		if (clase != null) {
-			claseObservable = clase;
-			txtNombre.setText(clase.getNombre().getValue());
+		if (genero != null) {
+			GeneroObservable = genero;
+			txtNombre.setText(genero.getNombre().getValue());
 
 		} else {
 			txtNombre.setText("");

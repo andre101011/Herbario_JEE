@@ -14,11 +14,11 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="466.0" prefWidth="645.0" stylesheets="@gestionarClases.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.AAAD.controlador.CategoriasControlador">
+<BorderPane prefHeight="466.0" prefWidth="645.0" stylesheets="@gestionarClases.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.AAAD.controlador.gestionarClasesControlador">
    <center>
       <SplitPane dividerPositions="0.6090739589807334" stylesheets="@logIn.css" BorderPane.alignment="CENTER">
          <items>
-            <TableView fx:id="tablaPersonas" prefHeight="277.0" prefWidth="390.0">
+            <TableView fx:id="tablaClases" prefHeight="277.0" prefWidth="390.0">
               <columns>
                 <TableColumn fx:id="columnaId" prefWidth="76.79998779296875" text="ID" />
                 <TableColumn fx:id="columnaNombre" prefWidth="190.40005493164062" text="Nombre" />
@@ -40,17 +40,17 @@
                         <Insets left="20.0" right="20.0" />
                      </GridPane.margin>
                   </TextField>
-                  <Button fx:id="botonCambiarEstadoPersona" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#cambiarEstadoPersona" prefHeight="26.0" prefWidth="98.0" text="Eliminar" GridPane.rowIndex="3">
+                  <Button fx:id="btnEliminar" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#cambiarEstadoPersona" prefHeight="26.0" prefWidth="98.0" text="Eliminar" GridPane.rowIndex="3">
                      <GridPane.margin>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </GridPane.margin>
                   </Button>
-                  <Button fx:id="botonCambiarEstadoPersona1" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#cambiarEstadoPersona" prefHeight="26.0" prefWidth="98.0" text="Editar" GridPane.rowIndex="4">
+                  <Button fx:id="btnEditar" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#cambiarEstadoPersona" prefHeight="26.0" prefWidth="98.0" text="Editar" GridPane.rowIndex="4">
                      <GridPane.margin>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </GridPane.margin>
                   </Button>
-                  <Button fx:id="botonAgregarTrabajador" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#agregarNuevoTrabajador" prefHeight="26.0" prefWidth="98.0" text="Agregar" GridPane.rowIndex="5">
+                  <Button fx:id="btnAgregar" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#agregarNuevoTrabajador" prefHeight="26.0" prefWidth="98.0" text="Agregar" GridPane.rowIndex="5">
                      <GridPane.margin>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </GridPane.margin>
@@ -89,10 +89,9 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TextField fx:id="campoBuscar" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="212.0" promptText="Buscar" GridPane.columnIndex="1" />
-            <Button fx:id="botonActualizarLista" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#actualizarLista" prefHeight="26.0" prefWidth="124.0" text="Refrescar" />
-            <ComboBox fx:id="botonFiltraPor" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="163.0" promptText="Buscar por nombre" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
-            <Button fx:id="botonBuscar" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#buscarTrabajadorPor" prefHeight="26.0" prefWidth="166.0" text="Buscar" GridPane.columnIndex="3" />
+            <TextField fx:id="jtfBuscar" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="212.0" promptText="Buscar" GridPane.columnIndex="1" />
+            <ComboBox fx:id="comboBusqueda" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="163.0" promptText="Buscar por nombre" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
+            <Button fx:id="btnBuscar" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#buscarTrabajadorPor" prefHeight="26.0" prefWidth="166.0" text="Buscar" GridPane.columnIndex="3" />
          </children>
       </GridPane>
    </top>

@@ -43,34 +43,34 @@ public class menuControlador {
 	private void initialize() {
 	}
 
-//	@FXML
-//	public void abrirGestionarClases() {
-//		escenarioInicial.cargarEscenaGestionarCategorias("clase");
-//	}
-//
-//	@FXML
-//	public void abrirGestionarOrdenes() {
-//		escenarioInicial.cargarEscenaGestionarCategorias("orden");
-//	}
-//
-//	@FXML
-//	public void abrirGestionarFamilias() {
-//		escenarioInicial.cargarEscenaGestionarCategorias("familia");
-//	}
-//
-//	@FXML
-//	public void abrirGestionarGenero() {
-//		escenarioInicial.cargarEscenaGestionarCategorias("genero");
-//	}
-//
-//	@FXML
-//	public void abrirGestionarEspecies() {
-//	escenarioInicial.cargarEscenaGestionarEspecies());
-//	}
-//
-//	public void abrirVentanaGestionarEmpleados() {
-//		escenarioInicial.cargarEscenaGestionarPersonas("empleado"));
-//	}
+	@FXML
+	public void abrirGestionarClases() {
+		manejadorEscenarios.cargarEscenarioGestionarClases();
+	}
+
+	@FXML
+	public void abrirGestionarOrdenes() {
+		manejadorEscenarios.cargarEscenarioGestionarOrdenes();
+	}
+
+	@FXML
+	public void abrirGestionarFamilias() {
+		manejadorEscenarios.cargarEscenarioGestionarFamilias();
+	}
+
+	@FXML
+	public void abrirGestionarGenero() {
+		manejadorEscenarios.cargarEscenarioGestionarGeneros();
+	}
+
+	@FXML
+	public void abrirGestionarEspecies() {
+		manejadorEscenarios.cargarEscenarioGestionarEspecies();
+	}
+
+	public void abrirVentanaGestionarEmpleados() {
+		manejadorEscenarios.cargarEscenarioGestionarEmpleados();
+	}
 //
 //	public void abrirVentanaGestionarRecolectores() {
 //		escenarioInicial.cargarEscenaGestionarPersonas("recolector"));

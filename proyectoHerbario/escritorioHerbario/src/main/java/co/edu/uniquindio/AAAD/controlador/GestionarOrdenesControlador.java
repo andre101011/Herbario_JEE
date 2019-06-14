@@ -1,14 +1,13 @@
 package co.edu.uniquindio.AAAD.controlador;
 
-import co.edu.uniquindio.AAAD.modelo.ClaseObservable;
-import co.edu.uniquindio.AAAD.modelo.EmpleadoObservable;
+import co.edu.uniquindio.AAAD.modelo.OrdenObservable;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
-public class GestionarClasesControlador {
+public class GestionarOrdenesControlador {
 
 	private Stage escenario;
 
@@ -18,24 +17,24 @@ public class GestionarClasesControlador {
 	 * table donde se almacena la informacion de las categorias los empleados
 	 */
 	@FXML
-	private TableView<ClaseObservable> tablaClases;
+	private TableView<OrdenObservable> tablaOrdenes;
 	/**
 	 * hace referencia a la columna con las superCategorias
 	 */
 	@FXML
-	private TableColumn<ClaseObservable, Number> idColumna;
+	private TableColumn<OrdenObservable, Number> idColumna;
 	/**
 	 * hace referencia a la columna de los nombres de las categorias
 	 */
 	@FXML
-	private TableColumn<ClaseObservable, String> nombreColumna;
+	private TableColumn<OrdenObservable, String> nombreColumna;
 
 	@FXML
 	private Label txtNombre;
 
-	private ClaseObservable claseObservable;
+	private OrdenObservable ordenObservable;
 
-	public GestionarClasesControlador() {
+	public GestionarOrdenesControlador() {
 	}
 
 	/**
@@ -45,12 +44,12 @@ public class GestionarClasesControlador {
 	@FXML
 	private void initialize() {
 
-		idColumna.setCellValueFactory(claseCelda -> claseCelda.getValue().getId());
+		idColumna.setCellValueFactory(ordenCelda -> ordenCelda.getValue().getId());
 		nombreColumna.setCellValueFactory(claseCelda -> claseCelda.getValue().getNombre());
 
 		mostrarDetallesCategoria(null);
 
-		tablaClases.getSelectionModel().selectedItemProperty()
+		tablaOrdenes.getSelectionModel().selectedItemProperty()
 				.addListener((observable, oldValue, newValue) -> mostrarDetallesCategoria(newValue));
 
 	}
@@ -58,13 +57,13 @@ public class GestionarClasesControlador {
 	/**
 	 * permite mostrar la informacion del empleado seleccionado
 	 * 
-	 * @param clase empleado al que se le desea mostrar el detalle
+	 * @param orden empleado al que se le desea mostrar el detalle
 	 */
-	public void mostrarDetallesCategoria(ClaseObservable clase) {
+	public void mostrarDetallesCategoria(OrdenObservable orden) {
 
-		if (clase != null) {
-			claseObservable = clase;
-			txtNombre.setText(clase.getNombre().getValue());
+		if (orden != null) {
+			ordenObservable = orden;
+			txtNombre.setText(orden.getNombre().getValue());
 
 		} else {
 			txtNombre.setText("");
