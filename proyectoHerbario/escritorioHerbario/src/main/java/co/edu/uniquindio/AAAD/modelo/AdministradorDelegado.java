@@ -854,6 +854,12 @@ public class AdministradorDelegado {
 		}
 		return especiesObservables;
 	}
+	
+	public Persona buscarPersonaPorEmail(String correo) {
+		
+		return adminEJB.buscarPersonaPorEmail(correo);
+		
+	}
 
 	/**
 	 * @return the usuario

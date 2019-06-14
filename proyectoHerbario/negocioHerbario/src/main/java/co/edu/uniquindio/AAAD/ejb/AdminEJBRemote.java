@@ -12,6 +12,7 @@ import co.edu.uniquindio.AAAD.persistencia.Especie;
 import co.edu.uniquindio.AAAD.persistencia.Familia;
 import co.edu.uniquindio.AAAD.persistencia.Genero;
 import co.edu.uniquindio.AAAD.persistencia.Orden;
+import co.edu.uniquindio.AAAD.persistencia.Persona;
 import co.edu.uniquindio.AAAD.persistencia.Recolector;
 
 
@@ -277,10 +278,11 @@ public interface AdminEJBRemote {
 	 * @return genero encontrada sino null
 	 */
 	Genero buscarGeneroPorNombre(String nombre);
-
-	
-	
-	
-	
+	/**
+	 * Busca una persona de acuerdo a su email
+	 * @param correo correo de la persona que se va abuscar
+	 * @return persona encontrada sino null
+	 */
+	Persona buscarPersonaPorEmail(String correo);
 
 }

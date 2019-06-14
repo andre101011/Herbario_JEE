@@ -32,7 +32,8 @@ import static javax.persistence.InheritanceType.JOINED;
 	@NamedQuery(name=Persona.lISTAR_SIN_REGISTROS, query="select persona from Persona persona LEFT JOIN persona.registrosEnviados registro where persona.registrosEnviados IS EMPTY"),
 	@NamedQuery(name=Persona.LISTAR_DTO, query="select new co.edu.uniquindio.AAAD.dto.PersonaDTO(persona.cedula,count(persona.registrosEnviados)) from Persona persona group by persona.cedula"),
 	@NamedQuery(name=Persona.OBTENER_REGISTROS_POR_CEDULA_PERSONA, query="select registro from Persona p INNER JOIN p.registrosEnviados registro where p.cedula=:cedula"),
-	@NamedQuery(name=Persona.LISTAR_CEDULAS_CON_REGISTROS, query="select persona.cedula,registro from Persona persona LEFT JOIN persona.registrosEnviados registro")})
+	@NamedQuery(name=Persona.LISTAR_CEDULAS_CON_REGISTROS, query="select persona.cedula,registro from Persona persona LEFT JOIN persona.registrosEnviados registro"),
+	@NamedQuery(name= Persona.BUSCAR_PERSONA_POR_EMAIL, query="select e from Persona e where e.email=:email")})
 @Inheritance(strategy = JOINED)
 public class Persona implements Serializable {
 
@@ -42,10 +43,6 @@ public class Persona implements Serializable {
 	 * referencia para obtener registros por cedula de la persona
 	 */
 	public static final String OBTENER_REGISTROS_POR_CEDULA_PERSONA="OBTENER_REGISTROS_POR_CEDULA_PERSONA";
-	
-	
-	
-	
 	/**
 	 * referencia para listar la cedula con cada uno de los registros
 	 */
@@ -70,11 +67,14 @@ public class Persona implements Serializable {
 	 * referencia para el inicio de sesión
 	 */
 	public static final String INICIO_SESION="InicioSesion";
-	
 	/**
 	 * referencia para listar los clientes
 	 */
 	public static final String LISTAR_TODOS = "ListarLosClientes";
+	/**
+	 * referencia para buscar una persona por su email
+	 */
+	public static final String BUSCAR_PERSONA_POR_EMAIL = "Buscar persona por email";
 
 	
 	/**
