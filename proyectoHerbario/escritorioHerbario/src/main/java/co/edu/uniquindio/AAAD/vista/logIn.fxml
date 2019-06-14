@@ -4,10 +4,10 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -43,6 +43,11 @@
                   <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
+                  <ImageView fitHeight="70.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" scaleX="2.0" scaleY="2.0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                     <image>
+                        <Image url="@herbarioUQ.png" />
+                     </image>
+                  </ImageView>
                   <Label text="Correo electronico:" textFill="WHITE" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Bold Italic" size="12.0" />
@@ -53,13 +58,8 @@
                         <Font name="System Bold Italic" size="12.0" />
                      </font></Label>
                   <Hyperlink text="Olvidé mi contraseña" GridPane.rowIndex="7" />
-                  <Label alignment="TOP_CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" prefHeight="18.0" prefWidth="270.0" text="Herbario UQ" textAlignment="CENTER" textFill="WHITE">
-                     <font>
-                        <Font name="The Historia Demo" size="57.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="jtfCorreo" GridPane.rowIndex="2" />
-                  <TextField fx:id="jtfClave" GridPane.rowIndex="4" />
+                  <TextField fx:id="jtfCorreo" maxWidth="1.7976931348623157E308" GridPane.rowIndex="2" />
+                  <PasswordField fx:id="jtfClave" GridPane.rowIndex="4" />
                </children>
                <GridPane.margin>
                   <Insets />
@@ -68,16 +68,4 @@
          </children>
       </GridPane>
    </center>
-   <top>
-    <MenuBar BorderPane.alignment="CENTER">
-      <menus>
-        <Menu mnemonicParsing="false" text="Ayuda">
-          <items>
-            <MenuItem disable="true" mnemonicParsing="false" text="Busque en Google" />
-                  <MenuItem disable="true" mnemonicParsing="false" text="Creado por Andres Llinas y Daniel Bonilla" />
-          </items>
-        </Menu>
-      </menus>
-    </MenuBar>
-   </top>
 </BorderPane>
