@@ -21,42 +21,42 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="btnGestionarClases" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Gestionar Clases">
+            <Button fx:id="btnGestionarClases" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#gestionarClases" text="Gestionar Clases">
                <GridPane.margin>
                   <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                </GridPane.margin>
             </Button>
-            <Button fx:id="btnGestionarOrdenes" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Gestionar Ordenes" GridPane.columnIndex="1">
+            <Button fx:id="btnGestionarOrdenes" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#gestionarOrdenes" text="Gestionar Ordenes" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                </GridPane.margin>
             </Button>
-            <Button fx:id="btnGestionarFamilias" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Gestionar Familias" GridPane.columnIndex="2">
+            <Button fx:id="btnGestionarFamilias" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#gestionarFamilias" text="Gestionar Familias" GridPane.columnIndex="2">
                <GridPane.margin>
                   <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                </GridPane.margin>
             </Button>
-            <Button fx:id="btnGestionarEspecies" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Gestionar Especies" GridPane.rowIndex="1">
+            <Button fx:id="btnGestionarEspecies" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#gestionarEspecies" text="Gestionar Especies" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                </GridPane.margin>
             </Button>
-            <Button fx:id="btnGestionarEmpleados" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Gestionar Empleados" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Button fx:id="btnGestionarEmpleados" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#gestionarEmpleados" text="Gestionar Empleados" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                </GridPane.margin>
             </Button>
-            <Button fx:id="btnGestionarRecolectores" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Gestionar Recolectores" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Button fx:id="btnGestionarRecolectores" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#gestionarRecolectores" text="Gestionar Recolectores" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                </GridPane.margin>
             </Button>
-            <Button fx:id="btnGestionarGeneros" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Gestionar Generos" GridPane.columnIndex="3">
+            <Button fx:id="btnGestionarGeneros" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#gestionarGeneros" text="Gestionar Generos" GridPane.columnIndex="3">
                <GridPane.margin>
                   <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                </GridPane.margin>
             </Button>
-            <Button fx:id="btnCerrarSesion" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Cerrar Sesión" GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <Button fx:id="btnCerrarSesion" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#cerrarSesion" text="Cerrar Sesión" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                </GridPane.margin>

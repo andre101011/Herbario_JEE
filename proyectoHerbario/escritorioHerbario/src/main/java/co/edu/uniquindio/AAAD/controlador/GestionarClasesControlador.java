@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class GestionarClasesControlador {
@@ -23,15 +24,15 @@ public class GestionarClasesControlador {
 	 * hace referencia a la columna con las superCategorias
 	 */
 	@FXML
-	private TableColumn<ClaseObservable, Number> idColumna;
+	private TableColumn<ClaseObservable, Number> columnaId;
 	/**
 	 * hace referencia a la columna de los nombres de las categorias
 	 */
 	@FXML
-	private TableColumn<ClaseObservable, String> nombreColumna;
+	private TableColumn<ClaseObservable, String> columnaNombre;
 
 	@FXML
-	private Label txtNombre;
+	private TextField jtfNombre;
 
 	private ClaseObservable claseObservable;
 
@@ -45,8 +46,8 @@ public class GestionarClasesControlador {
 	@FXML
 	private void initialize() {
 
-		idColumna.setCellValueFactory(claseCelda -> claseCelda.getValue().getId());
-		nombreColumna.setCellValueFactory(claseCelda -> claseCelda.getValue().getNombre());
+		columnaId.setCellValueFactory(claseCelda -> claseCelda.getValue().getId());
+		columnaNombre.setCellValueFactory(claseCelda -> claseCelda.getValue().getNombre());
 
 		mostrarDetallesCategoria(null);
 
@@ -64,10 +65,10 @@ public class GestionarClasesControlador {
 
 		if (clase != null) {
 			claseObservable = clase;
-			txtNombre.setText(clase.getNombre().getValue());
+			jtfNombre.setText(clase.getNombre().getValue());
 
 		} else {
-			txtNombre.setText("");
+			jtfNombre.setText("");
 		}
 
 	}

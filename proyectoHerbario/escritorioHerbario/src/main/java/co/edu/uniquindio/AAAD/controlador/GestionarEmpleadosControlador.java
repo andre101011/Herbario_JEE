@@ -7,7 +7,7 @@ import co.edu.uniquindio.AAAD.persistencia.Empleado;
 import co.edu.uniquindio.AAAD.modelo.EmpleadoObservable;
 import co.edu.uniquindio.AAAD.util.Utilidades;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 /**
  * @author EinerZG
  */
-public class GestionarEmpleadoControlador {
+public class GestionarEmpleadosControlador {
 
 	/**
 	 * table donde se almacena la informacion de los empleados
@@ -26,32 +26,32 @@ public class GestionarEmpleadoControlador {
 	 * hace referencia a la columna con las cedulas
 	 */
 	@FXML
-	private TableColumn<EmpleadoObservable, String> cedulaColumna;
+	private TableColumn<EmpleadoObservable, String> columnaCedula;
 	/**
 	 * hace referencia a la columna de los nombres de los empleados
 	 */
 	@FXML
-	private TableColumn<EmpleadoObservable, String> nombreColumna;
+	private TableColumn<EmpleadoObservable, String> columnaNombre;
 	/**
 	 * etiqueta de cedula
 	 */
 	@FXML
-	private Label txtCedula;
+	private TextField jtfCedula;
 	/**
 	 * etiqueta de nombre
 	 */
 	@FXML
-	private Label txtNombre;
+	private TextField jtfNombre;
 	/**
 	 * etiqueta de email
 	 */
 	@FXML
-	private Label txtEmail;
+	private TextField jtfEmail;
 	/**
 	 * etiqueta de clave
 	 */
 	@FXML
-	private Label txtClave;
+	private TextField jtfClave;
 
 	/**
 	 * instancia del manejador de escenario
@@ -61,7 +61,7 @@ public class GestionarEmpleadoControlador {
 	private EmpleadoObservable empleadoObservable;
 	private Stage escenario;
 
-	public GestionarEmpleadoControlador() {
+	public GestionarEmpleadosControlador() {
 	}
 
 	/**
@@ -71,8 +71,8 @@ public class GestionarEmpleadoControlador {
 	@FXML
 	private void initialize() {
 
-		cedulaColumna.setCellValueFactory(empleadoCelda -> empleadoCelda.getValue().getCedula());
-		nombreColumna.setCellValueFactory(empleadoCelda -> empleadoCelda.getValue().getNombre());
+		columnaCedula.setCellValueFactory(empleadoCelda -> empleadoCelda.getValue().getCedula());
+		columnaNombre.setCellValueFactory(empleadoCelda -> empleadoCelda.getValue().getNombre());
 
 		mostrarDetalleEmpleado(null);
 
@@ -100,15 +100,15 @@ public class GestionarEmpleadoControlador {
 
 		if (empleado != null) {
 			empleadoObservable = empleado;
-			txtCedula.setText(empleado.getCedula().getValue());
-			txtNombre.setText(empleado.getNombre().getValue());
-			txtEmail.setText(empleado.getEmail().getValue());
-			txtClave.setText(empleado.getClave().getValue());
+			jtfCedula.setText(empleado.getCedula().getValue());
+			jtfNombre.setText(empleado.getNombre().getValue());
+			jtfEmail.setText(empleado.getEmail().getValue());
+			jtfClave.setText(empleado.getClave().getValue());
 		} else {
-			txtCedula.setText("");
-			txtNombre.setText("");
-			txtEmail.setText("");
-			txtClave.setText("");
+			jtfCedula.setText("");
+			jtfNombre.setText("");
+			jtfEmail.setText("");
+			jtfClave.setText("");
 		}
 
 	}

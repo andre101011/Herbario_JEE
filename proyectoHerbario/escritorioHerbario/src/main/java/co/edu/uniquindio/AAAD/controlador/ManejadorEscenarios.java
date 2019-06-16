@@ -141,7 +141,7 @@ public class ManejadorEscenarios {
 			escenario.setScene(scene);
 
 			// se carga el controlador
-			GestionarEmpleadoControlador empleadoControlador = loader.getController();
+			GestionarEmpleadosControlador empleadoControlador = loader.getController();
 			empleadoControlador.setEscenario(escenario);
 			empleadoControlador.setManejador(this);
 
@@ -158,7 +158,7 @@ public class ManejadorEscenarios {
 	 * muestra el escenario para gestionar clases
 	 */
 	public void cargarEscenarioGestionarClases() {
-
+		escenario.hide();
 		try {
 
 			// se carga la interfaz
@@ -183,142 +183,9 @@ public class ManejadorEscenarios {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+		escenario.show();
 	}
-	
-	
-	/**
-	 * muestra el escenario para gestionar ordens
-	 */
-	public void cargarEscenarioGestionarOrdenes() {
 
-		try {
-
-			// se carga la interfaz
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("./vista/gestionarOrdenes.fxml"));
-			BorderPane page = (BorderPane) loader.load();
-
-			// se crea el escenario
-			Stage escenario = new Stage();
-			escenario.setTitle("gestionar Ordenes");
-			Scene scene = new Scene(page);
-			escenario.setScene(scene);
-
-			// se carga el controlador
-			GestionarOrdenesControlador ordenControlador = loader.getController();
-			ordenControlador.setEscenario(escenario);
-			ordenControlador.setManejador(this);
-
-			// se muestra el escenario
-			escenario.showAndWait();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-	}
-	
-	/**
-	 * muestra el escenario para gestionar familias
-	 */
-	public void cargarEscenarioGestionarFamilias() {
-
-		try {
-
-			// se carga la interfaz
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("./vista/gestionarFamilias.fxml"));
-			BorderPane page = (BorderPane) loader.load();
-
-			// se crea el escenario
-			Stage escenario = new Stage();
-			escenario.setTitle("gestionar Familias");
-			Scene scene = new Scene(page);
-			escenario.setScene(scene);
-
-			// se carga el controlador
-			GestionarFamiliasControlador familiaControlador = loader.getController();
-			familiaControlador.setEscenario(escenario);
-			familiaControlador.setManejador(this);
-
-			// se muestra el escenario
-			escenario.showAndWait();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-	}
-	
-	
-	/**
-	 * muestra el escenario para gestionar generos
-	 */
-	public void cargarEscenarioGestionarGeneros() {
-
-		try {
-
-			// se carga la interfaz
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("./vista/gestionarGeneros.fxml"));
-			BorderPane page = (BorderPane) loader.load();
-
-			// se crea el escenario
-			Stage escenario = new Stage();
-			escenario.setTitle("gestionar Generos");
-			Scene scene = new Scene(page);
-			escenario.setScene(scene);
-
-			// se carga el controlador
-			GestionarGenerosControlador generoControlador = loader.getController();
-			generoControlador.setEscenario(escenario);
-			generoControlador.setManejador(this);
-
-			// se muestra el escenario
-			escenario.showAndWait();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-	}
-	
-	
-	/**
-	 * muestra el escenario para gestionar especies
-	 */
-	public void cargarEscenarioGestionarEspecies() {
-
-		try {
-
-			// se carga la interfaz
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("./vista/gestionarEspecies.fxml"));
-			BorderPane page = (BorderPane) loader.load();
-
-			// se crea el escenario
-			Stage escenario = new Stage();
-			escenario.setTitle("gestionar Especies");
-			Scene scene = new Scene(page);
-			escenario.setScene(scene);
-
-			// se carga el controlador
-			GestionarEspeciesControlador especieControlador = loader.getController();
-			especieControlador.setEscenario(escenario);
-			especieControlador.setManejador(this);
-
-			// se muestra el escenario
-			escenario.showAndWait();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-	}
-	
-	
-	
 	/**
 	 * 
 	 * @return empleados observables

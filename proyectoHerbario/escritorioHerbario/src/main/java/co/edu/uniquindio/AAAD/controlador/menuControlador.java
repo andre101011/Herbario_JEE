@@ -44,37 +44,38 @@ public class menuControlador {
 	}
 
 	@FXML
-	public void abrirGestionarClases() {
+	public void gestionarClases() {
 		manejadorEscenarios.cargarEscenarioGestionarClases();
 	}
 
 	@FXML
-	public void abrirGestionarOrdenes() {
-		manejadorEscenarios.cargarEscenarioGestionarOrdenes();
+	public void gestionarOrdenes() {
+//		manejadorEscenarios.cargarEscenarioGestionarOrdenes();
 	}
 
 	@FXML
-	public void abrirGestionarFamilias() {
-		manejadorEscenarios.cargarEscenarioGestionarFamilias();
+	public void gestionarFamilias() {
+//		manejadorEscenarios.cargarEscenarioGestionarFamilias();
 	}
 
 	@FXML
-	public void abrirGestionarGenero() {
-		manejadorEscenarios.cargarEscenarioGestionarGeneros();
+	public void gestionarGeneros() {
+//		manejadorEscenarios.cargarEscenarioGestionarGeneros();
 	}
 
 	@FXML
-	public void abrirGestionarEspecies() {
-		manejadorEscenarios.cargarEscenarioGestionarEspecies();
+	public void gestionarEspecies() {
+//		manejadorEscenarios.cargarEscenarioGestionarEspecies();
 	}
 
-	public void abrirVentanaGestionarEmpleados() {
+	public void gestionarEmpleados() {
 		manejadorEscenarios.cargarEscenarioGestionarEmpleados();
 	}
+
 //
-//	public void abrirVentanaGestionarRecolectores() {
+	public void gestionarRecolectores() {
 //		escenarioInicial.cargarEscenaGestionarPersonas("recolector"));
-//	}
+	}
 
 	public void setEscenario(Stage escenario) {
 		this.escenario = escenario;
@@ -83,6 +84,10 @@ public class menuControlador {
 
 	public void setManejador(ManejadorEscenarios manejadorEscenarios) {
 		this.manejadorEscenarios = manejadorEscenarios;
+	}
+
+	public void cerrarSesion() {
+		manejadorEscenarios.cargarEscenariologIn();
 	}
 
 }
