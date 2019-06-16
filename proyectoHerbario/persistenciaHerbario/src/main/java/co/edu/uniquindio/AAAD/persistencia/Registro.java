@@ -22,6 +22,11 @@ import javax.persistence.*;
 public class Registro implements Serializable {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * refrencia para obtener una lista con dtos
 	 */
 	public static final String OBTENER_DTO_REGISTRO="Obtener DTO con datos relacionados al registro";
@@ -85,14 +90,23 @@ public class Registro implements Serializable {
 	 */
 	@OneToOne(mappedBy = "registroPlanta")
 	private Especie especieEnviada;
-	
-	private static final Long serialVersionUID = 1L;
-	
+	/**
+	 * persona que envió el registro
+	 */
 	@ManyToOne
 	private Persona enviadorDelRegistro;
-	
+	/**
+	 * persona que evaluó el registró
+	 */
 	@ManyToOne
 	private Administrador evaluadorDelRegistro;
+	
+	/**
+	 * visibilidad de un genero
+	 */
+	@Enumerated(EnumType.STRING)
+	@Column(length=20)
+	private Visibilidad visibilidad;
 
 	public Registro() {
 		super();
@@ -198,6 +212,20 @@ public class Registro implements Serializable {
 	 */
 	public void setJustificacion(String justificacion) {
 		this.justificacion = justificacion;
+	}
+
+	/**
+	 * @return the visibilidad
+	 */
+	public Visibilidad getVisibilidad() {
+		return visibilidad;
+	}
+
+	/**
+	 * @param visibilidad the visibilidad to set
+	 */
+	public void setVisibilidad(Visibilidad visibilidad) {
+		this.visibilidad = visibilidad;
 	}
 
 	/* (non-Javadoc)

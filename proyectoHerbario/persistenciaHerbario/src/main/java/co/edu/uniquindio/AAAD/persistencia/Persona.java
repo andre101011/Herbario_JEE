@@ -7,6 +7,8 @@ import java.util.List;
 import javax.inject.Named;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,7 +28,7 @@ import static javax.persistence.InheritanceType.JOINED;
  * @version 1.0
  */
 @Entity
-@NamedQueries({ @NamedQuery(name = Persona.LISTAR_TODOS, query = "select p from Persona p"),
+@NamedQueries({ @NamedQuery(name = Persona.LISTAR_TODOS, query = "select p from Persona p where p.visibilidad =: Estado."),
 	@NamedQuery(name=Persona.INICIO_SESION, query="select p from Persona p where p.email= :email1 and p.clave= :clave1"),
 	@NamedQuery(name=Persona.CONTAR_PERSONAS, query="select count(distinct registro.enviadorDelRegistro ) from Registro registro where registro.estado =:est group by registro.fecha"),
 	@NamedQuery(name=Persona.lISTAR_SIN_REGISTROS, query="select persona from Persona persona LEFT JOIN persona.registrosEnviados registro where persona.registrosEnviados IS EMPTY"),
@@ -75,6 +77,8 @@ public class Persona implements Serializable {
 	 * referencia para buscar una persona por su email
 	 */
 	public static final String BUSCAR_PERSONA_POR_EMAIL = "Buscar persona por email";
+	
+	
 
 	
 	/**
@@ -105,6 +109,12 @@ public class Persona implements Serializable {
 	 */
 	@OneToMany(mappedBy = "enviadorDelRegistro")
 	private List<Registro> registrosEnviados;
+	/**
+	 * visibilidad de una persona
+	 */
+	@Enumerated(EnumType.STRING)
+	@Column(length=20)
+	private Visibilidad visibilidad;
 	
 	public Persona() {
 		super();
@@ -180,6 +190,24 @@ public class Persona implements Serializable {
 	 */
 	public void setRegistrosEnviados(List<Registro> registrosEnviados) {
 		this.registrosEnviados = registrosEnviados;
+	}
+
+
+
+	/**
+	 * @return the visibilidad
+	 */
+	public Visibilidad getVisibilidad() {
+		return visibilidad;
+	}
+
+
+
+	/**
+	 * @param visibilidad the visibilidad to set
+	 */
+	public void setVisibilidad(Visibilidad visibilidad) {
+		this.visibilidad = visibilidad;
 	}
 
 

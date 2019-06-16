@@ -20,6 +20,12 @@ import javax.persistence.*;
 	@NamedQuery(name=Familia.BUSCAR_POR_NOMBRE, query="select p from Familia p where p.nombre =:nombre")})
 public class Familia implements Serializable {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
+	/**
 	 * referencia para listar las familias
 	 */
 	public static final String LISTAR_TODOS = "listarFamilias";
@@ -54,10 +60,6 @@ public class Familia implements Serializable {
 	@Column(nullable=false, length=50, unique=true)
 	private String nombre;
 	
-	private static final Long serialVersionUID = 1L;
-
-
-	
 	/**
 	 * orden de la familia
 	 */
@@ -68,6 +70,13 @@ public class Familia implements Serializable {
 	 */
 	@OneToMany(mappedBy = "familiaDelGenero")
 	private List<Genero> generosDeLaFamilia;
+	
+	/**
+	 * visibilidad de una familia
+	 */
+	@Enumerated(EnumType.STRING)
+	@Column(length=20)
+	private Visibilidad visibilidad;
 
 	public Familia() {
 		super();
@@ -131,6 +140,20 @@ public class Familia implements Serializable {
 		this.generosDeLaFamilia = generosDeLaFamilia;
 	}
 
+	/**
+	 * @return the visibilidad
+	 */
+	public Visibilidad getVisibilidad() {
+		return visibilidad;
+	}
+
+	/**
+	 * @param visibilidad the visibilidad to set
+	 */
+	public void setVisibilidad(Visibilidad visibilidad) {
+		this.visibilidad = visibilidad;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
@@ -141,6 +164,8 @@ public class Familia implements Serializable {
 		result = prime * result + (int) (id ^ (id >>> 32));
 		return result;
 	}
+	
+	
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)

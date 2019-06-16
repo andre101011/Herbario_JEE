@@ -95,6 +95,16 @@ public class Especie implements Serializable {
 	 */
 	@ManyToOne
 	private Genero generoDeEspecie;
+	/**
+	 * imagen de la especie
+	 */
+	private byte[] imagen;
+	/**
+	 * visibilidad de una Especie
+	 */
+	@Enumerated(EnumType.STRING)
+	@Column(length=20)
+	private Visibilidad visibilidad;
 
 	private static final Long serialVersionUID = 1L;
 
@@ -156,6 +166,35 @@ public class Especie implements Serializable {
 	 */
 	public void setGeneroDeEspecie(Genero generoDeEspecie) {
 		this.generoDeEspecie = generoDeEspecie;
+	}
+	
+
+	/**
+	 * @return the imagen
+	 */
+	public byte[] getImagen() {
+		return imagen;
+	}
+
+	/**
+	 * @param imagen the imagen to set
+	 */
+	public void setImagen(byte[] imagen) {
+		this.imagen = imagen;
+	}
+
+	/**
+	 * @return the visibilidad
+	 */
+	public Visibilidad getVisibilidad() {
+		return visibilidad;
+	}
+
+	/**
+	 * @param visibilidad the visibilidad to set
+	 */
+	public void setVisibilidad(Visibilidad visibilidad) {
+		this.visibilidad = visibilidad;
 	}
 
 	/* (non-Javadoc)

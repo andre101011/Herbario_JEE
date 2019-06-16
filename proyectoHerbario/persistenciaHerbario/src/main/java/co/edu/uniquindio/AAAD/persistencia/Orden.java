@@ -19,9 +19,17 @@ import javax.persistence.*;
 public class Orden implements Serializable {
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * referencia para listar los ordenes
 	 */
 	public static final String LISTAR_TODOS="ListarLosOrdenes";
+	/**
+	 * Referencia para buscar un orden por su nombre
+	 */
+	public static final String BUSCAR_POR_NOMBRE = "Buscar orden por nombre";
 	/***
 	 * nombre del orden
 	 */
@@ -39,14 +47,19 @@ public class Orden implements Serializable {
 	@ManyToOne
 	private Clase claseDelOrden;
 	
-	private static final Long serialVersionUID = 1L;
-	public static final String BUSCAR_POR_NOMBRE = "Buscar orden por nombre";
 	
 	/**
 	 * lista de familias del orden
 	 */
 	@OneToMany(mappedBy = "ordenDelaFamilia")
 	private List<Familia> familiasDelOrden;
+	
+	/**
+	 * visibilidad de un orden
+	 */
+	@Enumerated(EnumType.STRING)
+	@Column(length=20)
+	private Visibilidad visibilidad;
 
 	public Orden() {
 		super();
@@ -110,6 +123,20 @@ public class Orden implements Serializable {
 
 	
 	
+	/**
+	 * @return the visibilidad
+	 */
+	public Visibilidad getVisibilidad() {
+		return visibilidad;
+	}
+
+	/**
+	 * @param visibilidad the visibilidad to set
+	 */
+	public void setVisibilidad(Visibilidad visibilidad) {
+		this.visibilidad = visibilidad;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */

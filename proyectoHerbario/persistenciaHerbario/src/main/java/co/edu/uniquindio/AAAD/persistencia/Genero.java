@@ -18,6 +18,13 @@ import javax.persistence.*;
 	@NamedQuery(name = Genero.OBTENER_ESPECIES_POR_GENERO_IN, query="select especie from Genero genero, IN(genero.especiesDelGenero) especie where genero.id =:id"),
 	@NamedQuery(name=Genero.BUSCAR_POR_NOMBRE, query="select p from Genero p where p.nombre =:nombre")})
 public class Genero implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
 	/**
 	 * referencia para listar los generos
 	 */
@@ -40,7 +47,7 @@ public class Genero implements Serializable {
 	 * nombre del genero
 	 */
 	private String nombre;
-	private static final Long serialVersionUID = 1L;
+	
 
 	/**
 	 * referencia para buscar un genero por su nombre
@@ -56,6 +63,13 @@ public class Genero implements Serializable {
 	 */
 	@OneToMany(mappedBy = "generoDeEspecie")
 	private List<Especie> especiesDelGenero;
+	
+	/**
+	 * visibilidad de un genero
+	 */
+	@Enumerated(EnumType.STRING)
+	@Column(length=20)
+	private Visibilidad visibilidad;
 
 	public Genero() {
 		super();
@@ -118,6 +132,20 @@ public class Genero implements Serializable {
 	 */
 	public void setEspeciesDelGenero(List<Especie> especiesDelGenero) {
 		this.especiesDelGenero = especiesDelGenero;
+	}
+
+	/**
+	 * @return the visibilidad
+	 */
+	public Visibilidad getVisibilidad() {
+		return visibilidad;
+	}
+
+	/**
+	 * @param visibilidad the visibilidad to set
+	 */
+	public void setVisibilidad(Visibilidad visibilidad) {
+		this.visibilidad = visibilidad;
 	}
 
 	/* (non-Javadoc)

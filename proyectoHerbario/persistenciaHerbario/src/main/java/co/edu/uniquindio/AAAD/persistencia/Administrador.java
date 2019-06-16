@@ -23,10 +23,14 @@ public class Administrador extends Persona implements Serializable {
 	 * referencia para listar los administradores
 	 */
 	public static final String LISTAR_ADMINISTRADOR = "listarAdministrador";
-	
+	/**
+	 * referencia para contar los administradores
+	 */
 	public static final String CONTAR_ADMINS= "contarAdmins";
 	
 	private static final long serialVersionUID = 1L;
+	
+	
 	
 	/**
 	 * lista de registros evaluados por el administrador
@@ -51,6 +55,7 @@ public class Administrador extends Persona implements Serializable {
 	public void setRegistrosEvaluados(List<Registro> registrosEvaluados) {
 		this.registrosEvaluados = registrosEvaluados;
 	}
+	
 	
 	
    

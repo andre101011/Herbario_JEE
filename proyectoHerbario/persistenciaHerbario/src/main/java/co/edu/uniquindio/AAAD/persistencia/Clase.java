@@ -45,6 +45,13 @@ public class Clase implements Serializable {
 	 */
 	@OneToMany(mappedBy = "claseDelOrden")
 	private List<Orden> ordenesDeLaClase;
+	
+	/**
+	 * visibilidad de una clase
+	 */
+	@Enumerated(EnumType.STRING)
+	@Column(length=20)
+	private Visibilidad visibilidad;
 
 	public Clase() {
 		super();
@@ -92,6 +99,20 @@ public class Clase implements Serializable {
 	 */
 	public void setOrdenesDeLaClase(List<Orden> ordenesDeLaClase) {
 		this.ordenesDeLaClase = ordenesDeLaClase;
+	}
+
+	/**
+	 * @return the visibilidad
+	 */
+	public Visibilidad getVisibilidad() {
+		return visibilidad;
+	}
+
+	/**
+	 * @param visibilidad the visibilidad to set
+	 */
+	public void setVisibilidad(Visibilidad visibilidad) {
+		this.visibilidad = visibilidad;
 	}
 
 	/* (non-Javadoc)
