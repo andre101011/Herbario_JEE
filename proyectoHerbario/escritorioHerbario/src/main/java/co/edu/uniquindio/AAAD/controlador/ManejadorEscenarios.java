@@ -126,7 +126,7 @@ public class ManejadorEscenarios {
 	 * muestra el escenario para crear un empleado nuevo
 	 */
 	public void cargarEscenarioGestionarEmpleados() {
-
+		escenario.hide();
 		try {
 
 			// se carga la interfaz
@@ -151,7 +151,7 @@ public class ManejadorEscenarios {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+		escenario.show();
 	}
 
 	/**
@@ -186,6 +186,10 @@ public class ManejadorEscenarios {
 		escenario.show();
 	}
 
+	
+	
+	
+	
 	/**
 	 * 
 	 * @return empleados observables

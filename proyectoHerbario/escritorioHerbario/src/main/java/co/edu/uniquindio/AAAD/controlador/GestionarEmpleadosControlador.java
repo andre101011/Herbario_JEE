@@ -35,23 +35,12 @@ public class GestionarEmpleadosControlador {
 	/**
 	 * etiqueta de cedula
 	 */
-	@FXML
-	private TextField jtfCedula;
-	/**
-	 * etiqueta de nombre
-	 */
+
 	@FXML
 	private TextField jtfNombre;
 	/**
 	 * etiqueta de email
 	 */
-	@FXML
-	private TextField jtfEmail;
-	/**
-	 * etiqueta de clave
-	 */
-	@FXML
-	private TextField jtfClave;
 
 	/**
 	 * instancia del manejador de escenario
@@ -100,15 +89,11 @@ public class GestionarEmpleadosControlador {
 
 		if (empleado != null) {
 			empleadoObservable = empleado;
-			jtfCedula.setText(empleado.getCedula().getValue());
+
 			jtfNombre.setText(empleado.getNombre().getValue());
-			jtfEmail.setText(empleado.getEmail().getValue());
-			jtfClave.setText(empleado.getClave().getValue());
+
 		} else {
-			jtfCedula.setText("");
 			jtfNombre.setText("");
-			jtfEmail.setText("");
-			jtfClave.setText("");
 		}
 
 	}
