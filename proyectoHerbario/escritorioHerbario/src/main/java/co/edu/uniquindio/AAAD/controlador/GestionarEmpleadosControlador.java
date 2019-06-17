@@ -4,8 +4,16 @@
 package co.edu.uniquindio.AAAD.controlador;
 
 import co.edu.uniquindio.AAAD.persistencia.Empleado;
+
+import javax.swing.JOptionPane;
+
+import co.edu.uniquindio.AAAD.excepciones.ElementoNoEncontradoException;
+import co.edu.uniquindio.AAAD.excepciones.ElementoRepetidoException;
+import co.edu.uniquindio.AAAD.modelo.AdministradorDelegado;
 import co.edu.uniquindio.AAAD.modelo.EmpleadoObservable;
 import co.edu.uniquindio.AAAD.util.Utilidades;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn;
@@ -38,14 +46,28 @@ public class GestionarEmpleadosControlador {
 
 	@FXML
 	private TextField jtfNombre;
-	/**
-	 * etiqueta de email
-	 */
+
+	@FXML
+	private TextField jtfCedula;
+
+	@FXML
+	private TextField jtfEmail;
+
+	@FXML
+	private TextField jtfClave;
 
 	/**
 	 * instancia del manejador de escenario
 	 */
 	private ManejadorEscenarios manejadorEscenarios;
+	/**
+	 * para almacenar empleados observables
+	 */
+	private ObservableList<EmpleadoObservable> empleadosObservables;
+	/**
+	 * conexion con capa de negocio
+	 */
+	private AdministradorDelegado administradorDelegado;
 
 	private EmpleadoObservable empleadoObservable;
 	private Stage escenario;
@@ -68,6 +90,9 @@ public class GestionarEmpleadosControlador {
 		tablaEmpleados.getSelectionModel().selectedItemProperty()
 				.addListener((observable, oldValue, newValue) -> mostrarDetalleEmpleado(newValue));
 
+		administradorDelegado = AdministradorDelegado.administradorDelegado;
+		empleadosObservables = FXCollections.observableArrayList();
+
 	}
 
 	/**
@@ -77,7 +102,7 @@ public class GestionarEmpleadosControlador {
 	 */
 	public void setEscenarioInicial(ManejadorEscenarios escenarioInicial) {
 		this.manejadorEscenarios = escenarioInicial;
-		tablaEmpleados.setItems(escenarioInicial.getEmpleadosObservables());
+		tablaEmpleados.setItems(getEmpleadosObservables());
 	}
 
 	/**
@@ -91,9 +116,15 @@ public class GestionarEmpleadosControlador {
 			empleadoObservable = empleado;
 
 			jtfNombre.setText(empleado.getNombre().getValue());
+			jtfCedula.setText(empleado.getCedula().getValue());
+			jtfEmail.setText(empleado.getEmail().getValue());
+			jtfClave.setText(empleado.getClave().getValue());
 
 		} else {
 			jtfNombre.setText("");
+			jtfEmail.setText("");
+			jtfCedula.setText("");
+			jtfClave.setText("");
 		}
 
 	}
@@ -103,8 +134,33 @@ public class GestionarEmpleadosControlador {
 	 */
 	@FXML
 	public void agregarEmpleado() {
-		manejadorEscenarios.cargarEscenarioGestionarEmpleados();
-		tablaEmpleados.refresh();
+		Empleado empleado = new Empleado();
+		empleado.setCedula(jtfCedula.getText());
+		empleado.setNombre(jtfNombre.getText());
+		empleado.setClave(jtfClave.getText());
+		empleado.setEmail(jtfEmail.getText());
+
+		try {
+			if (administradorDelegado.insertarEmpleado(empleado)) {
+				agregarALista(empleado);
+				Utilidades.mostrarMensaje("Registro", "Registro exitoso!!");
+			} else {
+				Utilidades.mostrarMensaje("Registro", "Error en registro!!");
+			}
+		} catch (ElementoRepetidoException e) {
+			Utilidades.mostrarMensaje("Error", e.toString());
+			e.printStackTrace();
+		}
+		actualizarTabla();
+
+	}
+
+	void actualizarTabla() {
+		int indice = tablaEmpleados.getSelectionModel().getSelectedIndex();
+		tablaEmpleados
+				.setItems((ObservableList<EmpleadoObservable>) administradorDelegado.listarEmpleadosObservables());
+		tablaEmpleados.getSelectionModel().clearSelection();
+		tablaEmpleados.getSelectionModel().select(indice);
 	}
 
 	/**
@@ -119,11 +175,16 @@ public class GestionarEmpleadosControlador {
 
 		Empleado empleado = tablaEmpleados.getItems().get(indice).getEmpleado();
 
-		if (manejadorEscenarios.eliminarEmpleado(empleado)) {
-			tablaEmpleados.getItems().remove(indice);
-			Utilidades.mostrarMensaje("Borrar", "El empleado ha sido eliminado con exito");
-		} else {
-			Utilidades.mostrarMensaje("Error", "El empleado no pudo ser eliminado");
+		try {
+			if (administradorDelegado.eliminarEmpleado(empleado)) {
+				tablaEmpleados.getItems().remove(indice);
+				Utilidades.mostrarMensaje("Borrar", "El empleado ha sido eliminado con exito");
+			} else {
+				Utilidades.mostrarMensaje("Error", "El empleado no pudo ser eliminado");
+			}
+		} catch (ElementoNoEncontradoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 	}
@@ -135,6 +196,23 @@ public class GestionarEmpleadosControlador {
 
 	public void setManejador(ManejadorEscenarios manejadorEscenarios) {
 		this.manejadorEscenarios = manejadorEscenarios;
+	}
+
+	/**
+	 * 
+	 * @return empleados observables
+	 */
+	public ObservableList<EmpleadoObservable> getEmpleadosObservables() {
+		return empleadosObservables;
+	}
+
+	/**
+	 * permite agrega una liente a la lista observable
+	 * 
+	 * @param empleado
+	 */
+	public void agregarALista(Empleado empleado) {
+		empleadosObservables.add(new EmpleadoObservable(empleado));
 	}
 
 }

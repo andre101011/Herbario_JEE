@@ -33,14 +33,6 @@ public class ManejadorEscenarios {
 	 * tipo de panel inicial
 	 */
 	private BorderPane panelPrincipal;
-	/**
-	 * para almacenar empleados observables
-	 */
-	private ObservableList<EmpleadoObservable> empleadosObservables;
-	/**
-	 * conexion con capa de negocio
-	 */
-	private AdministradorDelegado administradorDelegado;
 
 	/**
 	 * recibe el escenario principal de la aplicacion
@@ -51,9 +43,6 @@ public class ManejadorEscenarios {
 	public ManejadorEscenarios(Stage escenario) {
 
 		this.escenario = escenario;
-
-		administradorDelegado = AdministradorDelegado.administradorDelegado;
-		empleadosObservables = FXCollections.observableArrayList();
 
 		try {
 			// se inicializa el escenario
@@ -110,7 +99,7 @@ public class ManejadorEscenarios {
 			BorderPane page = (BorderPane) loader.load();
 			escenario.setMinWidth(900);
 			escenario.setMinHeight(200);
-
+			escenario.centerOnScreen();
 			panelPrincipal.setCenter(page);
 
 			menuControlador controlador = loader.getController();
@@ -186,27 +175,6 @@ public class ManejadorEscenarios {
 		escenario.show();
 	}
 
-	
-	
-	
-	
-	/**
-	 * 
-	 * @return empleados observables
-	 */
-	public ObservableList<EmpleadoObservable> getEmpleadosObservables() {
-		return empleadosObservables;
-	}
-
-	/**
-	 * permite agrega una liente a la lista observable
-	 * 
-	 * @param empleado
-	 */
-	public void agregarALista(Empleado empleado) {
-		empleadosObservables.add(new EmpleadoObservable(empleado));
-	}
-
 	/**
 	 * devuelve una instancia del escenario
 	 * 
@@ -214,37 +182,6 @@ public class ManejadorEscenarios {
 	 */
 	public Stage getEscenario() {
 		return escenario;
-	}
-
-	/**
-	 * permite registrar una persona en la base de datos
-	 * 
-	 * @param empleado a registrar
-	 * @return true si quedo registrado
-	 */
-	public boolean registrarEmpleado(Empleado empleado) {
-		try {
-			return administradorDelegado.insertarEmpleado(empleado);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
-
-	/**
-	 * permite eliminar un empleado
-	 * 
-	 * @param empleado a ser eliminado
-	 * @return true si fue eliminado false si no
-	 */
-	public boolean eliminarEmpleado(Empleado empleado) {
-		try {
-			return administradorDelegado.eliminarEmpleado(empleado);
-		} catch (ElementoNoEncontradoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
-		}
 	}
 
 }
