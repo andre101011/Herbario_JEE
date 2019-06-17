@@ -167,7 +167,7 @@ public class AdminEJB implements AdminEJBRemote {
 	@Override
 	public List<Empleado> listarEmpleados() {
 		try {
-			TypedQuery<Empleado> query = entityManager.createNamedQuery(Empleado.LISTAR_TODOS, Empleado.class);
+			TypedQuery<Empleado> query = entityManager.createNamedQuery(Empleado.LISTAR_EMPLEADO, Empleado.class);
 			List<Empleado> lista = query.getResultList();
 			return lista;
 		} catch (Exception e) {
@@ -223,7 +223,7 @@ public class AdminEJB implements AdminEJBRemote {
 	@Override
 	public List<Recolector> listarRecolectores() {
 		try {
-			TypedQuery<Recolector> query = entityManager.createNamedQuery(Recolector.LISTAR_TODOS, Recolector.class);
+			TypedQuery<Recolector> query = entityManager.createNamedQuery(Recolector.LISTAR_RECOLECTOR, Recolector.class);
 			List<Recolector> lista = query.getResultList();
 			return lista;
 		} catch (Exception e) {

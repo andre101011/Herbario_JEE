@@ -91,7 +91,7 @@ public class TestModelo {
 		
 	}
 	
-	@Test
+	
 	@UsingDataSet({ "persona.json", "clase.json", "orden.json", "familia.json", "genero.json", "especie.json",
 	"registro.json" })
 	@Transactional(value=TransactionMode.ROLLBACK)
