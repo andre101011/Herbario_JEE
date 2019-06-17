@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
+
 /**
  * Informacion basica de cada una de las clases asociadas al herbario
  * 
@@ -43,9 +44,9 @@ public class Clase implements Serializable {
 	/**
 	 * lista de las ordenes de la clase
 	 */
-	@OneToMany(mappedBy = "claseDelOrden")
+	@OneToMany(mappedBy = "claseDelOrden",  orphanRemoval=true)
 	private List<Orden> ordenesDeLaClase;
-
+	
 	public Clase() {
 		super();
 	}
@@ -93,6 +94,7 @@ public class Clase implements Serializable {
 	public void setOrdenesDeLaClase(List<Orden> ordenesDeLaClase) {
 		this.ordenesDeLaClase = ordenesDeLaClase;
 	}
+
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()

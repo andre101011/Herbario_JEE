@@ -20,6 +20,12 @@ import javax.persistence.*;
 	@NamedQuery(name=Familia.BUSCAR_POR_NOMBRE, query="select p from Familia p where p.nombre =:nombre")})
 public class Familia implements Serializable {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
+	/**
 	 * referencia para listar las familias
 	 */
 	public static final String LISTAR_TODOS = "listarFamilias";
@@ -54,10 +60,6 @@ public class Familia implements Serializable {
 	@Column(nullable=false, length=50, unique=true)
 	private String nombre;
 	
-	private static final Long serialVersionUID = 1L;
-
-
-	
 	/**
 	 * orden de la familia
 	 */
@@ -66,8 +68,9 @@ public class Familia implements Serializable {
 	/**
 	 * lista de generos de la familia
 	 */
-	@OneToMany(mappedBy = "familiaDelGenero")
+	@OneToMany(mappedBy = "familiaDelGenero", orphanRemoval=true)
 	private List<Genero> generosDeLaFamilia;
+	
 
 	public Familia() {
 		super();
@@ -141,6 +144,8 @@ public class Familia implements Serializable {
 		result = prime * result + (int) (id ^ (id >>> 32));
 		return result;
 	}
+	
+	
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)

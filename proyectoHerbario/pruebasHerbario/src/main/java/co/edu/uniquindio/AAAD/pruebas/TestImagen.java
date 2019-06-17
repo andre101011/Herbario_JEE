@@ -1,7 +1,17 @@
 package co.edu.uniquindio.AAAD.pruebas;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+
+import javax.imageio.ImageIO;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -17,7 +27,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import co.edu.uniquindio.AAAD.persistencia.Clase;
 import co.edu.uniquindio.AAAD.persistencia.Empleado;
 import co.edu.uniquindio.AAAD.persistencia.Especie;
 import co.edu.uniquindio.AAAD.persistencia.Persona;
@@ -32,7 +41,7 @@ import co.edu.uniquindio.AAAD.persistencia.Recolector;
  * @version 1.0
  */
 @RunWith(Arquillian.class)
-public class TestModelo {
+public class TestImagen {
 
 	/**
 	 * instancia para realizar las transaciones con las entidades
@@ -55,27 +64,54 @@ public class TestModelo {
 
 	@Test
 	public void test() {
-		
 	}
 	
 	
-	@UsingDataSet({"persona.json"})
+	@Test
 	@Transactional(value=TransactionMode.ROLLBACK)
-	public void AgregarEmpleadoTest() {
+	public void AgregarEspecieTest() {
 		
-		Empleado empleado =new Empleado();
-		empleado.setCedula("6476785");
-		empleado.setNombre("Lucia torres");
-		empleado.setClave("12345");
-		empleado.setEmail("ltorres@gmail.com");
+		Especie especie = new Especie();
+		especie.setId(1L);
+		especie.setNombre("esp1");
+		File archivo = new File("C:\\eclipse\\workspace\\Herbario_JEE\\proyectoHerbario\\escritorioHerbario\\src\\main\\java\\co\\edu\\uniquindio\\AAAD\\vista\\herbarioUQ.png");
+        byte[] imgFoto = new byte[(int)archivo.length()];
 		
-		entityManager.persist(empleado);//agregar
-		//entityManager.merge(empleado);actualizar
-		//entityManager.remove(empleado);eliminar
+
+        InputStream inte = null;
+		try {
+			inte = new FileInputStream(archivo);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		Empleado empleado2 = entityManager.find(Empleado.class, empleado.getCedula());//buscar
+        try {
+			inte.read(imgFoto);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        especie.setImagen(imgFoto);
+		entityManager.persist(especie);//agregar
 		
-		Assert.assertNotNull(empleado2);
+		especie = entityManager.find(Especie.class, 1L);
+		imgFoto=especie.getImagen();
+         BufferedImage image = null;
+         InputStream in = new ByteArrayInputStream(imgFoto);
+         try {
+			image = ImageIO.read(in);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+         ImageIcon icono = new ImageIcon(image);
+         JOptionPane.showMessageDialog(null, "Imagenes", "Imagen", JOptionPane.INFORMATION_MESSAGE, icono);
+		
+	
+		
+		
 
 	}
 	
@@ -88,22 +124,6 @@ public class TestModelo {
 		
 		
 		Assert.assertNotNull(recolector);
-		
-	}
-	
-	@Test
-	@UsingDataSet({ "persona.json", "clase.json", "orden.json", "familia.json", "genero.json", "especie.json",
-	"registro.json" })
-	@Transactional(value=TransactionMode.ROLLBACK)
-	public void eliminarEncascadaTest() {
-		
-//		Clase clase = entityManager.find(Clase.class, 1l);
-//		
-//		entityManager.remove(clase);
-		
-		Especie e=entityManager.find(Especie.class,1l);
-		Assert.assertNotNull(e);
-		
 		
 	}
 

@@ -18,6 +18,13 @@ import javax.persistence.*;
 	@NamedQuery(name = Genero.OBTENER_ESPECIES_POR_GENERO_IN, query="select especie from Genero genero, IN(genero.especiesDelGenero) especie where genero.id =:id"),
 	@NamedQuery(name=Genero.BUSCAR_POR_NOMBRE, query="select p from Genero p where p.nombre =:nombre")})
 public class Genero implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
 	/**
 	 * referencia para listar los generos
 	 */
@@ -40,7 +47,7 @@ public class Genero implements Serializable {
 	 * nombre del genero
 	 */
 	private String nombre;
-	private static final Long serialVersionUID = 1L;
+	
 
 	/**
 	 * referencia para buscar un genero por su nombre
@@ -54,8 +61,9 @@ public class Genero implements Serializable {
 	/**
 	 * lista de especies del genero
 	 */
-	@OneToMany(mappedBy = "generoDeEspecie")
+	@OneToMany(mappedBy = "generoDeEspecie", orphanRemoval=true)
 	private List<Especie> especiesDelGenero;
+	
 
 	public Genero() {
 		super();

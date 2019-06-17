@@ -7,6 +7,8 @@ import java.util.List;
 import javax.inject.Named;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,8 +28,8 @@ import static javax.persistence.InheritanceType.JOINED;
  * @version 1.0
  */
 @Entity
-@NamedQueries({ @NamedQuery(name = Persona.LISTAR_TODOS, query = "select p from Persona p"),
-	@NamedQuery(name=Persona.INICIO_SESION, query="select p from Persona p where p.email= :email1 and p.clave= :clave1"),
+@NamedQueries({ @NamedQuery(name = Persona.LISTAR_TODOS, query = "select p from Persona p where p.visibilidad =:visibilidad"),
+	@NamedQuery(name=Persona.INICIO_SESION, query="select p from Persona p where p.email= :email1 and p.clave= :clave1 and  p.visibilidad =:visibilidad"),
 	@NamedQuery(name=Persona.CONTAR_PERSONAS, query="select count(distinct registro.enviadorDelRegistro ) from Registro registro where registro.estado =:est group by registro.fecha"),
 	@NamedQuery(name=Persona.lISTAR_SIN_REGISTROS, query="select persona from Persona persona LEFT JOIN persona.registrosEnviados registro where persona.registrosEnviados IS EMPTY"),
 	@NamedQuery(name=Persona.LISTAR_DTO, query="select new co.edu.uniquindio.AAAD.dto.PersonaDTO(persona.cedula,count(persona.registrosEnviados)) from Persona persona group by persona.cedula"),
@@ -75,6 +77,8 @@ public class Persona implements Serializable {
 	 * referencia para buscar una persona por su email
 	 */
 	public static final String BUSCAR_PERSONA_POR_EMAIL = "Buscar persona por email";
+	
+	
 
 	
 	/**
@@ -181,8 +185,6 @@ public class Persona implements Serializable {
 	public void setRegistrosEnviados(List<Registro> registrosEnviados) {
 		this.registrosEnviados = registrosEnviados;
 	}
-
-
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()

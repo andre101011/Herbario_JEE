@@ -1,35 +1,35 @@
 {
 	"REGISTRO": [
 		{
-			"id":"1",
+			"id":1,
 			"estado":"Aceptado",
 			"fecha": "1992-12-28",
-			"enviadorDelRegistro_id":"3",
-			"evaluadorDelRegistro_id":"2"
+			"enviadorDelRegistro_cedula":"123456789",
+			"evaluadorDelRegistro_cedula":"223456789"
 			
 		},
 		{
-			"id":"2",
+			"id":2,
 			"estado":"Rechazado",
 			"fecha": "1992-12-28",
-			"enviadorDelRegistro_id":"1",
-			"evaluadorDelRegistro_id":"2"
+			"enviadorDelRegistro_cedula":"123456789",
+			"evaluadorDelRegistro_cedula":"223456789"
 			
 		},
 		{
-			"id":"3",
+			"id":3,
 			"estado":"Aceptado",
 			"fecha": "1992-12-28",
-			"enviadorDelRegistro_id":"3",
-			"evaluadorDelRegistro_id":"2"
+			"enviadorDelRegistro_cedula":"123456789",
+			"evaluadorDelRegistro_cedula":"223456789"
 			
 		},
 		{
-			"id":"5",
+			"id":5,
 			"estado":"Espera",
 			"fecha": "1992-12-27",
-			"enviadorDelRegistro_id":"3",
-			"evaluadorDelRegistro_id":"2"
+			"enviadorDelRegistro_cedula":"123456789",
+			"evaluadorDelRegistro_cedula":"223456789"
 			
 		}
 		

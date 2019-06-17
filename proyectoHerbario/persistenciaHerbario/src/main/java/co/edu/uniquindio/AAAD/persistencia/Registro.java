@@ -22,6 +22,11 @@ import javax.persistence.*;
 public class Registro implements Serializable {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * refrencia para obtener una lista con dtos
 	 */
 	public static final String OBTENER_DTO_REGISTRO="Obtener DTO con datos relacionados al registro";
@@ -85,12 +90,14 @@ public class Registro implements Serializable {
 	 */
 	@OneToOne(mappedBy = "registroPlanta")
 	private Especie especieEnviada;
-	
-	private static final Long serialVersionUID = 1L;
-	
+	/**
+	 * persona que envió el registro
+	 */
 	@ManyToOne
 	private Persona enviadorDelRegistro;
-	
+	/**
+	 * persona que evaluó el registró
+	 */
 	@ManyToOne
 	private Administrador evaluadorDelRegistro;
 
