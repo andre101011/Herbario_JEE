@@ -1,19 +1,19 @@
 {
 	"FAMILIA": [
 		{
-			"id":"1",
+			"id":1,
 			"nombre":"Celastraceae",
-			"ordenDelaFamilia_id":"1"
+			"ordenDelaFamilia_id":1
 		},
 		{
-			"id":"2",
+			"id":2,
 			"nombre":"Pinaceae",
-			"ordenDelaFamilia_id":"2"
+			"ordenDelaFamilia_id":2
 		},
 		{
-			"id":"3",
+			"id":3,
 			"nombre":"Cucurbitaceae",
-			"ordenDelaFamilia_id":"3"
+			"ordenDelaFamilia_id":3
 			
 		}
 		

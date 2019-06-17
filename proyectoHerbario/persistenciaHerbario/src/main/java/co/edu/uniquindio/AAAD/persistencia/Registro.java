@@ -100,13 +100,6 @@ public class Registro implements Serializable {
 	 */
 	@ManyToOne
 	private Administrador evaluadorDelRegistro;
-	
-	/**
-	 * visibilidad de un genero
-	 */
-	@Enumerated(EnumType.STRING)
-	@Column(length=20)
-	private Visibilidad visibilidad;
 
 	public Registro() {
 		super();
@@ -212,20 +205,6 @@ public class Registro implements Serializable {
 	 */
 	public void setJustificacion(String justificacion) {
 		this.justificacion = justificacion;
-	}
-
-	/**
-	 * @return the visibilidad
-	 */
-	public Visibilidad getVisibilidad() {
-		return visibilidad;
-	}
-
-	/**
-	 * @param visibilidad the visibilidad to set
-	 */
-	public void setVisibilidad(Visibilidad visibilidad) {
-		this.visibilidad = visibilidad;
 	}
 
 	/* (non-Javadoc)

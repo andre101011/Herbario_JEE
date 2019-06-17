@@ -2,6 +2,7 @@ package co.edu.uniquindio.AAAD.pruebas;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.swing.JOptionPane;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -16,7 +17,9 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import co.edu.uniquindio.AAAD.persistencia.Clase;
 import co.edu.uniquindio.AAAD.persistencia.Empleado;
+import co.edu.uniquindio.AAAD.persistencia.Especie;
 import co.edu.uniquindio.AAAD.persistencia.Persona;
 import co.edu.uniquindio.AAAD.persistencia.Recolector;
 
@@ -85,6 +88,22 @@ public class TestModelo {
 		
 		
 		Assert.assertNotNull(recolector);
+		
+	}
+	
+	@Test
+	@UsingDataSet({ "persona.json", "clase.json", "orden.json", "familia.json", "genero.json", "especie.json",
+	"registro.json" })
+	@Transactional(value=TransactionMode.ROLLBACK)
+	public void eliminarEncascadaTest() {
+		
+//		Clase clase = entityManager.find(Clase.class, 1l);
+//		
+//		entityManager.remove(clase);
+		
+		Especie e=entityManager.find(Especie.class,1l);
+		Assert.assertNotNull(e);
+		
 		
 	}
 

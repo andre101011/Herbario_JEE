@@ -68,15 +68,9 @@ public class Familia implements Serializable {
 	/**
 	 * lista de generos de la familia
 	 */
-	@OneToMany(mappedBy = "familiaDelGenero")
+	@OneToMany(mappedBy = "familiaDelGenero", orphanRemoval=true)
 	private List<Genero> generosDeLaFamilia;
 	
-	/**
-	 * visibilidad de una familia
-	 */
-	@Enumerated(EnumType.STRING)
-	@Column(length=20)
-	private Visibilidad visibilidad;
 
 	public Familia() {
 		super();
@@ -138,20 +132,6 @@ public class Familia implements Serializable {
 	 */
 	public void setGenerosDeLaFamilia(List<Genero> generosDeLaFamilia) {
 		this.generosDeLaFamilia = generosDeLaFamilia;
-	}
-
-	/**
-	 * @return the visibilidad
-	 */
-	public Visibilidad getVisibilidad() {
-		return visibilidad;
-	}
-
-	/**
-	 * @param visibilidad the visibilidad to set
-	 */
-	public void setVisibilidad(Visibilidad visibilidad) {
-		this.visibilidad = visibilidad;
 	}
 
 	/* (non-Javadoc)

@@ -1,28 +1,28 @@
 {
 	"ESPECIE": [
 		{
-			"id":"1",
+			"id":1,
 			"nombre":"Rosa damascena",
-			"generoDeEspecie_id":"1",
-			"registroPlanta_id":"1"
+			"generoDeEspecie_id":1,
+			"registroPlanta_id":1
 		},
 		{
-			"id":"2",
+			"id":2,
 			"nombre":"Rosa canina",
-			"generoDeEspecie_id":"1",
-			"registroPlanta_id":"2"
+			"generoDeEspecie_id":1,
+			"registroPlanta_id":2
 		},
 		{
-			"id":"3",
+			"id":3,
 			"nombre":"Pinus cembra",
-			"generoDeEspecie_id":"2",
-			"registroPlanta_id":"3"
+			"generoDeEspecie_id":2,
+			"registroPlanta_id":3
 		},
 		{
-			"id":"5",
+			"id":5,
 			"nombre":"Rosa melano",
-			"generoDeEspecie_id":"1",
-			"registroPlanta_id":"5"
+			"generoDeEspecie_id":1,
+			"registroPlanta_id":5
 		}
 	]
 }

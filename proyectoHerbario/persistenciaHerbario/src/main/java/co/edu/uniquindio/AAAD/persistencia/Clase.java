@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
+
 /**
  * Informacion basica de cada una de las clases asociadas al herbario
  * 
@@ -43,16 +44,9 @@ public class Clase implements Serializable {
 	/**
 	 * lista de las ordenes de la clase
 	 */
-	@OneToMany(mappedBy = "claseDelOrden")
+	@OneToMany(mappedBy = "claseDelOrden",  orphanRemoval=true)
 	private List<Orden> ordenesDeLaClase;
 	
-	/**
-	 * visibilidad de una clase
-	 */
-	@Enumerated(EnumType.STRING)
-	@Column(length=20)
-	private Visibilidad visibilidad;
-
 	public Clase() {
 		super();
 	}
@@ -101,19 +95,6 @@ public class Clase implements Serializable {
 		this.ordenesDeLaClase = ordenesDeLaClase;
 	}
 
-	/**
-	 * @return the visibilidad
-	 */
-	public Visibilidad getVisibilidad() {
-		return visibilidad;
-	}
-
-	/**
-	 * @param visibilidad the visibilidad to set
-	 */
-	public void setVisibilidad(Visibilidad visibilidad) {
-		this.visibilidad = visibilidad;
-	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()

@@ -1,19 +1,19 @@
 {
 	"ORDEN": [
 		{
-			"id":"1",
+			"id":1,
 			"nombre":"Rosales",
-			"claseDelOrden_id":"1"
+			"claseDelOrden_id":1
 		},
 		{
-			"id":"2",
+			"id":2,
 			"nombre":"Pinales",
-			"claseDelOrden_id":"2"
+			"claseDelOrden_id":2
 		},
 		{
-			"id":"3",
+			"id":3,
 			"nombre":"Cucurbitales",
-			"claseDelOrden_id":"1"
+			"claseDelOrden_id":1
 		}
 		
 	]

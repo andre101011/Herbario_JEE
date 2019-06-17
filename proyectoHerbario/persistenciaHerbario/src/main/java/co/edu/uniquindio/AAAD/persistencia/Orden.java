@@ -51,15 +51,8 @@ public class Orden implements Serializable {
 	/**
 	 * lista de familias del orden
 	 */
-	@OneToMany(mappedBy = "ordenDelaFamilia")
+	@OneToMany(mappedBy = "ordenDelaFamilia", orphanRemoval=true)
 	private List<Familia> familiasDelOrden;
-	
-	/**
-	 * visibilidad de un orden
-	 */
-	@Enumerated(EnumType.STRING)
-	@Column(length=20)
-	private Visibilidad visibilidad;
 
 	public Orden() {
 		super();
@@ -121,21 +114,6 @@ public class Orden implements Serializable {
 		this.claseDelOrden = claseDelOrden;
 	}
 
-	
-	
-	/**
-	 * @return the visibilidad
-	 */
-	public Visibilidad getVisibilidad() {
-		return visibilidad;
-	}
-
-	/**
-	 * @param visibilidad the visibilidad to set
-	 */
-	public void setVisibilidad(Visibilidad visibilidad) {
-		this.visibilidad = visibilidad;
-	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()

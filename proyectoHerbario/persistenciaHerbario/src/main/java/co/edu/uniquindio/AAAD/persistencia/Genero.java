@@ -61,15 +61,9 @@ public class Genero implements Serializable {
 	/**
 	 * lista de especies del genero
 	 */
-	@OneToMany(mappedBy = "generoDeEspecie")
+	@OneToMany(mappedBy = "generoDeEspecie", orphanRemoval=true)
 	private List<Especie> especiesDelGenero;
 	
-	/**
-	 * visibilidad de un genero
-	 */
-	@Enumerated(EnumType.STRING)
-	@Column(length=20)
-	private Visibilidad visibilidad;
 
 	public Genero() {
 		super();
@@ -132,20 +126,6 @@ public class Genero implements Serializable {
 	 */
 	public void setEspeciesDelGenero(List<Especie> especiesDelGenero) {
 		this.especiesDelGenero = especiesDelGenero;
-	}
-
-	/**
-	 * @return the visibilidad
-	 */
-	public Visibilidad getVisibilidad() {
-		return visibilidad;
-	}
-
-	/**
-	 * @param visibilidad the visibilidad to set
-	 */
-	public void setVisibilidad(Visibilidad visibilidad) {
-		this.visibilidad = visibilidad;
 	}
 
 	/* (non-Javadoc)
