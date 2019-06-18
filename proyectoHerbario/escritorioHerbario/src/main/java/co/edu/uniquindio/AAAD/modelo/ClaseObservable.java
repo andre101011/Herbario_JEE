@@ -35,7 +35,7 @@ public class ClaseObservable {
 	 */
 	public ClaseObservable(Clase clase) {
 
-		this.clase = (Clase) clase;
+		this.clase = clase;
 		this.id = new SimpleLongProperty(clase.getId());
 		this.nombre = new SimpleStringProperty(clase.getNombre());
 

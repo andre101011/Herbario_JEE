@@ -67,6 +67,8 @@ public class GestionarClasesControlador {
 				.addListener((observable, oldValue, newValue) -> mostrarDetalleClase(newValue));
 		administradorDelegado = AdministradorDelegado.administradorDelegado;
 		clasesObservables = FXCollections.observableArrayList();
+
+		actualizarTabla();
 	}
 
 	/**
@@ -97,7 +99,7 @@ public class GestionarClasesControlador {
 
 		try {
 			if (administradorDelegado.insertarClase(clase)) {
-				agregarALista(clase);
+				agregarALista(administradorDelegado.buscarClasePorSuNombre(clase.getNombre()));
 				Utilidades.mostrarMensaje("Registro", "Registro exitoso!!");
 			} else {
 				Utilidades.mostrarMensaje("Registro", "Error en registro!!");

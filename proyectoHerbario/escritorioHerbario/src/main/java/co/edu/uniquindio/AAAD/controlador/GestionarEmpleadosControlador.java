@@ -188,6 +188,42 @@ public class GestionarEmpleadosControlador {
 
 	}
 
+	/**
+	 * permite eliminar un empleado seleccionado
+	 */
+	@FXML
+	public void editarEmpleado() {
+
+		int indice = tablaEmpleados.getSelectionModel().getSelectedIndex();
+
+		Empleado empleado = tablaEmpleados.getItems().get(indice).getEmpleado();
+
+		if (jtfNombre.getText().equals(empleado.getNombre()) && jtfClave.getText().equals(empleado.getClave())
+				&& jtfEmail.getText().equals(empleado.getEmail()) && jtfCedula.getText().equals(empleado.getCedula())) {
+			Utilidades.mostrarMensaje("Info", "Cambia algun atributo del empleado");
+		} else if (!jtfCedula.getText().equals(empleado.getCedula())) {
+			Utilidades.mostrarMensaje("Info", "No puedes modificar la cedula de un empleado");
+		} else {
+			empleado.setNombre(jtfNombre.getText());
+			empleado.setClave(jtfClave.getText());
+			empleado.setEmail(jtfEmail.getText());
+
+			try {
+				if (administradorDelegado.modificarEmpleado(empleado)) {
+					tablaEmpleados.getItems().remove(indice);
+					Utilidades.mostrarMensaje("Borrar", "El empleado ha sido modificado con exito");
+				} else {
+					Utilidades.mostrarMensaje("Error", "El empleado no pudo ser modificado");
+				}
+			} catch (ElementoRepetidoException | ElementoNoEncontradoException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		actualizarTabla();
+
+	}
+
 	public void setEscenario(Stage escenario) {
 		this.escenario = escenario;
 

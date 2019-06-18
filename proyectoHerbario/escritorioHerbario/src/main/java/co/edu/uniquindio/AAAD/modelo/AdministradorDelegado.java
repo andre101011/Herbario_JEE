@@ -146,9 +146,7 @@ public class AdministradorDelegado {
 	 *                                       modificar
 	 */
 	public boolean eliminarEmpleado(Empleado empleado) throws ElementoNoEncontradoException {
-
-		return adminEJB.eliminarEmpleado(empleado) != null;
-
+		return adminEJB.eliminarEmpleado(empleado) == null;
 	}
 
 	/**
@@ -320,9 +318,7 @@ public class AdministradorDelegado {
 	 *                                       modificar
 	 */
 	public boolean eliminarClase(Clase clase) throws ElementoNoEncontradoException {
-
-		return adminEJB.eliminarClase(clase) != null;
-
+		return adminEJB.eliminarClase(clase) == null;
 	}
 
 	/**
@@ -854,11 +850,11 @@ public class AdministradorDelegado {
 		}
 		return especiesObservables;
 	}
-	
+
 	public Persona buscarPersonaPorEmail(String correo) {
-		
+
 		return adminEJB.buscarPersonaPorEmail(correo);
-		
+
 	}
 
 	/**
