@@ -3,8 +3,6 @@
  */
 package co.edu.uniquindio.AAAD.controlador;
 
-
-
 import co.edu.uniquindio.AAAD.correo.EnviarCorreo;
 import co.edu.uniquindio.AAAD.modelo.AdministradorDelegado;
 import co.edu.uniquindio.AAAD.persistencia.Persona;
@@ -40,6 +38,8 @@ public class LogInControlador {
 	private void initialize() {
 
 		administradorDelegado = AdministradorDelegado.administradorDelegado;
+		jtfCorreo.setText("dbonillag_1@uqvirtual.edu.co");
+		jtfClave.setText("12345");
 	}
 
 	@FXML
@@ -54,20 +54,20 @@ public class LogInControlador {
 		}
 
 	}
-	
+
 	@FXML
 	public void recuperarContrasenia() {
-	
+
 		String correo = jtfCorreo.getText();
 		Persona persona = administradorDelegado.buscarPersonaPorEmail(correo);
-		if (persona!=null) {
+		if (persona != null) {
 			String clave = persona.getClave();
-			EnviarCorreo.enviarConGMail(correo, "Su contraseña es "+clave);
+			EnviarCorreo.enviarConGMail(correo, "Su contraseña es " + clave);
 			Utilidades.mostrarMensaje("Revise su correo", "La contraseña de su cuenta fue enviada a su correo");
-		}else {
+		} else {
 			Utilidades.mostrarMensaje("Correo no encontrado", "El correo ingresado no existe");
 		}
-		
+
 	}
 
 	public void setEscenario(Stage escenario) {

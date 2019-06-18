@@ -1,9 +1,14 @@
 package co.edu.uniquindio.AAAD.controlador;
 
+import co.edu.uniquindio.AAAD.excepciones.ElementoNoEncontradoException;
+import co.edu.uniquindio.AAAD.excepciones.ElementoRepetidoException;
+import co.edu.uniquindio.AAAD.modelo.AdministradorDelegado;
 import co.edu.uniquindio.AAAD.modelo.ClaseObservable;
-import co.edu.uniquindio.AAAD.modelo.EmpleadoObservable;
+import co.edu.uniquindio.AAAD.persistencia.Clase;
+import co.edu.uniquindio.AAAD.util.Utilidades;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -16,7 +21,7 @@ public class GestionarClasesControlador {
 	private ManejadorEscenarios manejadorEscenarios;
 
 	/**
-	 * table donde se almacena la informacion de las categorias los empleados
+	 * table donde se almacena la informacion de las categorias los clases
 	 */
 	@FXML
 	private TableView<ClaseObservable> tablaClases;
@@ -31,10 +36,17 @@ public class GestionarClasesControlador {
 	@FXML
 	private TableColumn<ClaseObservable, String> columnaNombre;
 
+	/**
+	 * para almacenar empleados observables
+	 */
+	private ObservableList<ClaseObservable> clasesObservables;
+
 	@FXML
 	private TextField jtfNombre;
 
 	private ClaseObservable claseObservable;
+
+	private AdministradorDelegado administradorDelegado;
 
 	public GestionarClasesControlador() {
 	}
@@ -49,26 +61,82 @@ public class GestionarClasesControlador {
 		columnaId.setCellValueFactory(claseCelda -> claseCelda.getValue().getId());
 		columnaNombre.setCellValueFactory(claseCelda -> claseCelda.getValue().getNombre());
 
-		mostrarDetallesCategoria(null);
+		mostrarDetalleClase(null);
 
 		tablaClases.getSelectionModel().selectedItemProperty()
-				.addListener((observable, oldValue, newValue) -> mostrarDetallesCategoria(newValue));
-
+				.addListener((observable, oldValue, newValue) -> mostrarDetalleClase(newValue));
+		administradorDelegado = AdministradorDelegado.administradorDelegado;
+		clasesObservables = FXCollections.observableArrayList();
 	}
 
 	/**
-	 * permite mostrar la informacion del empleado seleccionado
+	 * permite mostrar la informacion del clase seleccionado
 	 * 
-	 * @param clase empleado al que se le desea mostrar el detalle
+	 * @param clase clase al que se le desea mostrar el detalle
 	 */
-	public void mostrarDetallesCategoria(ClaseObservable clase) {
+	public void mostrarDetalleClase(ClaseObservable clase) {
 
 		if (clase != null) {
 			claseObservable = clase;
+
 			jtfNombre.setText(clase.getNombre().getValue());
 
 		} else {
 			jtfNombre.setText("");
+		}
+
+	}
+
+	/**
+	 * permite mostrar la ventana de agregar clase
+	 */
+	@FXML
+	public void agregarClase() {
+		Clase clase = new Clase();
+		clase.setNombre(jtfNombre.getText());
+
+		try {
+			if (administradorDelegado.insertarClase(clase)) {
+				agregarALista(clase);
+				Utilidades.mostrarMensaje("Registro", "Registro exitoso!!");
+			} else {
+				Utilidades.mostrarMensaje("Registro", "Error en registro!!");
+			}
+		} catch (ElementoRepetidoException e) {
+			Utilidades.mostrarMensaje("Error", e.toString());
+			e.printStackTrace();
+		}
+		actualizarTabla();
+
+	}
+
+	void actualizarTabla() {
+		int indice = tablaClases.getSelectionModel().getSelectedIndex();
+		tablaClases.setItems((ObservableList<ClaseObservable>) administradorDelegado.listarClasesObservables());
+		tablaClases.getSelectionModel().clearSelection();
+		tablaClases.getSelectionModel().select(indice);
+	}
+
+	/**
+	 * permite eliminar un clase seleccionado
+	 */
+	@FXML
+	public void eliminarClase() {
+
+		int indice = tablaClases.getSelectionModel().getSelectedIndex();
+
+		Clase clase = tablaClases.getItems().get(indice).getClase();
+
+		try {
+			if (administradorDelegado.eliminarClase(clase)) {
+				tablaClases.getItems().remove(indice);
+				Utilidades.mostrarMensaje("Borrar", "La clase ha sido eliminada con exito");
+			} else {
+				Utilidades.mostrarMensaje("Error", "La clase no pudo ser eliminada");
+			}
+		} catch (ElementoNoEncontradoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 	}
@@ -82,4 +150,12 @@ public class GestionarClasesControlador {
 
 	}
 
+	/**
+	 * permite agrega una liente a la lista observable
+	 * 
+	 * @param empleado
+	 */
+	public void agregarALista(Clase clase) {
+		clasesObservables.add(new ClaseObservable(clase));
+	}
 }

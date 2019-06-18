@@ -40,7 +40,7 @@
                         <Insets left="20.0" right="20.0" />
                      </GridPane.margin>
                   </TextField>
-                  <Button fx:id="btnEliminar" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="26.0" prefWidth="98.0" text="Eliminar" GridPane.halignment="CENTER" GridPane.rowIndex="11" GridPane.valignment="CENTER">
+                  <Button fx:id="btnEliminar" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#eliminarEmpleado" prefHeight="26.0" prefWidth="98.0" text="Eliminar" GridPane.halignment="CENTER" GridPane.rowIndex="11" GridPane.valignment="CENTER">
                      <GridPane.margin>
                         <Insets bottom="30.0" left="20.0" right="20.0" top="10.0" />
                      </GridPane.margin>

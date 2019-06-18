@@ -16,15 +16,15 @@ public class EnviarCorreo {
 
 	public static void enviarConGMail(String destinatario, String mensaje) {
 		// Esto es lo que va delante de @gmail.com en tu cuenta de correo. Es el
-		// remitente también.
+		// remitente tambien.
 		String remitente="herbariouniquindioAAAD";
 		String clave="herbario";
-		// Para la dirección nomcuenta@gmail.com
+		// Para la direccion nomcuenta@gmail.com
 		Properties props = System.getProperties();
 		props.put("mail.smtp.host", "smtp.gmail.com"); // El servidor SMTP de Google
 		props.put("mail.smtp.user", remitente);
 		props.put("mail.smtp.clave", clave); // La clave de la cuenta
-		props.put("mail.smtp.auth", "true"); // Usar autenticación mediante usuario y clave
+		props.put("mail.smtp.auth", "true"); // Usar autenticacion mediante usuario y clave
 		props.put("mail.smtp.starttls.enable", "true"); // Para conectar de manera segura al servidor SMTP
 		props.put("mail.smtp.port", "587"); // El puerto SMTP seguro de Google
 		props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
@@ -45,7 +45,7 @@ public class EnviarCorreo {
 			message.setFrom(new InternetAddress(remitente));
 			message.addRecipients(Message.RecipientType.TO, destinatario);
 
-			message.setSubject("Recuperacion de contraseña Herbario Universidad del quindio:");
+			message.setSubject("Recuperacion de contrasena Herbario Universidad del quindio:");
 			message.setText("prueba");
 			message.setContent(multiParte);
 

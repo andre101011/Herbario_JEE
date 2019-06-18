@@ -93,6 +93,7 @@ public class GestionarEmpleadosControlador {
 		administradorDelegado = AdministradorDelegado.administradorDelegado;
 		empleadosObservables = FXCollections.observableArrayList();
 
+		actualizarTabla();
 	}
 
 	/**
@@ -170,8 +171,6 @@ public class GestionarEmpleadosControlador {
 	public void eliminarEmpleado() {
 
 		int indice = tablaEmpleados.getSelectionModel().getSelectedIndex();
-
-		System.out.println(tablaEmpleados.getItems().size());
 
 		Empleado empleado = tablaEmpleados.getItems().get(indice).getEmpleado();
 
