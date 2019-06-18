@@ -66,15 +66,6 @@ public class NegocioEJB implements NegocioEJBRemote {
 
 		Especie especie = registro.getEspecieEnviada();
 
-		if (entityManager.find(Especie.class, especie.getId()) != null) {
-
-			throw new ElementoRepetidoException("la especie con ese id ya está registrada");
-		} else if (entityManager.find(Registro.class, registro.getId()) != null) {
-
-			throw new ElementoRepetidoException("El registro con ese id ya está registrado");
-
-		}
-
 		try {
 			entityManager.persist(especie);
 			return especie;

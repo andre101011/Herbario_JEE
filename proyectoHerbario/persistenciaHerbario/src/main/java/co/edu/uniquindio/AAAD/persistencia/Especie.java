@@ -26,6 +26,12 @@ import javax.persistence.*;
 		@NamedQuery(name = Especie.OBTENER_FAMILIA_POR_ID_ESPECIE, query = "select p.generoDeEspecie.familiaDelGenero from Especie p where p.id= :id")})
 
 public class Especie implements Serializable {
+	
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * Referencia para listar las especies
 	 */
@@ -99,8 +105,6 @@ public class Especie implements Serializable {
 	 * imagen de la especie
 	 */
 	private byte[] imagen;
-
-	private static final Long serialVersionUID = 1L;
 
 	public Especie() {
 		super();

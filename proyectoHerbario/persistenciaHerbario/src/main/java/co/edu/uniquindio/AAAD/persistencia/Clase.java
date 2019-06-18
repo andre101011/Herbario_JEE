@@ -19,6 +19,14 @@ import javax.persistence.*;
 	@NamedQuery(name=Clase.BUSCAR_POR_NOMBRE, query="select p from Clase p where p.nombre =:nombre")})
 public class Clase implements Serializable {
 
+
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5662602601628056541L;
+
+
 	/**
 	 * Referencia para seleccionar una clase por su nombre
 	 */
@@ -40,7 +48,7 @@ public class Clase implements Serializable {
 	 */
 	@Column(nullable=false, length=50, unique=true)
 	private String nombre;
-	private static final Long serialVersionUID = 1L;
+	
 	/**
 	 * lista de las ordenes de la clase
 	 */

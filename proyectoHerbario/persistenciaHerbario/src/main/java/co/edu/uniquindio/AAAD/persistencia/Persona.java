@@ -1,22 +1,14 @@
 package co.edu.uniquindio.AAAD.persistencia;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
-import javax.inject.Named;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Inheritance;
 import static javax.persistence.InheritanceType.JOINED;
 

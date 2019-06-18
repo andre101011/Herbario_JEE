@@ -234,18 +234,12 @@ public class AdminEJB implements AdminEJBRemote {
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#insertarClase(co.edu.uniquindio.
-	 * AAAD.persistencia.Clase)
+	 * @see co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#insertarClase(co.edu.uniquindio.AAAD.persistencia.Clase)
 	 */
 	@Override
 	public Clase insertarClase(Clase clase) throws ElementoRepetidoException {
-
-		if (entityManager.find(Clase.class, clase.getId()) != null) {
-
-			throw new ElementoRepetidoException("la clase con ese id ya está registrada");
-		} else if (comprobarNombreRepetido(clase) != null) {
+		System.out.println("pasa por ejb");
+		 if (comprobarNombreRepetido(clase) != null) {
 			throw new ElementoRepetidoException("La clase con ese nombre ya está registrado");
 
 		}
@@ -390,10 +384,7 @@ public class AdminEJB implements AdminEJBRemote {
 	@Override
 	public Orden insertarOrden(Orden orden) throws ElementoRepetidoException {
 
-		if (entityManager.find(Orden.class, orden.getId()) != null) {
-
-			throw new ElementoRepetidoException("el orden con ese id ya está registrada");
-		} else if (comprobarNombreRepetido(orden) != null) {
+		if (comprobarNombreRepetido(orden) != null) {
 			throw new ElementoRepetidoException("el orden con ese nombre ya está registrado");
 
 		}
@@ -538,10 +529,7 @@ public class AdminEJB implements AdminEJBRemote {
 	@Override
 	public Genero insertarGenero(Genero genero) throws ElementoRepetidoException {
 
-		if (entityManager.find(Genero.class, genero.getId()) != null) {
-
-			throw new ElementoRepetidoException("el genero con ese id ya está registrada");
-		} else if (comprobarNombreRepetido(genero) != null) {
+		if (comprobarNombreRepetido(genero) != null) {
 			throw new ElementoRepetidoException("el genero con ese nombre ya está registrado");
 
 		}
@@ -686,10 +674,7 @@ public class AdminEJB implements AdminEJBRemote {
 	@Override
 	public Familia insertarFamilia(Familia familia) throws ElementoRepetidoException {
 
-		if (entityManager.find(Familia.class, familia.getId()) != null) {
-
-			throw new ElementoRepetidoException("el familia con ese id ya está registrada");
-		} else if (comprobarNombreRepetido(familia) != null) {
+		if (comprobarNombreRepetido(familia) != null) {
 			throw new ElementoRepetidoException("el familia con ese nombre ya está registrado");
 
 		}
