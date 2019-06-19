@@ -1,5 +1,7 @@
 package co.edu.uniquindio.AAAD.pruebas;
 
+import static org.junit.Assert.assertEquals;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.swing.JOptionPane;
@@ -22,7 +24,6 @@ import co.edu.uniquindio.AAAD.persistencia.Empleado;
 import co.edu.uniquindio.AAAD.persistencia.Especie;
 import co.edu.uniquindio.AAAD.persistencia.Persona;
 import co.edu.uniquindio.AAAD.persistencia.Recolector;
-
 
 /**
  * Clase de pruebas dedicada para la pruebas de las entidades
@@ -55,56 +56,51 @@ public class TestModelo {
 
 	@Test
 	public void test() {
-		
+
 	}
-	
-	
-	@UsingDataSet({"persona.json"})
-	@Transactional(value=TransactionMode.ROLLBACK)
+
+	@UsingDataSet({ "persona.json" })
+	@Transactional(value = TransactionMode.ROLLBACK)
 	public void AgregarEmpleadoTest() {
-		
-		Empleado empleado =new Empleado();
+
+		Empleado empleado = new Empleado();
 		empleado.setCedula("6476785");
 		empleado.setNombre("Lucia torres");
 		empleado.setClave("12345");
 		empleado.setEmail("ltorres@gmail.com");
-		
-		entityManager.persist(empleado);//agregar
-		//entityManager.merge(empleado);actualizar
-		//entityManager.remove(empleado);eliminar
-		
-		Empleado empleado2 = entityManager.find(Empleado.class, empleado.getCedula());//buscar
-		
+
+		entityManager.persist(empleado);// agregar
+		// entityManager.merge(empleado);actualizar
+		// entityManager.remove(empleado);eliminar
+
+		Empleado empleado2 = entityManager.find(Empleado.class, empleado.getCedula());// buscar
+
 		Assert.assertNotNull(empleado2);
 
 	}
-	
-	
-	@UsingDataSet({"persona.json"})
-	@Transactional(value=TransactionMode.ROLLBACK)
+
+	@UsingDataSet({ "persona.json" })
+	@Transactional(value = TransactionMode.ROLLBACK)
 	public void buscarRecolectorTest() {
-		
+
 		Recolector recolector = entityManager.find(Recolector.class, "3");
-		
-		
+
 		Assert.assertNotNull(recolector);
-		
+
 	}
-	
-	
+
 	@UsingDataSet({ "persona.json", "clase.json", "orden.json", "familia.json", "genero.json", "especie.json",
-	"registro.json" })
-	@Transactional(value=TransactionMode.ROLLBACK)
+			"registro.json" })
+	@Transactional(value = TransactionMode.ROLLBACK)
 	public void eliminarEncascadaTest() {
-		
+
 //		Clase clase = entityManager.find(Clase.class, 1l);
 //		
 //		entityManager.remove(clase);
-		
-		Especie e=entityManager.find(Especie.class,1l);
+
+		Especie e = entityManager.find(Especie.class, 1l);
 		Assert.assertNotNull(e);
-		
-		
+
 	}
 
 }

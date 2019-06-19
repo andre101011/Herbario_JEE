@@ -185,7 +185,7 @@ public class GestionarEmpleadosControlador {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		actualizarTabla();
 	}
 
 	/**
