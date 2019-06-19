@@ -77,7 +77,7 @@ public class AdminEJB implements AdminEJBRemote {
 		}
 
 	}
-
+	
 	@Override
 	public Persona buscarPersonaPorEmail(String correo) {
 		try {
@@ -89,7 +89,8 @@ public class AdminEJB implements AdminEJBRemote {
 		} catch (NoResultException e) {
 			return null;
 		}
-
+		
+		
 	}
 
 	/*
@@ -154,7 +155,6 @@ public class AdminEJB implements AdminEJBRemote {
 			entityManager.remove(empleado);
 			return empleado;
 		} catch (Exception e) {
-			e.printStackTrace();
 			return null;
 		}
 	}
@@ -223,8 +223,7 @@ public class AdminEJB implements AdminEJBRemote {
 	@Override
 	public List<Recolector> listarRecolectores() {
 		try {
-			TypedQuery<Recolector> query = entityManager.createNamedQuery(Recolector.LISTAR_RECOLECTOR,
-					Recolector.class);
+			TypedQuery<Recolector> query = entityManager.createNamedQuery(Recolector.LISTAR_RECOLECTOR, Recolector.class);
 			List<Recolector> lista = query.getResultList();
 			return lista;
 		} catch (Exception e) {
@@ -235,15 +234,12 @@ public class AdminEJB implements AdminEJBRemote {
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#insertarClase(co.edu.uniquindio.
-	 * AAAD.persistencia.Clase)
+	 * @see co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#insertarClase(co.edu.uniquindio.AAAD.persistencia.Clase)
 	 */
 	@Override
 	public Clase insertarClase(Clase clase) throws ElementoRepetidoException {
 		System.out.println("pasa por ejb");
-		if (comprobarNombreRepetido(clase) != null) {
+		 if (comprobarNombreRepetido(clase) != null) {
 			throw new ElementoRepetidoException("La clase con ese nombre ya está registrado");
 
 		}

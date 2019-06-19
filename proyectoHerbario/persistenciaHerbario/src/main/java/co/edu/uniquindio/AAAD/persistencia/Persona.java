@@ -77,7 +77,6 @@ public class Persona implements Serializable {
 	 * cedula de la persona
 	 */
 	@Id
-	@Column(length=20)
 	private String cedula;
 	/**
 	 * nombre de la persona

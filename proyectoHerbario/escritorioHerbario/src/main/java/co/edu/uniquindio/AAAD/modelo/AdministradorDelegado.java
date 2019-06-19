@@ -146,8 +146,6 @@ public class AdministradorDelegado {
 	 *                                       modificar
 	 */
 	public boolean eliminarEmpleado(Empleado empleado) throws ElementoNoEncontradoException {
-		System.out.println("eliminarEmpleado delegado " + adminEJB.eliminarEmpleado(empleado));
-
 		return adminEJB.eliminarEmpleado(empleado) != null;
 	}
 

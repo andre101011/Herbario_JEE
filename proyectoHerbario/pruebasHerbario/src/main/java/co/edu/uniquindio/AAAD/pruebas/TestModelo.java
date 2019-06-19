@@ -89,17 +89,18 @@ public class TestModelo {
 
 	}
 
+	@Test
 	@UsingDataSet({ "persona.json", "clase.json", "orden.json", "familia.json", "genero.json", "especie.json",
 			"registro.json" })
 	@Transactional(value = TransactionMode.ROLLBACK)
 	public void eliminarEncascadaTest() {
 
-//		Clase clase = entityManager.find(Clase.class, 1l);
-//		
+		Persona clase = entityManager.find(Persona.class, "654");
+		Assert.assertNotNull(clase);
 //		entityManager.remove(clase);
-
-		Especie e = entityManager.find(Especie.class, 1l);
-		Assert.assertNotNull(e);
+//
+//		Empleado e = entityManager.find(Empleado.class, 1l);
+//		Assert.assertNotNull(e);
 
 	}
 

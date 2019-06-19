@@ -175,7 +175,8 @@ public class GestionarEmpleadosControlador {
 		Empleado empleado = tablaEmpleados.getItems().get(indice).getEmpleado();
 
 		try {
-			if (administradorDelegado.eliminarEmpleado(empleado)) {
+			System.out.println(empleado.getCedula());
+			if (administradorDelegado.eliminarEmpleado(administradorDelegado.buscarEmpleado(empleado.getCedula()))) {
 				tablaEmpleados.getItems().remove(indice);
 				Utilidades.mostrarMensaje("Borrar", "El empleado ha sido eliminado con exito");
 			} else {

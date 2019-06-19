@@ -5,6 +5,7 @@ import co.edu.uniquindio.AAAD.excepciones.ElementoRepetidoException;
 import co.edu.uniquindio.AAAD.modelo.AdministradorDelegado;
 import co.edu.uniquindio.AAAD.modelo.ClaseObservable;
 import co.edu.uniquindio.AAAD.persistencia.Clase;
+import co.edu.uniquindio.AAAD.persistencia.Empleado;
 import co.edu.uniquindio.AAAD.util.Utilidades;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -140,6 +141,37 @@ public class GestionarClasesControlador {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		actualizarTabla();
+
+	}
+
+	/**
+	 * permite eliminar un empleado seleccionado
+	 */
+	@FXML
+	public void editarClase() {
+
+		int indice = tablaClases.getSelectionModel().getSelectedIndex();
+
+		Clase clase = tablaClases.getItems().get(indice).getClase();
+
+		if (jtfNombre.getText().equals(clase.getNombre())) {
+			Utilidades.mostrarMensaje("Info", "Cambia algun atributo de la clase");
+		} else {
+			clase.setNombre(jtfNombre.getText());
+
+			try {
+				if (administradorDelegado.modificarClase(clase)) {
+					Utilidades.mostrarMensaje("Borrar", "La clase ha sido modificada con exito");
+				} else {
+					Utilidades.mostrarMensaje("Error", "La clase no pudo ser modificada");
+				}
+			} catch (ElementoRepetidoException | ElementoNoEncontradoException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		actualizarTabla();
 
 	}
 

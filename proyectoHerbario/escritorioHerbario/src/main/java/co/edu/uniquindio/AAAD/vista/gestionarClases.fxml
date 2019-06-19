@@ -57,9 +57,10 @@
 								<Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
 							</GridPane.margin>
 						</Button>
-						<Button fx:id="btnEditar" maxWidth="1.7976931348623157E308"
-							mnemonicParsing="false" prefHeight="26.0" prefWidth="98.0"
-							text="Editar" GridPane.rowIndex="4">
+						<Button fx:id="btnEditar" onAction="#editarClase"
+							maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+							prefHeight="26.0" prefWidth="98.0" text="Editar"
+							GridPane.rowIndex="4">
 							<GridPane.margin>
 								<Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
 							</GridPane.margin>
