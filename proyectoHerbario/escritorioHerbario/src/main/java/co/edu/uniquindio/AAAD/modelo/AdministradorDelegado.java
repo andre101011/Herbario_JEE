@@ -275,7 +275,7 @@ public class AdministradorDelegado {
 	 * @param id id de la clase a buscar
 	 * @return clase encontrado sino null
 	 */
-	public Clase buscarClase(String id) {
+	public Clase buscarClase(long id) {
 
 		return adminEJB.buscarClase(id);
 
@@ -365,7 +365,7 @@ public class AdministradorDelegado {
 	 * @param id id de la orden a buscar
 	 * @return orden encontrado sino null
 	 */
-	public Orden buscarOrden(String id) {
+	public Orden buscarOrden(long id) {
 
 		return adminEJB.buscarOrden(id);
 
@@ -457,7 +457,7 @@ public class AdministradorDelegado {
 	 * @param id id de la familia a buscar
 	 * @return familia encontrado sino null
 	 */
-	public Familia buscarFamilia(String id) {
+	public Familia buscarFamilia(long id) {
 
 		return adminEJB.buscarFamilia(id);
 
@@ -549,7 +549,7 @@ public class AdministradorDelegado {
 	 * @param id id de la genero a buscar
 	 * @return genero encontrado sino null
 	 */
-	public Genero buscarGenero(String id) {
+	public Genero buscarGenero(long id) {
 
 		return adminEJB.buscarGenero(id);
 
@@ -655,7 +655,7 @@ public class AdministradorDelegado {
 	 * @param id id de la especie que se va a buscar
 	 * @return especie encontrada
 	 */
-	public Especie buscarEspecie(String id) {
+	public Especie buscarEspecie(long id) {
 		return negocioEJB.buscarEspecie(id);
 	}
 	/**

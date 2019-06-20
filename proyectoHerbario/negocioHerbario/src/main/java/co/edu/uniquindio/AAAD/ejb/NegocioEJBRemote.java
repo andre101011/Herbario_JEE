@@ -25,7 +25,7 @@ public interface NegocioEJBRemote {
 	 * @param id, de la especie a buscar
 	 * @return Especie encontrada, null si no la encontró
 	 */
-	Especie buscarEspecie(String id);	
+	Especie buscarEspecie(long id);	
 	/**
 	 * permite agregar un recolector
 	 * @param recolector recolector  a agregar

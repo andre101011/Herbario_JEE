@@ -173,7 +173,7 @@ public class NegocioEJB implements NegocioEJBRemote {
 	 * co.edu.uniquindio.AAAD.ejb.NegocioEJBRemote#buscarEspecie(java.lang.String)
 	 */
 	@Override
-	public Especie buscarEspecie(String id) {
+	public Especie buscarEspecie(long id) {
 
 		try {
 

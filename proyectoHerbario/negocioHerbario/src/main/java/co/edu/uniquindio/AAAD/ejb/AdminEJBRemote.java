@@ -118,7 +118,7 @@ public interface AdminEJBRemote {
 	 * @param id id de la clase a buscar
 	 * @return clase buscada, null si no la encontró
 	 */
-	Clase buscarClase(String id);
+	Clase buscarClase(long id);
 
 	/**
 	 * 
@@ -156,7 +156,7 @@ public interface AdminEJBRemote {
 	 * @param id id del orden a buscar
 	 * @return orden buscado, null si no lo encontró
 	 */
-	Orden buscarOrden(String id);
+	Orden buscarOrden(long id);
 
 	/**
 	 * 
@@ -195,7 +195,7 @@ public interface AdminEJBRemote {
 	 * @param id id del genero a buscar
 	 * @return genero buscado, null si no lo encontró
 	 */
-	Genero buscarGenero(String id);
+	Genero buscarGenero(long id);
 
 	/**
 	 * 
@@ -234,7 +234,7 @@ public interface AdminEJBRemote {
 	 * @param id id del familia a buscar
 	 * @return familia buscado, null si no lo encontró
 	 */
-	Familia buscarFamilia(String id);
+	Familia buscarFamilia(long id);
 
 	/**
 	 * 

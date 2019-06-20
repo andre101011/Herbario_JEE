@@ -302,7 +302,7 @@ public class AdminEJB implements AdminEJBRemote {
 	 * @see co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#buscarClase(java.lang.String)
 	 */
 	@Override
-	public Clase buscarClase(String id) {
+	public Clase buscarClase(long id) {
 
 		try {
 
@@ -447,7 +447,7 @@ public class AdminEJB implements AdminEJBRemote {
 	 * @see co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#buscarOrden(java.lang.String)
 	 */
 	@Override
-	public Orden buscarOrden(String id) {
+	public Orden buscarOrden(long id) {
 
 		try {
 
@@ -592,7 +592,7 @@ public class AdminEJB implements AdminEJBRemote {
 	 * @see co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#buscarGenero(java.lang.String)
 	 */
 	@Override
-	public Genero buscarGenero(String id) {
+	public Genero buscarGenero(long id) {
 
 		try {
 
@@ -738,7 +738,7 @@ public class AdminEJB implements AdminEJBRemote {
 	 * co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#buscarFamilia(java.lang.String)
 	 */
 	@Override
-	public Familia buscarFamilia(String id) {
+	public Familia buscarFamilia(long id) {
 
 		try {
 
