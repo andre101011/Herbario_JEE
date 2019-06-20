@@ -20,13 +20,13 @@ import static javax.persistence.InheritanceType.JOINED;
  * @version 1.0
  */
 @Entity
-@NamedQueries({ @NamedQuery(name = Persona.LISTAR_TODOS, query = "select p from Persona p"),
-	@NamedQuery(name=Persona.INICIO_SESION, query="select p from Persona p where p.email= :email1 and p.clave= :clave1"),
+@NamedQueries({ @NamedQuery(name = Persona.LISTAR_TODOS, query = "select p from Persona p where p.visibilidad =:visibilidad"),
+	@NamedQuery(name=Persona.INICIO_SESION, query="select p from Persona p where p.email= :email1 and p.clave= :clave1 and p.visibilidad =:visibilidad"),
 	@NamedQuery(name=Persona.CONTAR_PERSONAS, query="select count(distinct registro.enviadorDelRegistro ) from Registro registro where registro.estado =:est group by registro.fecha"),
-	@NamedQuery(name=Persona.lISTAR_SIN_REGISTROS, query="select persona from Persona persona LEFT JOIN persona.registrosEnviados registro where persona.registrosEnviados IS EMPTY"),
-	@NamedQuery(name=Persona.LISTAR_DTO, query="select new co.edu.uniquindio.AAAD.dto.PersonaDTO(persona.cedula,count(persona.registrosEnviados)) from Persona persona group by persona.cedula"),
-	@NamedQuery(name=Persona.OBTENER_REGISTROS_POR_CEDULA_PERSONA, query="select registro from Persona p INNER JOIN p.registrosEnviados registro where p.cedula=:cedula"),
-	@NamedQuery(name=Persona.LISTAR_CEDULAS_CON_REGISTROS, query="select persona.cedula,registro from Persona persona LEFT JOIN persona.registrosEnviados registro"),
+	@NamedQuery(name=Persona.lISTAR_SIN_REGISTROS, query="select persona from Persona persona LEFT JOIN persona.registrosEnviados registro where persona.registrosEnviados IS EMPTY and persona.visibilidad =:visibilidad"),
+	@NamedQuery(name=Persona.LISTAR_DTO, query="select new co.edu.uniquindio.AAAD.dto.PersonaDTO(persona.cedula,count(persona.registrosEnviados)) from Persona persona where persona.visibilidad =:visibilidad group by persona.cedula"),
+	@NamedQuery(name=Persona.OBTENER_REGISTROS_POR_CEDULA_PERSONA, query="select registro from Persona p INNER JOIN p.registrosEnviados registro where p.cedula=:cedula and p.visibilidad =:visibilidad"),
+	@NamedQuery(name=Persona.LISTAR_CEDULAS_CON_REGISTROS, query="select persona.cedula,registro from Persona persona LEFT JOIN persona.registrosEnviados registro where persona.visibilidad =:visibilidad"),
 	@NamedQuery(name= Persona.BUSCAR_PERSONA_POR_EMAIL, query="select e from Persona e where e.email=:email")})
 @Inheritance(strategy = JOINED)
 public class Persona implements Serializable {
@@ -94,6 +94,14 @@ public class Persona implements Serializable {
 	 */
 	@Column(nullable=false, length=50)
 	private String clave;
+	
+	
+	private Visibilidad visibilidad;
+	
+	public enum Visibilidad {
+		HABILITADO,
+		INHABILITADO
+	}
 
 	/**
 	 * Lista de los registros enviados
@@ -103,6 +111,7 @@ public class Persona implements Serializable {
 	
 	public Persona() {
 		super();
+		this.visibilidad=Visibilidad.HABILITADO;
 	}
 
 	
@@ -176,6 +185,24 @@ public class Persona implements Serializable {
 	public void setRegistrosEnviados(List<Registro> registrosEnviados) {
 		this.registrosEnviados = registrosEnviados;
 	}
+
+	/**
+	 * @return the visibilidad
+	 */
+	public Visibilidad getVisibilidad() {
+		return visibilidad;
+	}
+
+
+
+	/**
+	 * @param visibilidad the visibilidad to set
+	 */
+	public void setVisibilidad(Visibilidad visibilidad) {
+		this.visibilidad = visibilidad;
+	}
+
+
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()

@@ -68,7 +68,7 @@ public class Familia implements Serializable {
 	/**
 	 * lista de generos de la familia
 	 */
-	@OneToMany(mappedBy = "familiaDelGenero", orphanRemoval=true)
+	@OneToMany(cascade = {CascadeType.REMOVE},mappedBy = "familiaDelGenero")
 	private List<Genero> generosDeLaFamilia;
 	
 

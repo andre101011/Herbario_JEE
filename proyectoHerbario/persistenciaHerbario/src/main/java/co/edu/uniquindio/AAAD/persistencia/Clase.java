@@ -52,7 +52,7 @@ public class Clase implements Serializable {
 	/**
 	 * lista de las ordenes de la clase
 	 */
-	@OneToMany(mappedBy = "claseDelOrden",  orphanRemoval=true)
+	@OneToMany(cascade = {CascadeType.REMOVE}, mappedBy = "claseDelOrden")
 	private List<Orden> ordenesDeLaClase;
 	
 	public Clase() {

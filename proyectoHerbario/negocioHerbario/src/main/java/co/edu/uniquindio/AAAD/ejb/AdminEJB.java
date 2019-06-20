@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.enterprise.inject.Typed;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -12,6 +13,7 @@ import javax.persistence.TypedQuery;
 import co.edu.uniquindio.AAAD.excepciones.ElementoNoEncontradoException;
 import co.edu.uniquindio.AAAD.excepciones.ElementoRepetidoException;
 import co.edu.uniquindio.AAAD.persistencia.*;
+import co.edu.uniquindio.AAAD.persistencia.Persona.Visibilidad;
 import co.edu.uniquindio.AAAD.persistencia.Registro.Estado;
 
 /**
@@ -84,6 +86,7 @@ public class AdminEJB implements AdminEJBRemote {
 			System.out.println("pasa por ejb");
 			TypedQuery<Persona> query = entityManager.createNamedQuery(Persona.BUSCAR_PERSONA_POR_EMAIL, Persona.class);
 			query.setParameter("email", correo);
+			query.setParameter("visibilidad", Visibilidad.HABILITADO);
 			return query.getSingleResult();
 
 		} catch (NoResultException e) {
@@ -104,9 +107,11 @@ public class AdminEJB implements AdminEJBRemote {
 
 		try {
 
-			Empleado empleado = entityManager.find(Empleado.class, cedula);
+			TypedQuery<Empleado> query = entityManager.createNamedQuery(Empleado.BUSCAR_EMPLEADO_POR_CEDULA,Empleado.class);
+			query.setParameter("visibilidad", Visibilidad.HABILITADO);
+			Empleado empleado = query.getSingleResult();
 			return empleado;
-		} catch (Exception e) {
+		} catch (NoResultException e) {
 			return null;
 		}
 	}
@@ -121,7 +126,7 @@ public class AdminEJB implements AdminEJBRemote {
 	@Override
 	public Empleado modificarEmpleado(Empleado empleado)
 			throws ElementoNoEncontradoException, ElementoRepetidoException {
-		if (entityManager.find(Empleado.class, empleado.getCedula()) == null) {
+		if (buscarEmpleado(empleado.getCedula()) == null) {
 
 			throw new ElementoNoEncontradoException("la empleado con ese id no se encuentra en la base de datos");
 
@@ -146,7 +151,7 @@ public class AdminEJB implements AdminEJBRemote {
 	 */
 	@Override
 	public Empleado eliminarEmpleado(Empleado empleado) throws ElementoNoEncontradoException {
-		if (entityManager.find(Empleado.class, empleado.getCedula()) == null) {
+		if (buscarEmpleado(empleado.getCedula()) == null) {
 
 			throw new ElementoNoEncontradoException("la empleado con esa cedula no se encuentra en la base de datos");
 		}
@@ -168,6 +173,7 @@ public class AdminEJB implements AdminEJBRemote {
 	public List<Empleado> listarEmpleados() {
 		try {
 			TypedQuery<Empleado> query = entityManager.createNamedQuery(Empleado.LISTAR_EMPLEADO, Empleado.class);
+			query.setParameter("visibilidad", Visibilidad.HABILITADO);
 			List<Empleado> lista = query.getResultList();
 			return lista;
 		} catch (Exception e) {
@@ -187,9 +193,12 @@ public class AdminEJB implements AdminEJBRemote {
 
 		try {
 
-			Recolector recolector = entityManager.find(Recolector.class, cedula);
+			TypedQuery<Recolector> query = entityManager.createNamedQuery(Recolector.BUSCAR_RECOLECTOR_POR_CEDULA,Recolector.class);
+			query.setParameter("visibilidad", Visibilidad.HABILITADO);
+			query.setParameter("cedula", cedula);
+			Recolector recolector = query.getSingleResult();
 			return recolector;
-		} catch (Exception e) {
+		} catch (NoResultException e) {
 			return null;
 		}
 	}
@@ -202,7 +211,7 @@ public class AdminEJB implements AdminEJBRemote {
 	 */
 	@Override
 	public Recolector eliminarRecolector(Recolector recolector) throws ElementoNoEncontradoException {
-		if (entityManager.find(Recolector.class, recolector.getCedula()) == null) {
+		if (buscarRecolector(recolector.getCedula()) == null) {
 
 			throw new ElementoNoEncontradoException("la recolector con esa cedula no se encuentra en la base de datos");
 		}
@@ -224,6 +233,7 @@ public class AdminEJB implements AdminEJBRemote {
 	public List<Recolector> listarRecolectores() {
 		try {
 			TypedQuery<Recolector> query = entityManager.createNamedQuery(Recolector.LISTAR_RECOLECTOR, Recolector.class);
+			query.setParameter("visibilidad", Visibilidad.HABILITADO);
 			List<Recolector> lista = query.getResultList();
 			return lista;
 		} catch (Exception e) {

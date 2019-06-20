@@ -96,6 +96,12 @@ public interface NegocioEJBRemote {
 	 * @return una persona si el correo y la clave con correctas sino null
 	 */
 	Persona comprobarCredenciales(String correo, String clave);
+	/**
+	 * buscar una especie por su nombre
+	 * @param nombre nombre de la especie a buscar
+	 * @return especie encontrada
+	 */
+	List<Especie> buscarEspeciePorSuNombre(String nombre);
 	
 
 

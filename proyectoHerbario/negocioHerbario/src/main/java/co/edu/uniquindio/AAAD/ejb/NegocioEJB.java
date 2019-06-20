@@ -12,6 +12,7 @@ import javax.persistence.TypedQuery;
 import co.edu.uniquindio.AAAD.excepciones.ElementoNoEncontradoException;
 import co.edu.uniquindio.AAAD.excepciones.ElementoRepetidoException;
 import co.edu.uniquindio.AAAD.persistencia.*;
+import co.edu.uniquindio.AAAD.persistencia.Persona.Visibilidad;
 import co.edu.uniquindio.AAAD.persistencia.Registro.Estado;
 
 /**
@@ -46,6 +47,8 @@ public class NegocioEJB implements NegocioEJBRemote {
 			TypedQuery<Persona> query = entityManager.createNamedQuery(Persona.INICIO_SESION, Persona.class);
 			query.setParameter("email1", correo);
 			query.setParameter("clave1", clave);
+			query.setParameter("visibilidad", Visibilidad.HABILITADO);
+
 			return query.getSingleResult();
 		} catch (NoResultException e) {
 
@@ -108,7 +111,7 @@ public class NegocioEJB implements NegocioEJBRemote {
 	@Override
 	public Recolector modificarRecolector(Recolector recolector)
 			throws ElementoNoEncontradoException, ElementoRepetidoException {
-		if (entityManager.find(Recolector.class, recolector.getCedula()) == null) {
+		if (buscarRecolector(recolector.getCedula()) == null) {
 
 			throw new ElementoNoEncontradoException("la recolector con ese id no se encuentra en la base de datos");
 
@@ -120,6 +123,20 @@ public class NegocioEJB implements NegocioEJBRemote {
 			entityManager.merge(recolector);
 			return recolector;
 		} catch (Exception e) {
+			return null;
+		}
+	}
+	
+	private Recolector buscarRecolector(String cedula) {
+
+		try {
+
+			TypedQuery<Recolector> query = entityManager.createNamedQuery(Recolector.BUSCAR_RECOLECTOR_POR_CEDULA,Recolector.class);
+			query.setParameter("visibilidad", Visibilidad.HABILITADO);
+			query.setParameter("cedula", cedula);
+			Recolector recolector = query.getSingleResult();
+			return recolector;
+		} catch (NoResultException e) {
 			return null;
 		}
 	}
@@ -135,6 +152,8 @@ public class NegocioEJB implements NegocioEJBRemote {
 			TypedQuery<String> query = entityManager.createNamedQuery(Recolector.BUSCAR_RECOLECTOR_POR_EMAIL,
 					String.class);
 			query.setParameter("email", recolector.getEmail());
+			query.setParameter("visibilidad", Visibilidad.HABILITADO);
+			
 			String cedula = query.getSingleResult();
 			if (cedula.equals(recolector.getCedula())) {
 				return null;
@@ -160,6 +179,18 @@ public class NegocioEJB implements NegocioEJBRemote {
 
 			Especie especie = entityManager.find(Especie.class, id);
 			return especie;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	@Override
+	public List<Especie> buscarEspeciePorSuNombre(String nombre) {
+		try {
+			TypedQuery<Especie> query= entityManager.createNamedQuery(Especie.BUSCAR_POR_NOMBRE,Especie.class);
+			query.setParameter("nombre", nombre);
+			List<Especie> lista = query.getResultList();
+			return lista;
 		} catch (Exception e) {
 			return null;
 		}

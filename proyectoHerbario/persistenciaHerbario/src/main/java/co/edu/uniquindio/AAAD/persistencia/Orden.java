@@ -51,7 +51,7 @@ public class Orden implements Serializable {
 	/**
 	 * lista de familias del orden
 	 */
-	@OneToMany(mappedBy = "ordenDelaFamilia", orphanRemoval=true)
+	@OneToMany(cascade = {CascadeType.REMOVE},mappedBy = "ordenDelaFamilia")
 	private List<Familia> familiasDelOrden;
 
 	public Orden() {

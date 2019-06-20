@@ -61,7 +61,7 @@ public class Genero implements Serializable {
 	/**
 	 * lista de especies del genero
 	 */
-	@OneToMany(mappedBy = "generoDeEspecie", orphanRemoval=true)
+	@OneToMany(cascade = {CascadeType.REMOVE},mappedBy = "generoDeEspecie")
 	private List<Especie> especiesDelGenero;
 	
 
