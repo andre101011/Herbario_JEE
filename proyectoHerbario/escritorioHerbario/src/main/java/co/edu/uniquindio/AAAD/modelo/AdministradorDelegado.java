@@ -143,10 +143,22 @@ public class AdministradorDelegado {
 	 * @param empleado empleado que se va a eliminar
 	 * @return true si se eliminó el empleado sino false
 	 * @throws ElementoNoEncontradoException si no existe el empleado que se va a
-	 *                                       modificar
+	 *                                       eliminar
 	 */
 	public boolean eliminarEmpleado(Empleado empleado) throws ElementoNoEncontradoException {
 		return adminEJB.eliminarEmpleado(empleado) != null;
+	}
+	
+	/**
+	 * inhabilita el empleado
+	 * 
+	 * @param empleado empleado que se va a inhabilitar
+	 * @return true si se inhabilitó el empleado sino false
+	 * @throws ElementoNoEncontradoException si no existe el empleado que se va a
+	 *                                       inhabilitar
+	 */
+	public boolean InhabilitarEmpleado(Empleado empleado) throws ElementoNoEncontradoException {
+		return adminEJB.inhabilitarEmpleado(empleado) != null;
 	}
 
 	/**
@@ -223,12 +235,24 @@ public class AdministradorDelegado {
 	 * @param recolector recolector que se va a eliminar
 	 * @return true si se eliminó el recolector sino false
 	 * @throws ElementoNoEncontradoException si no existe el recolector que se va a
-	 *                                       modificar
+	 *                                      eliminar
 	 */
 	public boolean eliminarRecolector(Recolector recolector) throws ElementoNoEncontradoException {
 
 		return adminEJB.eliminarRecolector(recolector) != null;
 
+	}
+	
+	/**
+	 * inhabilita el recolector
+	 * 
+	 * @param recolector recolector que se va a inhabilitar
+	 * @return true si se inhabilitó el recolector sino false
+	 * @throws ElementoNoEncontradoException si no existe el recolector que se va a
+	 *                                       inhabilitar
+	 */
+	public boolean Inhabilitarrecolector(Recolector recolector) throws ElementoNoEncontradoException {
+		return adminEJB.inhabilitarRecolector(recolector) != null;
 	}
 
 	/**
@@ -315,7 +339,7 @@ public class AdministradorDelegado {
 	 * @param clase clase que se va a eliminar
 	 * @return true si se eliminó el clase sino false
 	 * @throws ElementoNoEncontradoException si no existe el clase que se va a
-	 *                                       modificar
+	 *                                       eliminar
 	 */
 	public boolean eliminarClase(Clase clase) throws ElementoNoEncontradoException {
 		return adminEJB.eliminarClase(clase) != null;
@@ -405,7 +429,7 @@ public class AdministradorDelegado {
 	 * @param orden orden que se va a eliminar
 	 * @return true si se eliminó el orden sino false
 	 * @throws ElementoNoEncontradoException si no existe el orden que se va a
-	 *                                       modificar
+	 *                                       eliminar
 	 */
 	public boolean eliminarOrden(Orden orden) throws ElementoNoEncontradoException {
 
@@ -497,7 +521,7 @@ public class AdministradorDelegado {
 	 * @param familia familia que se va a eliminar
 	 * @return true si se eliminó el familia sino false
 	 * @throws ElementoNoEncontradoException si no existe el familia que se va a
-	 *                                       modificar
+	 *                                       eliminar
 	 */
 	public boolean eliminarFamilia(Familia familia) throws ElementoNoEncontradoException {
 
@@ -589,7 +613,7 @@ public class AdministradorDelegado {
 	 * @param genero genero que se va a eliminar
 	 * @return true si se eliminó el genero sino false
 	 * @throws ElementoNoEncontradoException si no existe el genero que se va a
-	 *                                       modificar
+	 *                                      eliminar
 	 */
 	public boolean eliminarGenero(Genero genero) throws ElementoNoEncontradoException {
 
