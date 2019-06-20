@@ -66,6 +66,53 @@ public class TestImagen {
 	public void test() {
 	}
 	
+	@Test
+	@Transactional(value=TransactionMode.ROLLBACK)
+	public void AgregarEspecieTest() {
+		
+		Especie especie = new Especie();
+		especie.setId(1L);
+		especie.setNombre("esp1");
+		File archivo = new File("C:\\eclipse\\workspace\\Herbario_JEE\\proyectoHerbario\\escritorioHerbario\\src\\main\\java\\co\\edu\\uniquindio\\AAAD\\vista\\herbarioUQ.png");
+        byte[] imgFoto = new byte[(int)archivo.length()];
+		
+
+        InputStream inte = null;
+		try {
+			inte = new FileInputStream(archivo);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+        try {
+			inte.read(imgFoto);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        especie.setImagen(imgFoto);
+		entityManager.persist(especie);//agregar
+		
+		especie = entityManager.find(Especie.class, 1L);
+		imgFoto=especie.getImagen();
+         BufferedImage image = null;
+         InputStream in = new ByteArrayInputStream(imgFoto);
+         try {
+			image = ImageIO.read(in);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+         ImageIcon icono = new ImageIcon(image);
+         JOptionPane.showMessageDialog(null, "Imagenes", "Imagen", JOptionPane.INFORMATION_MESSAGE, icono);
+		
+	
+		
+		
+
+	}
 	
 
 	
