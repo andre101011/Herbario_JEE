@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import co.edu.uniquindio.AAAD.persistencia.Administrador;
+import co.edu.uniquindio.AAAD.persistencia.Persona.Visibilidad;
 
 /**
  * Se encarga de cargar la preconfiguración de la capa de negocio
@@ -40,6 +41,7 @@ public class SetupEJB {
     @PostConstruct
     private void init() {
     	TypedQuery<Long> query=entityManager.createNamedQuery(Administrador.CONTAR_ADMINS, Long.class);
+    	query.setParameter("visibilidad", Visibilidad.HABILITADO);
     	long conteoAdmin=query.getSingleResult();
     	
     	if(conteoAdmin==0) {

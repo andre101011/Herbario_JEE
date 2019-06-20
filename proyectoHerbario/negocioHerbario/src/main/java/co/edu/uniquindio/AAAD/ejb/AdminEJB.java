@@ -68,6 +68,7 @@ public class AdminEJB implements AdminEJBRemote {
 		try {
 			TypedQuery<String> query = entityManager.createNamedQuery(Empleado.BUSCAR_EMPLEADO_POR_EMAIL, String.class);
 			query.setParameter("email", empleado.getEmail());
+			query.setParameter("visibilidad", Visibilidad.HABILITADO);
 			String cedula = query.getSingleResult();
 			if (cedula.equals(empleado.getCedula())) {
 				return null;
@@ -109,6 +110,7 @@ public class AdminEJB implements AdminEJBRemote {
 
 			TypedQuery<Empleado> query = entityManager.createNamedQuery(Empleado.BUSCAR_EMPLEADO_POR_CEDULA,Empleado.class);
 			query.setParameter("visibilidad", Visibilidad.HABILITADO);
+			query.setParameter("cedula", cedula);
 			Empleado empleado = query.getSingleResult();
 			return empleado;
 		} catch (NoResultException e) {

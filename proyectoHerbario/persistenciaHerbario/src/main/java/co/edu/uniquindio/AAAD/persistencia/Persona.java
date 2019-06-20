@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -95,7 +97,8 @@ public class Persona implements Serializable {
 	@Column(nullable=false, length=50)
 	private String clave;
 	
-	
+	@Enumerated(EnumType.STRING)
+	@Column(length=20)
 	private Visibilidad visibilidad;
 	
 	public enum Visibilidad {
