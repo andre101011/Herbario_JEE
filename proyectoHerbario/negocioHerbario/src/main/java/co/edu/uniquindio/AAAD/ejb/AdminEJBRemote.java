@@ -54,6 +54,14 @@ public interface AdminEJBRemote {
 	Empleado eliminarEmpleado(Empleado empleado) throws ElementoNoEncontradoException;
 
 	/**
+	 * Inhabilita un empleado 
+	 * @param empleado empleado a inhabilitar
+	 * @return empleado inhabilitado
+	 * @throws ElementoNoEncontradoException cuando no se encuentra el empleado a inhabilitar
+	 */
+	Empleado inhabilitarEmpleado(Empleado empleado) throws ElementoNoEncontradoException;
+
+	/**
 	 * 
 	 * @return la lista de todas las empleados
 	 */
@@ -73,6 +81,14 @@ public interface AdminEJBRemote {
 	 * @throws ElementoNoEncontradoException cuando no se encuentra el recolector en la base de datos 
 	 */
 	Recolector eliminarRecolector(Recolector recolector) throws ElementoNoEncontradoException;
+
+	/**
+	 * Inhabilita un recolector
+	 * @param recolector recolector a inhabilitar
+	 * @return recolector inhabilitado
+	 * @throws ElementoNoEncontradoException cuando no se encuentra el recolector
+	 */
+	Recolector inhabilitarRecolector(Recolector recolector) throws ElementoNoEncontradoException;
 
 	/**
 	 * 
@@ -284,5 +300,6 @@ public interface AdminEJBRemote {
 	 * @return persona encontrada sino null
 	 */
 	Persona buscarPersonaPorEmail(String correo);
+	
 
 }

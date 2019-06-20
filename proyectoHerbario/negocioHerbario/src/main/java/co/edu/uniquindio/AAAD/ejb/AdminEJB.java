@@ -163,6 +163,22 @@ public class AdminEJB implements AdminEJBRemote {
 			return null;
 		}
 	}
+	
+	@Override
+	public Empleado inhabilitarEmpleado(Empleado empleado) throws ElementoNoEncontradoException {
+		if (buscarEmpleado(empleado.getCedula()) == null) {
+
+			throw new ElementoNoEncontradoException("la empleado con esa cedula no se encuentra en la base de datos");
+		}
+
+		try {
+			empleado.setVisibilidad(Visibilidad.INHABILITADO);
+			entityManager.merge(empleado);
+			return empleado;
+		} catch (Exception e) {
+			return null;
+		}
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -218,6 +234,22 @@ public class AdminEJB implements AdminEJBRemote {
 
 		try {
 			entityManager.remove(recolector);
+			return recolector;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
+	@Override
+	public Recolector inhabilitarRecolector(Recolector recolector) throws ElementoNoEncontradoException {
+		if (buscarRecolector(recolector.getCedula()) == null) {
+
+			throw new ElementoNoEncontradoException("la recolector con esa cedula no se encuentra en la base de datos");
+		}
+
+		try {
+			recolector.setVisibilidad(Visibilidad.INHABILITADO);
+			entityManager.merge(recolector);
 			return recolector;
 		} catch (Exception e) {
 			return null;
