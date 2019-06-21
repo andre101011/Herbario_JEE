@@ -632,8 +632,10 @@ public class AdministradorDelegado {
 	public boolean registrarEspecie(Registro registro) throws ElementoRepetidoException {
 		return negocioEJB.registrarEspecie(registro) != null;
 	}
+
 	/**
 	 * Acepta una especie
+	 * 
 	 * @param especie especie que se va a aceptar
 	 * @return true si la acepto, sino false
 	 */
@@ -641,8 +643,10 @@ public class AdministradorDelegado {
 
 		return adminEJB.aceptarEspecie(especie) != null;
 	}
+
 	/**
 	 * Rechaza una especie
+	 * 
 	 * @param especie especie que se va a rechazar
 	 * @return true si la rechazó, sino false
 	 */
@@ -650,21 +654,39 @@ public class AdministradorDelegado {
 
 		return adminEJB.rechazarEspecie(especie) != null;
 	}
+
 	/**
 	 * buscar una especie de acuerdo a un id
+	 * 
 	 * @param id id de la especie que se va a buscar
 	 * @return especie encontrada
 	 */
 	public Especie buscarEspecie(long id) {
 		return negocioEJB.buscarEspecie(id);
 	}
+
 	/**
 	 * busca una especie por su nombre
+	 * 
 	 * @param nombre nombre de la especie que se va a buscar
 	 * @return lista de especies con ese nombre
 	 */
 	public List<Especie> buscarEspeciePorSuNombre(String nombre) {
 		return negocioEJB.buscarEspeciePorSuNombre(nombre);
+	}
+
+	/**
+	 * genera una lista de especies observables
+	 * 
+	 * @return las especies observables con un mismo nombre
+	 */
+	public ObservableList<EspecieObservable> listarEspeciesObservablesPorSuNombre(String nombre) {
+		List<Especie> especies = buscarEspeciePorSuNombre(nombre);
+		ObservableList<EspecieObservable> especiesObservables = FXCollections.observableArrayList();
+		for (Especie especie : especies) {
+			especiesObservables.add(new EspecieObservable(especie));
+		}
+		return especiesObservables;
 	}
 
 	/**

@@ -1,10 +1,20 @@
 package co.edu.uniquindio.AAAD.controlador;
 
+import co.edu.uniquindio.AAAD.excepciones.ElementoNoEncontradoException;
+import co.edu.uniquindio.AAAD.excepciones.ElementoRepetidoException;
+import co.edu.uniquindio.AAAD.modelo.AdministradorDelegado;
+import co.edu.uniquindio.AAAD.modelo.FamiliaObservable;
 import co.edu.uniquindio.AAAD.modelo.GeneroObservable;
+import co.edu.uniquindio.AAAD.modelo.OrdenObservable;
+import co.edu.uniquindio.AAAD.persistencia.Genero;
+import co.edu.uniquindio.AAAD.util.Utilidades;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class GestionarGenerosControlador {
@@ -14,7 +24,7 @@ public class GestionarGenerosControlador {
 	private ManejadorEscenarios manejadorEscenarios;
 
 	/**
-	 * table donde se almacena la informacion de las categorias los empleados
+	 * table donde se almacena la informacion de las categorias los generos
 	 */
 	@FXML
 	private TableView<GeneroObservable> tablaGeneros;
@@ -22,22 +32,33 @@ public class GestionarGenerosControlador {
 	 * hace referencia a la columna con las superCategorias
 	 */
 	@FXML
-	private TableColumn<GeneroObservable, Number> idColumna;
+	private TableColumn<GeneroObservable, String> columnaFamilias;
 	/**
 	 * hace referencia a la columna de los nombres de las categorias
 	 */
 	@FXML
-	private TableColumn<GeneroObservable, String> nombreColumna;
+	private TableColumn<GeneroObservable, String> columnaNombre;
 
+	/**
+	 * para almacenar empleados observables
+	 */
+	private ObservableList<GeneroObservable> generosObservables;
 
 	@FXML
-	private Label txtNombre;
-	/**
-	 * etiqueta de email
-	 */
+	private TextField jtfNombre;
 
+	@FXML
+	private TextField jtfBuscar;
 
-	private GeneroObservable GeneroObservable;
+	@FXML
+	private ComboBox<String> comboBusqueda;
+
+	@FXML
+	private ComboBox<FamiliaObservable> comboFamilias;
+
+	private GeneroObservable generoObservable;
+
+	private AdministradorDelegado administradorDelegado;
 
 	public GestionarGenerosControlador() {
 	}
@@ -49,31 +70,174 @@ public class GestionarGenerosControlador {
 	@FXML
 	private void initialize() {
 
-		idColumna.setCellValueFactory(generoCelda -> generoCelda.getValue().getId());
-		nombreColumna.setCellValueFactory(generoCelda -> generoCelda.getValue().getNombre());
+		columnaFamilias.setCellValueFactory(ordenCelda -> ordenCelda.getValue().getFamilia());
+		columnaNombre.setCellValueFactory(ordenCelda -> ordenCelda.getValue().getNombre());
 
-		mostrarDetallesCategoria(null);
+		mostrarDetalleGenero(null);
 
 		tablaGeneros.getSelectionModel().selectedItemProperty()
-				.addListener((observable, oldValue, newValue) -> mostrarDetallesCategoria(newValue));
+				.addListener((observable, oldValue, newValue) -> mostrarDetalleGenero(newValue));
+		administradorDelegado = AdministradorDelegado.administradorDelegado;
+		generosObservables = FXCollections.observableArrayList();
+
+		actualizarTabla();
+
+		comboBusqueda.getItems().removeAll(comboBusqueda.getItems());
+		comboBusqueda.getItems().addAll("Buscar por nombre", "Buscar por ID");
+		comboBusqueda.getSelectionModel().selectFirst();
+
+		comboFamilias.getItems().removeAll(comboFamilias.getItems());
+		comboFamilias.getItems().addAll(administradorDelegado.listarFamiliasObservables());
+		comboFamilias.getSelectionModel().selectFirst();
 
 	}
 
 	/**
-	 * permite mostrar la informacion del empleado seleccionado
+	 * permite mostrar la informacion del genero seleccionado
 	 * 
-	 * @param genero empleado al que se le desea mostrar el detalle
+	 * @param genero genero al que se le desea mostrar el detalle
 	 */
-	public void mostrarDetallesCategoria(GeneroObservable genero) {
+	public void mostrarDetalleGenero(GeneroObservable genero) {
 
 		if (genero != null) {
-			GeneroObservable = genero;
-			txtNombre.setText(genero.getNombre().getValue());
+			generoObservable = genero;
+
+			jtfNombre.setText(genero.getNombre().getValue());
 
 		} else {
-			txtNombre.setText("");
+			jtfNombre.setText("");
 		}
 
+	}
+
+	/**
+	 * permite mostrar la ventana de agregar genero
+	 */
+	@FXML
+	public void agregarGenero() {
+		Genero genero = new Genero();
+		genero.setNombre(jtfNombre.getText());
+
+		if (jtfNombre.getText().isEmpty()) {
+			Utilidades.mostrarMensaje("Advertencia", "Ingresa un nombre para continuar");
+		} else {
+			if (comboFamilias.getValue() == null) {
+				Utilidades.mostrarMensaje("Advertencia", "Debe crear al menos una familia primero");
+			} else {
+				try {
+					genero.setFamiliaDelGenero((comboFamilias.getValue().getFamilia()));
+					if (administradorDelegado.insertarGenero(genero)) {
+						agregarALista(administradorDelegado.buscarGeneroPorSuNombre(genero.getNombre()));
+						Utilidades.mostrarMensaje("Registro", "Registro exitoso!!");
+						jtfNombre.setText("");
+					} else {
+						Utilidades.mostrarMensaje("Registro", "Error en registro!!");
+					}
+				} catch (ElementoRepetidoException e) {
+					Utilidades.mostrarMensaje("Error", e.toString());
+					e.printStackTrace();
+				}
+				actualizarTabla();
+			}
+		}
+	}
+
+	void actualizarTabla() {
+		int indice = tablaGeneros.getSelectionModel().getSelectedIndex();
+		tablaGeneros.setItems((ObservableList<GeneroObservable>) administradorDelegado.listarGenerosObservables());
+		tablaGeneros.getSelectionModel().clearSelection();
+		tablaGeneros.getSelectionModel().select(indice);
+	}
+
+	/**
+	 * permite eliminar un genero seleccionado
+	 */
+	@FXML
+	public void eliminarGenero() {
+
+		int indice = tablaGeneros.getSelectionModel().getSelectedIndex();
+
+		Genero genero = tablaGeneros.getItems().get(indice).getGenero();
+
+		try {
+			if (administradorDelegado.eliminarGenero(genero)) {
+				tablaGeneros.getItems().remove(indice);
+				Utilidades.mostrarMensaje("Borrar", "El genero ha sido eliminado con exito");
+			} else {
+				Utilidades.mostrarMensaje("Error", "El genero no pudo ser eliminado");
+			}
+		} catch (ElementoNoEncontradoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		actualizarTabla();
+
+	}
+
+	/**
+	 * permite eliminar un empleado seleccionado
+	 */
+	@FXML
+	public void editarGenero() {
+
+		int indice = tablaGeneros.getSelectionModel().getSelectedIndex();
+		if (indice != -1) {
+
+			Genero genero = tablaGeneros.getItems().get(indice).getGenero();
+
+			if (jtfNombre.getText().equals(genero.getNombre())) {
+				Utilidades.mostrarMensaje("Info", "Cambia algun atributo del genero");
+			} else {
+				genero.setNombre(jtfNombre.getText());
+
+				try {
+					if (administradorDelegado.modificarGenero(genero)) {
+						Utilidades.mostrarMensaje("Borrar", "El genero ha sido modificado con exito");
+						jtfNombre.setText("");
+					} else {
+						Utilidades.mostrarMensaje("Error", "El genero no pudo ser modificado");
+					}
+				} catch (ElementoRepetidoException | ElementoNoEncontradoException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			actualizarTabla();
+		} else {
+			Utilidades.mostrarMensaje("", "Selecciona una fila de la tabla para poder editarla");
+		}
+	}
+
+	@FXML
+	public void buscar() {
+		String criterio = jtfBuscar.getText();
+
+		if (!criterio.isEmpty()) {
+			try {
+				GeneroObservable generoObservable = null;
+				Genero genero = new Genero();
+				if (comboBusqueda.getValue().equals("Buscar por nombre")) {
+					genero = administradorDelegado.buscarGeneroPorSuNombre(criterio);
+				} else {
+					genero = administradorDelegado.buscarGenero(Long.parseLong(criterio));
+				}
+				if (genero == null) {
+					Utilidades.mostrarMensaje("Genero no encontrado",
+							"Intenta con otro parametro o método de busqueda");
+
+				} else {
+					generoObservable = new GeneroObservable(genero);
+					ObservableList<GeneroObservable> lista = FXCollections.observableArrayList();
+					lista.add(generoObservable);
+					tablaGeneros.setItems(lista);
+					tablaGeneros.getSelectionModel().clearSelection();
+				}
+			} catch (Exception e) {
+			}
+		} else {
+			tablaGeneros.setItems((ObservableList<GeneroObservable>) administradorDelegado.listarGenerosObservables());
+			tablaGeneros.getSelectionModel().clearSelection();
+		}
 	}
 
 	public void setEscenario(Stage escenario) {
@@ -85,4 +249,12 @@ public class GestionarGenerosControlador {
 
 	}
 
+	/**
+	 * permite agrega una liente a la lista observable
+	 * 
+	 * @param empleado
+	 */
+	public void agregarALista(Genero genero) {
+		generosObservables.add(new GeneroObservable(genero));
+	}
 }

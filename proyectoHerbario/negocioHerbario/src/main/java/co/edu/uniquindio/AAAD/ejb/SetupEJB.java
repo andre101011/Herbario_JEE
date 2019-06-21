@@ -52,6 +52,7 @@ public class SetupEJB {
     		administrador.setCedula("455464");
     		administrador.setEmail("dbonillag_1@uqvirtual.edu.co");
     		administrador.setClave("12345");
+    		administrador.setVisibilidad(Visibilidad.HABILITADO);
     		
     		entityManager.persist(administrador);
     		

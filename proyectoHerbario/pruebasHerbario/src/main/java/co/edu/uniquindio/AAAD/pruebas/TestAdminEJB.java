@@ -23,9 +23,9 @@ import co.edu.uniquindio.AAAD.excepciones.ElementoNoEncontradoException;
 import co.edu.uniquindio.AAAD.excepciones.ElementoRepetidoException;
 import co.edu.uniquindio.AAAD.persistencia.*;
 
-
 /**
- *Prueba para todas las operaciones expuestas del administrador
+ * Prueba para todas las operaciones expuestas del administrador
+ * 
  * @author EinerZG
  * @version 1.0
  *
@@ -33,151 +33,135 @@ import co.edu.uniquindio.AAAD.persistencia.*;
 @RunWith(Arquillian.class)
 public class TestAdminEJB {
 
-	
 	/*
 	 * Instancia para manejar las operaciones de negocio del admin
 	 */
 	@EJB
 	private AdminEJB adminEJB;
-	
- 
-	
+
 	@Deployment
 	public static Archive<?> createDeploymentPackage() {
-	return ShrinkWrap.create(JavaArchive.class).addClass(AdminEJB.class)
-	.addPackage(Persona.class.getPackage())
-	.addAsResource("persistenceForTest.xml", "META-INF/persistence.xml")
-	.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+		return ShrinkWrap.create(JavaArchive.class).addClass(AdminEJB.class).addPackage(Persona.class.getPackage())
+				.addAsResource("persistenceForTest.xml", "META-INF/persistence.xml")
+				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
-	
+
 	/**
-	 * Permite probar crear una consulta que permita insertar un empleado por medio de EJB
+	 * Permite probar crear una consulta que permita insertar un empleado por medio
+	 * de EJB
 	 */
 	@Test
-	@Transactional(value =TransactionMode.ROLLBACK)
-	@UsingDataSet({"persona.json"})
+	@Transactional(value = TransactionMode.ROLLBACK)
+	@UsingDataSet({ "persona.json" })
 	public void insertarEmpleadoTest() {
-		
-		Empleado empleado=new Empleado();
+
+		Empleado empleado = new Empleado();
 		empleado.setCedula("123");
 		empleado.setNombre("daniel");
 		empleado.setClave("12345");
 		empleado.setEmail("sdsa@gmail.com");
-		
+
 		try {
 			Assert.assertNotNull(adminEJB.insertarEmpleado(empleado));
-		}catch(ElementoRepetidoException e) {
+		} catch (ElementoRepetidoException e) {
 			Assert.fail(e.getMessage());
-		}catch (Exception e) {
+		} catch (Exception e) {
 			Assert.fail("Error inesperado");
 		}
-	
+
 	}
 
 	/**
-	 * Permite probar crear una consulta que permita insertar un empleado por medio de EJB
+	 * Permite probar crear una consulta que permita insertar un empleado por medio
+	 * de EJB
 	 */
 	@Test
-	@Transactional(value =TransactionMode.ROLLBACK)
+	@Transactional(value = TransactionMode.ROLLBACK)
 	@UsingDataSet({ "persona.json", "clase.json", "orden.json", "familia.json", "genero.json", "especie.json",
-	"registro.json" })
+			"registro.json" })
 	public void insertarGeneroTest() {
-		
-		
-		
-		Genero genero=new Genero();
+
+		Genero genero = new Genero();
 		genero.setId(123L);
 		genero.setNombre("G1");
-	
-		
-		
+
 		try {
-			Familia familia = adminEJB.buscarFamilia("1");
+			Familia familia = adminEJB.buscarFamilia(1l);
 			genero.setFamiliaDelGenero(familia);
 			Assert.assertNotNull(adminEJB.insertarGenero(genero));
-		}catch(ElementoRepetidoException e) {
+		} catch (ElementoRepetidoException e) {
 			Assert.fail(e.getMessage());
-		}catch (Exception e) {
+		} catch (Exception e) {
 			Assert.fail("Error inesperado");
 		}
-	
+
 	}
-	
-	
-	
+
 	/**
-	 * Permite probar crear una consulta que permita modificar un genero por medio de EJB
+	 * Permite probar crear una consulta que permita modificar un genero por medio
+	 * de EJB
 	 */
 	@Test
-	@Transactional(value =TransactionMode.ROLLBACK)
+	@Transactional(value = TransactionMode.ROLLBACK)
 	@UsingDataSet({ "persona.json", "clase.json", "orden.json", "familia.json", "genero.json", "especie.json",
-	"registro.json" })
+			"registro.json" })
 	public void modificarGeneroTest() {
-		
-		
-		
-		Genero genero=adminEJB.buscarGenero("1");
-		
+
+		Genero genero = adminEJB.buscarGenero(1l);
+
 		genero.setNombre("modificación");
-	
-		
-		
+
 		try {
 			Assert.assertNotNull(adminEJB.modificarGenero(genero));
-		}catch(ElementoNoEncontradoException e) {
+		} catch (ElementoNoEncontradoException e) {
 			Assert.fail(e.getMessage());
-		}catch (Exception e) {
+		} catch (Exception e) {
 			Assert.fail(e.getMessage());
 		}
-	
+
 	}
-	
-	
-	
+
 	/**
-	 * Permite probar crear una consulta que permita eliminar un genero por medio de EJB
+	 * Permite probar crear una consulta que permita eliminar un genero por medio de
+	 * EJB
 	 */
 	@Test
-	@Transactional(value =TransactionMode.ROLLBACK)
+	@Transactional(value = TransactionMode.ROLLBACK)
 	@UsingDataSet({ "persona.json", "clase.json", "orden.json", "familia.json", "genero.json", "especie.json",
-	"registro.json" })
+			"registro.json" })
 	public void eliminarGeneroTest() {
-		
-		
-		
-		Genero genero=adminEJB.buscarGenero("1");
-		
+
+		Genero genero = adminEJB.buscarGenero(1l);
+
 		try {
 			Assert.assertNotNull(adminEJB.eliminarGenero(genero));
-		}catch(ElementoNoEncontradoException e) {
+		} catch (ElementoNoEncontradoException e) {
 			Assert.fail(e.getMessage());
-		}catch (Exception e) {
+		} catch (Exception e) {
 			Assert.fail("Error inesperado");
 		}
-	
+
 	}
-	
-	
+
 	/**
 	 * Permite probar crear una consulta que permita listar los generos
 	 */
 	@Test
-	@Transactional(value =TransactionMode.ROLLBACK)
+	@Transactional(value = TransactionMode.ROLLBACK)
 	@UsingDataSet({ "persona.json", "clase.json", "orden.json", "familia.json", "genero.json", "especie.json",
-	"registro.json" })
+			"registro.json" })
 	public void listarGenerosTest() {
-		
-		
+
 		try {
-			List<Genero> generos =adminEJB.listarGeneros();
-		
+			List<Genero> generos = adminEJB.listarGeneros();
+
 			Assert.assertEquals(2, generos.size());
-		}catch (Exception e) {
+		} catch (Exception e) {
 			Assert.fail("Error inesperado");
 		}
-	
+
 	}
-	
+
 //	
 //	/**
 //	 * Permite probar crear una consulta que permita listar las especies aceptadas
@@ -199,4 +183,3 @@ public class TestAdminEJB {
 //	
 //	}
 }
-

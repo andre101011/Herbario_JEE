@@ -94,4 +94,14 @@ public class ClaseObservable {
 		this.clase = clase;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return clase.getNombre();
+	}
+
 }

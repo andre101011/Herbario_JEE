@@ -114,4 +114,9 @@ public class FamiliaObservable {
 		this.familia = familia;
 	}
 
+	@Override
+	public String toString() {
+		return familia.getNombre();
+	}
+
 }

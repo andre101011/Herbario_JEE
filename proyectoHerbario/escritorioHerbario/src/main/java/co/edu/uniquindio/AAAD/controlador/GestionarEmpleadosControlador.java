@@ -5,8 +5,6 @@ package co.edu.uniquindio.AAAD.controlador;
 
 import co.edu.uniquindio.AAAD.persistencia.Empleado;
 
-import javax.swing.JOptionPane;
-
 import co.edu.uniquindio.AAAD.excepciones.ElementoNoEncontradoException;
 import co.edu.uniquindio.AAAD.excepciones.ElementoRepetidoException;
 import co.edu.uniquindio.AAAD.modelo.AdministradorDelegado;
@@ -16,6 +14,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
@@ -43,6 +42,12 @@ public class GestionarEmpleadosControlador {
 	/**
 	 * etiqueta de cedula
 	 */
+
+	@FXML
+	private TextField jtfBuscar;
+
+	@FXML
+	private ComboBox<String> comboBusqueda;
 
 	@FXML
 	private TextField jtfNombre;
@@ -135,25 +140,36 @@ public class GestionarEmpleadosControlador {
 	 */
 	@FXML
 	public void agregarEmpleado() {
-		Empleado empleado = new Empleado();
-		empleado.setCedula(jtfCedula.getText());
-		empleado.setNombre(jtfNombre.getText());
-		empleado.setClave(jtfClave.getText());
-		empleado.setEmail(jtfEmail.getText());
 
-		try {
-			if (administradorDelegado.insertarEmpleado(empleado)) {
-				agregarALista(empleado);
-				Utilidades.mostrarMensaje("Registro", "Registro exitoso!!");
-			} else {
-				Utilidades.mostrarMensaje("Registro", "Error en registro!!");
+		if (jtfNombre.getText().isEmpty() || jtfCedula.getText().isEmpty() || jtfEmail.getText().isEmpty()
+				|| jtfClave.getText().isEmpty()) {
+			Utilidades.mostrarMensaje("Advertencia", "Llena todos los campos para continuar");
+		} else {
+
+			Empleado empleado = new Empleado();
+			empleado.setCedula(jtfCedula.getText());
+			empleado.setNombre(jtfNombre.getText());
+			empleado.setClave(jtfClave.getText());
+			empleado.setEmail(jtfEmail.getText());
+
+			try {
+				if (administradorDelegado.insertarEmpleado(empleado)) {
+					agregarALista(empleado);
+					Utilidades.mostrarMensaje("Registro", "Registro exitoso!!");
+					jtfNombre.setText("");
+					jtfEmail.setText("");
+					jtfCedula.setText("");
+					jtfClave.setText("");
+				} else {
+					Utilidades.mostrarMensaje("Registro", "Error en registro!!");
+				}
+			} catch (ElementoRepetidoException e) {
+				Utilidades.mostrarMensaje("Error", e.toString());
+				e.printStackTrace();
 			}
-		} catch (ElementoRepetidoException e) {
-			Utilidades.mostrarMensaje("Error", e.toString());
-			e.printStackTrace();
-		}
-		actualizarTabla();
+			actualizarTabla();
 
+		}
 	}
 
 	void actualizarTabla() {
@@ -197,32 +213,69 @@ public class GestionarEmpleadosControlador {
 
 		int indice = tablaEmpleados.getSelectionModel().getSelectedIndex();
 
-		Empleado empleado = tablaEmpleados.getItems().get(indice).getEmpleado();
+		if (indice != -1) {
+			Empleado empleado = tablaEmpleados.getItems().get(indice).getEmpleado();
 
-		if (jtfNombre.getText().equals(empleado.getNombre()) && jtfClave.getText().equals(empleado.getClave())
-				&& jtfEmail.getText().equals(empleado.getEmail()) && jtfCedula.getText().equals(empleado.getCedula())) {
-			Utilidades.mostrarMensaje("Info", "Cambia algun atributo del empleado");
-		} else if (!jtfCedula.getText().equals(empleado.getCedula())) {
-			Utilidades.mostrarMensaje("Info", "No puedes modificar la cedula de un empleado");
-		} else {
-			empleado.setNombre(jtfNombre.getText());
-			empleado.setClave(jtfClave.getText());
-			empleado.setEmail(jtfEmail.getText());
+			if (jtfNombre.getText().equals(empleado.getNombre()) && jtfClave.getText().equals(empleado.getClave())
+					&& jtfEmail.getText().equals(empleado.getEmail())
+					&& jtfCedula.getText().equals(empleado.getCedula())) {
+				Utilidades.mostrarMensaje("Info", "Cambia algun atributo del empleado");
+			} else if (!jtfCedula.getText().equals(empleado.getCedula())) {
+				Utilidades.mostrarMensaje("Info", "No puedes modificar la cedula de un empleado");
+			} else {
+				empleado.setNombre(jtfNombre.getText());
+				empleado.setClave(jtfClave.getText());
+				empleado.setEmail(jtfEmail.getText());
 
-			try {
-				if (administradorDelegado.modificarEmpleado(empleado)) {
-					tablaEmpleados.getItems().remove(indice);
-					Utilidades.mostrarMensaje("Borrar", "El empleado ha sido modificado con exito");
-				} else {
-					Utilidades.mostrarMensaje("Error", "El empleado no pudo ser modificado");
+				try {
+					if (administradorDelegado.modificarEmpleado(empleado)) {
+						tablaEmpleados.getItems().remove(indice);
+						Utilidades.mostrarMensaje("Borrar", "El empleado ha sido modificado con exito");
+						jtfNombre.setText("");
+						jtfEmail.setText("");
+						jtfCedula.setText("");
+						jtfClave.setText("");
+
+					} else {
+						Utilidades.mostrarMensaje("Error", "El empleado no pudo ser modificado");
+					}
+				} catch (ElementoRepetidoException | ElementoNoEncontradoException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-			} catch (ElementoRepetidoException | ElementoNoEncontradoException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
+			actualizarTabla();
+		} else {
+			Utilidades.mostrarMensaje("", "Selecciona una fila de la tabla para poder editarla");
 		}
-		actualizarTabla();
+	}
 
+	@FXML
+	public void buscar() {
+		String cedula = jtfBuscar.getText();
+
+		if (!cedula.isEmpty()) {
+			try {
+				EmpleadoObservable empleadoObservable = null;
+				Empleado empleado = administradorDelegado.buscarEmpleado(cedula);
+
+				if (empleado == null) {
+					Utilidades.mostrarMensaje("", "No se encontro");
+
+				} else {
+					empleadoObservable = new EmpleadoObservable(empleado);
+					ObservableList<EmpleadoObservable> lista = FXCollections.observableArrayList();
+					lista.add(empleadoObservable);
+					tablaEmpleados.setItems(lista);
+					tablaEmpleados.getSelectionModel().clearSelection();
+				}
+			} catch (Exception e) {
+			}
+		} else {
+			tablaEmpleados
+					.setItems((ObservableList<EmpleadoObservable>) administradorDelegado.listarEmpleadosObservables());
+			tablaEmpleados.getSelectionModel().clearSelection();
+		}
 	}
 
 	public void setEscenario(Stage escenario) {

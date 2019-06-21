@@ -114,4 +114,8 @@ public class OrdenObservable {
 		this.orden = orden;
 	}
 
+	@Override
+	public String toString() {
+		return orden.getNombre();
+	}
 }

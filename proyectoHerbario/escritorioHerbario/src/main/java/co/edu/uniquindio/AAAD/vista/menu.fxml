@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane prefHeight="373.0" prefWidth="720.0" stylesheets="@menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.AAAD.controlador.menuControlador">
+<BorderPane prefHeight="373.0" prefWidth="720.0" stylesheets="@resources/menu.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="co.edu.uniquindio.AAAD.controlador.menuControlador">
    <center>
       <GridPane BorderPane.alignment="CENTER">
         <columnConstraints>

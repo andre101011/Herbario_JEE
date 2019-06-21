@@ -10,6 +10,7 @@ import co.edu.uniquindio.AAAD.util.Utilidades;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -45,6 +46,12 @@ public class GestionarClasesControlador {
 	@FXML
 	private TextField jtfNombre;
 
+	@FXML
+	private TextField jtfBuscar;
+
+	@FXML
+	private ComboBox<String> comboBusqueda;
+
 	private ClaseObservable claseObservable;
 
 	private AdministradorDelegado administradorDelegado;
@@ -70,6 +77,12 @@ public class GestionarClasesControlador {
 		clasesObservables = FXCollections.observableArrayList();
 
 		actualizarTabla();
+
+		comboBusqueda.getItems().removeAll(comboBusqueda.getItems());
+		comboBusqueda.getItems().addAll("Buscar por nombre", "Buscar por ID");
+		comboBusqueda.getSelectionModel().selectFirst();
+		;
+
 	}
 
 	/**
@@ -95,21 +108,27 @@ public class GestionarClasesControlador {
 	 */
 	@FXML
 	public void agregarClase() {
-		Clase clase = new Clase();
-		clase.setNombre(jtfNombre.getText());
+		if (jtfNombre.getText().isEmpty()) {
+			Utilidades.mostrarMensaje("Advertencia", "Ingresa un nombre para continuar");
+		} else {
 
-		try {
-			if (administradorDelegado.insertarClase(clase)) {
-				agregarALista(administradorDelegado.buscarClasePorSuNombre(clase.getNombre()));
-				Utilidades.mostrarMensaje("Registro", "Registro exitoso!!");
-			} else {
-				Utilidades.mostrarMensaje("Registro", "Error en registro!!");
+			Clase clase = new Clase();
+			clase.setNombre(jtfNombre.getText());
+
+			try {
+				if (administradorDelegado.insertarClase(clase)) {
+					agregarALista(administradorDelegado.buscarClasePorSuNombre(clase.getNombre()));
+					Utilidades.mostrarMensaje("Registro", "Registro exitoso!!");
+					jtfNombre.setText("");
+				} else {
+					Utilidades.mostrarMensaje("Registro", "Error en registro!!");
+				}
+			} catch (ElementoRepetidoException e) {
+				Utilidades.mostrarMensaje("Error", e.toString());
+				e.printStackTrace();
 			}
-		} catch (ElementoRepetidoException e) {
-			Utilidades.mostrarMensaje("Error", e.toString());
-			e.printStackTrace();
+			actualizarTabla();
 		}
-		actualizarTabla();
 
 	}
 
@@ -152,27 +171,61 @@ public class GestionarClasesControlador {
 	public void editarClase() {
 
 		int indice = tablaClases.getSelectionModel().getSelectedIndex();
+		if (indice != -1) {
+			Clase clase = tablaClases.getItems().get(indice).getClase();
 
-		Clase clase = tablaClases.getItems().get(indice).getClase();
+			if (jtfNombre.getText().equals(clase.getNombre())) {
+				Utilidades.mostrarMensaje("Info", "Cambia algun atributo de la clase");
+			} else {
+				clase.setNombre(jtfNombre.getText());
 
-		if (jtfNombre.getText().equals(clase.getNombre())) {
-			Utilidades.mostrarMensaje("Info", "Cambia algun atributo de la clase");
-		} else {
-			clase.setNombre(jtfNombre.getText());
-
-			try {
-				if (administradorDelegado.modificarClase(clase)) {
-					Utilidades.mostrarMensaje("Borrar", "La clase ha sido modificada con exito");
-				} else {
-					Utilidades.mostrarMensaje("Error", "La clase no pudo ser modificada");
+				try {
+					if (administradorDelegado.modificarClase(clase)) {
+						Utilidades.mostrarMensaje("Borrar", "La clase ha sido modificada con exito");
+						jtfNombre.setText("");
+					} else {
+						Utilidades.mostrarMensaje("Error", "La clase no pudo ser modificada");
+					}
+				} catch (ElementoRepetidoException | ElementoNoEncontradoException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-			} catch (ElementoRepetidoException | ElementoNoEncontradoException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
+			actualizarTabla();
+		} else {
+			Utilidades.mostrarMensaje("", "Selecciona una fila de la tabla para poder editarla");
 		}
-		actualizarTabla();
+	}
 
+	@FXML
+	public void buscar() {
+		String criterio = jtfBuscar.getText();
+
+		if (!criterio.isEmpty()) {
+			try {
+				ClaseObservable claseObservable = null;
+				Clase clase = new Clase();
+				if (comboBusqueda.getValue().equals("Buscar por nombre")) {
+					clase = administradorDelegado.buscarClasePorSuNombre(criterio);
+				} else {
+					clase = administradorDelegado.buscarClase(Long.parseLong(criterio));
+				}
+				if (clase == null) {
+					Utilidades.mostrarMensaje("Clase no encontrada", "Intenta con otro parametro o método de busqueda");
+
+				} else {
+					claseObservable = new ClaseObservable(clase);
+					ObservableList<ClaseObservable> lista = FXCollections.observableArrayList();
+					lista.add(claseObservable);
+					tablaClases.setItems(lista);
+					tablaClases.getSelectionModel().clearSelection();
+				}
+			} catch (Exception e) {
+			}
+		} else {
+			tablaClases.setItems((ObservableList<ClaseObservable>) administradorDelegado.listarClasesObservables());
+			tablaClases.getSelectionModel().clearSelection();
+		}
 	}
 
 	public void setEscenario(Stage escenario) {

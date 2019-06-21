@@ -78,6 +78,9 @@ public class ManejadorEscenarios {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource("vista/logIn.fxml"));
 			BorderPane page = (BorderPane) loader.load();
+			escenario.setMinWidth(900);
+			escenario.setMinHeight(200);
+			escenario.centerOnScreen();
 			panelPrincipal.setCenter(page);
 
 			LogInControlador controlador = loader.getController();
@@ -97,9 +100,6 @@ public class ManejadorEscenarios {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource("vista/menu.fxml"));
 			BorderPane page = (BorderPane) loader.load();
-			escenario.setMinWidth(900);
-			escenario.setMinHeight(200);
-			escenario.centerOnScreen();
 			panelPrincipal.setCenter(page);
 
 			menuControlador controlador = loader.getController();
@@ -128,6 +128,9 @@ public class ManejadorEscenarios {
 			escenario.setTitle("gestionar Empleados");
 			Scene scene = new Scene(page);
 			escenario.setScene(scene);
+			escenario.setMinWidth(900);
+			escenario.setMinHeight(600);
+			escenario.centerOnScreen();
 
 			// se carga el controlador
 			GestionarEmpleadosControlador empleadoControlador = loader.getController();
@@ -140,6 +143,7 @@ public class ManejadorEscenarios {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
 		escenario.show();
 	}
 
@@ -160,11 +164,119 @@ public class ManejadorEscenarios {
 			escenario.setTitle("gestionar Clases");
 			Scene scene = new Scene(page);
 			escenario.setScene(scene);
+			escenario.setMinWidth(900);
+			escenario.setMinHeight(600);
+			escenario.centerOnScreen();
 
 			// se carga el controlador
 			GestionarClasesControlador claseControlador = loader.getController();
 			claseControlador.setEscenario(escenario);
 			claseControlador.setManejador(this);
+
+			// se muestra el escenario
+			escenario.showAndWait();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		escenario.show();
+	}
+
+	/**
+	 * muestra el escenario para gestionar ordens
+	 */
+	public void cargarEscenarioGestionarOrdenes() {
+
+		escenario.hide();
+		try {
+			// se carga la interfaz
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("./vista/gestionarOrdenes.fxml"));
+			BorderPane page = (BorderPane) loader.load();
+
+			// se crea el escenario
+			Stage escenario = new Stage();
+			escenario.setTitle("gestionar Ordenes");
+			Scene scene = new Scene(page);
+			escenario.setScene(scene);
+			escenario.setMinWidth(900);
+			escenario.setMinHeight(600);
+			escenario.centerOnScreen();
+
+			// se carga el controlador
+			GestionarOrdenesControlador ordenControlador = loader.getController();
+			ordenControlador.setEscenario(escenario);
+			ordenControlador.setManejador(this);
+
+			// se muestra el escenario
+			escenario.showAndWait();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		escenario.show();
+	}
+
+	/**
+	 * muestra el escenario para gestionar familias
+	 */
+	public void cargarEscenarioGestionarFamilias() {
+
+		escenario.hide();
+		try {
+			// se carga la interfaz
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("./vista/gestionarFamilias.fxml"));
+			BorderPane page = (BorderPane) loader.load();
+
+			// se crea el escenario
+			Stage escenario = new Stage();
+			escenario.setTitle("gestionar Familias");
+			Scene scene = new Scene(page);
+			escenario.setScene(scene);
+			escenario.setMinWidth(900);
+			escenario.setMinHeight(600);
+			escenario.centerOnScreen();
+
+			// se carga el controlador
+			GestionarFamiliasControlador familiaControlador = loader.getController();
+			familiaControlador.setEscenario(escenario);
+			familiaControlador.setManejador(this);
+
+			// se muestra el escenario
+			escenario.showAndWait();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		escenario.show();
+	}
+
+	/**
+	 * muestra el escenario para gestionar generos
+	 */
+	public void cargarEscenarioGestionarGeneros() {
+
+		escenario.hide();
+		try {
+			// se carga la interfaz
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("./vista/gestionarGeneros.fxml"));
+			BorderPane page = (BorderPane) loader.load();
+
+			// se crea el escenario
+			Stage escenario = new Stage();
+			escenario.setTitle("gestionar Generos");
+			Scene scene = new Scene(page);
+			escenario.setScene(scene);
+			escenario.setMinWidth(900);
+			escenario.setMinHeight(600);
+			escenario.centerOnScreen();
+
+			// se carga el controlador
+			GestionarGenerosControlador familiaControlador = loader.getController();
+			familiaControlador.setEscenario(escenario);
+			familiaControlador.setManejador(this);
 
 			// se muestra el escenario
 			escenario.showAndWait();

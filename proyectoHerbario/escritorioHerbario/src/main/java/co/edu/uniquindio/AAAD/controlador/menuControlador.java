@@ -50,17 +50,17 @@ public class menuControlador {
 
 	@FXML
 	public void gestionarOrdenes() {
-//		manejadorEscenarios.cargarEscenarioGestionarOrdenes();
+		manejadorEscenarios.cargarEscenarioGestionarOrdenes();
 	}
 
 	@FXML
 	public void gestionarFamilias() {
-//		manejadorEscenarios.cargarEscenarioGestionarFamilias();
+		manejadorEscenarios.cargarEscenarioGestionarFamilias();
 	}
 
 	@FXML
 	public void gestionarGeneros() {
-//		manejadorEscenarios.cargarEscenarioGestionarGeneros();
+		manejadorEscenarios.cargarEscenarioGestionarGeneros();
 	}
 
 	@FXML
