@@ -366,10 +366,10 @@ public class AdminEJB implements AdminEJBRemote {
 
 			throw new ElementoNoEncontradoException("la clase con ese id no se encuentra en la base de datos");
 		}
-//		else if(buscarClasePorNombre(clase.getNombre()) != null) {
-//			
-//			throw new ElementoRepetidoException("La clase con ese nombre ya está registrada");
-//		}
+		else if(comprobarNombreRepetido(clase) != null) {
+			
+			throw new ElementoRepetidoException("La clase con ese nombre ya está registrada");
+		}
 
 		try {
 			entityManager.merge(clase);
@@ -511,10 +511,10 @@ public class AdminEJB implements AdminEJBRemote {
 
 			throw new ElementoNoEncontradoException("el orden con ese id no se encuentra en la base de datos");
 		}
-//		else if(buscarOrdenPorNombre(orden.getNombre()) != null) {
-//			
-//			throw new ElementoRepetidoException("El orden con ese nombre ya está registrada");
-//		}
+		else if(comprobarNombreRepetido(orden) != null) {
+			
+			throw new ElementoRepetidoException("El orden con ese nombre ya está registrada");
+		}
 
 		try {
 			entityManager.merge(orden);
@@ -656,10 +656,10 @@ public class AdminEJB implements AdminEJBRemote {
 
 			throw new ElementoNoEncontradoException("el genero con ese id no se encuentra en la base de datos");
 		}
-//		else if(buscarGeneroPorNombre(genero.getNombre()) != null) {
-//			
-//			throw new ElementoRepetidoException("El genero con ese nombre ya está registrado");
-//		}
+		else if(comprobarNombreRepetido(genero) != null) {
+			
+			throw new ElementoRepetidoException("El genero con ese nombre ya está registrado");
+		}
 
 		try {
 			entityManager.merge(genero);
@@ -802,10 +802,10 @@ public class AdminEJB implements AdminEJBRemote {
 
 			throw new ElementoNoEncontradoException("el familia con ese id no se encuentra en la base de datos");
 		}
-//		else if(buscarFamiliaPorNombre(familia.getNombre()) != null) {
-//			
-//			throw new ElementoRepetidoException("La familia con ese nombre ya está registrada");
-//		}
+		else if(comprobarNombreRepetido(familia) != null) {
+			
+			throw new ElementoRepetidoException("La familia con ese nombre ya está registrada");
+		}
 
 		try {
 			entityManager.merge(familia);
@@ -836,7 +836,42 @@ public class AdminEJB implements AdminEJBRemote {
 			return null;
 		}
 	}
+	/*
+	 * (non-Javadoc)
+	 * @see co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#modificarEspecie(co.edu.uniquindio.AAAD.persistencia.Especie)
+	 */
+	@Override
+	public Especie modificarEspecie(Especie especie) throws ElementoNoEncontradoException {
+		if (entityManager.find(Especie.class, especie.getId()) == null) {
 
+			throw new ElementoNoEncontradoException("la especie con ese id no se encuentra en la base de datos");
+		}
+		try {
+			entityManager.merge(especie);
+			return especie;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	/*
+	 * (non-Javadoc)
+	 * @see co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#eliminarEspecie(co.edu.uniquindio.AAAD.persistencia.Especie)
+	 */
+	@Override
+	public Especie eliminarEspecie(Especie especie) throws ElementoNoEncontradoException {
+		if (entityManager.find(Especie.class, especie.getId()) == null) {
+
+			throw new ElementoNoEncontradoException("el especie con ese id no se encuentra en la base de datos");
+		}
+
+		try {
+			entityManager.remove(especie);
+			return especie;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 

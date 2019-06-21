@@ -107,6 +107,7 @@ public class TestAdminEJB {
 			"registro.json" })
 	public void modificarGeneroTest() {
 
+
 		Genero genero = adminEJB.buscarGenero(1l);
 
 		genero.setNombre("modificación");
@@ -131,7 +132,9 @@ public class TestAdminEJB {
 			"registro.json" })
 	public void eliminarGeneroTest() {
 
+
 		Genero genero = adminEJB.buscarGenero(1l);
+
 
 		try {
 			Assert.assertNotNull(adminEJB.eliminarGenero(genero));
