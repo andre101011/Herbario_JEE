@@ -38,7 +38,10 @@ public class NegocioEJB implements NegocioEJBRemote {
 	public NegocioEJB() {
 		// TODO Auto-generated constructor stub
 	}
-
+	/*
+	 * (non-Javadoc)
+	 * @see co.edu.uniquindio.AAAD.ejb.NegocioEJBRemote#comprobarCredenciales(java.lang.String, java.lang.String)
+	 */
 	@Override
 	public Persona comprobarCredenciales(String correo, String clave) {
 
@@ -126,7 +129,6 @@ public class NegocioEJB implements NegocioEJBRemote {
 			return null;
 		}
 	}
-	
 	private Recolector buscarRecolector(String cedula) {
 
 		try {
@@ -255,7 +257,10 @@ public class NegocioEJB implements NegocioEJBRemote {
 		}
 
 	}
-
+	/*
+	 * (non-Javadoc)
+	 * @see co.edu.uniquindio.AAAD.ejb.NegocioEJBRemote#listarEspeciesPorOrden(co.edu.uniquindio.AAAD.persistencia.Orden)
+	 */
 	@Override
 	public List<Especie> listarEspeciesPorOrden(Orden orden) {
 
@@ -312,6 +317,10 @@ public class NegocioEJB implements NegocioEJBRemote {
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see co.edu.uniquindio.AAAD.ejb.NegocioEJBRemote#listarEspecies()
+	 */
 	@Override
 	public List<Especie> listarEspecies() {
 

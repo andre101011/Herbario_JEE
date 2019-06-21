@@ -657,6 +657,25 @@ public class AdministradorDelegado {
 		return negocioEJB.registrarEspecie(registro) != null;
 	}
 	/**
+	 * modifica una especie
+	 * @param especie especie a modificar
+	 * @return true si modificó la especie sino false
+	 * @throws ElementoNoEncontradoException si no encuentra la especie a modificar
+	 */
+	public boolean modificarEspeciee(Especie especie) throws ElementoNoEncontradoException {
+		return adminEJB.modificarEspecie(especie)!= null;
+	}
+	/**
+	 * elimina una especie
+	 * @param especie especie a eliminar
+	 * @return true si eliminó la especie sino false
+	 * @throws ElementoNoEncontradoException si no encuentra la especie a eliminar
+	 */
+	public boolean eliminarEspecie(Especie especie) throws ElementoNoEncontradoException{
+		return adminEJB.eliminarEspecie(especie)!=null;
+	}
+	
+	/**
 	 * Acepta una especie
 	 * @param especie especie que se va a aceptar
 	 * @return true si la acepto, sino false

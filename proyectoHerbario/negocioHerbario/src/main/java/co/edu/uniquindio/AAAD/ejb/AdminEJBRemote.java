@@ -300,6 +300,21 @@ public interface AdminEJBRemote {
 	 * @return persona encontrada sino null
 	 */
 	Persona buscarPersonaPorEmail(String correo);
+	/**
+	 * Modifica una especie
+	 * @param especie especie a modificar
+	 * @return especie modificada, null si falló
+	 * @throws ElementoNoEncontradoException si no se encuentra la especie a modificar
+	 */
+	Especie modificarEspecie(Especie especie) throws ElementoNoEncontradoException;
+	/**
+	 * Elimina una especie
+	 * @param especie especie a eliminar
+	 * @return especie eliminada, null si falló
+	 * @throws ElementoNoEncontradoException si no se encuentra la especie a eliminar
+	 */
+	Especie eliminarEspecie(Especie especie) throws ElementoNoEncontradoException;
+	
 	
 
 }

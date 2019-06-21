@@ -92,7 +92,7 @@ public class TestAdminEJB {
 		
 		
 		try {
-			Familia familia = adminEJB.buscarFamilia("1");
+			Familia familia = adminEJB.buscarFamilia(1);
 			genero.setFamiliaDelGenero(familia);
 			Assert.assertNotNull(adminEJB.insertarGenero(genero));
 		}catch(ElementoRepetidoException e) {
@@ -116,7 +116,7 @@ public class TestAdminEJB {
 		
 		
 		
-		Genero genero=adminEJB.buscarGenero("1");
+		Genero genero=adminEJB.buscarGenero(1);
 		
 		genero.setNombre("modificación");
 	
@@ -145,7 +145,7 @@ public class TestAdminEJB {
 		
 		
 		
-		Genero genero=adminEJB.buscarGenero("1");
+		Genero genero=adminEJB.buscarGenero(1);
 		
 		try {
 			Assert.assertNotNull(adminEJB.eliminarGenero(genero));
