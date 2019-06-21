@@ -41,6 +41,7 @@ public class menuControlador {
 
 	@FXML
 	private void initialize() {
+		btnGestionarGeneros.wrapTextProperty().setValue(true);
 	}
 
 	@FXML

@@ -6,60 +6,93 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="373.0" prefWidth="720.0" stylesheets="@resources/menu.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="co.edu.uniquindio.AAAD.controlador.menuControlador">
+<BorderPane prefHeight="373.0" prefWidth="720.0" stylesheets="@resources/menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.AAAD.controlador.menuControlador">
    <center>
       <GridPane BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="btnGestionarClases" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#gestionarClases" text="Gestionar Clases">
+            <Button fx:id="btnGestionarClases" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#gestionarClases" text="Gestionar Clases" textAlignment="CENTER" textFill="#014300" wrapText="true">
                <GridPane.margin>
-                  <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </GridPane.margin>
+               <font>
+                  <Font name="System Bold Italic" size="20.0" />
+               </font>
             </Button>
-            <Button fx:id="btnGestionarOrdenes" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#gestionarOrdenes" text="Gestionar Ordenes" GridPane.columnIndex="1">
+            <Button fx:id="btnGestionarOrdenes" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#gestionarOrdenes" text="Gestionar Ordenes" textAlignment="CENTER" textFill="#014300" wrapText="true" GridPane.columnIndex="1">
                <GridPane.margin>
-                  <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </GridPane.margin>
+               <font>
+                  <Font name="System Bold Italic" size="20.0" />
+               </font>
             </Button>
-            <Button fx:id="btnGestionarFamilias" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#gestionarFamilias" text="Gestionar Familias" GridPane.columnIndex="2">
+            <Button fx:id="btnGestionarFamilias" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#gestionarFamilias" text="Gestionar Familias" textAlignment="CENTER" textFill="#014300" wrapText="true" GridPane.columnIndex="2">
                <GridPane.margin>
-                  <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </GridPane.margin>
+               <font>
+                  <Font name="System Bold Italic" size="20.0" />
+               </font>
             </Button>
-            <Button fx:id="btnGestionarEspecies" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#gestionarEspecies" text="Gestionar Especies" GridPane.rowIndex="1">
+            <Button fx:id="btnGestionarEspecies" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#gestionarEspecies" text="Gestionar Especies" textAlignment="CENTER" textFill="#014300" wrapText="true" GridPane.rowIndex="1">
                <GridPane.margin>
-                  <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </GridPane.margin>
+               <font>
+                  <Font name="System Bold Italic" size="20.0" />
+               </font>
             </Button>
-            <Button fx:id="btnGestionarEmpleados" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#gestionarEmpleados" text="Gestionar Empleados" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Button fx:id="btnGestionarEmpleados" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#gestionarEmpleados" text="Gestionar Empleados" textAlignment="CENTER" textFill="#014300" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
-                  <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </GridPane.margin>
+               <font>
+                  <Font name="System Bold Italic" size="20.0" />
+               </font>
             </Button>
-            <Button fx:id="btnGestionarRecolectores" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#gestionarRecolectores" text="Gestionar Recolectores" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Button fx:id="btnGestionarRecolectores" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#gestionarRecolectores" text="Gestionar Recolectores" textAlignment="CENTER" textFill="#014300" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <GridPane.margin>
-                  <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </GridPane.margin>
+               <font>
+                  <Font name="System Bold Italic" size="20.0" />
+               </font>
             </Button>
-            <Button fx:id="btnGestionarGeneros" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#gestionarGeneros" text="Gestionar Generos" GridPane.columnIndex="3">
+            <Button fx:id="btnGestionarGeneros" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#gestionarGeneros" prefWidth="142.0" text="Gestionar Generos" textAlignment="CENTER" textFill="#014300" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
-                  <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </GridPane.margin>
+               <font>
+                  <Font name="System Bold Italic" size="20.0" />
+               </font>
             </Button>
-            <Button fx:id="btnCerrarSesion" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#cerrarSesion" text="Cerrar Sesión" GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <Button fx:id="btnCerrarSesion" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#cerrarSesion" text="Cerrar Sesión" textAlignment="CENTER" textFill="#014300" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <GridPane.margin>
-                  <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </GridPane.margin>
+               <font>
+                  <Font name="System Bold Italic" size="20.0" />
+               </font>
+            </Button>
+            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="x" textAlignment="CENTER" textFill="#014300" wrapText="true" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+               <font>
+                  <Font name="System Bold Italic" size="20.0" />
+               </font>
             </Button>
          </children>
       </GridPane>
