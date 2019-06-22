@@ -308,7 +308,7 @@ public class NegocioEJB implements NegocioEJBRemote {
 	public List<Especie> listarEspeciesPorFamilia(Familia familia) {
 
 		try {
-			TypedQuery<Especie> query = entityManager.createNamedQuery(Especie.LISTAR_POR_ESTADO, Especie.class);
+			TypedQuery<Especie> query = entityManager.createNamedQuery(Especie.LISTAR_POR_FAMILIA, Especie.class);
 			query.setParameter("fam", familia.getId());
 			List<Especie> lista = query.getResultList();
 			return lista;
