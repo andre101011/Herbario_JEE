@@ -3,11 +3,18 @@
  */
 package co.edu.uniquindio.AAAD.modelo;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.persistence.TypedQuery;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 import co.edu.uniquindio.AAAD.ejb.AdminEJBRemote;
 import co.edu.uniquindio.AAAD.ejb.NegocioEJBRemote;
@@ -24,6 +31,8 @@ import co.edu.uniquindio.AAAD.excepciones.ElementoNoEncontradoException;
 import co.edu.uniquindio.AAAD.excepciones.ElementoRepetidoException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.Image;
 
 /**
  * Delegado que permite conectar la capa de negocio con la de presentación
@@ -655,6 +664,20 @@ public class AdministradorDelegado {
 	 * @throws ElementoRepetidoException si hay un id repetido
 	 */
 	public boolean registrarEspecie(Registro registro) throws ElementoRepetidoException {
+		Especie especie = registro.getEspecieEnviada();
+		byte[] imgFoto = especie.getImagen();
+		BufferedImage image = null;
+		InputStream in = new ByteArrayInputStream(imgFoto);
+		try {
+			image = ImageIO.read(in);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+      ImageIcon icono = new ImageIcon(image);
+      JOptionPane.showMessageDialog(null, "Imagenes", "Imagen", JOptionPane.INFORMATION_MESSAGE, icono);
+		
 		return negocioEJB.registrarEspecie(registro) != null;
 	}
 
@@ -854,7 +877,7 @@ public class AdministradorDelegado {
 	 * @return lista de especies de acuerdo a un orden
 	 */
 	public ObservableList<EspecieObservable> listarEspeciesPorOrdenObservables(Orden orden) {
-		List<Especie> especies = listarEspecies();
+		List<Especie> especies = listarEspeciesPorOrden(orden);
 		ObservableList<EspecieObservable> especiesObservables = FXCollections.observableArrayList();
 		for (Especie especie : especies) {
 			especiesObservables.add(new EspecieObservable(especie));
@@ -880,7 +903,7 @@ public class AdministradorDelegado {
 	 * @return lista de especies de acuerdo a un clase
 	 */
 	public ObservableList<EspecieObservable> listarEspeciesPorClaseObservables(Clase clase) {
-		List<Especie> especies = listarEspecies();
+		List<Especie> especies = listarEspeciesPorClase(clase);
 		ObservableList<EspecieObservable> especiesObservables = FXCollections.observableArrayList();
 		for (Especie especie : especies) {
 			especiesObservables.add(new EspecieObservable(especie));
@@ -906,7 +929,7 @@ public class AdministradorDelegado {
 	 * @return lista de especies de acuerdo a un familia
 	 */
 	public ObservableList<EspecieObservable> listarEspeciesPorFamiliaObservables(Familia familia) {
-		List<Especie> especies = listarEspecies();
+		List<Especie> especies = listarEspeciesPorFamilia(familia);
 		ObservableList<EspecieObservable> especiesObservables = FXCollections.observableArrayList();
 		for (Especie especie : especies) {
 			especiesObservables.add(new EspecieObservable(especie));
@@ -932,7 +955,7 @@ public class AdministradorDelegado {
 	 * @return lista de especies de acuerdo a un genero
 	 */
 	public ObservableList<EspecieObservable> listarEspeciesPorGeneroObservables(Genero genero) {
-		List<Especie> especies = listarEspecies();
+		List<Especie> especies = listarEspeciesPorGenero(genero);
 		ObservableList<EspecieObservable> especiesObservables = FXCollections.observableArrayList();
 		for (Especie especie : especies) {
 			especiesObservables.add(new EspecieObservable(especie));
