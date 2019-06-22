@@ -84,7 +84,7 @@ public class AdministradorDelegado {
 	 */
 	public boolean comprobarCredenciales(String correo, String clave) {
 
-		Persona usuario = negocioEJB.comprobarCredenciales(correo, clave);
+		 usuario = negocioEJB.comprobarCredenciales(correo, clave);
 
 		if (usuario != null) {
 			return true;

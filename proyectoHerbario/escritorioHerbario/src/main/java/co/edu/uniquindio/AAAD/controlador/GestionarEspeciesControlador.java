@@ -2,7 +2,11 @@ package co.edu.uniquindio.AAAD.controlador;
 
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.ResourceBundle;
 
 import co.edu.uniquindio.AAAD.excepciones.ElementoNoEncontradoException;
@@ -20,6 +24,7 @@ import co.edu.uniquindio.AAAD.persistencia.Orden;
 import co.edu.uniquindio.AAAD.persistencia.Registro;
 import co.edu.uniquindio.AAAD.persistencia.Registro.Estado;
 import co.edu.uniquindio.AAAD.util.Utilidades;
+import imagen.Imagen;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -31,7 +36,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class GestionarEspeciesControlador {
@@ -45,6 +52,10 @@ public class GestionarEspeciesControlador {
 	private EspecieObservable especieObservable;
 
 	private AdministradorDelegado administradorDelegado;
+
+	private Imagen imagen;
+
+	private String ruta;
 
 	// Componentes FXML
 
@@ -228,7 +239,6 @@ public class GestionarEspeciesControlador {
 	@FXML
 	public void agregarEspecie() {
 
-		int indice = tablaEspecies.getSelectionModel().getSelectedIndex();
 		if (jtfNombre.getText().isEmpty()) {
 			Utilidades.mostrarMensaje("Advertencia", "Ingresa un nombre para continuar");
 		} else {
@@ -237,37 +247,43 @@ public class GestionarEspeciesControlador {
 				Utilidades.mostrarMensaje("Advertencia",
 						"Debe seleccionar todas las categorias a las que pertenece la especie");
 			} else {
-				try {
+				if (ruta == null) {
+					Utilidades.mostrarMensaje("Advertencia", "Seleccione una imagen");
+				} else {
+					try {
 
-					Registro registro = new Registro();
-					registro.setEnviadorDelRegistro(administradorDelegado.getUsuario());
-					registro.setEvaluadorDelRegistro((Administrador) administradorDelegado.getUsuario());
-					registro.setEstado(Estado.Espera);
-					registro.setFecha(new GregorianCalendar().getTime());
-					registro.setJustificacion(jtfJustificacion.getText());
+						Registro registro = new Registro();
+						registro.setEnviadorDelRegistro(administradorDelegado.getUsuario());
+						registro.setEvaluadorDelRegistro((Administrador) administradorDelegado.getUsuario());
+						registro.setEstado(Estado.Espera);
+						registro.setFecha(new GregorianCalendar().getTime());
+						registro.setJustificacion(jtfJustificacion.getText());
 
-					Especie especie = new Especie();
-					especie.setNombre(jtfNombre.getText());
-					especie.setGeneroDeEspecie(comboGenero.getValue().getGenero());
+						Especie especie = new Especie();
+						especie.setNombre(jtfNombre.getText());
+						especie.setGeneroDeEspecie(comboGenero.getValue().getGenero());
 
-					especie.setRegistroPlanta(registro);
-					registro.setEspecieEnviada(especie);
+//						imagen.agregarImagen(especie, ruta);
 
-					especie.setNombre(jtfNombre.getText());
+						especie.setRegistroPlanta(registro);
+						registro.setEspecieEnviada(especie);
 
-					if (administradorDelegado.registrarEspecie(registro)) {
-						Utilidades.mostrarMensaje("Enhorabuena!", "La especie ha sido agregada con exito");
-						jtfNombre.setText("");
-					} else {
-						Utilidades.mostrarMensaje("Error", "La especie no pudo ser agregada");
+						especie.setNombre(jtfNombre.getText());
+
+						if (administradorDelegado.registrarEspecie(registro)) {
+							Utilidades.mostrarMensaje("Enhorabuena!", "La especie ha sido agregada con exito");
+							jtfNombre.setText("");
+						} else {
+							Utilidades.mostrarMensaje("Error", "La especie no pudo ser agregada");
+						}
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+
+					actualizarTabla();
+
 				}
-
-				actualizarTabla();
-
 			}
 		}
 	}
@@ -404,4 +420,30 @@ public class GestionarEspeciesControlador {
 		}
 	}
 
+	@FXML
+	private void mostrarFileChooser() {
+
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Seleccionar imagen");
+		fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+		fileChooser.getExtensionFilters()
+				.addAll(new FileChooser.ExtensionFilter("Image Files", "*.bmp", "*.png", "*.jpg", "*.gif"));
+		File file = fileChooser.showOpenDialog(new Stage());
+		if (file != null) {
+			try {
+
+				ruta = file.getAbsolutePath();
+				Image image = new Image(file.toURI().toString());
+				campoImagen.setImage(image);
+				Utilidades.mostrarMensaje("", "La imagen fue cargada exitosamente");
+
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				Utilidades.mostrarMensaje("", "Error al cargar la imagen");
+				e.printStackTrace();
+
+			}
+		}
+
+	}
 }

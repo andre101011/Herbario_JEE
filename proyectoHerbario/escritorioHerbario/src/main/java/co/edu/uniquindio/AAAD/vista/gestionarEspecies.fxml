@@ -148,7 +148,7 @@
                               </GridPane>
                            </content>
                         </TitledPane>
-                        <TitledPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Detalle Registro">
+                        <TitledPane expanded="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Detalle Registro">
                            <content>
                   				<GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="350.0" prefWidth="350.0">
                   					<children>
@@ -229,14 +229,17 @@
                         </TitledPane>
                         <TitledPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Imagen">
                           <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
                                     <BorderPane layoutX="35.0" layoutY="-40.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0">
                                        <bottom>
-                                          <Button fx:id="btnSeleccionarImagen" mnemonicParsing="false" text="Seleccionar Imagen" BorderPane.alignment="CENTER" />
+                                          <Button fx:id="btnSeleccionarImagen" mnemonicParsing="false" onAction="#mostrarFileChooser" text="Seleccionar Imagen" BorderPane.alignment="CENTER" />
                                        </bottom>
                                        <center>
-                                          <ImageView fx:id="campoImagen" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
+                                          <ImageView fx:id="campoImagen" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="BOTTOM_CENTER">
+                                             <BorderPane.margin>
+                                                <Insets top="40.0" />
+                                             </BorderPane.margin></ImageView>
                                        </center>
                                     </BorderPane>
                                  </children>
