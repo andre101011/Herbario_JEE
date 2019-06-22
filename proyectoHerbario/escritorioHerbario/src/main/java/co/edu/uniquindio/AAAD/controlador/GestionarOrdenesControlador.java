@@ -4,6 +4,7 @@ import co.edu.uniquindio.AAAD.excepciones.ElementoNoEncontradoException;
 import co.edu.uniquindio.AAAD.excepciones.ElementoRepetidoException;
 import co.edu.uniquindio.AAAD.modelo.AdministradorDelegado;
 import co.edu.uniquindio.AAAD.modelo.ClaseObservable;
+import co.edu.uniquindio.AAAD.modelo.FamiliaObservable;
 import co.edu.uniquindio.AAAD.modelo.OrdenObservable;
 import co.edu.uniquindio.AAAD.persistencia.Orden;
 import co.edu.uniquindio.AAAD.util.Utilidades;
@@ -94,14 +95,16 @@ public class GestionarOrdenesControlador {
 	/**
 	 * permite mostrar la informacion del orden seleccionado
 	 * 
-	 * @param orden orden al que se le desea mostrar el detalle
+	 * @param ordenObservable orden al que se le desea mostrar el detalle
 	 */
-	public void mostrarDetalleOrden(OrdenObservable orden) {
+	public void mostrarDetalleOrden(OrdenObservable ordenObservable) {
 
-		if (orden != null) {
-			ordenObservable = orden;
+		if (ordenObservable != null) {
+			ordenObservable = ordenObservable;
 
-			jtfNombre.setText(orden.getNombre().getValue());
+			jtfNombre.setText(ordenObservable.getNombre().getValue());
+			ClaseObservable claseObservable = new ClaseObservable(ordenObservable.getOrden().getClaseDelOrden());
+			comboClases.getSelectionModel().select(claseObservable);
 
 		} else {
 			jtfNombre.setText("");
@@ -162,7 +165,7 @@ public class GestionarOrdenesControlador {
 		try {
 			if (administradorDelegado.eliminarOrden(orden)) {
 				tablaOrdenes.getItems().remove(indice);
-				Utilidades.mostrarMensaje("Borrar", "La orden ha sido eliminada con exito");
+				Utilidades.mostrarMensaje("Enhorabuena!", "La orden ha sido eliminada con exito");
 			} else {
 				Utilidades.mostrarMensaje("Error", "La orden no pudo ser eliminada");
 			}
@@ -191,7 +194,7 @@ public class GestionarOrdenesControlador {
 
 				try {
 					if (administradorDelegado.modificarOrden(orden)) {
-						Utilidades.mostrarMensaje("Borrar", "La orden ha sido modificada con exito");
+						Utilidades.mostrarMensaje("Enhorabuena!", "La orden ha sido modificada con exito");
 						jtfNombre.setText("");
 					} else {
 						Utilidades.mostrarMensaje("Error", "La orden no pudo ser modificada");

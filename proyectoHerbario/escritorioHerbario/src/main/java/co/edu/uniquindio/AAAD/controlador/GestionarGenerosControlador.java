@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import co.edu.uniquindio.AAAD.excepciones.ElementoNoEncontradoException;
 import co.edu.uniquindio.AAAD.excepciones.ElementoRepetidoException;
 import co.edu.uniquindio.AAAD.modelo.AdministradorDelegado;
+import co.edu.uniquindio.AAAD.modelo.ClaseObservable;
 import co.edu.uniquindio.AAAD.modelo.EspecieObservable;
 import co.edu.uniquindio.AAAD.modelo.FamiliaObservable;
 import co.edu.uniquindio.AAAD.modelo.GeneroObservable;
@@ -113,14 +114,17 @@ public class GestionarGenerosControlador {
 	/**
 	 * permite mostrar la informacion del genero seleccionado
 	 * 
-	 * @param genero genero al que se le desea mostrar el detalle
+	 * @param generoObservable genero al que se le desea mostrar el detalle
 	 */
-	public void mostrarDetalleGenero(GeneroObservable genero) {
+	public void mostrarDetalleGenero(GeneroObservable generoObservable) {
 
-		if (genero != null) {
-			generoObservable = genero;
+		if (generoObservable != null) {
+			generoObservable = generoObservable;
 
-			jtfNombre.setText(genero.getNombre().getValue());
+			jtfNombre.setText(generoObservable.getNombre().getValue());
+			FamiliaObservable familiaObservable = new FamiliaObservable(
+					generoObservable.getGenero().getFamiliaDelGenero());
+			comboFamilias.getSelectionModel().select(familiaObservable);
 
 		} else {
 			jtfNombre.setText("");
@@ -180,7 +184,7 @@ public class GestionarGenerosControlador {
 		try {
 			if (administradorDelegado.eliminarGenero(genero)) {
 				tablaGeneros.getItems().remove(indice);
-				Utilidades.mostrarMensaje("Borrar", "El genero ha sido eliminado con exito");
+				Utilidades.mostrarMensaje("Enhorabuena!", "El genero ha sido eliminado con exito");
 			} else {
 				Utilidades.mostrarMensaje("Error", "El genero no pudo ser eliminado");
 			}
@@ -210,7 +214,7 @@ public class GestionarGenerosControlador {
 
 				try {
 					if (administradorDelegado.modificarGenero(genero)) {
-						Utilidades.mostrarMensaje("Borrar", "El genero ha sido modificado con exito");
+						Utilidades.mostrarMensaje("Enhorabuena!", "El genero ha sido modificado con exito");
 						jtfNombre.setText("");
 					} else {
 						Utilidades.mostrarMensaje("Error", "El genero no pudo ser modificado");

@@ -272,7 +272,7 @@ public class GestionarEspeciesControlador {
 						especie.setNombre(jtfNombre.getText());
 						especie.setGeneroDeEspecie(comboGenero.getValue().getGenero());
 
-//						imagen.agregarImagen(especie, ruta);
+						imagen.agregarImagen(especie, ruta);
 
 						especie.setRegistroPlanta(registro);
 						registro.setEspecieEnviada(especie);
@@ -334,15 +334,15 @@ public class GestionarEspeciesControlador {
 //			Especie especie = tablaEspecies.getItems().get(indice).getEspecie();
 //
 //			if (jtfNombre.getText().equals(especie.getNombre())) {
-//				Utilidades.mostrarMensaje("Info", "Cambia algun atributo del especie");
+//				Utilidades.mostrarMensaje("Info", "Cambia algun atributo de la especie");
 //			} else {
 //
 //				try {
 //					if (administradorDelegado.modificarEspecie(especie)) {
-//						Utilidades.mostrarMensaje("Borrar", "El especie ha sido modificado con exito");
+//						Utilidades.mostrarMensaje("Enhorabuena!", "La especie ha sido modificada con exito");
 //						jtfNombre.setText("");
 //					} else {
-//						Utilidades.mostrarMensaje("Error", "El especie no pudo ser modificado");
+//						Utilidades.mostrarMensaje("Error", "La especie no pudo ser modificada");
 //					}
 //				} catch (ElementoRepetidoException | ElementoNoEncontradoException e) {
 //					// TODO Auto-generated catch block
@@ -383,44 +383,24 @@ public class GestionarEspeciesControlador {
 				break;
 
 			case "Buscar por genero":
-				List<Especie> especiesPorGenero = administradorDelegado
-						.listarEspeciesPorGenero(administradorDelegado.buscarGeneroPorSuNombre(categoria));
-				for (Especie especiex : especiesPorGenero) {
-					especies.add(new EspecieObservable(especiex));
-				}
+				especies = administradorDelegado
+						.listarEspeciesPorGeneroObservables(administradorDelegado.buscarGeneroPorSuNombre(categoria));
 
 				break;
 
 			case "Buscar por familia":
-
-				Utilidades.mostrarMensaje("", "Entra");
-				List<Especie> especiesPorFamilia = administradorDelegado
-						.listarEspeciesPorFamilia(administradorDelegado.buscarFamiliaPorSuNombre(categoria));
-
-				if (especiesPorFamilia == null) {
-					Utilidades.mostrarMensaje("", "Especies por familia null");
-				}
-
-				for (Especie especiex : especiesPorFamilia) {
-					especies.add(new EspecieObservable(especiex));
-				}
-
+				especies = administradorDelegado
+						.listarEspeciesPorFamiliaObservables(administradorDelegado.buscarFamiliaPorSuNombre(categoria));
 				break;
 
 			case "Buscar por orden":
-				List<Especie> especiesPorOrden = administradorDelegado
-						.listarEspeciesPorOrden(administradorDelegado.buscarOrdenPorSuNombre(categoria));
-				for (Especie especiex : especiesPorOrden) {
-					especies.add(new EspecieObservable(especiex));
-				}
+				especies = administradorDelegado
+						.listarEspeciesPorOrdenObservables(administradorDelegado.buscarOrdenPorSuNombre(categoria));
 				break;
 
 			case "Buscar por clase":
-				List<Especie> especiesPorClase = administradorDelegado
-						.listarEspeciesPorClase(administradorDelegado.buscarClasePorSuNombre(categoria));
-				for (Especie especiex : especiesPorClase) {
-					especies.add(new EspecieObservable(especiex));
-				}
+				especies = administradorDelegado
+						.listarEspeciesPorClaseObservables(administradorDelegado.buscarClasePorSuNombre(categoria));
 				break;
 
 			default:
@@ -460,25 +440,16 @@ public class GestionarEspeciesControlador {
 	}
 
 	@FXML
-	public void mostrarOrdenesCombo() {
-//
-//		if (comboClase.getValue() == null) {
-//		} else {
-//			Clase clase = comboClase.getValue().getClase();
-//			comboOrden.getItems().removeAll(comboClase.getItems());
-//			List<Orden> ordenes = clase.getOrdenesDeLaClase();
-//
-//			ObservableList<OrdenObservable> ordenesObservables = FXCollections.observableArrayList();
-//
-//			for (Orden orden : ordenes) {
-//				OrdenObservable ordenObservable = new OrdenObservable(orden);
-//				ordenesObservables.add(ordenObservable);
-//			}
-//
-//			comboOrden.getItems().addAll(ordenesObservables);
-//			comboOrden.getSelectionModel().selectFirst();
-//
-//		}
+	public void llenarComboOrdenes() {
+
+		if (comboClase.getValue() == null) {
+		} else {
+			Clase clase = comboClase.getValue().getClase();
+			comboOrden.getItems().removeAll(comboClase.getItems());
+			comboOrden.getItems().addAll(administradorDelegado.listarOrdenesObservablesPorClase(clase));
+			comboOrden.getSelectionModel().selectFirst();
+
+		}
 	}
 
 	@FXML

@@ -194,7 +194,7 @@ public class GestionarEmpleadosControlador {
 			System.out.println(empleado.getCedula());
 			if (administradorDelegado.eliminarEmpleado(administradorDelegado.buscarEmpleado(empleado.getCedula()))) {
 				tablaEmpleados.getItems().remove(indice);
-				Utilidades.mostrarMensaje("Borrar", "El empleado ha sido eliminado con exito");
+				Utilidades.mostrarMensaje("Enhorabuena!", "El empleado ha sido eliminado con exito");
 			} else {
 				Utilidades.mostrarMensaje("Error", "El empleado no pudo ser eliminado");
 			}
@@ -230,7 +230,7 @@ public class GestionarEmpleadosControlador {
 				try {
 					if (administradorDelegado.modificarEmpleado(empleado)) {
 						tablaEmpleados.getItems().remove(indice);
-						Utilidades.mostrarMensaje("Borrar", "El empleado ha sido modificado con exito");
+						Utilidades.mostrarMensaje("Enhorabuena!", "El empleado ha sido modificado con exito");
 						jtfNombre.setText("");
 						jtfEmail.setText("");
 						jtfCedula.setText("");

@@ -3,6 +3,7 @@ package co.edu.uniquindio.AAAD.controlador;
 import co.edu.uniquindio.AAAD.excepciones.ElementoNoEncontradoException;
 import co.edu.uniquindio.AAAD.excepciones.ElementoRepetidoException;
 import co.edu.uniquindio.AAAD.modelo.AdministradorDelegado;
+import co.edu.uniquindio.AAAD.modelo.ClaseObservable;
 import co.edu.uniquindio.AAAD.modelo.FamiliaObservable;
 import co.edu.uniquindio.AAAD.modelo.OrdenObservable;
 import co.edu.uniquindio.AAAD.persistencia.Familia;
@@ -94,14 +95,16 @@ public class GestionarFamiliasControlador {
 	/**
 	 * permite mostrar la informacion del familia seleccionado
 	 * 
-	 * @param familia familia al que se le desea mostrar el detalle
+	 * @param familiaObservable familia al que se le desea mostrar el detalle
 	 */
-	public void mostrarDetalleFamilia(FamiliaObservable familia) {
+	public void mostrarDetalleFamilia(FamiliaObservable familiaObservable) {
 
-		if (familia != null) {
-			familiaObservable = familia;
+		if (familiaObservable != null) {
+			familiaObservable = familiaObservable;
 
-			jtfNombre.setText(familia.getNombre().getValue());
+			jtfNombre.setText(familiaObservable.getNombre().getValue());
+			OrdenObservable ordenObservable = new OrdenObservable(familiaObservable.getFamilia().getOrdenDelaFamilia());
+			comboOrdenes.getSelectionModel().select(ordenObservable);
 
 		} else {
 			jtfNombre.setText("");
@@ -161,7 +164,7 @@ public class GestionarFamiliasControlador {
 		try {
 			if (administradorDelegado.eliminarFamilia(familia)) {
 				tablaFamilias.getItems().remove(indice);
-				Utilidades.mostrarMensaje("Borrar", "La familia ha sido eliminada con exito");
+				Utilidades.mostrarMensaje("Enhorabuena!", "La familia ha sido eliminada con exito");
 			} else {
 				Utilidades.mostrarMensaje("Error", "La familia no pudo ser eliminada");
 			}
@@ -191,7 +194,7 @@ public class GestionarFamiliasControlador {
 
 				try {
 					if (administradorDelegado.modificarFamilia(familia)) {
-						Utilidades.mostrarMensaje("Borrar", "La familia ha sido modificada con exito");
+						Utilidades.mostrarMensaje("Enhorabuena!", "La familia ha sido modificada con exito");
 						jtfNombre.setText("");
 					} else {
 						Utilidades.mostrarMensaje("Error", "La familia no pudo ser modificada");
@@ -221,7 +224,7 @@ public class GestionarFamiliasControlador {
 					familia = administradorDelegado.buscarFamilia(Long.parseLong(criterio));
 				}
 				if (familia == null) {
-					Utilidades.mostrarMensaje("Familia no encontrado",
+					Utilidades.mostrarMensaje("Familia no encontrada",
 							"Intenta con otro parametro o método de busqueda");
 
 				} else {
