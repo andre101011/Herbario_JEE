@@ -15,7 +15,8 @@ import javax.persistence.*;
  */
 @Entity
 @NamedQueries({@NamedQuery(name=Orden.LISTAR_TODOS, query="select p from Orden p"),
-	@NamedQuery(name=Orden.BUSCAR_POR_NOMBRE, query="select p from Orden p where p.nombre =:nombre")})
+	@NamedQuery(name=Orden.BUSCAR_POR_NOMBRE, query="select p from Orden p where p.nombre =:nombre"),
+	@NamedQuery(name=Orden.LISTAR_POR_CLASE, query="select p from Orden p where p.claseDelOrden.id =:id")})
 public class Orden implements Serializable {
 	
 	/**
@@ -30,6 +31,7 @@ public class Orden implements Serializable {
 	 * Referencia para buscar un orden por su nombre
 	 */
 	public static final String BUSCAR_POR_NOMBRE = "Buscar orden por nombre";
+	public static final String LISTAR_POR_CLASE = "listar por Clase";
 	/***
 	 * nombre del orden
 	 */
@@ -45,13 +47,14 @@ public class Orden implements Serializable {
 	 * clase del orden
 	 */
 	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="CLASEDELORDEN_ID")
 	private Clase claseDelOrden;
 	
 	
 	/**
 	 * lista de familias del orden
 	 */
-	@OneToMany(cascade = {CascadeType.REMOVE},mappedBy = "ordenDelaFamilia")
+	@OneToMany(cascade = CascadeType.ALL,orphanRemoval=true,mappedBy = "ordenDelaFamilia")
 	private List<Familia> familiasDelOrden;
 
 	public Orden() {

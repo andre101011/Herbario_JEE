@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.persistence.TypedQuery;
 
 import co.edu.uniquindio.AAAD.ejb.AdminEJBRemote;
 import co.edu.uniquindio.AAAD.ejb.NegocioEJBRemote;
@@ -84,7 +85,7 @@ public class AdministradorDelegado {
 	 */
 	public boolean comprobarCredenciales(String correo, String clave) {
 
-		 usuario = negocioEJB.comprobarCredenciales(correo, clave);
+		usuario = negocioEJB.comprobarCredenciales(correo, clave);
 
 		if (usuario != null) {
 			return true;
@@ -148,7 +149,7 @@ public class AdministradorDelegado {
 	public boolean eliminarEmpleado(Empleado empleado) throws ElementoNoEncontradoException {
 		return adminEJB.eliminarEmpleado(empleado) != null;
 	}
-	
+
 	/**
 	 * inhabilita el empleado
 	 * 
@@ -235,14 +236,14 @@ public class AdministradorDelegado {
 	 * @param recolector recolector que se va a eliminar
 	 * @return true si se eliminó el recolector sino false
 	 * @throws ElementoNoEncontradoException si no existe el recolector que se va a
-	 *                                      eliminar
+	 *                                       eliminar
 	 */
 	public boolean eliminarRecolector(Recolector recolector) throws ElementoNoEncontradoException {
 
 		return adminEJB.eliminarRecolector(recolector) != null;
 
 	}
-	
+
 	/**
 	 * inhabilita el recolector
 	 * 
@@ -613,7 +614,7 @@ public class AdministradorDelegado {
 	 * @param genero genero que se va a eliminar
 	 * @return true si se eliminó el genero sino false
 	 * @throws ElementoNoEncontradoException si no existe el genero que se va a
-	 *                                      eliminar
+	 *                                       eliminar
 	 */
 	public boolean eliminarGenero(Genero genero) throws ElementoNoEncontradoException {
 
@@ -659,23 +660,26 @@ public class AdministradorDelegado {
 
 	/**
 	 * modifica una especie
+	 * 
 	 * @param especie especie a modificar
 	 * @return true si modificó la especie sino false
 	 * @throws ElementoNoEncontradoException si no encuentra la especie a modificar
 	 */
 	public boolean modificarEspeciee(Especie especie) throws ElementoNoEncontradoException {
-		return adminEJB.modificarEspecie(especie)!= null;
+		return adminEJB.modificarEspecie(especie) != null;
 	}
+
 	/**
 	 * elimina una especie
+	 * 
 	 * @param especie especie a eliminar
 	 * @return true si eliminó la especie sino false
 	 * @throws ElementoNoEncontradoException si no encuentra la especie a eliminar
 	 */
-	public boolean eliminarEspecie(Especie especie) throws ElementoNoEncontradoException{
-		return adminEJB.eliminarEspecie(especie)!=null;
+	public boolean eliminarEspecie(Especie especie) throws ElementoNoEncontradoException {
+		return adminEJB.eliminarEspecie(especie) != null;
 	}
-	
+
 	/**
 	 * Acepta una especie
 	 * 
@@ -954,6 +958,52 @@ public class AdministradorDelegado {
 	 */
 	public void setUsuario(Persona usuario) {
 		this.usuario = usuario;
+	}
+
+	public List<Orden> listarOrdenesPorClase(Clase clase) {
+		
+		return negocioEJB.listarOrdenesPorClase(clase);
+
+	}
+
+	public List<OrdenObservable> listarOrdenesObservablesPorClase(Clase clase) {
+		
+		List<Orden> ordenes = listarOrdenesPorClase(clase);
+		ObservableList<OrdenObservable> ordenesObservables = FXCollections.observableArrayList();
+		for (Orden orden : ordenes) {
+			ordenesObservables.add(new OrdenObservable(orden));
+		}
+		return ordenesObservables;
+		
+
+	}
+
+	public List<Familia> listarFamiliasPorOrden(Orden orden) {
+		
+		return negocioEJB.listarFamiliasPorOrden(orden);
+
+	}
+
+	public List<FamiliaObservable> listarFamiliasObservablesPorOrden(Orden orden) {
+		List<Familia> familias = listarFamiliasPorOrden(orden);
+		ObservableList<FamiliaObservable> familiasObservables = FXCollections.observableArrayList();
+		for (Familia familia : familias) {
+			familiasObservables.add(new FamiliaObservable(familia));
+		}
+		return familiasObservables;
+	}
+
+	public List<Genero> listarGenerosPorFamilia(Familia familia) {
+		return negocioEJB.listarGenerosPorFamilia(familia);
+	}
+	
+	public List<GeneroObservable> listarGenerosObservablesPorFamilia(Familia familia) {
+		List<Genero> generos = listarGenerosPorFamilia(familia);
+		ObservableList<GeneroObservable> generosObservables = FXCollections.observableArrayList();
+		for (Genero genero : generos) {
+			generosObservables.add(new GeneroObservable(genero));
+		}
+		return generosObservables;
 	}
 
 }

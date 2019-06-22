@@ -102,6 +102,24 @@ public interface NegocioEJBRemote {
 	 * @return especie encontrada
 	 */
 	List<Especie> buscarEspeciePorSuNombre(String nombre);
+	/**
+	 * lista ordenes de acuerdo a una clase
+	 * @param clase clase de los ordenes
+	 * @return lista de ordenes
+	 */
+	List<Orden> listarOrdenesPorClase(Clase clase);
+	/**
+	 * Lista familias de acuerdo a un orden
+	 * @param orden orden de las familias
+	 * @return lista de familias
+	 */
+	List<Familia> listarFamiliasPorOrden(Orden orden);
+	/**
+	 * Lista generos de acuerdo a una familia
+	 * @param familia familia de los generos
+	 * @return lista de generos
+	 */
+	List<Genero> listarGenerosPorFamilia(Familia familia);
 	
 
 

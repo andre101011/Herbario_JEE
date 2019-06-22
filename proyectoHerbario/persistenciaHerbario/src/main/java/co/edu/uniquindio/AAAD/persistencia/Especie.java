@@ -104,7 +104,7 @@ public class Especie implements Serializable {
 	/**
 	 * genero de la especie
 	 */
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Genero generoDeEspecie;
 	/**
 	 * imagen de la especie

@@ -17,7 +17,8 @@ import javax.persistence.*;
 @NamedQueries({@NamedQuery(name=Familia.LISTAR_TODOS, query="select p from Familia p"),
 	@NamedQuery(name=Familia.CONTAR, query="select count(p) from Familia p"),
 	@NamedQuery(name=Familia.OBTENER_FAMILIA_MAS_ESPECIES, query="select fam,max(select count(esp) from Genero gen inner join gen.especiesDelGenero esp where gen.familiaDelGenero.id=fam.id) from Familia fam"),
-	@NamedQuery(name=Familia.BUSCAR_POR_NOMBRE, query="select p from Familia p where p.nombre =:nombre")})
+	@NamedQuery(name=Familia.BUSCAR_POR_NOMBRE, query="select p from Familia p where p.nombre =:nombre"),
+	@NamedQuery(name=Familia.LISTAR_POR_ORDEN, query="select p from Familia p where p.ordenDelaFamilia.id =:id")})
 public class Familia implements Serializable {
 	/**
 	 * 
@@ -37,6 +38,8 @@ public class Familia implements Serializable {
 	 * referencia para contar las familias
 	 */
 	public static final String CONTAR="ContarFamilias";
+	
+	public static final String LISTAR_POR_ORDEN="Listar por orden";
 	
 	/**
 	 * referencia para contar las familias
@@ -63,12 +66,12 @@ public class Familia implements Serializable {
 	/**
 	 * orden de la familia
 	 */
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Orden ordenDelaFamilia;
 	/**
 	 * lista de generos de la familia
 	 */
-	@OneToMany(cascade = {CascadeType.REMOVE},mappedBy = "familiaDelGenero")
+	@OneToMany(cascade = CascadeType.ALL,orphanRemoval=true,mappedBy = "familiaDelGenero")
 	private List<Genero> generosDeLaFamilia;
 	
 

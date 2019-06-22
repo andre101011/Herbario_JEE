@@ -16,8 +16,7 @@ import javax.persistence.*;
  */
 @Entity
 @NamedQueries({@NamedQuery(name=Clase.LISTAR_TODOS, query="select p from Clase p"),
-	@NamedQuery(name=Clase.BUSCAR_POR_NOMBRE, query="select p from Clase p where p.nombre =:nombre"),
-	})
+	@NamedQuery(name=Clase.BUSCAR_POR_NOMBRE, query="select p from Clase p where p.nombre =:nombre")})
 public class Clase implements Serializable {
 
 

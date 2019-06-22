@@ -334,5 +334,59 @@ public class NegocioEJB implements NegocioEJBRemote {
 		}
 
 	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see co.edu.uniquindio.AAAD.ejb.NegocioEJBRemote#listarOrdenesPorClase()
+	 */
+	@Override
+	public List<Orden> listarOrdenesPorClase(Clase clase) {
+
+		try {
+			TypedQuery<Orden> query = entityManager.createNamedQuery(Orden.LISTAR_POR_CLASE, Orden.class);
+			query.setParameter("clase", clase.getId());
+			List<Orden> lista = query.getResultList();
+			return lista;
+		} catch (Exception e) {
+			return null;
+		}
+
+	}
+	/*
+	 * (non-Javadoc)
+	 * @see co.edu.uniquindio.AAAD.ejb.NegocioEJBRemote#listarFamiliasPorOrden()
+	 */
+	@Override
+	public List<Familia> listarFamiliasPorOrden(Orden orden) {
+
+		try {
+			TypedQuery<Familia> query = entityManager.createNamedQuery(Familia.LISTAR_POR_ORDEN, Familia.class);
+			query.setParameter("clase", orden.getId());
+			List<Familia> lista = query.getResultList();
+			return lista;
+		} catch (Exception e) {
+			return null;
+		}
+
+	}
+	/*
+	 * (non-Javadoc)
+	 * @see co.edu.uniquindio.AAAD.ejb.NegocioEJBRemote#listarGenerosPorFamilia()
+	 */
+	@Override
+	public List<Genero> listarGenerosPorFamilia(Familia familia) {
+
+		try {
+			TypedQuery<Genero> query = entityManager.createNamedQuery(Genero.LISTAR_POR_FAMILIA, Genero.class);
+			query.setParameter("clase", familia.getId());
+			List<Genero> lista = query.getResultList();
+			return lista;
+		} catch (Exception e) {
+			return null;
+		}
+
+	}
+	
+	
 
 }

@@ -154,13 +154,14 @@ public class AdminEJB implements AdminEJBRemote {
 	 */
 	@Override
 	public Empleado eliminarEmpleado(Empleado empleado) throws ElementoNoEncontradoException {
-		if (buscarEmpleado(empleado.getCedula()) == null) {
+		Empleado em = buscarEmpleado(empleado.getCedula());
+		if (em == null) {
 
 			throw new ElementoNoEncontradoException("la empleado con esa cedula no se encuentra en la base de datos");
 		}
 
 		try {
-			entityManager.remove(empleado);
+			entityManager.remove(em);
 			return empleado;
 		} catch (Exception e) {
 			return null;
@@ -230,13 +231,14 @@ public class AdminEJB implements AdminEJBRemote {
 	 */
 	@Override
 	public Recolector eliminarRecolector(Recolector recolector) throws ElementoNoEncontradoException {
-		if (buscarRecolector(recolector.getCedula()) == null) {
+		Recolector re = buscarRecolector(recolector.getCedula());
+		if ( re== null) {
 
 			throw new ElementoNoEncontradoException("la recolector con esa cedula no se encuentra en la base de datos");
 		}
 
 		try {
-			entityManager.remove(recolector);
+			entityManager.remove(re);
 			return recolector;
 		} catch (Exception e) {
 			return null;
@@ -538,13 +540,14 @@ public class AdminEJB implements AdminEJBRemote {
 	 */
 	@Override
 	public Orden eliminarOrden(Orden orden) throws ElementoNoEncontradoException {
-		if (entityManager.find(Orden.class, orden.getId()) == null) {
+		Orden or=entityManager.find(Orden.class, orden.getId());
+		if (or == null) {
 
 			throw new ElementoNoEncontradoException("el orden con ese id no se encuentra en la base de datos");
 		}
 
 		try {
-			entityManager.remove(orden);
+			entityManager.remove(or);
 			return orden;
 		} catch (Exception e) {
 			return null;
@@ -683,13 +686,14 @@ public class AdminEJB implements AdminEJBRemote {
 	 */
 	@Override
 	public Genero eliminarGenero(Genero genero) throws ElementoNoEncontradoException {
-		if (entityManager.find(Genero.class, genero.getId()) == null) {
+		Genero ge = entityManager.find(Genero.class, genero.getId());
+		if ( ge== null) {
 
 			throw new ElementoNoEncontradoException("el genero con ese id no se encuentra en la base de datos");
 		}
 
 		try {
-			entityManager.remove(genero);
+			entityManager.remove(ge);
 			return genero;
 		} catch (Exception e) {
 			return null;
@@ -829,13 +833,14 @@ public class AdminEJB implements AdminEJBRemote {
 	 */
 	@Override
 	public Familia eliminarFamilia(Familia familia) throws ElementoNoEncontradoException {
-		if (entityManager.find(Familia.class, familia.getId()) == null) {
+		Familia fa =entityManager.find(Familia.class, familia.getId());
+		if (fa == null) {
 
 			throw new ElementoNoEncontradoException("el familia con ese id no se encuentra en la base de datos");
 		}
 
 		try {
-			entityManager.remove(familia);
+			entityManager.remove(fa);
 			return familia;
 		} catch (Exception e) {
 			return null;
@@ -864,13 +869,14 @@ public class AdminEJB implements AdminEJBRemote {
 	 */
 	@Override
 	public Especie eliminarEspecie(Especie especie) throws ElementoNoEncontradoException {
-		if (entityManager.find(Especie.class, especie.getId()) == null) {
+		Especie es = entityManager.find(Especie.class, especie.getId());
+		if (es == null) {
 
 			throw new ElementoNoEncontradoException("el especie con ese id no se encuentra en la base de datos");
 		}
 
 		try {
-			entityManager.remove(especie);
+			entityManager.remove(es);
 			return especie;
 		} catch (Exception e) {
 			return null;

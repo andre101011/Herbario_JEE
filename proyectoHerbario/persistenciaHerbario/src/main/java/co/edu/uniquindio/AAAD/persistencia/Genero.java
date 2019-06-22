@@ -16,7 +16,8 @@ import javax.persistence.*;
 @Entity
 @NamedQueries({@NamedQuery(name=Genero.LISTAR_TODOS, query="select p from Genero p"),
 	@NamedQuery(name = Genero.OBTENER_ESPECIES_POR_GENERO_IN, query="select especie from Genero genero, IN(genero.especiesDelGenero) especie where genero.id =:id"),
-	@NamedQuery(name=Genero.BUSCAR_POR_NOMBRE, query="select p from Genero p where p.nombre =:nombre")})
+	@NamedQuery(name=Genero.BUSCAR_POR_NOMBRE, query="select p from Genero p where p.nombre =:nombre"),
+	@NamedQuery(name=Genero.LISTAR_POR_FAMILIA, query="select p from Genero p where p.familiaDelGenero.id =:id")})
 public class Genero implements Serializable {
 	
 	/**
@@ -35,6 +36,8 @@ public class Genero implements Serializable {
 	 * referencia para obtener la lista de especies por su genero con in
 	 */
 	public static final String OBTENER_ESPECIES_POR_GENERO_IN="OBTENER_ESPECIES_POR_GENERO_IN";
+	
+	public static final String LISTAR_POR_FAMILIA="listar por familia";
 	
 	/**
 	 * id del genero
@@ -56,12 +59,12 @@ public class Genero implements Serializable {
 	/**
 	 * familia del genero
 	 */
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Familia familiaDelGenero;
 	/**
 	 * lista de especies del genero
 	 */
-	@OneToMany(cascade = {CascadeType.REMOVE},mappedBy = "generoDeEspecie")
+	@OneToMany(cascade = CascadeType.ALL,orphanRemoval=true,mappedBy = "generoDeEspecie")
 	private List<Especie> especiesDelGenero;
 	
 
