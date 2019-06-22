@@ -229,8 +229,8 @@ public class GestionarEspeciesControlador {
 			comboEstado.getSelectionModel().select(especie.getEspecie().getRegistroPlanta().getEstado());
 			jtfJustificacion.setText(especie.getEspecie().getRegistroPlanta().getJustificacion());
 
-			Image image = Imagen.obtenerImagen(especie.getEspecie());
-			campoImagen.setImage(image);
+//			Image image = Imagen.obtenerImagen(especie.getEspecie());
+//			campoImagen.setImage(image);
 
 		} else {
 			jtfNombre.setText("");
@@ -357,36 +357,88 @@ public class GestionarEspeciesControlador {
 
 	@FXML
 	public void buscar() {
-//		
-//		String criterio = jtfBuscar.getText();
-//
-//		if (!criterio.isEmpty()) {
-//			try {
-//				ObservableList<EspecieObservable> especies = null;
-//				if (comboBusqueda.getValue().equals("Buscar por nombre")) {
-//					especies = administradorDelegado.listarEspeciesObservablesPorSuNombre(criterio);
-//				} else {
-//					EspecieObservable especie = new EspecieObservable(
-//							administradorDelegado.buscarEspecie(Long.parseLong(criterio)));
-//					especies.add(especie);
-//				}
-//				if (especies == null) {
-//					Utilidades.mostrarMensaje("Especies no encontradas",
-//							"Intenta con otro parametro o método de busqueda");
-//
-//				} else {
-//					ObservableList<EspecieObservable> lista = FXCollections.observableArrayList();
-//					lista.addAll(especies);
-//					tablaEspecies.setItems(lista);
-//					tablaEspecies.getSelectionModel().clearSelection();
-//				}
-//			} catch (Exception e) {
-//			}
-//		} else {
+
+		String criterio = jtfBuscar.getText();
+
+		// Muestra todas las especies
 //			tablaEspecies
 //					.setItems((ObservableList<EspecieObservable>) administradorDelegado.listarEspeciesObservables());
 //			tablaEspecies.getSelectionModel().clearSelection();
-//		}
+
+		try {
+			ObservableList<EspecieObservable> especies = FXCollections.observableArrayList();
+			String categoria = comboCategoriasBusqueda.getValue();
+
+			switch (comboBusqueda.getValue()) {
+
+			case "Buscar por nombre":
+				especies = administradorDelegado.listarEspeciesObservablesPorSuNombre(criterio);
+
+				break;
+
+			case "Buscar por ID":
+				EspecieObservable especie = new EspecieObservable(
+						administradorDelegado.buscarEspecie(Long.parseLong(criterio)));
+				especies.add(especie);
+				break;
+
+			case "Buscar por genero":
+				List<Especie> especiesPorGenero = administradorDelegado
+						.listarEspeciesPorGenero(administradorDelegado.buscarGeneroPorSuNombre(categoria));
+				for (Especie especiex : especiesPorGenero) {
+					especies.add(new EspecieObservable(especiex));
+				}
+
+				break;
+
+			case "Buscar por familia":
+
+				Utilidades.mostrarMensaje("", "Entra");
+				List<Especie> especiesPorFamilia = administradorDelegado
+						.listarEspeciesPorFamilia(administradorDelegado.buscarFamiliaPorSuNombre(categoria));
+
+				if (especiesPorFamilia == null) {
+					Utilidades.mostrarMensaje("", "Especies por familia null");
+				}
+
+				for (Especie especiex : especiesPorFamilia) {
+					especies.add(new EspecieObservable(especiex));
+				}
+
+				break;
+
+			case "Buscar por orden":
+				List<Especie> especiesPorOrden = administradorDelegado
+						.listarEspeciesPorOrden(administradorDelegado.buscarOrdenPorSuNombre(categoria));
+				for (Especie especiex : especiesPorOrden) {
+					especies.add(new EspecieObservable(especiex));
+				}
+				break;
+
+			case "Buscar por clase":
+				List<Especie> especiesPorClase = administradorDelegado
+						.listarEspeciesPorClase(administradorDelegado.buscarClasePorSuNombre(categoria));
+				for (Especie especiex : especiesPorClase) {
+					especies.add(new EspecieObservable(especiex));
+				}
+				break;
+
+			default:
+				break;
+			}
+
+			if (especies == null) {
+				Utilidades.mostrarMensaje("Especies no encontradas", "Intenta con otro parametro o método de busqueda");
+
+			} else {
+				tablaEspecies.setItems(especies);
+				tablaEspecies.getSelectionModel().clearSelection();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			Utilidades.mostrarMensaje("Especies no encontradas", "Hubo un error en la busqueda");
+		}
+
 	}
 
 	public void setEscenario(Stage escenario) {
@@ -429,23 +481,47 @@ public class GestionarEspeciesControlador {
 //		}
 	}
 
+	@FXML
 	public void cargarClasificacionesBusqueda() {
 
-		//TODO 
+		// TODO
 		// Listar por categorias
-		
-		
+
 		// "Buscar por nombre", "Buscar por ID", "Buscar por genero", "Buscar por
 		// familia",
 //		"Buscar por orden", "Buscar por clase");
+
+		comboCategoriasBusqueda.getItems().removeAll(comboCategoriasBusqueda.getItems());
+
 		switch (comboBusqueda.getValue()) {
 		case "Buscar por genero":
 
-			// Carga todas las familias en el comboBox correspondiente
-			comboCategoriasBusqueda.getItems().removeAll(comboFamilia.getItems());
-//			comboCategoriasBusqueda.getItems().addAll(administradorDelegado.listarGenerosObservables());
 			for (GeneroObservable generoObservable : administradorDelegado.listarGenerosObservables()) {
-				
+				comboCategoriasBusqueda.getItems().add(generoObservable.getGenero().getNombre());
+			}
+			comboCategoriasBusqueda.getSelectionModel().selectFirst();
+			break;
+
+		case "Buscar por familia":
+
+			for (FamiliaObservable familiaObservable : administradorDelegado.listarFamiliasObservables()) {
+				comboCategoriasBusqueda.getItems().add(familiaObservable.getFamilia().getNombre());
+			}
+			comboCategoriasBusqueda.getSelectionModel().selectFirst();
+			break;
+
+		case "Buscar por orden":
+
+			for (OrdenObservable ordenObservable : administradorDelegado.listarOrdenesObservables()) {
+				comboCategoriasBusqueda.getItems().add(ordenObservable.getOrden().getNombre());
+			}
+			comboCategoriasBusqueda.getSelectionModel().selectFirst();
+			break;
+
+		case "Buscar por clase":
+
+			for (ClaseObservable claseObservable : administradorDelegado.listarClasesObservables()) {
+				comboCategoriasBusqueda.getItems().add(claseObservable.getClase().getNombre());
 			}
 			comboCategoriasBusqueda.getSelectionModel().selectFirst();
 			break;

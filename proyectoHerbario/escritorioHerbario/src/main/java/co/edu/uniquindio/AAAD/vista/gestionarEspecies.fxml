@@ -38,7 +38,7 @@
                <GridPane.margin>
                   <Insets />
                </GridPane.margin></ComboBox>
-				<ComboBox fx:id="comboBusqueda" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="163.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
+				<ComboBox fx:id="comboBusqueda" maxWidth="1.7976931348623157E308" onHidden="#cargarClasificacionesBusqueda" prefHeight="26.0" prefWidth="163.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
 			</children>
 		</GridPane>
 	</top>
@@ -56,9 +56,9 @@
 						<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
 					</columnResizePolicy>
 				</TableView>
-            <ScrollPane>
+            <ScrollPane fitToWidth="true">
                <content>
-                  <VBox>
+                  <VBox maxWidth="1.7976931348623157E308">
                      <children>
                         <TitledPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Detalle Planta">
                            <content>
