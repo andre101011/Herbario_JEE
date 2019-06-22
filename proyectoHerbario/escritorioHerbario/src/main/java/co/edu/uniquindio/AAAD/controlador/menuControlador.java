@@ -75,7 +75,7 @@ public class menuControlador {
 
 //
 	public void gestionarRecolectores() {
-//		escenarioInicial.cargarEscenaGestionarPersonas("recolector"));
+		manejadorEscenarios.cargarEscenarioGestionarRecolectores();
 	}
 
 	public void setEscenario(Stage escenario) {

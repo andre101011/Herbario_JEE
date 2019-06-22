@@ -9,6 +9,8 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.util.ResourceBundle;
 
+import javax.swing.ImageIcon;
+
 import co.edu.uniquindio.AAAD.excepciones.ElementoNoEncontradoException;
 import co.edu.uniquindio.AAAD.excepciones.ElementoRepetidoException;
 import co.edu.uniquindio.AAAD.modelo.AdministradorDelegado;
@@ -164,6 +166,11 @@ public class GestionarEspeciesControlador {
 		comboBusqueda.getSelectionModel().selectFirst();
 
 		// Carga todas las clases en el comboBox correspondiente
+		comboEstado.getItems().removeAll(comboEstado.getItems());
+		comboEstado.getItems().addAll(Estado.Espera, Estado.Aceptado, Estado.Rechazado);
+		comboEstado.getSelectionModel().selectFirst();
+
+		// Carga todas las clases en el comboBox correspondiente
 		comboClase.getItems().removeAll(comboClase.getItems());
 		comboClase.getItems().addAll(administradorDelegado.listarClasesObservables());
 		comboClase.getSelectionModel().selectFirst();
@@ -195,7 +202,6 @@ public class GestionarEspeciesControlador {
 		if (especie != null) {
 			especieObservable = especie;
 			jtfNombre.setText(especie.getNombre().getValue());
-			jtfJustificacion.setText(especie.getJustificacion().toString());
 
 			// Pone la clase a la que pertenece la especie en el comboBox correspondiente
 			ClaseObservable claseObservable = new ClaseObservable(especieObservable.getEspecie().getGeneroDeEspecie()
@@ -217,11 +223,14 @@ public class GestionarEspeciesControlador {
 					especieObservable.getEspecie().getGeneroDeEspecie());
 			comboGenero.getSelectionModel().select(generoObservable);
 
-			labelEnviador.setText(especie.getRecolector().toString());
-			labelEvaluador.setText(especie.getEvaluador().toString());
-			especie.getFecha().toString();
-			labelFecha.setText(especie.getFecha().toString());
+			labelEnviador.setText(especie.getEspecie().getRegistroPlanta().getEnviadorDelRegistro().getNombre());
+			labelEvaluador.setText(especie.getEspecie().getRegistroPlanta().getEvaluadorDelRegistro().getNombre());
+			labelFecha.setText(especie.getEspecie().getRegistroPlanta().getFecha().toString());
 			comboEstado.getSelectionModel().select(especie.getEspecie().getRegistroPlanta().getEstado());
+			jtfJustificacion.setText(especie.getEspecie().getRegistroPlanta().getJustificacion());
+
+			Image image = Imagen.obtenerImagen(especie.getEspecie());
+			campoImagen.setImage(image);
 
 		} else {
 			jtfNombre.setText("");
@@ -400,23 +409,49 @@ public class GestionarEspeciesControlador {
 
 	@FXML
 	public void mostrarOrdenesCombo() {
+//
+//		if (comboClase.getValue() == null) {
+//		} else {
+//			Clase clase = comboClase.getValue().getClase();
+//			comboOrden.getItems().removeAll(comboClase.getItems());
+//			List<Orden> ordenes = clase.getOrdenesDeLaClase();
+//
+//			ObservableList<OrdenObservable> ordenesObservables = FXCollections.observableArrayList();
+//
+//			for (Orden orden : ordenes) {
+//				OrdenObservable ordenObservable = new OrdenObservable(orden);
+//				ordenesObservables.add(ordenObservable);
+//			}
+//
+//			comboOrden.getItems().addAll(ordenesObservables);
+//			comboOrden.getSelectionModel().selectFirst();
+//
+//		}
+	}
 
-		if (comboClase.getValue() == null) {
-		} else {
-			Clase clase = comboClase.getValue().getClase();
-			comboOrden.getItems().removeAll(comboClase.getItems());
-			List<Orden> ordenes = clase.getOrdenesDeLaClase();
+	public void cargarClasificacionesBusqueda() {
 
-			ObservableList<OrdenObservable> ordenesObservables = FXCollections.observableArrayList();
+		//TODO 
+		// Listar por categorias
+		
+		
+		// "Buscar por nombre", "Buscar por ID", "Buscar por genero", "Buscar por
+		// familia",
+//		"Buscar por orden", "Buscar por clase");
+		switch (comboBusqueda.getValue()) {
+		case "Buscar por genero":
 
-			for (Orden orden : ordenes) {
-				OrdenObservable ordenObservable = new OrdenObservable(orden);
-				ordenesObservables.add(ordenObservable);
+			// Carga todas las familias en el comboBox correspondiente
+			comboCategoriasBusqueda.getItems().removeAll(comboFamilia.getItems());
+//			comboCategoriasBusqueda.getItems().addAll(administradorDelegado.listarGenerosObservables());
+			for (GeneroObservable generoObservable : administradorDelegado.listarGenerosObservables()) {
+				
 			}
+			comboCategoriasBusqueda.getSelectionModel().selectFirst();
+			break;
 
-			comboOrden.getItems().addAll(ordenesObservables);
-			comboOrden.getSelectionModel().selectFirst();
-
+		default:
+			break;
 		}
 	}
 

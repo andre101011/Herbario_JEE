@@ -322,6 +322,43 @@ public class ManejadorEscenarios {
 		escenario.show();
 	}
 
+	
+	
+	/**
+	 * muestra el escenario para gestionar recolectores
+	 */
+	public void cargarEscenarioGestionarRecolectores() {
+
+		escenario.hide();
+		try {
+			// se carga la interfaz
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("./vista/gestionarRecolectores.fxml"));
+			BorderPane page = (BorderPane) loader.load();
+
+			// se crea el escenario
+			Stage escenario = new Stage();
+			escenario.setTitle("gestionar Recolectores");
+			Scene scene = new Scene(page);
+			escenario.setScene(scene);
+			escenario.setMinWidth(1200);
+			escenario.setMinHeight(700);
+			escenario.centerOnScreen();
+
+			// se carga el controlador
+			GestionarRecolectoresControlador recolectorControlador = loader.getController();
+			recolectorControlador.setEscenario(escenario);
+			recolectorControlador.setManejador(this);
+
+			// se muestra el escenario
+			escenario.showAndWait();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		escenario.show();
+	}
+	
 	/**
 	 * devuelve una instancia del escenario
 	 * 
