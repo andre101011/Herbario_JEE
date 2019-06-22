@@ -32,6 +32,7 @@ public class AdminEJB implements AdminEJBRemote {
 	 */
 	@PersistenceContext
 	private EntityManager entityManager;
+	
 
 	/**
 	 * Default constructor.
@@ -283,6 +284,7 @@ public class AdminEJB implements AdminEJBRemote {
 	@Override
 	public Clase insertarClase(Clase clase) throws ElementoRepetidoException {
 		System.out.println("pasa por ejb");
+		
 		 if (comprobarNombreRepetido(clase) != null) {
 			throw new ElementoRepetidoException("La clase con ese nombre ya está registrado");
 
@@ -388,13 +390,16 @@ public class AdminEJB implements AdminEJBRemote {
 	 */
 	@Override
 	public Clase eliminarClase(Clase clase) throws ElementoNoEncontradoException {
-		if (entityManager.find(Clase.class, clase.getId()) == null) {
+		
+		Clase cl = entityManager.find(Clase.class, clase.getId());
+		if (cl == null) {
 
 			throw new ElementoNoEncontradoException("la clase con ese id no se encuentra en la base de datos");
 		}
 
 		try {
-			entityManager.remove(clase);
+			
+			entityManager.remove(cl);
 			return clase;
 		} catch (Exception e) {
 			return null;

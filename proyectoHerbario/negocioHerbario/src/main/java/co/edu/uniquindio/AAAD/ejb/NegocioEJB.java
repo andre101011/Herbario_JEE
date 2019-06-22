@@ -71,9 +71,10 @@ public class NegocioEJB implements NegocioEJBRemote {
 	public Especie registrarEspecie(Registro registro) throws ElementoRepetidoException {
 
 		Especie especie = registro.getEspecieEnviada();
-
+		
 		try {
-			entityManager.persist(especie);
+			entityManager.persist(registro);
+			
 			return especie;
 		} catch (Exception e) {
 			return null;

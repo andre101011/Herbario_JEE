@@ -88,7 +88,7 @@ public class Registro implements Serializable {
 	/**
 	 * especie enviada a travess del registro
 	 */
-	@OneToOne(mappedBy = "registroPlanta")
+	@OneToOne(mappedBy = "registroPlanta", cascade = CascadeType.PERSIST)
 	private Especie especieEnviada;
 	/**
 	 * persona que envió el registro
@@ -206,6 +206,8 @@ public class Registro implements Serializable {
 	public void setJustificacion(String justificacion) {
 		this.justificacion = justificacion;
 	}
+	
+	
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
@@ -214,7 +216,7 @@ public class Registro implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
@@ -230,7 +232,10 @@ public class Registro implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Registro other = (Registro) obj;
-		if (id != other.id)
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
 			return false;
 		return true;
 	}
