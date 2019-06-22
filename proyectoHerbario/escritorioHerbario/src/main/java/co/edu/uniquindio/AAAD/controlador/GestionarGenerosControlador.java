@@ -1,20 +1,31 @@
 package co.edu.uniquindio.AAAD.controlador;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import co.edu.uniquindio.AAAD.excepciones.ElementoNoEncontradoException;
 import co.edu.uniquindio.AAAD.excepciones.ElementoRepetidoException;
 import co.edu.uniquindio.AAAD.modelo.AdministradorDelegado;
+import co.edu.uniquindio.AAAD.modelo.EspecieObservable;
 import co.edu.uniquindio.AAAD.modelo.FamiliaObservable;
 import co.edu.uniquindio.AAAD.modelo.GeneroObservable;
 import co.edu.uniquindio.AAAD.modelo.OrdenObservable;
+import co.edu.uniquindio.AAAD.persistencia.Especie;
+import co.edu.uniquindio.AAAD.persistencia.Familia;
 import co.edu.uniquindio.AAAD.persistencia.Genero;
 import co.edu.uniquindio.AAAD.util.Utilidades;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 public class GestionarGenerosControlador {
@@ -24,28 +35,39 @@ public class GestionarGenerosControlador {
 	private ManejadorEscenarios manejadorEscenarios;
 
 	/**
-	 * table donde se almacena la informacion de las categorias los generos
-	 */
-	@FXML
-	private TableView<GeneroObservable> tablaGeneros;
-	/**
-	 * hace referencia a la columna con las superCategorias
-	 */
-	@FXML
-	private TableColumn<GeneroObservable, String> columnaFamilias;
-	/**
-	 * hace referencia a la columna de los nombres de las categorias
-	 */
-	@FXML
-	private TableColumn<GeneroObservable, String> columnaNombre;
-
-	/**
 	 * para almacenar empleados observables
 	 */
 	private ObservableList<GeneroObservable> generosObservables;
 
+	private GeneroObservable generoObservable;
+
+	private AdministradorDelegado administradorDelegado;
+
+	// FXML
+
+	@FXML
+	private TableView<GeneroObservable> tablaGeneros;
+
+	@FXML
+	private TableColumn<GeneroObservable, String> columnaFamilias;
+
+	@FXML
+	private TableColumn<GeneroObservable, String> columnaNombre;
+
 	@FXML
 	private TextField jtfNombre;
+
+	@FXML
+	private Button btnEliminar;
+
+	@FXML
+	private Button btnEditar;
+
+	@FXML
+	private Button btnAgregar;
+
+	@FXML
+	private ComboBox<FamiliaObservable> comboFamilias;
 
 	@FXML
 	private TextField jtfBuscar;
@@ -54,11 +76,7 @@ public class GestionarGenerosControlador {
 	private ComboBox<String> comboBusqueda;
 
 	@FXML
-	private ComboBox<FamiliaObservable> comboFamilias;
-
-	private GeneroObservable generoObservable;
-
-	private AdministradorDelegado administradorDelegado;
+	private Button btnBuscar;
 
 	public GestionarGenerosControlador() {
 	}

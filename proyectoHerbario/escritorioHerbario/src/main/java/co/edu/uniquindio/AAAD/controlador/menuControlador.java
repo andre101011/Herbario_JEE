@@ -66,7 +66,7 @@ public class menuControlador {
 
 	@FXML
 	public void gestionarEspecies() {
-//		manejadorEscenarios.cargarEscenarioGestionarEspecies();
+		manejadorEscenarios.cargarEscenarioGestionarEspecies();
 	}
 
 	public void gestionarEmpleados() {

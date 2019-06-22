@@ -3,7 +3,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
@@ -20,7 +19,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="564.0" prefWidth="983.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.AAAD.controlador.GestionarGenerosControlador">
+<BorderPane prefHeight="564.0" prefWidth="983.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.AAAD.controlador.GestionarEspeciesControlador">
 	<top>
 		<GridPane prefWidth="1010.0" BorderPane.alignment="CENTER">
 			<columnConstraints>
@@ -49,7 +48,8 @@
 				<TableView fx:id="tablaEspecies" prefHeight="277.0" prefWidth="390.0">
 					<columns>
                   <TableColumn fx:id="columnaId" prefWidth="67.19997559785861" text="ID" />
-						<TableColumn fx:id="columnaFamilia" prefWidth="226.40005493164062" text="Familia" />
+                  <TableColumn fx:id="columnaEstado" prefWidth="75.0" text="Estado" />
+						<TableColumn fx:id="columnaGenero" prefWidth="226.40005493164062" text="Genero" />
 						<TableColumn fx:id="columnaNombre" prefWidth="167.199951171875" text="Nombre" />
 					</columns>
 					<columnResizePolicy>
@@ -60,7 +60,7 @@
                <content>
                   <VBox>
                      <children>
-                        <TitledPane expanded="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Detalle Planta">
+                        <TitledPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Detalle Planta">
                            <content>
                               <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="220.0" prefWidth="328.0">
                                  <children>
@@ -74,17 +74,17 @@
                                           <Insets left="20.0" right="20.0" />
                                        </GridPane.margin>
                                     </Label>
-                                    <TextField fx:id="jtfNombre" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                    <TextField fx:id="jtfNombre" onAction="#mostrarOrdenesCombo" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                        <GridPane.margin>
                                           <Insets left="20.0" right="20.0" />
                                        </GridPane.margin>
                                     </TextField>
-                                    <Button fx:id="btnEliminar" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#eliminarGenero" prefHeight="26.0" prefWidth="98.0" text="Eliminar" GridPane.columnIndex="2" GridPane.rowIndex="3" GridPane.valignment="TOP">
+                                    <Button fx:id="btnEliminar" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#eliminarEspecie" prefHeight="26.0" prefWidth="98.0" text="Eliminar" GridPane.columnIndex="2" GridPane.rowIndex="3" GridPane.valignment="TOP">
                                        <GridPane.margin>
                                           <Insets left="20.0" right="20.0" />
                                        </GridPane.margin>
                                     </Button>
-                                    <Button fx:id="btnEditar" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#editarGenero" prefHeight="26.0" prefWidth="98.0" text="Editar" GridPane.columnIndex="2" GridPane.rowIndex="5" GridPane.valignment="TOP">
+                                    <Button fx:id="btnEditar" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#editarEspecie" prefHeight="26.0" prefWidth="98.0" text="Editar" GridPane.columnIndex="2" GridPane.rowIndex="5" GridPane.valignment="TOP">
                                        <GridPane.margin>
                                           <Insets left="20.0" right="20.0" />
                                        </GridPane.margin>
@@ -114,7 +114,7 @@
                                           <Insets left="20.0" right="20.0" />
                                        </GridPane.margin>
                                     </Label>
-                                    <ComboBox fx:id="comboClase" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                    <ComboBox fx:id="comboClase" maxWidth="1.7976931348623157E308" onAction="#mostrarOrdenesCombo" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                        <GridPane.margin>
                                           <Insets left="20.0" right="20.0" />
                                        </GridPane.margin>
@@ -124,6 +124,11 @@
                                           <Insets left="20.0" right="20.0" />
                                        </GridPane.margin>
                                     </Label>
+                                    <Button fx:id="btnAgregar" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#agregarEspecie" text="Agregar" GridPane.columnIndex="2" GridPane.rowIndex="7">
+                                       <GridPane.margin>
+                                          <Insets left="20.0" right="20.0" />
+                                       </GridPane.margin>
+                                    </Button>
                                  </children>
                                  <columnConstraints>
                                     <ColumnConstraints />
@@ -167,11 +172,6 @@
                                           <Insets left="20.0" right="20.0" />
                                        </GridPane.margin>
                                     </Label>
-                                    <DatePicker fx:id="PickerFecha" editable="false" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.valignment="TOP">
-                                       <GridPane.margin>
-                                          <Insets left="20.0" right="20.0" />
-                                       </GridPane.margin>
-                                    </DatePicker>
                                     <Label text="Justificación:" GridPane.columnIndex="1" GridPane.rowIndex="8">
                                        <GridPane.margin>
                                           <Insets left="20.0" right="20.0" />
@@ -196,6 +196,11 @@
                                        <opaqueInsets>
                                           <Insets />
                                        </opaqueInsets>
+                                       <GridPane.margin>
+                                          <Insets left="20.0" right="20.0" />
+                                       </GridPane.margin>
+                                    </Label>
+                                    <Label fx:id="labelFecha" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="5">
                                        <GridPane.margin>
                                           <Insets left="20.0" right="20.0" />
                                        </GridPane.margin>

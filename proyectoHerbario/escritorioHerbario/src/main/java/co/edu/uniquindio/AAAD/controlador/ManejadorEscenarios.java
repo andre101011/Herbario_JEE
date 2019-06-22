@@ -288,6 +288,41 @@ public class ManejadorEscenarios {
 	}
 
 	/**
+	 * muestra el escenario para gestionar especies
+	 */
+	public void cargarEscenarioGestionarEspecies() {
+
+		escenario.hide();
+		try {
+			// se carga la interfaz
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("./vista/gestionarEspecies.fxml"));
+			BorderPane page = (BorderPane) loader.load();
+
+			// se crea el escenario
+			Stage escenario = new Stage();
+			escenario.setTitle("gestionar Especies");
+			Scene scene = new Scene(page);
+			escenario.setScene(scene);
+			escenario.setMinWidth(1200);
+			escenario.setMinHeight(700);
+			escenario.centerOnScreen();
+
+			// se carga el controlador
+			GestionarEspeciesControlador familiaControlador = loader.getController();
+			familiaControlador.setEscenario(escenario);
+			familiaControlador.setManejador(this);
+
+			// se muestra el escenario
+			escenario.showAndWait();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		escenario.show();
+	}
+
+	/**
 	 * devuelve una instancia del escenario
 	 * 
 	 * @return escenario

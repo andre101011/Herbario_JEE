@@ -1,5 +1,7 @@
 package co.edu.uniquindio.AAAD.controlador;
 
+import java.util.GregorianCalendar;
+import java.util.List;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -11,7 +13,11 @@ import co.edu.uniquindio.AAAD.modelo.EspecieObservable;
 import co.edu.uniquindio.AAAD.modelo.FamiliaObservable;
 import co.edu.uniquindio.AAAD.modelo.GeneroObservable;
 import co.edu.uniquindio.AAAD.modelo.OrdenObservable;
+import co.edu.uniquindio.AAAD.persistencia.Administrador;
+import co.edu.uniquindio.AAAD.persistencia.Clase;
 import co.edu.uniquindio.AAAD.persistencia.Especie;
+import co.edu.uniquindio.AAAD.persistencia.Orden;
+import co.edu.uniquindio.AAAD.persistencia.Registro;
 import co.edu.uniquindio.AAAD.persistencia.Registro.Estado;
 import co.edu.uniquindio.AAAD.util.Utilidades;
 import javafx.collections.FXCollections;
@@ -67,6 +73,9 @@ public class GestionarEspeciesControlador {
 	private TableColumn<EspecieObservable, Number> columnaId;
 
 	@FXML
+	private TableColumn<EspecieObservable, String> columnaEstado;
+
+	@FXML
 	private TableColumn<EspecieObservable, String> columnaGenero;
 
 	@FXML
@@ -97,7 +106,7 @@ public class GestionarEspeciesControlador {
 	private ComboBox<Estado> comboEstado;
 
 	@FXML
-	private DatePicker PickerFecha;
+	private Label labelFecha;
 
 	@FXML
 	private TextArea jtfJustificacion;
@@ -125,6 +134,7 @@ public class GestionarEspeciesControlador {
 	private void initialize() {
 
 		columnaId.setCellValueFactory(ordenCelda -> ordenCelda.getValue().getId());
+		columnaEstado.setCellValueFactory(ordenCelda -> ordenCelda.getValue().getEstado());
 		columnaGenero.setCellValueFactory(ordenCelda -> ordenCelda.getValue().getGenero());
 		columnaNombre.setCellValueFactory(ordenCelda -> ordenCelda.getValue().getNombre());
 
@@ -138,12 +148,29 @@ public class GestionarEspeciesControlador {
 		actualizarTabla();
 
 		comboBusqueda.getItems().removeAll(comboBusqueda.getItems());
-		comboBusqueda.getItems().addAll("Buscar por nombre", "Buscar por ID");
+		comboBusqueda.getItems().addAll("Buscar por nombre", "Buscar por ID", "Buscar por genero", "Buscar por familia",
+				"Buscar por orden", "Buscar por clase");
 		comboBusqueda.getSelectionModel().selectFirst();
 
-		comboGeneros.getItems().removeAll(comboGeneros.getItems());
-		comboGeneros.getItems().addAll(administradorDelegado.listarGenerosObservables());
-		comboGeneros.getSelectionModel().selectFirst();
+		// Carga todas las clases en el comboBox correspondiente
+		comboClase.getItems().removeAll(comboClase.getItems());
+		comboClase.getItems().addAll(administradorDelegado.listarClasesObservables());
+		comboClase.getSelectionModel().selectFirst();
+
+		// Carga todas los ordenes en el comboBox correspondiente
+		comboOrden.getItems().removeAll(comboOrden.getItems());
+		comboOrden.getItems().addAll(administradorDelegado.listarOrdenesObservables());
+		comboOrden.getSelectionModel().selectFirst();
+
+		// Carga todas las familias en el comboBox correspondiente
+		comboFamilia.getItems().removeAll(comboFamilia.getItems());
+		comboFamilia.getItems().addAll(administradorDelegado.listarFamiliasObservables());
+		comboFamilia.getSelectionModel().selectFirst();
+
+		// Carga todas los generos en el comboBox correspondiente
+		comboGenero.getItems().removeAll(comboGenero.getItems());
+		comboGenero.getItems().addAll(administradorDelegado.listarGenerosObservables());
+		comboGenero.getSelectionModel().selectFirst();
 
 	}
 
@@ -156,8 +183,34 @@ public class GestionarEspeciesControlador {
 
 		if (especie != null) {
 			especieObservable = especie;
-
 			jtfNombre.setText(especie.getNombre().getValue());
+			jtfJustificacion.setText(especie.getJustificacion().toString());
+
+			// Pone la clase a la que pertenece la especie en el comboBox correspondiente
+			ClaseObservable claseObservable = new ClaseObservable(especieObservable.getEspecie().getGeneroDeEspecie()
+					.getFamiliaDelGenero().getOrdenDelaFamilia().getClaseDelOrden());
+			comboClase.getSelectionModel().select(claseObservable);
+
+			// Pone el orden al que pertenece la especie en el comboBox correspondiente
+			OrdenObservable ordenObservable = new OrdenObservable(
+					especieObservable.getEspecie().getGeneroDeEspecie().getFamiliaDelGenero().getOrdenDelaFamilia());
+			comboOrden.getSelectionModel().select(ordenObservable);
+
+			// Pone la familia a la que pertenece la especie en el comboBox correspondiente
+			FamiliaObservable familiaObservable = new FamiliaObservable(
+					especieObservable.getEspecie().getGeneroDeEspecie().getFamiliaDelGenero());
+			comboFamilia.getSelectionModel().select(familiaObservable);
+
+			// Pone el genero al que pertenece la especie en el comboBox correspondiente
+			GeneroObservable generoObservable = new GeneroObservable(
+					especieObservable.getEspecie().getGeneroDeEspecie());
+			comboGenero.getSelectionModel().select(generoObservable);
+
+			labelEnviador.setText(especie.getRecolector().toString());
+			labelEvaluador.setText(especie.getEvaluador().toString());
+			especie.getFecha().toString();
+			labelFecha.setText(especie.getFecha().toString());
+			comboEstado.getSelectionModel().select(especie.getEspecie().getRegistroPlanta().getEstado());
 
 		} else {
 			jtfNombre.setText("");
@@ -172,6 +225,53 @@ public class GestionarEspeciesControlador {
 		tablaEspecies.getSelectionModel().select(indice);
 	}
 
+	@FXML
+	public void agregarEspecie() {
+
+		int indice = tablaEspecies.getSelectionModel().getSelectedIndex();
+		if (jtfNombre.getText().isEmpty()) {
+			Utilidades.mostrarMensaje("Advertencia", "Ingresa un nombre para continuar");
+		} else {
+			if (comboGenero.getValue() == null || comboFamilia.getValue() == null || comboOrden.getValue() == null
+					|| comboClase.getValue() == null) {
+				Utilidades.mostrarMensaje("Advertencia",
+						"Debe seleccionar todas las categorias a las que pertenece la especie");
+			} else {
+				try {
+
+					Registro registro = new Registro();
+					registro.setEnviadorDelRegistro(administradorDelegado.getUsuario());
+					registro.setEvaluadorDelRegistro((Administrador) administradorDelegado.getUsuario());
+					registro.setEstado(Estado.Espera);
+					registro.setFecha(new GregorianCalendar().getTime());
+					registro.setJustificacion(jtfJustificacion.getText());
+
+					Especie especie = new Especie();
+					especie.setNombre(jtfNombre.getText());
+					especie.setGeneroDeEspecie(comboGenero.getValue().getGenero());
+
+					especie.setRegistroPlanta(registro);
+					registro.setEspecieEnviada(especie);
+
+					especie.setNombre(jtfNombre.getText());
+
+					if (administradorDelegado.registrarEspecie(registro)) {
+						Utilidades.mostrarMensaje("Enhorabuena!", "La especie ha sido agregada con exito");
+						jtfNombre.setText("");
+					} else {
+						Utilidades.mostrarMensaje("Error", "La especie no pudo ser agregada");
+					}
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				actualizarTabla();
+
+			}
+		}
+	}
+
 	/**
 	 * permite eliminar un especie seleccionado
 	 */
@@ -183,11 +283,11 @@ public class GestionarEspeciesControlador {
 		Especie especie = tablaEspecies.getItems().get(indice).getEspecie();
 
 		try {
-			if (administradorDelegado.eliminar(especie)) {
+			if (administradorDelegado.eliminarEspecie(especie)) {
 				tablaEspecies.getItems().remove(indice);
-				Utilidades.mostrarMensaje("Borrar", "El especie ha sido eliminado con exito");
+				Utilidades.mostrarMensaje("Borrar", "La especie ha sido eliminado con exito");
 			} else {
-				Utilidades.mostrarMensaje("Error", "El especie no pudo ser eliminado");
+				Utilidades.mostrarMensaje("Error", "La especie no pudo ser eliminado");
 			}
 		} catch (ElementoNoEncontradoException e) {
 			// TODO Auto-generated catch block
@@ -198,70 +298,70 @@ public class GestionarEspeciesControlador {
 	}
 
 	/**
-	 * permite eliminar un empleado seleccionado
+	 * permite editar una especie seleccionado
 	 */
 	@FXML
 	public void editarEspecie() {
-
-		int indice = tablaEspecies.getSelectionModel().getSelectedIndex();
-		if (indice != -1) {
-
-			Especie especie = tablaEspecies.getItems().get(indice).getEspecie();
-
-			if (jtfNombre.getText().equals(especie.getNombre())) {
-				Utilidades.mostrarMensaje("Info", "Cambia algun atributo del especie");
-			} else {
-				especie.setNombre(jtfNombre.getText());
-
-				try {
-					if (administradorDelegado.modificarEspecie(especie)) {
-						Utilidades.mostrarMensaje("Borrar", "El especie ha sido modificado con exito");
-						jtfNombre.setText("");
-					} else {
-						Utilidades.mostrarMensaje("Error", "El especie no pudo ser modificado");
-					}
-				} catch (ElementoRepetidoException | ElementoNoEncontradoException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			actualizarTabla();
-		} else {
-			Utilidades.mostrarMensaje("", "Selecciona una fila de la tabla para poder editarla");
-		}
+//
+//		int indice = tablaEspecies.getSelectionModel().getSelectedIndex();
+//		if (indice != -1) {
+//
+//			Especie especie = tablaEspecies.getItems().get(indice).getEspecie();
+//
+//			if (jtfNombre.getText().equals(especie.getNombre())) {
+//				Utilidades.mostrarMensaje("Info", "Cambia algun atributo del especie");
+//			} else {
+//
+//				try {
+//					if (administradorDelegado.modificarEspecie(especie)) {
+//						Utilidades.mostrarMensaje("Borrar", "El especie ha sido modificado con exito");
+//						jtfNombre.setText("");
+//					} else {
+//						Utilidades.mostrarMensaje("Error", "El especie no pudo ser modificado");
+//					}
+//				} catch (ElementoRepetidoException | ElementoNoEncontradoException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//			}
+//			actualizarTabla();
+//		} else {
+//			Utilidades.mostrarMensaje("", "Selecciona una fila de la tabla para poder editarla");
+//		}
 	}
 
 	@FXML
 	public void buscar() {
-		String criterio = jtfBuscar.getText();
-
-		if (!criterio.isEmpty()) {
-			try {
-				ObservableList<EspecieObservable> especies = null;
-				if (comboBusqueda.getValue().equals("Buscar por nombre")) {
-					especies = administradorDelegado.listarEspeciesObservablesPorSuNombre(criterio);
-				} else {
-					EspecieObservable especie = new EspecieObservable(
-							administradorDelegado.buscarEspecie(Long.parseLong(criterio)));
-					especies.add(especie);
-				}
-				if (especies == null) {
-					Utilidades.mostrarMensaje("Especies no encontradas",
-							"Intenta con otro parametro o método de busqueda");
-
-				} else {
-					ObservableList<EspecieObservable> lista = FXCollections.observableArrayList();
-					lista.addAll(especies);
-					tablaEspecies.setItems(lista);
-					tablaEspecies.getSelectionModel().clearSelection();
-				}
-			} catch (Exception e) {
-			}
-		} else {
-			tablaEspecies
-					.setItems((ObservableList<EspecieObservable>) administradorDelegado.listarEspeciesObservables());
-			tablaEspecies.getSelectionModel().clearSelection();
-		}
+//		
+//		String criterio = jtfBuscar.getText();
+//
+//		if (!criterio.isEmpty()) {
+//			try {
+//				ObservableList<EspecieObservable> especies = null;
+//				if (comboBusqueda.getValue().equals("Buscar por nombre")) {
+//					especies = administradorDelegado.listarEspeciesObservablesPorSuNombre(criterio);
+//				} else {
+//					EspecieObservable especie = new EspecieObservable(
+//							administradorDelegado.buscarEspecie(Long.parseLong(criterio)));
+//					especies.add(especie);
+//				}
+//				if (especies == null) {
+//					Utilidades.mostrarMensaje("Especies no encontradas",
+//							"Intenta con otro parametro o método de busqueda");
+//
+//				} else {
+//					ObservableList<EspecieObservable> lista = FXCollections.observableArrayList();
+//					lista.addAll(especies);
+//					tablaEspecies.setItems(lista);
+//					tablaEspecies.getSelectionModel().clearSelection();
+//				}
+//			} catch (Exception e) {
+//			}
+//		} else {
+//			tablaEspecies
+//					.setItems((ObservableList<EspecieObservable>) administradorDelegado.listarEspeciesObservables());
+//			tablaEspecies.getSelectionModel().clearSelection();
+//		}
 	}
 
 	public void setEscenario(Stage escenario) {
@@ -281,4 +381,27 @@ public class GestionarEspeciesControlador {
 	public void agregarALista(Especie especie) {
 		especiesObservables.add(new EspecieObservable(especie));
 	}
+
+	@FXML
+	public void mostrarOrdenesCombo() {
+
+		if (comboClase.getValue() == null) {
+		} else {
+			Clase clase = comboClase.getValue().getClase();
+			comboOrden.getItems().removeAll(comboClase.getItems());
+			List<Orden> ordenes = clase.getOrdenesDeLaClase();
+
+			ObservableList<OrdenObservable> ordenesObservables = FXCollections.observableArrayList();
+
+			for (Orden orden : ordenes) {
+				OrdenObservable ordenObservable = new OrdenObservable(orden);
+				ordenesObservables.add(ordenObservable);
+			}
+
+			comboOrden.getItems().addAll(ordenesObservables);
+			comboOrden.getSelectionModel().selectFirst();
+
+		}
+	}
+
 }

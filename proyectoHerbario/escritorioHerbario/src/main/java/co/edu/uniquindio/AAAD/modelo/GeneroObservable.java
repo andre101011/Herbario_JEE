@@ -114,4 +114,9 @@ public class GeneroObservable {
 		this.genero = genero;
 	}
 
+	@Override
+	public String toString() {
+		return genero.getNombre();
+	}
+
 }
