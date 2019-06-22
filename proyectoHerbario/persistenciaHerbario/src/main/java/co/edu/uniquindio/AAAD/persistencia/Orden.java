@@ -16,7 +16,7 @@ import javax.persistence.*;
 @Entity
 @NamedQueries({@NamedQuery(name=Orden.LISTAR_TODOS, query="select p from Orden p"),
 	@NamedQuery(name=Orden.BUSCAR_POR_NOMBRE, query="select p from Orden p where p.nombre =:nombre"),
-	@NamedQuery(name=Orden.LISTAR_POR_CLASE, query="select p from Orden p where p.claseDelOrden.id =:id")})
+	@NamedQuery(name = Orden.LISTAR_POR_CLASE, query="select orden from Clase clase, IN(clase.ordenesDeLaClase) orden where clase.id =:id")})
 public class Orden implements Serializable {
 	
 	/**

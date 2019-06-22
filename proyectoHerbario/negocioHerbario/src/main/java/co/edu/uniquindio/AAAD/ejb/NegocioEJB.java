@@ -344,7 +344,7 @@ public class NegocioEJB implements NegocioEJBRemote {
 
 		try {
 			TypedQuery<Orden> query = entityManager.createNamedQuery(Orden.LISTAR_POR_CLASE, Orden.class);
-			query.setParameter("clase", clase.getId());
+			query.setParameter("id", clase.getId());
 			List<Orden> lista = query.getResultList();
 			return lista;
 		} catch (Exception e) {
@@ -361,7 +361,7 @@ public class NegocioEJB implements NegocioEJBRemote {
 
 		try {
 			TypedQuery<Familia> query = entityManager.createNamedQuery(Familia.LISTAR_POR_ORDEN, Familia.class);
-			query.setParameter("clase", orden.getId());
+			query.setParameter("id", orden.getId());
 			List<Familia> lista = query.getResultList();
 			return lista;
 		} catch (Exception e) {
@@ -378,7 +378,7 @@ public class NegocioEJB implements NegocioEJBRemote {
 
 		try {
 			TypedQuery<Genero> query = entityManager.createNamedQuery(Genero.LISTAR_POR_FAMILIA, Genero.class);
-			query.setParameter("clase", familia.getId());
+			query.setParameter("id", familia.getId());
 			List<Genero> lista = query.getResultList();
 			return lista;
 		} catch (Exception e) {
