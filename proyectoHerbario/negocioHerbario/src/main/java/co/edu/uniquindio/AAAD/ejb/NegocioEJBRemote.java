@@ -1,10 +1,17 @@
 package co.edu.uniquindio.AAAD.ejb;
 
+import java.util.List;
+
 import javax.ejb.Remote;
 
 import co.edu.uniquindio.AAAD.excepciones.ElementoNoEncontradoException;
 import co.edu.uniquindio.AAAD.excepciones.ElementoRepetidoException;
+import co.edu.uniquindio.AAAD.persistencia.Clase;
 import co.edu.uniquindio.AAAD.persistencia.Especie;
+import co.edu.uniquindio.AAAD.persistencia.Familia;
+import co.edu.uniquindio.AAAD.persistencia.Genero;
+import co.edu.uniquindio.AAAD.persistencia.Orden;
+import co.edu.uniquindio.AAAD.persistencia.Persona;
 import co.edu.uniquindio.AAAD.persistencia.Recolector;
 import co.edu.uniquindio.AAAD.persistencia.Registro;
 
@@ -18,7 +25,7 @@ public interface NegocioEJBRemote {
 	 * @param id, de la especie a buscar
 	 * @return Especie encontrada, null si no la encontró
 	 */
-	Especie buscarEspecie(String id);	
+	Especie buscarEspecie(long id);	
 	/**
 	 * permite agregar un recolector
 	 * @param recolector recolector  a agregar
@@ -39,12 +46,80 @@ public interface NegocioEJBRemote {
 	/**
 	 * Permite registrar una especie
 	 * @param registro registro con la especie a agregar
-	 * @return Especie registrada
+	 * @return Especie registrada o null si no la registró
 	 * @throws ElementoRepetidoException si ya se encuentra una especie o  registro con  el id
 	 */
 	Especie registrarEspecie(Registro registro) throws ElementoRepetidoException;
-	
-	
+	/**
+	 * lista las especies de acuerdo a una familia
+	 * @param familia, familia a la que pertenecen las especies buscadas
+	 * @return lista con las especies pertenecientes a una familia
+	 */
+	List<Especie> listarEspeciesPorFamilia(Familia familia);
+	/**
+	 * lista las especies aceptadas
+	 * @return lista con las especies aceptadas
+	 */
+	List<Especie> listarEspeciesAceptadas();
+	/**
+	 * lista las especies rechazadas
+	 * @return lista con las especies rechazadas
+	 */
+	List<Especie> listarEspeciesRechazados();
+	/**
+	 * lista las especies de acuerdo a una clase
+	 * @param clase, clase a la que pertenecen las especies buscadas
+	 * @return lista con las especies pertenecientes a una clase
+	 */
+	List<Especie> listarEspeciesPorClase(Clase clase);
+	/**
+	 * lista las especies de acuerdo a un orden
+	 * @param orden, orden al que pertenecen las especies buscadas
+	 * @return lista con las especies pertenecientes a un orden
+	 */
+	List<Especie> listarEspeciesPorOrden(Orden orden);
+	/**
+	 * lista las especies de acuerdo a un genero
+	 * @param genero, genero al que pertenecen las especies buscadas
+	 * @return lista con las especies pertenecientes a un genero
+	 */
+	List<Especie> listarEspeciesPorGenero(Genero genero);
+	/**
+	 * lista todas las especies vegetales
+	 * @return las especies vegetales
+	 */
+	List<Especie> listarEspecies();
+	/**
+	 * Permite iniciar sesion
+	 * @param correo correo de la persona 
+	 * @param clave clave de la persona
+	 * @return una persona si el correo y la clave con correctas sino null
+	 */
+	Persona comprobarCredenciales(String correo, String clave);
+	/**
+	 * buscar una especie por su nombre
+	 * @param nombre nombre de la especie a buscar
+	 * @return especie encontrada
+	 */
+	List<Especie> buscarEspeciePorSuNombre(String nombre);
+	/**
+	 * lista ordenes de acuerdo a una clase
+	 * @param clase clase de los ordenes
+	 * @return lista de ordenes
+	 */
+	List<Orden> listarOrdenesPorClase(Clase clase);
+	/**
+	 * Lista familias de acuerdo a un orden
+	 * @param orden orden de las familias
+	 * @return lista de familias
+	 */
+	List<Familia> listarFamiliasPorOrden(Orden orden);
+	/**
+	 * Lista generos de acuerdo a una familia
+	 * @param familia familia de los generos
+	 * @return lista de generos
+	 */
+	List<Genero> listarGenerosPorFamilia(Familia familia);
 	
 
 

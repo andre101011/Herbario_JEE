@@ -12,6 +12,7 @@ import co.edu.uniquindio.AAAD.persistencia.Especie;
 import co.edu.uniquindio.AAAD.persistencia.Familia;
 import co.edu.uniquindio.AAAD.persistencia.Genero;
 import co.edu.uniquindio.AAAD.persistencia.Orden;
+import co.edu.uniquindio.AAAD.persistencia.Persona;
 import co.edu.uniquindio.AAAD.persistencia.Recolector;
 
 
@@ -53,6 +54,14 @@ public interface AdminEJBRemote {
 	Empleado eliminarEmpleado(Empleado empleado) throws ElementoNoEncontradoException;
 
 	/**
+	 * Inhabilita un empleado 
+	 * @param empleado empleado a inhabilitar
+	 * @return empleado inhabilitado
+	 * @throws ElementoNoEncontradoException cuando no se encuentra el empleado a inhabilitar
+	 */
+	Empleado inhabilitarEmpleado(Empleado empleado) throws ElementoNoEncontradoException;
+
+	/**
 	 * 
 	 * @return la lista de todas las empleados
 	 */
@@ -74,30 +83,19 @@ public interface AdminEJBRemote {
 	Recolector eliminarRecolector(Recolector recolector) throws ElementoNoEncontradoException;
 
 	/**
+	 * Inhabilita un recolector
+	 * @param recolector recolector a inhabilitar
+	 * @return recolector inhabilitado
+	 * @throws ElementoNoEncontradoException cuando no se encuentra el recolector
+	 */
+	Recolector inhabilitarRecolector(Recolector recolector) throws ElementoNoEncontradoException;
+
+	/**
 	 * 
 	 * @return la lista de todas las recolectores
 	 */
 	List<Recolector> listarRecolectores();
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 	/**
 	 * Permite agregar una clase 
 	 * @param clase clase a agregar
@@ -120,7 +118,7 @@ public interface AdminEJBRemote {
 	 * @param id id de la clase a buscar
 	 * @return clase buscada, null si no la encontró
 	 */
-	Clase buscarClase(String id);
+	Clase buscarClase(long id);
 
 	/**
 	 * 
@@ -158,7 +156,7 @@ public interface AdminEJBRemote {
 	 * @param id id del orden a buscar
 	 * @return orden buscado, null si no lo encontró
 	 */
-	Orden buscarOrden(String id);
+	Orden buscarOrden(long id);
 
 	/**
 	 * 
@@ -197,7 +195,7 @@ public interface AdminEJBRemote {
 	 * @param id id del genero a buscar
 	 * @return genero buscado, null si no lo encontró
 	 */
-	Genero buscarGenero(String id);
+	Genero buscarGenero(long id);
 
 	/**
 	 * 
@@ -236,7 +234,7 @@ public interface AdminEJBRemote {
 	 * @param id id del familia a buscar
 	 * @return familia buscado, null si no lo encontró
 	 */
-	Familia buscarFamilia(String id);
+	Familia buscarFamilia(long id);
 
 	/**
 	 * 
@@ -251,12 +249,6 @@ public interface AdminEJBRemote {
 	 * @return la lista de todas los familias
 	 */
 	List<Familia> listarFamilias();
-
-	/**
-	 * permite pedir la lista de especies aceptadas
-	 * @return lista de especies aceptadas
-	 */
-	List<Especie> listarEspeciesAceptadas();
 
 	/**
 	 * Permite pedir la lista de especies en espera
@@ -278,8 +270,50 @@ public interface AdminEJBRemote {
 	 */
 	Especie rechazarEspecie(Especie especie);
 
-	
-	
+	/**
+	 * Busca una clase de acuerdo a su nombre
+	 * @param nombre, de la clase a buscar
+	 * @return clase encontrada sino null
+	 */
+	Clase buscarClasePorNombre(String nombre);
+	/**
+	 * Busca una orden de acuerdo a su nombre
+	 * @param nombre, de la orden a buscar
+	 * @return orden encontrada sino null
+	 */
+	Orden buscarOrdenPorNombre(String nombre);
+	/**
+	 * Busca una familia de acuerdo a su nombre
+	 * @param nombre, de la familia a buscar
+	 * @return familia encontrada sino null
+	 */
+	Familia buscarFamiliaPorNombre(String nombre);
+	/**
+	 * Busca una genero de acuerdo a su nombre
+	 * @param nombre, de la genero a buscar
+	 * @return genero encontrada sino null
+	 */
+	Genero buscarGeneroPorNombre(String nombre);
+	/**
+	 * Busca una persona de acuerdo a su email
+	 * @param correo correo de la persona que se va abuscar
+	 * @return persona encontrada sino null
+	 */
+	Persona buscarPersonaPorEmail(String correo);
+	/**
+	 * Modifica una especie
+	 * @param especie especie a modificar
+	 * @return especie modificada, null si falló
+	 * @throws ElementoNoEncontradoException si no se encuentra la especie a modificar
+	 */
+	Especie modificarEspecie(Especie especie) throws ElementoNoEncontradoException;
+	/**
+	 * Elimina una especie
+	 * @param especie especie a eliminar
+	 * @return especie eliminada, null si falló
+	 * @throws ElementoNoEncontradoException si no se encuentra la especie a eliminar
+	 */
+	Especie eliminarEspecie(Especie especie) throws ElementoNoEncontradoException;
 	
 	
 

@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
+
 /**
  * Informacion basica de cada una de las clases asociadas al herbario
  * 
@@ -17,6 +18,14 @@ import javax.persistence.*;
 @NamedQueries({@NamedQuery(name=Clase.LISTAR_TODOS, query="select p from Clase p"),
 	@NamedQuery(name=Clase.BUSCAR_POR_NOMBRE, query="select p from Clase p where p.nombre =:nombre")})
 public class Clase implements Serializable {
+
+
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5662602601628056541L;
+
 
 	/**
 	 * Referencia para seleccionar una clase por su nombre
@@ -33,19 +42,19 @@ public class Clase implements Serializable {
 	 */
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private String id;
+	private Long id;
 	/**
 	 * nombre de la clase
 	 */
 	@Column(nullable=false, length=50, unique=true)
 	private String nombre;
-	private static final long serialVersionUID = 1L;
+	
 	/**
 	 * lista de las ordenes de la clase
 	 */
-	@OneToMany(mappedBy = "claseDelOrden")
+	@OneToMany(cascade = CascadeType.ALL,orphanRemoval=true, mappedBy = "claseDelOrden")
 	private List<Orden> ordenesDeLaClase;
-
+	
 	public Clase() {
 		super();
 	}
@@ -53,14 +62,14 @@ public class Clase implements Serializable {
 	/**
 	 * @return the id
 	 */
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -94,6 +103,7 @@ public class Clase implements Serializable {
 		this.ordenesDeLaClase = ordenesDeLaClase;
 	}
 
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
@@ -123,7 +133,9 @@ public class Clase implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}   
+	}
+
+	   
 	
 	
 }

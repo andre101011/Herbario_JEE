@@ -13,8 +13,9 @@ import co.edu.uniquindio.AAAD.persistencia.Persona;
  * @version 1.0
  */
 @Entity
-@NamedQueries({ @NamedQuery(name = Recolector.LISTAR_RECOLECTOR, query = "select p from Recolector p"),
-	@NamedQuery(name= Recolector.BUSCAR_RECOLECTOR_POR_EMAIL, query="select e.cedula from Recolector e where e.email=:email")})
+@NamedQueries({ @NamedQuery(name = Recolector.LISTAR_RECOLECTOR, query = "select p from Recolector p where p.visibilidad =:visibilidad"),
+	@NamedQuery(name= Recolector.BUSCAR_RECOLECTOR_POR_EMAIL, query="select e.cedula from Recolector e where e.email=:email and e.visibilidad =:visibilidad"),
+	@NamedQuery(name= Recolector.BUSCAR_RECOLECTOR_POR_CEDULA, query="select e from Recolector e where e.cedula=:cedula and e.visibilidad =:visibilidad")})
 public class Recolector extends Persona implements Serializable {
 
 	/**
@@ -26,8 +27,13 @@ public class Recolector extends Persona implements Serializable {
 	 * referencia para buscar un recolector por su email
 	 */
 	public static final String BUSCAR_RECOLECTOR_POR_EMAIL="Buscar recolector por email";
-	
+	/**
+	 * referencia para buscar un recolector por su cedula
+	 */
+	public static final String BUSCAR_RECOLECTOR_POR_CEDULA = "Busca recolector por cedula";
 	private static final long serialVersionUID = 1L;
+
+	
 
 	public Recolector() {
 		super();

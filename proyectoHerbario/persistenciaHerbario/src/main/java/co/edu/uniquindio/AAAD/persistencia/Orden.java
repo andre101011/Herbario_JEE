@@ -15,13 +15,23 @@ import javax.persistence.*;
  */
 @Entity
 @NamedQueries({@NamedQuery(name=Orden.LISTAR_TODOS, query="select p from Orden p"),
-	@NamedQuery(name=Orden.BUSCAR_POR_NOMBRE, query="select p from Orden p where p.nombre =:nombre")})
+	@NamedQuery(name=Orden.BUSCAR_POR_NOMBRE, query="select p from Orden p where p.nombre =:nombre"),
+	@NamedQuery(name = Orden.LISTAR_POR_CLASE, query="select orden from Clase clase, IN(clase.ordenesDeLaClase) orden where clase.id =:id")})
 public class Orden implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * referencia para listar los ordenes
 	 */
 	public static final String LISTAR_TODOS="ListarLosOrdenes";
+	/**
+	 * Referencia para buscar un orden por su nombre
+	 */
+	public static final String BUSCAR_POR_NOMBRE = "Buscar orden por nombre";
+	public static final String LISTAR_POR_CLASE = "listar por Clase";
 	/***
 	 * nombre del orden
 	 */
@@ -32,20 +42,19 @@ public class Orden implements Serializable {
 	 */
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private String id;
+	private Long id;
 	/**
 	 * clase del orden
 	 */
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="CLASEDELORDEN_ID")
 	private Clase claseDelOrden;
 	
-	private static final long serialVersionUID = 1L;
-	public static final String BUSCAR_POR_NOMBRE = "Buscar orden por nombre";
 	
 	/**
 	 * lista de familias del orden
 	 */
-	@OneToMany(mappedBy = "ordenDelaFamilia")
+	@OneToMany(cascade = CascadeType.ALL,orphanRemoval=true,mappedBy = "ordenDelaFamilia")
 	private List<Familia> familiasDelOrden;
 
 	public Orden() {
@@ -69,14 +78,14 @@ public class Orden implements Serializable {
 	/**
 	 * @return the id
 	 */
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -94,19 +103,6 @@ public class Orden implements Serializable {
 		this.familiasDelOrden = familiasDelOrden;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
-	
-	
-
 	/**
 	 * @return the claseDelOrden
 	 */
@@ -119,6 +115,18 @@ public class Orden implements Serializable {
 	 */
 	public void setClaseDelOrden(Clase claseDelOrden) {
 		this.claseDelOrden = claseDelOrden;
+	}
+
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
 	}
 
 	/* (non-Javadoc)
@@ -139,8 +147,8 @@ public class Orden implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}   
-	
+	}
+
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub

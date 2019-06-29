@@ -23,9 +23,16 @@ import javax.persistence.*;
 		@NamedQuery(name = Especie.LISTAR_POR_FAMILIA_ACEPTADA, query = "select p from Especie p where p.generoDeEspecie.familiaDelGenero.id= :fam and p.registroPlanta.estado= :est"),
 		@NamedQuery(name = Especie.LISTAR_POR_CLASE_ACEPTADA, query = "select p from Especie p where p.generoDeEspecie.familiaDelGenero.ordenDelaFamilia.claseDelOrden.id= :clas and p.registroPlanta.estado= :est"),
 		@NamedQuery(name = Especie.LISTAR_POR_ORDEN_ACEPTADA, query = "select p from Especie p where p.generoDeEspecie.familiaDelGenero.ordenDelaFamilia.id= :ord and p.registroPlanta.estado= :est"),
-		@NamedQuery(name = Especie.OBTENER_FAMILIA_POR_ID_ESPECIE, query = "select p.generoDeEspecie.familiaDelGenero from Especie p where p.id= :id")})
+		@NamedQuery(name = Especie.OBTENER_FAMILIA_POR_ID_ESPECIE, query = "select p.generoDeEspecie.familiaDelGenero from Especie p where p.id= :id"),
+		@NamedQuery(name = Especie.BUSCAR_POR_NOMBRE, query = "select p from Especie p where p.nombre= :nombre")})
 
 public class Especie implements Serializable {
+	
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * Referencia para listar las especies
 	 */
@@ -74,13 +81,17 @@ public class Especie implements Serializable {
 	 * Referencia para listar las de acuerdo a su recolector
 	 */
 	public static final String LISTAR_POR_RECOLECTOR = "ListarEspeciesPorRecolector";
+	/**
+	 * referencia para obtener las especies con un mismo nombre
+	 */
+	public static final String BUSCAR_POR_NOMBRE = "listarEspeciesPorNombre";
 
 	/**
 	 * id de la especie
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private String id;
+	private Long id;
 	/**
 	 * nombre de la especie
 	 */
@@ -93,10 +104,12 @@ public class Especie implements Serializable {
 	/**
 	 * genero de la especie
 	 */
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Genero generoDeEspecie;
-
-	private static final long serialVersionUID = 1L;
+	/**
+	 * imagen de la especie
+	 */
+	private byte[] imagen;
 
 	public Especie() {
 		super();
@@ -105,14 +118,14 @@ public class Especie implements Serializable {
 	/**
 	 * @return the id
 	 */
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -157,10 +170,23 @@ public class Especie implements Serializable {
 	public void setGeneroDeEspecie(Genero generoDeEspecie) {
 		this.generoDeEspecie = generoDeEspecie;
 	}
+	
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/**
+	 * @return the imagen
+	 */
+	public byte[] getImagen() {
+		return imagen;
+	}
+
+	/**
+	 * @param imagen the imagen to set
+	 */
+	public void setImagen(byte[] imagen) {
+		this.imagen = imagen;
+	}
+
+	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -171,9 +197,7 @@ public class Especie implements Serializable {
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -192,5 +216,9 @@ public class Especie implements Serializable {
 			return false;
 		return true;
 	}
+
+	
+
+	
 
 }

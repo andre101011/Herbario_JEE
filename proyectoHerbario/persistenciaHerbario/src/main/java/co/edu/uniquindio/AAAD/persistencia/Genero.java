@@ -16,8 +16,16 @@ import javax.persistence.*;
 @Entity
 @NamedQueries({@NamedQuery(name=Genero.LISTAR_TODOS, query="select p from Genero p"),
 	@NamedQuery(name = Genero.OBTENER_ESPECIES_POR_GENERO_IN, query="select especie from Genero genero, IN(genero.especiesDelGenero) especie where genero.id =:id"),
-	@NamedQuery(name=Genero.BUSCAR_POR_NOMBRE, query="select p from Genero p where p.nombre =:nombre")})
+	@NamedQuery(name=Genero.BUSCAR_POR_NOMBRE, query="select p from Genero p where p.nombre =:nombre"),
+	@NamedQuery(name=Genero.LISTAR_POR_FAMILIA, query="select p from Genero p where p.familiaDelGenero.id =:id")})
 public class Genero implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
 	/**
 	 * referencia para listar los generos
 	 */
@@ -29,18 +37,20 @@ public class Genero implements Serializable {
 	 */
 	public static final String OBTENER_ESPECIES_POR_GENERO_IN="OBTENER_ESPECIES_POR_GENERO_IN";
 	
+	public static final String LISTAR_POR_FAMILIA="listar por familia";
+	
 	/**
 	 * id del genero
 	 */
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private String id;
+	private Long id;
 	@Column(nullable=false, length=50, unique=true)
 	/**
 	 * nombre del genero
 	 */
 	private String nombre;
-	private static final long serialVersionUID = 1L;
+	
 
 	/**
 	 * referencia para buscar un genero por su nombre
@@ -49,13 +59,14 @@ public class Genero implements Serializable {
 	/**
 	 * familia del genero
 	 */
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Familia familiaDelGenero;
 	/**
 	 * lista de especies del genero
 	 */
-	@OneToMany(mappedBy = "generoDeEspecie")
+	@OneToMany(cascade = CascadeType.ALL,orphanRemoval=true,mappedBy = "generoDeEspecie")
 	private List<Especie> especiesDelGenero;
+	
 
 	public Genero() {
 		super();
@@ -64,14 +75,14 @@ public class Genero implements Serializable {
 	/**
 	 * @return the id
 	 */
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -149,7 +160,9 @@ public class Genero implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}   
+	}
+	
+	
 	
 	
    

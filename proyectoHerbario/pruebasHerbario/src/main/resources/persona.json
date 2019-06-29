@@ -1,7 +1,6 @@
 {
 	"PERSONA": [
 		{
-			"id":"1",
 			"dtype":"Empleado",
 			"cedula": "123456789",
 			"nombre": "Pedro Perez",
@@ -9,7 +8,7 @@
 			"clave": "12345"
 		},
 		{
-			"id":"2",
+			
 			"dtype":"Administrador",
 			"cedula": "223456789",
 			"nombre": "Maria Martinez",
@@ -17,7 +16,7 @@
 			"clave": "12345"
 		},
 		{
-			"id":"3",
+			
 			"cedula": "323456789",
 			"dtype":"Recolector",
 			"nombre": "Hernan Hernandez",
@@ -25,7 +24,7 @@
 			"clave": "12345"
 		},
 		{
-			"id":"10",
+			
 			"cedula": "67657575",
 			"dtype":"Recolector",
 			"nombre": "Hernan Hernandez",
@@ -35,21 +34,21 @@
 	],
 	"EMPLEADO":[
 		{
-			"id":"1"
+			"cedula": "123456789"
 		}
 	],
 	"RECOLECTOR":[
 		{
-			"id":"3"
+			"cedula": "323456789"
 		},
 		{
-			"id":"10"
+			"cedula": "67657575"
 		}
 		
 	],
 	"ADMINISTRADOR":[
 		{
-			"id":"2"
+			"cedula": "223456789"
 		
 		}
 

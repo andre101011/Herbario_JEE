@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import co.edu.uniquindio.AAAD.persistencia.Administrador;
+import co.edu.uniquindio.AAAD.persistencia.Persona.Visibilidad;
 
 /**
  * Se encarga de cargar la preconfiguración de la capa de negocio
@@ -40,6 +41,7 @@ public class SetupEJB {
     @PostConstruct
     private void init() {
     	TypedQuery<Long> query=entityManager.createNamedQuery(Administrador.CONTAR_ADMINS, Long.class);
+    	query.setParameter("visibilidad", Visibilidad.HABILITADO);
     	long conteoAdmin=query.getSingleResult();
     	
     	if(conteoAdmin==0) {
@@ -50,6 +52,7 @@ public class SetupEJB {
     		administrador.setCedula("455464");
     		administrador.setEmail("dbonillag_1@uqvirtual.edu.co");
     		administrador.setClave("12345");
+    		administrador.setVisibilidad(Visibilidad.HABILITADO);
     		
     		entityManager.persist(administrador);
     		
