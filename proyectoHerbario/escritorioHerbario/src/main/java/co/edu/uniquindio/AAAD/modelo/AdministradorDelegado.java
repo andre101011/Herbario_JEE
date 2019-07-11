@@ -985,7 +985,7 @@ public class AdministradorDelegado {
 
 	public List<Orden> listarOrdenesPorClase(Clase clase) {
 		
-		return negocioEJB.listarOrdenesPorClase(clase);
+		return adminEJB.listarOrdenesPorClase(clase);
 
 	}
 
@@ -1003,7 +1003,7 @@ public class AdministradorDelegado {
 
 	public List<Familia> listarFamiliasPorOrden(Orden orden) {
 		
-		return negocioEJB.listarFamiliasPorOrden(orden);
+		return adminEJB.listarFamiliasPorOrden(orden);
 
 	}
 
@@ -1017,7 +1017,7 @@ public class AdministradorDelegado {
 	}
 
 	public List<Genero> listarGenerosPorFamilia(Familia familia) {
-		return negocioEJB.listarGenerosPorFamilia(familia);
+		return adminEJB.listarGenerosPorFamilia(familia);
 	}
 	
 	public List<GeneroObservable> listarGenerosObservablesPorFamilia(Familia familia) {

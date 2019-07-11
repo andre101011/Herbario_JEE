@@ -18,7 +18,7 @@ import javax.persistence.*;
 	@NamedQuery(name = Genero.OBTENER_ESPECIES_POR_GENERO_IN, query="select especie from Genero genero, IN(genero.especiesDelGenero) especie where genero.id =:id"),
 	@NamedQuery(name=Genero.BUSCAR_POR_NOMBRE, query="select p from Genero p where p.nombre =:nombre"),
 	@NamedQuery(name=Genero.LISTAR_POR_FAMILIA, query="select p from Genero p where p.familiaDelGenero.id =:id")})
-public class Genero implements Serializable {
+public class Genero extends Categoria implements Serializable {
 	
 	/**
 	 * 
@@ -38,19 +38,6 @@ public class Genero implements Serializable {
 	public static final String OBTENER_ESPECIES_POR_GENERO_IN="OBTENER_ESPECIES_POR_GENERO_IN";
 	
 	public static final String LISTAR_POR_FAMILIA="listar por familia";
-	
-	/**
-	 * id del genero
-	 */
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
-	@Column(nullable=false, length=50, unique=true)
-	/**
-	 * nombre del genero
-	 */
-	private String nombre;
-	
 
 	/**
 	 * referencia para buscar un genero por su nombre
@@ -72,36 +59,6 @@ public class Genero implements Serializable {
 		super();
 	}
 
-	/**
-	 * @return the id
-	 */
-	public Long getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	/**
-	 * @return the nombre
-	 */
-	public String getNombre() {
-		return nombre;
-	}
-
-	/**
-	 * @param nombre the nombre to set
-	 */
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-
-	
 	
 	/**
 	 * @return the familiaDelGenero
@@ -131,36 +88,6 @@ public class Genero implements Serializable {
 		this.especiesDelGenero = especiesDelGenero;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Genero other = (Genero) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
-	}
 	
 	
 	

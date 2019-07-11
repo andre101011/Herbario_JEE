@@ -16,7 +16,7 @@ import javax.persistence.*;
 		@NamedQuery(name = Especie.LISTAR_POR_ESTADO, query = "select p from Especie p where p.registroPlanta.estado= :est"),
 		@NamedQuery(name = Especie.LISTAR_POR_GENERO, query = "select p from Especie p where p.generoDeEspecie.id= :gen"),
 		@NamedQuery(name = Especie.LISTAR_POR_FAMILIA, query = "select p from Especie p where p.generoDeEspecie.familiaDelGenero.id= :fam"),
-		@NamedQuery(name = Especie.LISTAR_POR_RECOLECTOR, query = "select p from Especie p where p.registroPlanta.enviadorDelRegistro.cedula= :rec"),
+		@NamedQuery(name = Especie.LISTAR_POR_RECOLECTOR, query = "select p from Especie p where p.registroPlanta.enviadorDelRegistro.cedula= :cedula"),
 		@NamedQuery(name = Especie.LISTAR_POR_CLASE, query = "select p from Especie p where p.generoDeEspecie.familiaDelGenero.ordenDelaFamilia.claseDelOrden.id= :clas"),
 		@NamedQuery(name = Especie.LISTAR_POR_ORDEN, query = "select p from Especie p where p.generoDeEspecie.familiaDelGenero.ordenDelaFamilia.id= :ord"),
 		@NamedQuery(name = Especie.LISTAR_POR_GENERO_ACEPTADA, query = "select p from Especie p where p.generoDeEspecie.id= :gen and p.registroPlanta.estado= :est "),

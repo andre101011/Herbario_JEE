@@ -29,7 +29,7 @@ import static javax.persistence.InheritanceType.JOINED;
 	@NamedQuery(name=Persona.LISTAR_DTO, query="select new co.edu.uniquindio.AAAD.dto.PersonaDTO(persona.cedula,count(persona.registrosEnviados)) from Persona persona where persona.visibilidad =:visibilidad group by persona.cedula"),
 	@NamedQuery(name=Persona.OBTENER_REGISTROS_POR_CEDULA_PERSONA, query="select registro from Persona p INNER JOIN p.registrosEnviados registro where p.cedula=:cedula and p.visibilidad =:visibilidad"),
 	@NamedQuery(name=Persona.LISTAR_CEDULAS_CON_REGISTROS, query="select persona.cedula,registro from Persona persona LEFT JOIN persona.registrosEnviados registro where persona.visibilidad =:visibilidad"),
-	@NamedQuery(name= Persona.BUSCAR_PERSONA_POR_EMAIL, query="select e from Persona e where e.email=:email")})
+	@NamedQuery(name= Persona.BUSCAR_PERSONA_POR_EMAIL, query="select e from Persona e where e.email=:email and e.visibilidad=:visibilidad")})
 @Inheritance(strategy = JOINED)
 public class Persona implements Serializable {
 

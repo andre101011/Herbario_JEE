@@ -17,7 +17,7 @@ import javax.persistence.*;
 @NamedQueries({@NamedQuery(name=Orden.LISTAR_TODOS, query="select p from Orden p"),
 	@NamedQuery(name=Orden.BUSCAR_POR_NOMBRE, query="select p from Orden p where p.nombre =:nombre"),
 	@NamedQuery(name = Orden.LISTAR_POR_CLASE, query="select orden from Clase clase, IN(clase.ordenesDeLaClase) orden where clase.id =:id")})
-public class Orden implements Serializable {
+public class Orden extends Categoria implements Serializable {
 	
 	/**
 	 * 
@@ -32,17 +32,7 @@ public class Orden implements Serializable {
 	 */
 	public static final String BUSCAR_POR_NOMBRE = "Buscar orden por nombre";
 	public static final String LISTAR_POR_CLASE = "listar por Clase";
-	/***
-	 * nombre del orden
-	 */
-	@Column(nullable=false, length=50, unique=true)
-	private String nombre;   
-	/**
-	 * id del orden
-	 */
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
+	
 	/**
 	 * clase del orden
 	 */
@@ -61,33 +51,7 @@ public class Orden implements Serializable {
 		super();
 	}
 
-	/**
-	 * @return the nombre
-	 */
-	public String getNombre() {
-		return nombre;
-	}
-
-	/**
-	 * @param nombre the nombre to set
-	 */
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	/**
-	 * @return the id
-	 */
-	public Long getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
+	
 
 	/**
 	 * @return the familiasDelOrden
@@ -118,41 +82,12 @@ public class Orden implements Serializable {
 	}
 
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Orden other = (Orden) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
-	}
+	
 
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return id+","+nombre;
+		return getId()+","+getNombre();
 	}
    
 }

@@ -400,7 +400,7 @@ public class AdminEJB implements AdminEJBRemote {
 		}
 
 		try {
-			
+			cl.setOrdenesDeLaClase(listarOrdenesPorClase(cl));
 			entityManager.remove(cl);
 			return clase;
 		} catch (Exception e) {
@@ -547,6 +547,7 @@ public class AdminEJB implements AdminEJBRemote {
 		}
 
 		try {
+			or.setFamiliasDelOrden(listarFamiliasPorOrden(or));
 			entityManager.remove(or);
 			return orden;
 		} catch (Exception e) {
@@ -693,6 +694,7 @@ public class AdminEJB implements AdminEJBRemote {
 		}
 
 		try {
+			ge.setEspeciesDelGenero(listarEspeciesPorGenero(ge));
 			entityManager.remove(ge);
 			return genero;
 		} catch (Exception e) {
@@ -840,6 +842,7 @@ public class AdminEJB implements AdminEJBRemote {
 		}
 
 		try {
+			fa.setGenerosDeLaFamilia(listarGenerosPorFamilia(fa));
 			entityManager.remove(fa);
 			return familia;
 		} catch (Exception e) {
@@ -961,5 +964,69 @@ public class AdminEJB implements AdminEJBRemote {
 			return null;
 		}
 	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#listarOrdenesPorClase(co.edu.uniquindio.AAAD.persistencia.Clase)
+	 */
+	@Override
+	public List<Orden> listarOrdenesPorClase(Clase clase) {
 
+		try {
+			TypedQuery<Orden> query = entityManager.createNamedQuery(Orden.LISTAR_POR_CLASE, Orden.class);
+			query.setParameter("id", clase.getId());
+			List<Orden> lista = query.getResultList();
+			return lista;
+		} catch (Exception e) {
+			return null;
+		}
+
+	}
+	/*
+	 * (non-Javadoc)
+	 * @see co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#listarFamiliasPorOrden(co.edu.uniquindio.AAAD.persistencia.Orden)
+	 */
+	@Override
+	public List<Familia> listarFamiliasPorOrden(Orden orden) {
+
+		try {
+			TypedQuery<Familia> query = entityManager.createNamedQuery(Familia.LISTAR_POR_ORDEN, Familia.class);
+			query.setParameter("id", orden.getId());
+			List<Familia> lista = query.getResultList();
+			return lista;
+		} catch (Exception e) {
+			return null;
+		}
+
+	}
+	/*
+	 * (non-Javadoc)
+	 * @see co.edu.uniquindio.AAAD.ejb.AdminEJBRemote#listarGenerosPorFamilia(co.edu.uniquindio.AAAD.persistencia.Familia)
+	 */
+	@Override
+	public List<Genero> listarGenerosPorFamilia(Familia familia) {
+
+		try {
+			TypedQuery<Genero> query = entityManager.createNamedQuery(Genero.LISTAR_POR_FAMILIA, Genero.class);
+			query.setParameter("id", familia.getId());
+			List<Genero> lista = query.getResultList();
+			return lista;
+		} catch (Exception e) {
+			return null;
+		}
+
+	}
+
+	private List<Especie> listarEspeciesPorGenero(Genero genero) {
+
+		try {
+			TypedQuery<Especie> query = entityManager.createNamedQuery(Especie.LISTAR_POR_GENERO, Especie.class);
+			query.setParameter("gen", genero.getId());
+			List<Especie> lista = query.getResultList();
+			return lista;
+		} catch (Exception e) {
+			return null;
+		}
+
+	}
 }
