@@ -1,4 +1,4 @@
-package co.edu.uniquindio.AAAD.web;
+package co.edu.uniquindio.AAAD.bean;
 
 import java.util.List;
 
@@ -14,9 +14,9 @@ import co.edu.uniquindio.AAAD.excepciones.ElementoRepetidoException;
 import co.edu.uniquindio.AAAD.persistencia.Familia;
 import co.edu.uniquindio.AAAD.persistencia.Genero;
 @FacesConfig(version = Version.JSF_2_3)
-@Named("generoDosBean")
+@Named("generoBean")
 @ApplicationScoped
-public class GeneroDosBean {
+public class GeneroBean {
 	
 	private String nombre;
 	private Familia familia;
@@ -55,7 +55,7 @@ public class GeneroDosBean {
 		
 		generos=adminEJB.listarGeneros();
 		
-		return "/generos";
+		return "seguro/generos";
 		
 		
 	}

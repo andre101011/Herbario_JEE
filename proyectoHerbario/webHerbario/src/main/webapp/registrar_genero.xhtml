@@ -13,15 +13,15 @@
 	<h:form>
 		<h:panelGrid columns="2" border="1">
 			<label>Nombre:</label>
-			<h:inputText value="#{generoDosBean.nombre}" required="true" />
+			<h:inputText value="#{generoBean.nombre}" required="true" />
 			<label>Familia:</label>
-			<h:selectOneMenu value="#{generoDosBean.familia}" converter="#{familiaConverter}">
+			<h:selectOneMenu value="#{generoBean.familia}" converter="#{familiaConverter}">
 				<f:selectItem itemLabel="Seleccione una familia"
 					noSelectionOption="true" />
-				<f:selectItems value="#{generoDosBean.familias}" />
+				<f:selectItems value="#{generoBean.familias}" />
 			</h:selectOneMenu>
 		</h:panelGrid>
-		<h:commandButton action="#{generoDosBean.registrar}" value="Aceptar"/>
+		<h:commandButton action="#{generoBean.registrar}" value="Aceptar"/>
 	</h:form>
 
 </body>

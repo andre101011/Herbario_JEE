@@ -1,4 +1,4 @@
-package co.edu.uniquindio.AAAD.web;
+package co.edu.uniquindio.AAAD.bean;
 
 import java.io.Serializable;
 
@@ -12,6 +12,7 @@ import javax.inject.Named;
 import co.edu.uniquindio.AAAD.ejb.AdminEJB;
 import co.edu.uniquindio.AAAD.ejb.NegocioEJB;
 import co.edu.uniquindio.AAAD.persistencia.Persona;
+import co.edu.uniquindio.AAAD.util.Util;
 
 @FacesConfig(version = Version.JSF_2_3)
 @Named("seguridadBean")
@@ -26,6 +27,8 @@ public class SeguridadBean implements Serializable{
 	 * usuario que inicia sesión
 	 */
 	private Persona usuario;
+	
+	
 	/**
 	 * determina si la persona inicio sesion o no
 	 */
@@ -48,15 +51,22 @@ public class SeguridadBean implements Serializable{
 	}
 	
 	public void iniciarSesion() {
-		
 		Persona u=negocioEJB.comprobarCredenciales(usuario.getEmail(), usuario.getClave());
 		if (u!=null) {
 			usuario=u;
 			autenticado=true;
 			
 		}else {
-			//Util.mostrarMensaje("verifique las credencialesde acceso", "verifique las credenciales de acceso");
+			Util.mostrarMensaje("verifique las credencialesde acceso", "verifique las credenciales de acceso");
 		}
+		
+	}
+	
+	public void recuperarContraseña() {
+		
+		negocioEJB
+		
+		
 		
 	}
 	/**

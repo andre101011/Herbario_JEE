@@ -15,9 +15,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-
-import co.edu.uniquindio.AAAD.web.SeguridadBean;
+import co.edu.uniquindio.AAAD.bean.SeguridadBean;
 
 @WebFilter("/seguro/*")
 public class seguridadFilter implements Filter {

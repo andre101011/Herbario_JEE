@@ -1,4 +1,4 @@
-package co.edu.uniquindio.AAAD.web;
+package co.edu.uniquindio.AAAD.bean;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.annotation.FacesConfig;
