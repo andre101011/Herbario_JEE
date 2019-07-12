@@ -21,15 +21,30 @@
 						<p:inputText value="#{seguridadBean.usuario.email}"
 							required="true" requiredMessage="Ingrese un email valido" />
 						<p:outputLabel value="Clave" />
-						<p:password value="#{seguridadBean.usuario.clave}" required="true" requiredMessage="Ingrese una contraseña valida"/>
+						<p:password value="#{seguridadBean.usuario.clave}" required="true"
+							requiredMessage="Ingrese una contraseña valida" />
 						<f:facet name="footer">
 							<p:commandButton align="center" value="Aceptar"
 								action="#{seguridadBean.iniciarSesion}" ajax="false" />
 						</f:facet>
-						<h:commandLink value="Olvidé mi contraseña" action="#{seguridadBean.recuperarContrasena}" />
+
 					</p:panelGrid>
-					
 				</h:form>
+				<h:form>
+					<p:panelGrid columns="2">
+						<f:facet name="header">Recuperar contraseña</f:facet>
+						<p:outputLabel value="Login" />
+						<p:inputText value="#{seguridadBean.usuario.email}"
+							required="true" requiredMessage="Ingrese un email valido" />
+						<f:facet name="footer">
+							<h:commandLink value="Olvidé mi contraseña"
+								action="#{seguridadBean.recuperarContrasena}" />
+						</f:facet>
+
+					</p:panelGrid>
+
+				</h:form>
+
 				<p:growl id="growl" life="2000" />
 			</ui:insert>
 		</h:panelGroup>
@@ -40,22 +55,16 @@
 						<f:facet name="options">
 							<p:commandButton value="Inicio" action="/index" ajax="false" />
 						</f:facet>
-						<p:submenu label="Empleado">
+						<p:submenu label="Menu">
+							<p:menuitem value="Gestionar recolectores"
+								action="#{seguridadBean.navegacion(1)}" ajax="false" />
+							<p:menuitem value="Gestionar perfil"
+								action="#{seguridadBean.navegacion(2)}" ajax="false" />
+							<p:menuitem value="Gestionar especies"
+								action="#{seguridadBean.navegacion(3)}" ajax="false" />
 						</p:submenu>
-						<p:submenu label="Cliente">
-						</p:submenu>
-						<p:submenu label="Especies">
-							<!-- 							<p:menuitem value="Familias" -->
-							<!-- 								action="#{seguridadBean.navegacion(1)}" ajax="false" /> -->
-							<!-- 							<p:menuitem value="Registrar familia" -->
-							<!-- 								action="#{seguridadBean.navegacion(2)}" ajax="false" /> -->
-							<!-- 							<p:menuitem value="Generos" -->
-							<!-- 								action="#{seguridadBean.navegacion(3)}" ajax="false" /> -->
-							<!-- 							<p:menuitem value="Registrar generos" -->
-							<!-- 								action="#{seguridadBean.navegacion(4)}" ajax="false" /> -->
-						</p:submenu>
-						<!-- 						<p:menuitem value="Cerrar sesión" ajax="false" -->
-						<!-- 							action="#{seguridadBean.cerrarSesion}" /> -->
+						<p:menuitem value="Cerrar sesión" ajax="false"
+							action="#{seguridadBean.cerrarSesion}" />
 					</p:menubar>
 				</h:form>
 			</ui:insert>

@@ -85,6 +85,23 @@ public class SeguridadBean implements Serializable {
 		}
 	}
 
+	/**
+	 * navegación del menu principal
+	 * @param i 
+	 * @return
+	 */
+	public String navegacion(int i) {
+		switch (i) {
+		case 1:
+			return "/gestionarRecolectores";
+		case 2:
+			return "/gestionarPerfil";
+		case 3:
+			return "/gestionarEspecies";
+		default:
+			return null;
+		}
+	}
 
 	/**
 	 * @return the usuario

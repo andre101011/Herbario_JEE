@@ -933,9 +933,16 @@ public class AdminEJB implements AdminEJBRemote {
 	public Especie aceptarEspecie(Especie especie) {
 
 		try {
-			especie.getRegistroPlanta().setEstado(Estado.Aceptado);
+			especie = entityManager.find(Especie.class, especie.getId());
+			TypedQuery<Registro> query = entityManager.createNamedQuery(Especie.OBTENER_REGISTRO, Registro.class);
+			
+			query.setParameter("id", especie.getId());
+			Registro registro=query.getSingleResult();
+			registro.setEstado(Estado.Aceptado);
 
-			entityManager.merge(especie);
+
+			entityManager.merge(registro);
+			System.out.println(registro.getEstado().toString());
 
 			return especie;
 		} catch (Exception e) {
@@ -955,9 +962,15 @@ public class AdminEJB implements AdminEJBRemote {
 	public Especie rechazarEspecie(Especie especie) {
 
 		try {
-			especie.getRegistroPlanta().setEstado(Estado.Rechazado);
+			
+			
+			TypedQuery<Registro> query = entityManager.createNamedQuery(Especie.OBTENER_REGISTRO, Registro.class);
+			query.setParameter("id", especie.getId());
+			Registro registro=query.getSingleResult();
+			registro.setEstado(Estado.Rechazado);
 
-			entityManager.merge(especie);
+
+			entityManager.merge(registro);
 
 			return especie;
 		} catch (Exception e) {

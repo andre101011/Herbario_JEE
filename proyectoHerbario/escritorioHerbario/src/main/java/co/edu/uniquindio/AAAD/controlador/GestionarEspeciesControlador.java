@@ -74,6 +74,9 @@ public class GestionarEspeciesControlador {
 	private Button btnBuscar;
 
 	@FXML
+	private Button btnEvaluar;
+
+	@FXML
 	private ComboBox<String> comboCategoriasBusqueda;
 
 	@FXML
@@ -105,15 +108,6 @@ public class GestionarEspeciesControlador {
 
 	@FXML
 	private ComboBox<GeneroObservable> comboGenero;
-
-	@FXML
-	private ComboBox<FamiliaObservable> comboFamilia;
-
-	@FXML
-	private ComboBox<OrdenObservable> comboOrden;
-
-	@FXML
-	private ComboBox<ClaseObservable> comboClase;
 
 	@FXML
 	private ComboBox<Estado> comboEstado;
@@ -167,23 +161,8 @@ public class GestionarEspeciesControlador {
 
 		// Carga todas las clases en el comboBox correspondiente
 		comboEstado.getItems().removeAll(comboEstado.getItems());
-		comboEstado.getItems().addAll(Estado.Espera, Estado.Aceptado, Estado.Rechazado);
+		comboEstado.getItems().addAll(Estado.Aceptado, Estado.Rechazado);
 		comboEstado.getSelectionModel().selectFirst();
-
-		// Carga todas las clases en el comboBox correspondiente
-		comboClase.getItems().removeAll(comboClase.getItems());
-		comboClase.getItems().addAll(administradorDelegado.listarClasesObservables());
-		comboClase.getSelectionModel().selectFirst();
-
-		// Carga todas los ordenes en el comboBox correspondiente
-		comboOrden.getItems().removeAll(comboOrden.getItems());
-		comboOrden.getItems().addAll(administradorDelegado.listarOrdenesObservables());
-		comboOrden.getSelectionModel().selectFirst();
-
-		// Carga todas las familias en el comboBox correspondiente
-		comboFamilia.getItems().removeAll(comboFamilia.getItems());
-		comboFamilia.getItems().addAll(administradorDelegado.listarFamiliasObservables());
-		comboFamilia.getSelectionModel().selectFirst();
 
 		// Carga todas los generos en el comboBox correspondiente
 		comboGenero.getItems().removeAll(comboGenero.getItems());
@@ -202,21 +181,6 @@ public class GestionarEspeciesControlador {
 		if (especie != null) {
 			especieObservable = especie;
 			jtfNombre.setText(especie.getNombre().getValue());
-
-			// Pone la clase a la que pertenece la especie en el comboBox correspondiente
-			ClaseObservable claseObservable = new ClaseObservable(especieObservable.getEspecie().getGeneroDeEspecie()
-					.getFamiliaDelGenero().getOrdenDelaFamilia().getClaseDelOrden());
-			comboClase.getSelectionModel().select(claseObservable);
-
-			// Pone el orden al que pertenece la especie en el comboBox correspondiente
-			OrdenObservable ordenObservable = new OrdenObservable(
-					especieObservable.getEspecie().getGeneroDeEspecie().getFamiliaDelGenero().getOrdenDelaFamilia());
-			comboOrden.getSelectionModel().select(ordenObservable);
-
-			// Pone la familia a la que pertenece la especie en el comboBox correspondiente
-			FamiliaObservable familiaObservable = new FamiliaObservable(
-					especieObservable.getEspecie().getGeneroDeEspecie().getFamiliaDelGenero());
-			comboFamilia.getSelectionModel().select(familiaObservable);
 
 			// Pone el genero al que pertenece la especie en el comboBox correspondiente
 			GeneroObservable generoObservable = new GeneroObservable(
@@ -251,8 +215,7 @@ public class GestionarEspeciesControlador {
 		if (jtfNombre.getText().isEmpty()) {
 			Utilidades.mostrarMensaje("Advertencia", "Ingresa un nombre para continuar");
 		} else {
-			if (comboGenero.getValue() == null || comboFamilia.getValue() == null || comboOrden.getValue() == null
-					|| comboClase.getValue() == null) {
+			if (comboGenero.getValue() == null) {
 				Utilidades.mostrarMensaje("Advertencia",
 						"Debe seleccionar todas las categorias a las que pertenece la especie");
 			} else {
@@ -272,7 +235,7 @@ public class GestionarEspeciesControlador {
 						especie.setNombre(jtfNombre.getText());
 						especie.setGeneroDeEspecie(comboGenero.getValue().getGenero());
 
-						imagen.agregarImagen(especie, ruta);
+						// imagen.agregarImagen(especie, ruta);
 
 						especie.setRegistroPlanta(registro);
 						registro.setEspecieEnviada(especie);
@@ -327,32 +290,16 @@ public class GestionarEspeciesControlador {
 	 */
 	@FXML
 	public void editarEspecie() {
-//
-//		int indice = tablaEspecies.getSelectionModel().getSelectedIndex();
-//		if (indice != -1) {
-//
-//			Especie especie = tablaEspecies.getItems().get(indice).getEspecie();
-//
-//			if (jtfNombre.getText().equals(especie.getNombre())) {
-//				Utilidades.mostrarMensaje("Info", "Cambia algun atributo de la especie");
-//			} else {
-//
-//				try {
-//					if (administradorDelegado.modificarEspecie(especie)) {
-//						Utilidades.mostrarMensaje("Enhorabuena!", "La especie ha sido modificada con exito");
-//						jtfNombre.setText("");
-//					} else {
-//						Utilidades.mostrarMensaje("Error", "La especie no pudo ser modificada");
-//					}
-//				} catch (ElementoRepetidoException | ElementoNoEncontradoException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//			}
-//			actualizarTabla();
-//		} else {
-//			Utilidades.mostrarMensaje("", "Selecciona una fila de la tabla para poder editarla");
-//		}
+
+		int indice = tablaEspecies.getSelectionModel().getSelectedIndex();
+		Especie especie = tablaEspecies.getItems().get(indice).getEspecie();
+		try {
+			administradorDelegado.modificarEspeciee(especie);
+		} catch (ElementoNoEncontradoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		actualizarTabla();
 	}
 
 	@FXML
@@ -440,19 +387,6 @@ public class GestionarEspeciesControlador {
 	}
 
 	@FXML
-	public void llenarComboOrdenes() {
-
-		if (comboClase.getValue() == null) {
-		} else {
-			Clase clase = comboClase.getValue().getClase();
-			comboOrden.getItems().removeAll(comboClase.getItems());
-			comboOrden.getItems().addAll(administradorDelegado.listarOrdenesObservablesPorClase(clase));
-			comboOrden.getSelectionModel().selectFirst();
-
-		}
-	}
-
-	@FXML
 	public void cargarClasificacionesBusqueda() {
 
 		// TODO
@@ -500,6 +434,33 @@ public class GestionarEspeciesControlador {
 		default:
 			break;
 		}
+	}
+
+	public void evaluar() {
+		int indice = tablaEspecies.getSelectionModel().getSelectedIndex();
+		Especie especie = tablaEspecies.getItems().get(indice).getEspecie();
+		if (!jtfJustificacion.getText().isEmpty()) {
+			if (especie.getRegistroPlanta().getEstado() == Estado.Espera) {
+				if (comboEstado.getValue() != Estado.Espera) {
+					if (comboEstado.getValue() == Estado.Aceptado) {
+						administradorDelegado.aceptarEspecie(especie);
+					} else if (comboEstado.getValue() == Estado.Rechazado) {
+						administradorDelegado.rechazarEspecie(especie);
+					}
+					String justificacion = jtfJustificacion.getText();
+					especie.getRegistroPlanta().setJustificacion(justificacion);
+					Utilidades.mostrarMensaje("Info", "Se ha modificado el registro exitosamente");
+				} else {
+					Utilidades.mostrarMensaje("Advertencia", "Seleccione un estado que no sea Espera");
+				}
+			} else {
+				Utilidades.mostrarMensaje("Advertencia", "Solo se pueden evaluar especies en espera");
+			}
+		} else {
+			Utilidades.mostrarMensaje("Advertencia", "Ingrese primero una justificación");
+		}
+		actualizarTabla();
+
 	}
 
 	@FXML
