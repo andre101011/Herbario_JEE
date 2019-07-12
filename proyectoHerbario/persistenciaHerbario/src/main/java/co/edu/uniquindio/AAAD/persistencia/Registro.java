@@ -206,8 +206,6 @@ public class Registro implements Serializable {
 	public void setJustificacion(String justificacion) {
 		this.justificacion = justificacion;
 	}
-	
-	
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
@@ -239,6 +237,10 @@ public class Registro implements Serializable {
 			return false;
 		return true;
 	}
+	
+	
+
+	
 	
 	
    

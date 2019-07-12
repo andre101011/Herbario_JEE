@@ -664,19 +664,7 @@ public class AdministradorDelegado {
 	 * @throws ElementoRepetidoException si hay un id repetido
 	 */
 	public boolean registrarEspecie(Registro registro) throws ElementoRepetidoException {
-		Especie especie = registro.getEspecieEnviada();
-		byte[] imgFoto = especie.getImagen();
-		BufferedImage image = null;
-		InputStream in = new ByteArrayInputStream(imgFoto);
-		try {
-			image = ImageIO.read(in);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
-      ImageIcon icono = new ImageIcon(image);
-      JOptionPane.showMessageDialog(null, "Imagenes", "Imagen", JOptionPane.INFORMATION_MESSAGE, icono);
 		
 		return negocioEJB.registrarEspecie(registro) != null;
 	}

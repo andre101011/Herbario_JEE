@@ -24,7 +24,8 @@ import javax.persistence.*;
 		@NamedQuery(name = Especie.LISTAR_POR_CLASE_ACEPTADA, query = "select p from Especie p where p.generoDeEspecie.familiaDelGenero.ordenDelaFamilia.claseDelOrden.id= :clas and p.registroPlanta.estado= :est"),
 		@NamedQuery(name = Especie.LISTAR_POR_ORDEN_ACEPTADA, query = "select p from Especie p where p.generoDeEspecie.familiaDelGenero.ordenDelaFamilia.id= :ord and p.registroPlanta.estado= :est"),
 		@NamedQuery(name = Especie.OBTENER_FAMILIA_POR_ID_ESPECIE, query = "select p.generoDeEspecie.familiaDelGenero from Especie p where p.id= :id"),
-		@NamedQuery(name = Especie.BUSCAR_POR_NOMBRE, query = "select p from Especie p where p.nombre= :nombre")})
+		@NamedQuery(name = Especie.BUSCAR_POR_NOMBRE, query = "select p from Especie p where p.nombre= :nombre"),
+		@NamedQuery(name = Especie.OBTENER_REGISTRO, query = "select p.registroPlanta from Especie p where p.id= :id")})
 
 public class Especie implements Serializable {
 	
@@ -85,6 +86,10 @@ public class Especie implements Serializable {
 	 * referencia para obtener las especies con un mismo nombre
 	 */
 	public static final String BUSCAR_POR_NOMBRE = "listarEspeciesPorNombre";
+	/**
+	 * referencia para obtener el  registro de la especie
+	 */
+	public static final String OBTENER_REGISTRO = "obtener registro de la especie";
 
 	/**
 	 * id de la especie
