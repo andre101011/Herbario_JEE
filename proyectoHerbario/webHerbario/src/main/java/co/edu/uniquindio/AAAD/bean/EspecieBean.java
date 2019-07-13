@@ -38,7 +38,7 @@ public class EspecieBean {
 	 */
 	@PostConstruct
 	private void init() {
-		
+		especies=negocioEJB.listarEspecies();
 		
 		
 	}
@@ -72,9 +72,12 @@ public class EspecieBean {
 		
 	}
 	
-	public void listar(int i) {
+	public String listar(int i) {
 		
 		switch (i) {
+		case 0:
+			System.out.println("no está listando");
+			especies=negocioEJB.listarEspecies();
 		case 1:
 			System.out.println("no está listando");
 			especies=negocioEJB.listarEspeciesAceptadas();
@@ -89,11 +92,11 @@ public class EspecieBean {
 			especies=negocioEJB.listarEspeciesPorFamilia(adminEJB.buscarFamiliaPorNombre(categoria));
 		case 6:
 			especies=negocioEJB.listarEspeciesPorGenero(adminEJB.buscarGeneroPorNombre(categoria));
-		case 7:
-			especies=negocioEJB.listarEspeciesPorClase(adminEJB.buscarClasePorNombre(categoria));
 		default:
 			
 		}
+		
+		return "/especies";
 	}
 	
 	/**

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta charset="UTF-8" />
+	<title>Registro plantas</title>
+</h:head>
+<h:body>
+	<ui:composition template="/WEB-INF/plantilla.xhtml">
+		<ui:define name="contenido">
+
+
+			<div align="center">
+				<p:panelGrid columns="2" align="center">
+
+					<h:form>
+
+						<p:panel header="REGISTRO PLANTA">
+
+							<h:outputText value="Imagen de la planta" />
+							<p:panel>
+								<h:panelGrid columns="2">
+
+
+
+									<h:form enctype="multipart/form-data">
+										<div id="upload-button">
+											<h:inputFile value="#{uploadController.image}">
+												<f:passThroughAttribute name="accept" value="image/png" />
+												<f:ajax event="change"
+													listener="#{uploadController.doUpload()}" execute="@form"
+													render="@form" />
+											</h:inputFile>
+										</div>
+										<h:panelGroup rendered="#{uploadController.upladed}"
+											layout="block" style="text-align: center">
+											<img src="image.png" height="400" width="400"
+												style="border: 3px solid #DDD;" />
+										</h:panelGroup>
+									</h:form>
+
+
+									<div name="cabecera">
+										<p:graphicImage value="#{resource[registroBean.rutaImagen]}"
+											stream="false" />
+									</div>
+
+								</h:panelGrid>
+							</p:panel>
+
+							<h:outputText value="Datos de la planta" />
+							<p:panel>
+								<h:panelGrid columns="2">
+									<p:outputLabel value="Nombre: " />
+									<p:inputText value="#{registroBean.nombrePlanta}" />
+									<p:outputLabel value="Genero: " />
+									<p:selectOneMenu value="#{registroBean.genero}"
+										converter="#{generoConverter}" effect="fade" filter="true"
+										filterMatchMode="startsWith">
+										<f:selectItem itemLabel="Seleccione un genero"
+											noSelectionOption="true" />
+										<f:selectItems value="#{registroBean.listaGeneros}" />
+									</p:selectOneMenu>
+									<p:outputLabel for="effect" value="Fecha de recoleccion: " />
+									<p:calendar id="effect"
+										value="#{registroBean.fechaRecoleccion}" effect="fold" />
+
+								</h:panelGrid>
+							</p:panel>
+							<p:commandButton id="btn-registrar"
+								action="#{registroBean.registrarPlanta}" value="Registrar"
+								ajax="false" />
+
+						</p:panel>
+
+						<p:dialog modal="true" resizable="false" header="Values"
+							widgetVar="dlg" showEffect="fold">
+							<p:panelGrid id="display" columns="2" columnClasses="label,value">
+
+								<h:outputText value="Effect:" />
+								<h:outputText value="#{calendarView.date8}">
+									<f:convertDateTime pattern="MM/dd/yyyy" />
+								</h:outputText>
+
+							</p:panelGrid>
+						</p:dialog>
+
+					</h:form>
+				</p:panelGrid>
+			</div>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

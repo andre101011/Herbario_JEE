@@ -2,14 +2,12 @@ package co.edu.uniquindio.AAAD.bean;
 
 import java.io.Serializable;
 
-
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.annotation.FacesConfig;
 import javax.faces.annotation.FacesConfig.Version;
 import javax.inject.Named;
-
 
 import co.edu.uniquindio.AAAD.correo.EnviarCorreo;
 import co.edu.uniquindio.AAAD.ejb.AdminEJB;
@@ -36,9 +34,9 @@ public class SeguridadBean implements Serializable {
 	 * determina si la persona inicio sesion o no
 	 */
 	private boolean autenticado;
-	
+
 	private boolean empleado;
-	
+
 	private boolean recolector;
 
 	@EJB
@@ -55,26 +53,22 @@ public class SeguridadBean implements Serializable {
 		usuario = new Persona();
 
 	}
-	
-	
-	
+
 	public void iniciarSesion() {
 		Persona u = negocioEJB.comprobarCredenciales(usuario.getEmail(), usuario.getClave());
 		if (u != null) {
 			usuario = u;
 			autenticado = true;
 			if (usuario instanceof Recolector) {
-				empleado=false;
-				recolector=true;
-			}else {
-				empleado=true;
-				recolector=false;
+				empleado = false;
+				recolector = true;
+			} else {
+				empleado = true;
+				recolector = false;
 			}
-			
-			
 
 		} else {
-			autenticado=false;
+			autenticado = false;
 			Util.mostrarMensaje("verifique las credencialesde acceso", "verifique las credenciales de acceso");
 		}
 
@@ -95,7 +89,8 @@ public class SeguridadBean implements Serializable {
 
 	/**
 	 * navegación del menu principal
-	 * @param i 
+	 * 
+	 * @param i
 	 * @return
 	 */
 	public String navegacion(int i) {
@@ -105,12 +100,16 @@ public class SeguridadBean implements Serializable {
 		case 2:
 			return "/gestionar_perfil";
 		case 3:
+
+			return "/registrar_especie";
+		case 4:
 			return "/especies";
+
 		default:
 			return null;
 		}
 	}
-	
+
 	public String crearCuenta() {
 		return "/registrar_recolector";
 	}
@@ -143,16 +142,12 @@ public class SeguridadBean implements Serializable {
 		this.autenticado = autenticado;
 	}
 
-
-
 	/**
 	 * @return the empleado
 	 */
 	public boolean isEmpleado() {
 		return empleado;
 	}
-
-
 
 	/**
 	 * @param empleado the empleado to set
@@ -161,8 +156,6 @@ public class SeguridadBean implements Serializable {
 		this.empleado = empleado;
 	}
 
-
-
 	/**
 	 * @return the recolector
 	 */
@@ -170,15 +163,13 @@ public class SeguridadBean implements Serializable {
 		return recolector;
 	}
 
-
-
 	/**
 	 * @param recolector the recolector to set
 	 */
 	public void setRecolector(boolean recolector) {
 		this.recolector = recolector;
 	}
-	
+
 	/**
 	 * permite cerrar sesion
 	 */

@@ -16,16 +16,16 @@
 				<p:outputLabel value="Criterio de busqueda" />
 				<p:inputText value="#{especieBean.categoria}" />
 				<p:outputLabel value="Listar" />
-				<p:selectOneMenu>
+				<p:selectOneMenu value ="">
 					<f:selectItem itemLabel="Seleccione una familia"
 						noSelectionOption="true" />
-					<f:selectItem itemLabel="Listar todas las especies" action="#{especieBean.listar(1)}" rendered="#{seguridadBean.empleado}"/>
-					<f:selectItem itemLabel="Listar especies aceptadas" action="#{especieBean.listar(2)}" rendered="#{seguridadBean.empleado}"/>
-					<f:selectItem itemLabel="Listar especies rechazadas" action="#{especieBean.listar(3)}" rendered="#{seguridadBean.empleado}"/>
-					<f:selectItem itemLabel="Listar especies por clase" action="#{especieBean.listar(4)}" rendered="#{seguridadBean.empleado}"/>
-					<f:selectItem itemLabel="Listar especies por orden" action="#{especieBean.listar(5)}" rendered="#{seguridadBean.empleado}"/>
-					<f:selectItem itemLabel="Listar especies por familia" action="#{especieBean.listar(6)}" rendered="#{seguridadBean.empleado}"/>
-					<f:selectItem itemLabel="Listar especies por genero" action="#{especieBean.listar(7)}" rendered="#{seguridadBean.empleado}"/>
+					<f:selectItem itemLabel="Listar todas las especies" action="#{especieBean.listar(0)}" rendered="#{seguridadBean.empleado}"/>
+					<f:selectItem itemLabel="Listar especies aceptadas" action="#{especieBean.listar(1)}" rendered="#{seguridadBean.empleado}"/>
+					<f:selectItem itemLabel="Listar especies rechazadas" action="#{especieBean.listar(2)}" rendered="#{seguridadBean.empleado}"/>
+					<f:selectItem itemLabel="Listar especies por clase" action="#{especieBean.listar(3)}" rendered="#{seguridadBean.empleado}"/>
+					<f:selectItem itemLabel="Listar especies por orden" action="#{especieBean.listar(4)}" rendered="#{seguridadBean.empleado}"/>
+					<f:selectItem itemLabel="Listar especies por familia" action="#{especieBean.listar(5)}" rendered="#{seguridadBean.empleado}"/>
+					<f:selectItem itemLabel="Listar especies por genero" action="#{especieBean.listar(6)}" rendered="#{seguridadBean.empleado}"/>
 					
 	
 						
@@ -76,7 +76,7 @@
 
 						<h:outputText value="Enviador:" />
 						<h:outputText
-							value="#{especieBean.especie.registroPlanta.enviadorDelRegistro}"
+							value="#{especieBean.especie.registroPlanta.enviadorDelRegistro.cedula}"
 							style="font-weight:bold" />
 
 					</h:panelGrid>
