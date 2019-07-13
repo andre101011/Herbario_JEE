@@ -5,8 +5,10 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+
 <h:head>
-	<title><ui:insert name="title">Default title</ui:insert></title>
+	<title><ui:insert name="title">Herbario UQ</ui:insert></title>
 </h:head>
 
 
@@ -62,17 +64,17 @@
 
 									<f:facet name="header">registrarme</f:facet>
 									<p:outputLabel value="Cedula" />
-									<p:inputText value="#{recolectorBean.cedula}"
-										required="true" requiredMessage="Ingrese una cedula" />
+									<p:inputText value="#{recolectorBean.cedula}" required="true"
+										requiredMessage="Ingrese una cedula" />
 									<p:outputLabel value="Nombre" />
-									<p:inputText value="#{recolectorBean.nombre}"
-										required="true" requiredMessage="Ingrese un nombre valido" />
+									<p:inputText value="#{recolectorBean.nombre}" required="true"
+										requiredMessage="Ingrese un nombre valido" />
 									<p:outputLabel value="Correo" />
-									<p:inputText value="#{recolectorBean.email}"
-										required="true" requiredMessage="Ingrese un email valido" />
+									<p:inputText value="#{recolectorBean.email}" required="true"
+										requiredMessage="Ingrese un email valido" />
 									<p:outputLabel value="Clave" />
-									<p:inputText value="#{recolectorBean.clave}"
-										required="true" requiredMessage="Ingrese una clave valido" />
+									<p:inputText value="#{recolectorBean.clave}" required="true"
+										requiredMessage="Ingrese una clave valido" />
 									<f:facet name="footer">
 										<h:commandButton value="Registrarme"
 											action="#{recolectorBean.registrar}" />
@@ -102,8 +104,10 @@
 							<p:menuitem value="Gestionar perfil"
 								action="#{seguridadBean.navegacion(2)}" ajax="false"
 								rendered="#{seguridadBean.recolector}" />
-							<p:menuitem value="Gestionar especies"
+							<p:menuitem value="Registrar especies"
 								action="#{seguridadBean.navegacion(3)}" ajax="false" />
+							<p:menuitem value="Ver especies"
+								action="#{seguridadBean.navegacion(4)}" ajax="false" />
 						</p:submenu>
 						<p:menuitem value="Cerrar sesión" ajax="false"
 							action="#{seguridadBean.cerrarSesion}" />
