@@ -1,6 +1,5 @@
 package co.edu.uniquindio.AAAD.bean;
  
-import dao.Database;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.sql.*;
@@ -28,22 +27,21 @@ public class UploadController implements Serializable {
     public void upload() {
         System.out.println("sssss");
         if (file != null) {
-            try {
-                System.out.println(file.getFileName());
-                InputStream fin2 = file.getInputstream();
-                Connection con = Database.getConnection();
-                PreparedStatement pre = con.prepareStatement("insert into upload_image (image_name,image) values(?,?)");
-                pre.setString(1, file.getFileName().toString());
-                pre.setBinaryStream(2, fin2, file.getSize());
-                pre.executeUpdate();
-                System.out.println("Inserting Successfully!");
-                pre.close();
-                FacesMessage msg = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
- 
-            } catch (Exception e) {
-                System.out.println("Exception-File Upload." + e.getMessage());
-            }
+//            try {
+//                System.out.println(file.getFileName());
+//                InputStream fin2 = file.getInputstream();
+//                PreparedStatement pre = con.prepareStatement("insert into upload_image (image_name,image) values(?,?)");
+//                pre.setString(1, file.getFileName().toString());
+//                pre.setBinaryStream(2, fin2, file.getSize());
+//                pre.executeUpdate();
+//                System.out.println("Inserting Successfully!");
+//                pre.close();
+//                FacesMessage msg = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
+//                FacesContext.getCurrentInstance().addMessage(null, msg);
+// 
+//            } catch (Exception e) {
+//                System.out.println("Exception-File Upload." + e.getMessage());
+//            }
         }
         else{
         FacesMessage msg = new FacesMessage("Please select image!!");

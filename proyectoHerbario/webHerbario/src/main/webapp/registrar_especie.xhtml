@@ -27,28 +27,15 @@
 								<h:panelGrid columns="2">
 
 
-
 									<h:form enctype="multipart/form-data">
-										<div id="upload-button">
-											<h:inputFile value="#{uploadController.image}">
-												<f:passThroughAttribute name="accept" value="image/png" />
-												<f:ajax event="change"
-													listener="#{uploadController.doUpload()}" execute="@form"
-													render="@form" />
-											</h:inputFile>
-										</div>
-										<h:panelGroup rendered="#{uploadController.upladed}"
-											layout="block" style="text-align: center">
-											<img src="image.png" height="400" width="400"
-												style="border: 3px solid #DDD;" />
-										</h:panelGroup>
+										<p:growl id="messages" showDetail="true" />
+										<p:fileUpload
+											fileUploadListener="#{registroBean.handleFileUpload}"
+											mode="simple" skinSimple="true" />
 									</h:form>
 
 
-									<div name="cabecera">
-										<p:graphicImage value="#{resource[registroBean.rutaImagen]}"
-											stream="false" />
-									</div>
+
 
 								</h:panelGrid>
 							</p:panel>
@@ -57,23 +44,20 @@
 							<p:panel>
 								<h:panelGrid columns="2">
 									<p:outputLabel value="Nombre: " />
-									<p:inputText value="#{registroBean.nombrePlanta}" />
+									<p:inputText value="#{registroPlantaBean.nombre}" />
 									<p:outputLabel value="Genero: " />
-									<p:selectOneMenu value="#{registroBean.genero}"
+									<p:selectOneMenu value="#{registroPlantaBean.genero}"
 										converter="#{generoConverter}" effect="fade" filter="true"
 										filterMatchMode="startsWith">
 										<f:selectItem itemLabel="Seleccione un genero"
 											noSelectionOption="true" />
-										<f:selectItems value="#{registroBean.listaGeneros}" />
+										<f:selectItems value="#{registroPlantaBean.generos}" />
 									</p:selectOneMenu>
-									<p:outputLabel for="effect" value="Fecha de recoleccion: " />
-									<p:calendar id="effect"
-										value="#{registroBean.fechaRecoleccion}" effect="fold" />
 
 								</h:panelGrid>
 							</p:panel>
-							<p:commandButton id="btn-registrar"
-								action="#{registroBean.registrarPlanta}" value="Registrar"
+							<p:commandButton id="btnRegistrar"
+								action="#{registroPlantaBean.registrar}" value="Registrar"
 								ajax="false" />
 
 						</p:panel>
