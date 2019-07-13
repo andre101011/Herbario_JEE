@@ -105,7 +105,7 @@ public class SeguridadBean implements Serializable {
 		case 2:
 			return "/gestionar_perfil";
 		case 3:
-			return "/gestionar_especies";
+			return "/especies";
 		default:
 			return null;
 		}

@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<ui:composition template="/WEB-INF/plantilla.xhtml">
+	<ui:define name="contenido">
+		<h:form id="especieForm">
+
+
+			<p:panelGrid columns="4" border="1">
+				<p:outputLabel value="Criterio de busqueda" />
+				<p:inputText value="#{especieBean.categoria}" />
+				<p:outputLabel value="Listar" />
+				<p:selectOneMenu>
+					<f:selectItem itemLabel="Seleccione una familia"
+						noSelectionOption="true" />
+					<f:selectItem itemLabel="Listar todas las especies" action="#{especieBean.listar(1)}" rendered="#{seguridadBean.empleado}"/>
+					<f:selectItem itemLabel="Listar especies aceptadas" action="#{especieBean.listar(2)}" rendered="#{seguridadBean.empleado}"/>
+					<f:selectItem itemLabel="Listar especies rechazadas" action="#{especieBean.listar(3)}" rendered="#{seguridadBean.empleado}"/>
+					<f:selectItem itemLabel="Listar especies por clase" action="#{especieBean.listar(4)}" rendered="#{seguridadBean.empleado}"/>
+					<f:selectItem itemLabel="Listar especies por orden" action="#{especieBean.listar(5)}" rendered="#{seguridadBean.empleado}"/>
+					<f:selectItem itemLabel="Listar especies por familia" action="#{especieBean.listar(6)}" rendered="#{seguridadBean.empleado}"/>
+					<f:selectItem itemLabel="Listar especies por genero" action="#{especieBean.listar(7)}" rendered="#{seguridadBean.empleado}"/>
+					
+	
+						
+					
+				</p:selectOneMenu>
+			</p:panelGrid>
+			<p:dataTable id="listaEspecies" var="especie"
+				value="#{especieBean.especies}">
+
+				<p:column headerText="Id">
+					<h:outputText value="#{especie.id}" />
+				</p:column>
+
+				<p:column headerText="Nombre">
+					<h:outputText value="#{especie.nombre}" />
+				</p:column>
+
+				<p:column>
+					<p:commandButton update=":especieForm:display"
+						oncomplete="PF('especieDialog').show()" icon="pi pi-search">
+						<f:setPropertyActionListener value="#{especie}"
+							target="#{especieBean.especie}" />
+					</p:commandButton>
+				</p:column>
+
+			</p:dataTable>
+
+
+
+			<p:dialog header="Detalle de especie" widgetVar="especieDialog"
+				resizable="false" draggable="false" showEffect="fade"
+				hideEffect="fade" modal="true">
+				<p:outputPanel id="display">
+					<h:panelGrid columns="2" cellpadding="4"
+						rendered="#{not empty especieBean.especie}">
+
+						<h:outputText value="Id:" />
+						<h:outputText value="#{especieBean.especie.id}"
+							style="font-weight:bold" />
+
+						<h:outputText value="Nombre:" />
+						<h:outputText value="#{especieBean.especie.nombre}"
+							style="font-weight:bold" />
+
+						<h:outputText value="Estado:" />
+						<h:outputText value="#{especieBean.especie.registroPlanta.estado}"
+							style="font-weight:bold" />
+
+						<h:outputText value="Enviador:" />
+						<h:outputText
+							value="#{especieBean.especie.registroPlanta.enviadorDelRegistro}"
+							style="font-weight:bold" />
+
+					</h:panelGrid>
+				</p:outputPanel>
+			</p:dialog>
+
+		</h:form>
+		<p:growl />
+	</ui:define>
+</ui:composition>
+</html>

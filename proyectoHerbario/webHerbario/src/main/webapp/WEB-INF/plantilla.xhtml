@@ -47,11 +47,10 @@
 
 					</h:form>
 					<h:form id="crearForm">
-						<p:commandButton align="center" value="Crear Cuenta"
-							action="#{seguridadBean.crearCuenta}" ajax="false" />
+						
 						<p:commandButton update=":crearForm:display"
-							oncomplete="PF('crearDialog').show()" icon="pi pi-search">
-							<f:setPropertyActionListener value="#{recolector}"
+							oncomplete="PF('crearDialog').show()" icon="pi pi-search" value="Registrarme">
+							<f:setPropertyActionListener value="CrearCuenta"
 								target="#{recolectorBean.recolector}" />
 						</p:commandButton>
 						<p:dialog header="Crear Cuenta" widgetVar="crearDialog"
