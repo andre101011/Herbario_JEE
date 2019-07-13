@@ -14,30 +14,28 @@ import javax.persistence.*;
  * @version 1.0
  */
 @Entity
-@NamedQueries({@NamedQuery(name=Genero.LISTAR_TODOS, query="select p from Genero p"),
-	@NamedQuery(name = Genero.OBTENER_ESPECIES_POR_GENERO_IN, query="select especie from Genero genero, IN(genero.especiesDelGenero) especie where genero.id =:id"),
-	@NamedQuery(name=Genero.BUSCAR_POR_NOMBRE, query="select p from Genero p where p.nombre =:nombre"),
-	@NamedQuery(name=Genero.LISTAR_POR_FAMILIA, query="select p from Genero p where p.familiaDelGenero.id =:id")})
+@NamedQueries({ @NamedQuery(name = Genero.LISTAR_TODOS, query = "select p from Genero p"),
+		@NamedQuery(name = Genero.OBTENER_ESPECIES_POR_GENERO_IN, query = "select especie from Genero genero, IN(genero.especiesDelGenero) especie where genero.id =:id"),
+		@NamedQuery(name = Genero.BUSCAR_POR_NOMBRE, query = "select p from Genero p where p.nombre =:nombre"),
+		@NamedQuery(name = Genero.LISTAR_POR_FAMILIA, query = "select p from Genero p where p.familiaDelGenero.id =:id") })
 public class Genero extends Categoria implements Serializable {
-	
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-
 	/**
 	 * referencia para listar los generos
 	 */
-	public static final String LISTAR_TODOS="ListarGeneros";
-	
-	
+	public static final String LISTAR_TODOS = "ListarGeneros";
+
 	/**
 	 * referencia para obtener la lista de especies por su genero con in
 	 */
-	public static final String OBTENER_ESPECIES_POR_GENERO_IN="OBTENER_ESPECIES_POR_GENERO_IN";
-	
-	public static final String LISTAR_POR_FAMILIA="listar por familia";
+	public static final String OBTENER_ESPECIES_POR_GENERO_IN = "OBTENER_ESPECIES_POR_GENERO_IN";
+
+	public static final String LISTAR_POR_FAMILIA = "listar por familia";
 
 	/**
 	 * referencia para buscar un genero por su nombre
@@ -51,15 +49,13 @@ public class Genero extends Categoria implements Serializable {
 	/**
 	 * lista de especies del genero
 	 */
-	@OneToMany(cascade = CascadeType.ALL,orphanRemoval=true,mappedBy = "generoDeEspecie")
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "generoDeEspecie")
 	private List<Especie> especiesDelGenero;
-	
 
 	public Genero() {
 		super();
 	}
 
-	
 	/**
 	 * @return the familiaDelGenero
 	 */
@@ -88,9 +84,14 @@ public class Genero extends Categoria implements Serializable {
 		this.especiesDelGenero = especiesDelGenero;
 	}
 
-	
-	
-	
-	
-   
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return getNombre();
+	}
+
 }

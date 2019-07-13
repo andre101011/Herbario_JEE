@@ -1,5 +1,6 @@
 package co.edu.uniquindio.AAAD.bean;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -10,8 +11,13 @@ import javax.faces.annotation.FacesConfig;
 import javax.faces.annotation.FacesConfig.Version;
 import javax.inject.Named;
 
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.StreamedContent;
+import org.primefaces.model.UploadedFile;
+
 import co.edu.uniquindio.AAAD.ejb.AdminEJB;
 import co.edu.uniquindio.AAAD.ejb.NegocioEJB;
+import co.edu.uniquindio.AAAD.excepciones.ElementoNoEncontradoException;
 import co.edu.uniquindio.AAAD.excepciones.ElementoRepetidoException;
 import co.edu.uniquindio.AAAD.persistencia.Especie;
 import co.edu.uniquindio.AAAD.persistencia.Genero;
@@ -30,6 +36,20 @@ public class RegistroPlantaBean {
 	private NegocioEJB negocioEJB;
 	@EJB
 	private AdminEJB adminEJB;
+
+	/**
+	 * Planta relacionada al bean
+	 */
+	private Especie especie;
+
+	/**
+	 * Imagen de la planta
+	 */
+	private UploadedFile imagen;
+	/**
+	 * para la carga de la imagen
+	 */
+	private StreamedContent chart;
 
 	/**
 	 * inicializa la info basica del bean
@@ -65,6 +85,25 @@ public class RegistroPlantaBean {
 		}
 
 		return "/index";
+
+	}
+
+	public void handleFileUpload(FileUploadEvent event) throws IOException {
+
+		imagen = event.getFile();
+		byte[] imagenBytes = new byte[(int) imagen.getSize()];
+		imagenBytes = imagen.getContents();
+
+		if (especie == null) {
+			especie = new Especie();
+		}
+		especie.setImagen(imagenBytes);
+		try {
+			adminEJB.modificarEspecie(especie);
+		} catch (ElementoNoEncontradoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 

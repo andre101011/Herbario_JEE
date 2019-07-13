@@ -30,16 +30,11 @@
 									<h:form enctype="multipart/form-data">
 										<p:growl id="messages" showDetail="true" />
 										<p:fileUpload
-											fileUploadListener="#{registroBean.handleFileUpload}"
+											fileUploadListener="#{registroPlantaBean.handleFileUpload}"
 											mode="simple" skinSimple="true" />
 									</h:form>
-
-
-
-
 								</h:panelGrid>
 							</p:panel>
-
 							<h:outputText value="Datos de la planta" />
 							<p:panel>
 								<h:panelGrid columns="2">
