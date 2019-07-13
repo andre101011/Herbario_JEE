@@ -100,7 +100,7 @@ public class NegocioEJB implements NegocioEJBRemote {
 
 		try {
 			entityManager.persist(recolector);
-			return recolector;
+			return entityManager.find(Recolector.class,recolector.getCedula() );
 		} catch (Exception e) {
 			return null;
 		}

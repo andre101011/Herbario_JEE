@@ -17,7 +17,7 @@
 				<h:form id="logInForm">
 					<p:panelGrid columns="2">
 						<f:facet name="header">Iniciar sesion</f:facet>
-						<p:outputLabel value="Login" />
+						<p:outputLabel value="Email" />
 						<p:inputText value="#{seguridadBean.usuario.email}"
 							required="true" requiredMessage="Ingrese un email valido" />
 						<p:outputLabel value="Clave" />
@@ -30,20 +30,60 @@
 
 					</p:panelGrid>
 				</h:form>
-				<h:form>
-					<p:panelGrid columns="2">
-						<f:facet name="header">Recuperar contraseña</f:facet>
-						<p:outputLabel value="Login" />
-						<p:inputText value="#{seguridadBean.usuario.email}"
-							required="true" requiredMessage="Ingrese un email valido" />
-						<f:facet name="footer">
-							<h:commandLink value="Olvidé mi contraseña"
-								action="#{seguridadBean.recuperarContrasena}" />
-						</f:facet>
+				<p:panelGrid columns="2">
 
-					</p:panelGrid>
+					<h:form>
+						<p:panelGrid columns="2">
+							<f:facet name="header">Recuperar contraseña</f:facet>
+							<p:outputLabel value="Email" />
+							<p:inputText value="#{seguridadBean.usuario.email}"
+								required="true" requiredMessage="Ingrese un email valido" />
+							<f:facet name="footer">
+								<h:commandLink value="Olvidé mi contraseña"
+									action="#{seguridadBean.recuperarContrasena}" />
+							</f:facet>
 
-				</h:form>
+						</p:panelGrid>
+
+					</h:form>
+					<h:form id="crearForm">
+						<p:commandButton align="center" value="Crear Cuenta"
+							action="#{seguridadBean.crearCuenta}" ajax="false" />
+						<p:commandButton update=":crearForm:display"
+							oncomplete="PF('crearDialog').show()" icon="pi pi-search">
+							<f:setPropertyActionListener value="#{recolector}"
+								target="#{recolectorBean.recolector}" />
+						</p:commandButton>
+						<p:dialog header="Crear Cuenta" widgetVar="crearDialog"
+							resizable="false" draggable="false" showEffect="fade"
+							hideEffect="fade" modal="true">
+							<p:outputPanel id="display">
+								<h:panelGrid columns="2" cellpadding="4">
+
+									<f:facet name="header">registrarme</f:facet>
+									<p:outputLabel value="Cedula" />
+									<p:inputText value="#{recolectorBean.cedula}"
+										required="true" requiredMessage="Ingrese una cedula" />
+									<p:outputLabel value="Nombre" />
+									<p:inputText value="#{recolectorBean.nombre}"
+										required="true" requiredMessage="Ingrese un nombre valido" />
+									<p:outputLabel value="Correo" />
+									<p:inputText value="#{recolectorBean.email}"
+										required="true" requiredMessage="Ingrese un email valido" />
+									<p:outputLabel value="Clave" />
+									<p:inputText value="#{recolectorBean.clave}"
+										required="true" requiredMessage="Ingrese una clave valido" />
+									<f:facet name="footer">
+										<h:commandButton value="Registrarme"
+											action="#{recolectorBean.registrar}" />
+									</f:facet>
+
+								</h:panelGrid>
+							</p:outputPanel>
+						</p:dialog>
+					</h:form>
+				</p:panelGrid>
+
 
 				<p:growl id="growl" life="2000" />
 			</ui:insert>
@@ -57,9 +97,11 @@
 						</f:facet>
 						<p:submenu label="Menu">
 							<p:menuitem value="Gestionar recolectores"
-								action="#{seguridadBean.navegacion(1)}" ajax="false" />
+								action="#{seguridadBean.navegacion(1)}" ajax="false"
+								rendered="#{seguridadBean.empleado}" />
 							<p:menuitem value="Gestionar perfil"
-								action="#{seguridadBean.navegacion(2)}" ajax="false" />
+								action="#{seguridadBean.navegacion(2)}" ajax="false"
+								rendered="#{seguridadBean.recolector}" />
 							<p:menuitem value="Gestionar especies"
 								action="#{seguridadBean.navegacion(3)}" ajax="false" />
 						</p:submenu>

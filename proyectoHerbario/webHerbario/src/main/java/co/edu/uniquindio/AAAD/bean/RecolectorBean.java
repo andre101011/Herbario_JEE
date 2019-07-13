@@ -10,6 +10,7 @@ import co.edu.uniquindio.AAAD.ejb.AdminEJB;
 import co.edu.uniquindio.AAAD.ejb.NegocioEJB;
 import co.edu.uniquindio.AAAD.excepciones.ElementoRepetidoException;
 import co.edu.uniquindio.AAAD.persistencia.Recolector;
+import co.edu.uniquindio.AAAD.util.Util;
 
 
 
@@ -41,7 +42,8 @@ public class RecolectorBean {
 	 */
 	private String clave;
 	
-	private Recolector f;
+	
+	private Recolector recolector;
 
 	/**
 	 * referencia de la capa de negocio
@@ -53,11 +55,14 @@ public class RecolectorBean {
 		try {
 			Recolector miRecolector = new Recolector();
 			miRecolector.setNombre(nombre);
-			f=negocioEJB.insertarRecolector(miRecolector);
-			return "/detalle_familia";
+			miRecolector.setCedula(cedula);
+			miRecolector.setClave(clave);
+			miRecolector.setEmail(email);
+			
+			recolector=negocioEJB.insertarRecolector(miRecolector);
+			return "/index";
 		} catch (ElementoRepetidoException e) {
-			// Util
-			e.printStackTrace();
+			Util.mostrarMensaje(e.getMessage(), e.getMessage());
 		}
 
 		return null;
@@ -115,18 +120,19 @@ public class RecolectorBean {
 		this.clave = clave;
 	}
 
+
 	/**
-	 * @return the f
+	 * @return the recolector
 	 */
-	public Recolector getF() {
-		return f;
+	public Recolector getRecolector() {
+		return recolector;
 	}
 
 	/**
-	 * @param f the f to set
+	 * @param recolector the recolector to set
 	 */
-	public void setF(Recolector f) {
-		this.f = f;
+	public void setRecolector(Recolector recolector) {
+		this.recolector = recolector;
 	}
 
 	/**

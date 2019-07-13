@@ -1,7 +1,7 @@
 package co.edu.uniquindio.AAAD.bean;
 
 import java.io.Serializable;
-import java.util.Properties;
+
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -9,20 +9,13 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.annotation.FacesConfig;
 import javax.faces.annotation.FacesConfig.Version;
 import javax.inject.Named;
-import javax.mail.BodyPart;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
+
 
 import co.edu.uniquindio.AAAD.correo.EnviarCorreo;
 import co.edu.uniquindio.AAAD.ejb.AdminEJB;
 import co.edu.uniquindio.AAAD.ejb.NegocioEJB;
 import co.edu.uniquindio.AAAD.persistencia.Persona;
+import co.edu.uniquindio.AAAD.persistencia.Recolector;
 import co.edu.uniquindio.AAAD.util.Util;
 
 @FacesConfig(version = Version.JSF_2_3)
@@ -43,6 +36,10 @@ public class SeguridadBean implements Serializable {
 	 * determina si la persona inicio sesion o no
 	 */
 	private boolean autenticado;
+	
+	private boolean empleado;
+	
+	private boolean recolector;
 
 	@EJB
 	private AdminEJB adminEJB;
@@ -58,12 +55,23 @@ public class SeguridadBean implements Serializable {
 		usuario = new Persona();
 
 	}
-
+	
+	
+	
 	public void iniciarSesion() {
 		Persona u = negocioEJB.comprobarCredenciales(usuario.getEmail(), usuario.getClave());
 		if (u != null) {
 			usuario = u;
 			autenticado = true;
+			if (usuario instanceof Recolector) {
+				empleado=false;
+				recolector=true;
+			}else {
+				empleado=true;
+				recolector=false;
+			}
+			
+			
 
 		} else {
 			autenticado=false;
@@ -93,14 +101,18 @@ public class SeguridadBean implements Serializable {
 	public String navegacion(int i) {
 		switch (i) {
 		case 1:
-			return "/gestionarRecolectores";
+			return "/gestionar_recolectores";
 		case 2:
-			return "/gestionarPerfil";
+			return "/gestionar_perfil";
 		case 3:
-			return "/gestionarEspecies";
+			return "/gestionar_especies";
 		default:
 			return null;
 		}
+	}
+	
+	public String crearCuenta() {
+		return "/registrar_recolector";
 	}
 
 	/**
@@ -129,6 +141,53 @@ public class SeguridadBean implements Serializable {
 	 */
 	public void setAutenticado(boolean autenticado) {
 		this.autenticado = autenticado;
+	}
+
+
+
+	/**
+	 * @return the empleado
+	 */
+	public boolean isEmpleado() {
+		return empleado;
+	}
+
+
+
+	/**
+	 * @param empleado the empleado to set
+	 */
+	public void setEmpleado(boolean empleado) {
+		this.empleado = empleado;
+	}
+
+
+
+	/**
+	 * @return the recolector
+	 */
+	public boolean isRecolector() {
+		return recolector;
+	}
+
+
+
+	/**
+	 * @param recolector the recolector to set
+	 */
+	public void setRecolector(boolean recolector) {
+		this.recolector = recolector;
+	}
+	
+	/**
+	 * permite cerrar sesion
+	 */
+	public void cerrarSesion() {
+		if (usuario != null) {
+			usuario = null;
+			autenticado = false;
+			init();
+		}
 	}
 
 }
